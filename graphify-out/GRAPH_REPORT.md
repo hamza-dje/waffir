@@ -4,6 +4,8 @@
 - Corpus is ~1,226 words - fits in a single context window. You may not need a graph.
 
 ## Summary
+Scope: app source only. The graph merges three repeated endpoint pairs with different source locations. See `raw-extraction.json` for all 54 extracted edges. No endpoints are missing.
+
 - 51 nodes · 51 edges · 3 communities (2 shown, 1 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
