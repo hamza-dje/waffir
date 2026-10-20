@@ -3,3 +3,6 @@
 build/
 .idea/
 *.iml
+graphify-out/.graphify*
+graphify-out/cache/
+lib/graphify-out/
