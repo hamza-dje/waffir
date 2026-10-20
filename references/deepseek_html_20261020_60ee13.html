@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wafir — Design System v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     WAFIR — DESIGN SYSTEM v1
+     Fonts: Geist (Latin) · Geist Mono (numeric) · Rubik (Arabic)
+     Grid: 4pt base
+     ═══════════════════════════════════════════════════════════════ */
+
+  :root {
+    /* ── Primitive · Green ─────────────────────────────────────── */
+    --green-300: #6EE7B7;
+    --green-400: #34D399;
+    --green-500: #10B981;
+    --green-900: #06251A;
+
+    /* ── Primitive · Amber ─────────────────────────────────────── */
+    --amber-400: #F5B84A;
+
+    /* ── Primitive · Slate ─────────────────────────────────────── */
+    --slate-50:  #F2F4F7;
+    --slate-100: #E5E8EE;
+    --slate-300: #B8BFCC;
+    --slate-400: #8A93A2;
+    --slate-500: #5B6472;
+    --slate-600: #3B424D;
+    --slate-700: #2A3038;
+    --slate-800: #1F242D;
+    --slate-850: #171A21;
+    --slate-900: #0F1115;
+    --slate-950: #06070A;
+    --white: #FFFFFF;
+
+    /* ── Semantic · Dark (default) ─────────────────────────────── */
+    --bg:              var(--slate-900);
+    --bg-app:          var(--slate-950);
+    --surface:         var(--slate-850);
+    --surface-hi:      var(--slate-800);
+    --surface-press:   var(--slate-700);
+
+    --text-primary:    var(--slate-50);
+    --text-secondary:  var(--slate-400);
+    --text-tertiary:   var(--slate-500);
+
+    --accent:          var(--green-400);
+    --accent-strong:   var(--green-500);
+    --accent-fg:       var(--green-900);
+    --accent-soft:     rgba(52, 211, 153, 0.12);
+    --accent-border:   rgba(52, 211, 153, 0.24);
+
+    --caution:         var(--amber-400);
+    --caution-soft:    rgba(245, 184, 74, 0.14);
+
+    --neutral:         var(--slate-500);
+    --neutral-soft:    rgba(91, 100, 114, 0.15);
+
+    --border:          rgba(255, 255, 255, 0.06);
+    --border-strong:   rgba(255, 255, 255, 0.10);
+
+    /* ── Typography ────────────────────────────────────────────── */
+    --font-sans:    'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono:    'Geist Mono', 'SF Mono', ui-monospace, monospace;
+    --font-arabic:  'Rubik', 'Geist', system-ui, sans-serif;
+
+    --fs-xs:    11px;
+    --fs-sm:    13px;
+    --fs-base:  15px;
+    --fs-md:    16px;
+    --fs-lg:    20px;
+    --fs-xl:    26px;
+    --fs-2xl:   36px;
+    --fs-3xl:   56px;
+    --fs-hero:  88px;
+
+    --fw-regular:  400;
+    --fw-medium:   500;
+    --fw-semibold: 600;
+    --fw-bold:     700;
+
+    --lh-tight:   1.05;
+    --lh-snug:    1.25;
+    --lh-normal:  1.5;
+
+    --tracking-tight:  -0.03em;
+    --tracking-normal: 0;
+    --tracking-wide:   0.08em;
+
+    /* ── Spacing · 4pt base ────────────────────────────────────── */
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-3:  12px;
+    --space-4:  16px;
+    --space-5:  20px;
+    --space-6:  24px;
+    --space-8:  32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* ── Radius ────────────────────────────────────────────────── */
+    --radius-xs:  8px;
+    --radius-sm:  12px;
+    --radius-md:  16px;
+    --radius-lg:  20px;
+    --radius-xl:  22px;
+    --radius-2xl: 28px;
+    --radius-full: 999px;
+
+    /* ── Elevation ─────────────────────────────────────────────── */
+    --elev-1: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --elev-2: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --elev-3: 0 20px 60px rgba(0, 0, 0, 0.55);
+
+    /* ── Motion ────────────────────────────────────────────────── */
+    --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-instant: 100ms;
+    --dur-fast:    150ms;
+    --dur-base:    220ms;
+    --dur-slow:    400ms;
+  }
+
+  /* ═══ Light theme ═══════════════════════════════════════════ */
+  [data-theme="light"] {
+    --bg:             #FBFAF7;
+    --surface:        #FFFFFF;
+    --surface-hi:     #F4F2EC;
+    --surface-press:  #EAE7DE;
+
+    --text-primary:   #14181F;
+    --text-secondary: #6B7280;
+    --text-tertiary:  #9CA3AF;
+
+    --border:         rgba(20, 24, 31, 0.06);
+    --border-strong:  rgba(20, 24, 31, 0.10);
+  }
+
+  /* ═══ Reset ════════════════════════════════════════════════ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--slate-950);
+    color: var(--slate-50);
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  body {
+    padding: 48px 24px 80px;
+    min-height: 100vh;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(52,211,153,0.06), transparent 60%),
+      radial-gradient(900px 500px at 100% 10%, rgba(52,211,153,0.03), transparent 60%),
+      var(--slate-950);
+  }
+
+  /* ═══ Icon system ══════════════════════════════════════════ */
+  .icon {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .icon-xs { width: 14px; height: 14px; }
+  .icon-sm { width: 16px; height: 16px; }
+  .icon-lg { width: 24px; height: 24px; }
+  .icon-xl { width: 32px; height: 32px; }
+
+  .icon-solid {
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  /* ═══ Page header ══════════════════════════════════════════ */
+  .page-header {
+    max-width: 1400px;
+    margin: 0 auto 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--green-400), var(--green-500));
+    display: grid;
+    place-items: center;
+    font-weight: var(--fw-semibold);
+    font-size: 20px;
+    color: var(--accent-fg);
+    box-shadow: 0 8px 24px rgba(52,211,153,0.35);
+    font-family: var(--font-arabic);
+  }
+
+  .brand-text h1 {
+    font-size: 22px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .brand-text h1 span {
+    color: var(--slate-500);
+    font-weight: var(--fw-regular);
+  }
+
+  .brand-text p {
+    color: var(--slate-500);
+    font-size: var(--fs-sm);
+    margin-top: 2px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tag {
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    background: var(--slate-900);
+    color: var(--slate-400);
+    border: 1px solid var(--border);
+    letter-spacing: 0.02em;
+  }
+
+  .tag.live {
+    color: var(--green-400);
+    background: rgba(52,211,153,0.08);
+    border-color: rgba(52,211,153,0.2);
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    background: var(--slate-900);
+    color: var(--slate-300);
+    border: 1px solid var(--border);
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    cursor: pointer;
+    transition: all var(--dur-fast) var(--ease-out);
+  }
+  .theme-toggle:hover {
+    color: var(--white);
+    border-color: var(--border-strong);
+  }
+
+  /* ═══ Design system section ════════════════════════════════ */
+  .ds {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+  }
+
+  .ds-header {
+    margin-bottom: 32px;
+    max-width: 720px;
+  }
+
+  .ds-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green-400);
+    margin-bottom: 14px;
+  }
+
+  .ds-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-400);
+    box-shadow: 0 0 8px var(--green-400);
+  }
+
+  .ds-title {
+    font-size: 40px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    color: var(--white);
+  }
+
+  .ds-lead {
+    font-size: var(--fs-md);
+    color: var(--slate-400);
+    line-height: 1.6;
+  }
+
+  .ds-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 1100px) {
+    .ds-grid { grid-template-columns: 1fr 1fr; }
+    .ds-grid .ds-block:first-child { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 720px) {
+    .ds-grid { grid-template-columns: 1fr; }
+    .ds-grid .ds-block:first-child { grid-column: auto; }
+  }
+
+  .ds-block {
+    background: var(--slate-900);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+  }
+
+  .ds-block-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ds-block-index {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--slate-500);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.1em;
+  }
+
+  .ds-block-title {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+    letter-spacing: 0.01em;
+  }
+
+  /* Swatches */
+  .ds-swatches {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 16px;
+  }
+
+  .ds-swatch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .ds-swatch-color {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-strong);
+    flex-shrink: 0;
+  }
+
+  .ds-swatch-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .ds-swatch-name {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .ds-swatch-hex {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Type */
+  .ds-type-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .ds-type-row:last-child { border-bottom: none; }
+
+  .ds-type-sample {
+    color: var(--white);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .ds-type-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--slate-500);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Icons */
+  .ds-icons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+  }
+
+  .ds-icon-cell {
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    color: var(--slate-400);
+    transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  }
+
+  .ds-icon-cell:hover {
+    background: var(--surface);
+    color: var(--green-400);
+  }
+
+  .ds-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--slate-500);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ═══ Phone mockups ════════════════════════════════════════ */
+  .screens-header {
+    max-width: 1400px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .screens-title {
+    font-size: 28px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
+  }
+
+  .screens-meta {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--slate-500);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 48px 32px;
+    justify-items: center;
+  }
+
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .phone-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: var(--fw-medium);
+  }
+
+  .phone {
+    width: 340px;
+    height: 720px;
+    background: var(--bg);
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.04),
+      0 0 0 8px #0A0C10,
+      0 0 0 9px rgba(255,255,255,0.04),
+      0 40px 80px -20px rgba(0,0,0,0.8);
+    position: relative;
+    overflow: hidden;
+    transition: background var(--dur-base) var(--ease-out);
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    border-radius: 34px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: var(--text-primary);
+    transition: background var(--dur-base) var(--ease-out);
+  }
+
+  /* Status bar */
+  .status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px 4px;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .status .icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  /* Tab bar */
+  .tabbar {
+    margin-top: auto;
+    padding: 14px 24px 30px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    flex-shrink: 0;
+  }
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-tertiary);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    padding: 4px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-out);
+    letter-spacing: 0.01em;
+  }
+
+  .tab.active { color: var(--accent); }
+  .tab .icon { width: 22px; height: 22px; }
+
+  .home-indicator {
+    height: 4px;
+    width: 120px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    margin: 6px auto 0;
+    opacity: 0.9;
+    flex-shrink: 0;
+  }
+
+  /* ═══ Onboarding ═══════════════════════════════════════════ */
+  .onboard {
+    flex: 1;
+    padding: 20px 24px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 28px;
+    padding-top: 8px;
+  }
+  .step-dots span {
+    width: 24px; height: 4px;
+    border-radius: 2px;
+    background: var(--surface-hi);
+  }
+  .step-dots span.active { background: var(--accent); }
+
+  .onboard h2 {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .onboard .sub {
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+    margin-bottom: 28px;
+  }
+
+  .period-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .period-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1.5px solid transparent;
+    transition: all var(--dur-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .period-card.selected {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, rgba(52,211,153,0.06), var(--surface));
+  }
+
+  .period-icon {
+    width: 40px; height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-hi);
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+  .period-card.selected .period-icon {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .period-card .label {
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-base);
+    letter-spacing: -0.01em;
+  }
+  .period-card .meta {
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+
+  .amount-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0;
+  }
+
+  .amount-display .num {
+    font-size: 64px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+
+  .amount-display .unit {
+    color: var(--text-tertiary);
+    font-size: var(--fs-md);
+    margin-top: 10px;
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.02em;
+  }
+
+  .keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .key {
+    height: 56px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    font-weight: var(--fw-medium);
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+    font-variant-numeric: tabular-nums;
+    transition: background var(--dur-instant) var(--ease-out);
+  }
+  .key:active { background: var(--surface-hi); }
+  .key.secondary { background: transparent; color: var(--text-tertiary); }
+
+  .btn-primary {
+    height: 54px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-radius: var(--radius-full);
+    display: grid;
+    place-items: center;
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-md);
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    font-family: var(--font-sans);
+    transition: transform var(--dur-fast) var(--ease-out);
+    letter-spacing: -0.01em;
+  }
+  .btn-primary:active { transform: scale(0.98); }
+
+  /* ═══ Today ════════════════════════════════════════════════ */
+  .today {
+    flex: 1;
+    padding: 8px 20px 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .today::-webkit-scrollbar { display: none; }
+
+  .date-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 4px 0;
+  }
+  .date-row .date {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    font-weight: var(--fw-medium);
+  }
+
+  .period-dots { display: flex; gap: 4px; }
+  .period-dots i {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--surface-hi);
+    display: block;
+  }
+  .period-dots i.done { background: var(--accent); opacity: 0.5; }
+  .period-dots i.today { background: var(--accent); }
+
+  .hero-num-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 36px 0 8px;
+    text-align: center;
+  }
+
+  .hero-num {
+    font-size: var(--fs-hero);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.045em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+
+  .hero-num.over { color: var(--caution); }
+
+  .hero-unit {
+    font-size: var(--fs-md);
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-translation {
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+    margin-top: 10px;
+    letter-spacing: 0.01em;
+  }
+
+  .chips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .chip {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 14px 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all var(--dur-fast) var(--ease-out);
+    border: 1px solid transparent;
+    position: relative;
+    color: var(--text-secondary);
+  }
+  .chip:active {
+    transform: scale(0.96);
+    background: var(--surface-hi);
+  }
+  .chip .chip-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--text-primary);
+  }
+  .chip .chip-amt {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+  }
+  .chip .chip-lbl {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.01em;
+  }
+
+  .chip.add {
+    background: var(--accent-soft);
+    color: var(--accent);
+    justify-content: center;
+    border: 1px solid var(--accent-border);
+  }
+  .chip.add .chip-lbl { color: var(--accent); font-weight: var(--fw-medium); }
+  .chip.add .chip-icon { color: var(--accent); width: 20px; height: 20px; }
+
+  .chip.logged {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .chip.logged::after {
+    content: '';
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .goal {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+  }
+  .goal .goal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+  }
+  .goal .goal-head strong {
+    color: var(--text-primary);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+    font-variant-numeric: tabular-nums;
+  }
+  .goal-bar {
+    height: 6px;
+    background: var(--surface-hi);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .goal-bar div {
+    height: 100%;
+    width: 40%;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+
+  .today-log {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0 4px 10px;
+  }
+
+  .log-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .log-item:last-child { border-bottom: none; }
+
+  .log-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+  .log-icon .icon { width: 18px; height: 18px; }
+
+  .li-body { flex: 1; min-width: 0; }
+  .li-lbl {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text-primary);
+  }
+  .li-time {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+    font-variant-numeric: tabular-nums;
+  }
+  .li-amt {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+  }
+
+  /* ═══ Quick Add Sheet ══════════════════════════════════════ */
+  .sheet-scenario { position: relative; }
+  .sheet-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+    border-radius: 34px;
+  }
+  .sheet {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    background: var(--surface);
+    border-radius: var(--radius-2xl) var(--radius-2xl) 34px 34px;
+    padding: 12px 24px 32px;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
+  }
+  .sheet-handle {
+    width: 36px; height: 4px;
+    background: var(--text-tertiary);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+    opacity: 0.6;
+  }
+  .sheet-title {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .sheet-sub {
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+  }
+  .sheet-amount {
+    text-align: center;
+    font-size: 52px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+    padding: 12px 0 20px;
+  }
+  .sheet-amount span {
+    color: var(--text-tertiary);
+    font-size: 20px;
+    margin-left: 6px;
+    font-weight: var(--fw-medium);
+    letter-spacing: 0;
+  }
+  .sheet .key { height: 52px; }
+  .sheet .btn-primary { margin-top: 12px; }
+
+  /* ═══ Check ════════════════════════════════════════════════ */
+  .check {
+    flex: 1;
+    padding: 8px 20px 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .check::-webkit-scrollbar { display: none; }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    padding: 4px 4px 20px;
+    gap: 12px;
+  }
+  .nav-back {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--text-primary);
+  }
+  .nav-back .icon { width: 18px; height: 18px; }
+  .nav-title {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+  }
+  .search-box .icon { color: var(--text-tertiary); width: 18px; height: 18px; }
+  .search-box .q {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.01em;
+  }
+  .search-box .cursor {
+    width: 1.5px; height: 18px;
+    background: var(--accent);
+    animation: blink 1s infinite;
+    margin-left: -4px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .price-card {
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    padding: 22px;
+    margin-bottom: 24px;
+  }
+  .price-card .p-name {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    font-weight: var(--fw-medium);
+  }
+  .price-card .p-price {
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+    margin: 4px 0 6px;
+    color: var(--text-primary);
+  }
+  .price-card .p-price span {
+    font-size: var(--fs-sm);
+    color: var(--text-tertiary);
+    font-weight: var(--fw-medium);
+    margin-left: 4px;
+    letter-spacing: 0;
+  }
+  .price-card .p-caption {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.01em;
+  }
+
+  .price-card .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 18px 0;
+  }
+
+  .price-card .p-impact {
+    font-size: var(--fs-base);
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+  .price-card .p-impact strong {
+    color: var(--caution);
+    font-weight: var(--fw-semibold);
+  }
+
+  .verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 16px;
+  }
+  .verdict.caution { background: var(--caution-soft); color: var(--caution); }
+  .verdict.fits    { background: var(--accent-soft); color: var(--accent); }
+  .verdict.big     { background: var(--neutral-soft); color: var(--neutral); }
+  .verdict .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .alternatives-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0 4px 10px;
+  }
+
+  .alt-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+  }
+  .alt-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-hi);
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+  .alt-icon .icon { width: 18px; height: 18px; }
+  .alt-body { flex: 1; min-width: 0; }
+  .alt-name {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text-primary);
+  }
+  .alt-amt {
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+  }
+  .alt-arrow { color: var(--text-tertiary); }
+  .alt-arrow .icon { width: 16px; height: 16px; }
+
+  /* ═══ History ══════════════════════════════════════════════ */
+  .history {
+    flex: 1;
+    padding: 8px 20px 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .history::-webkit-scrollbar { display: none; }
+
+  .page-title {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    padding: 4px 4px 20px;
+  }
+
+  .day-group { margin-bottom: 20px; }
+  .day-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-tertiary);
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0 4px 8px;
+  }
+  .day-label .day-total {
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--fs-xs);
+  }
+
+  .settings-section {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .settings-section .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0 4px 10px;
+  }
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    margin-bottom: 6px;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+  }
+  .setting-row .val {
+    color: var(--text-tertiary);
+    font-size: var(--fs-xs);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .setting-row .val .icon { width: 14px; height: 14px; }
+
+  /* ═══ Footer ═══════════════════════════════════════════════ */
+  .page-footer {
+    max-width: 1400px;
+    margin: 80px auto 0;
+    text-align: center;
+    color: var(--slate-500);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 2;
+    padding: 0 24px;
+  }
+  .page-footer strong { color: var(--slate-300); }
+
+  /* ═══ Motion ═══════════════════════════════════════════════ */
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-num { animation: countUp 0.8s var(--ease-out) both; }
+  .amount-display .num { animation: countUp 0.6s var(--ease-out) 0.1s both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SVG ICON SPRITE
+     ═══════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Outline · 1.75px stroke -->
+    <symbol id="i-coffee" viewBox="0 0 24 24">
+      <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+      <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+      <line x1="6" y1="2" x2="6" y2="4"/>
+      <line x1="10" y1="2" x2="10" y2="4"/>
+      <line x1="14" y1="2" x2="14" y2="4"/>
+    </symbol>
+
+    <symbol id="i-sandwich" viewBox="0 0 24 24">
+      <path d="m2.37 11.223 8.372-6.777a2 2 0 0 1 2.516 0l8.371 6.777"/>
+      <path d="M21 15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.25"/>
+      <path d="M3 15a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9"/>
+      <path d="m6.67 15 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2"/>
+      <rect width="20" height="4" x="2" y="11" rx="1"/>
+    </symbol>
+
+    <symbol id="i-bus" viewBox="0 0 24 24">
+      <path d="M8 6v6"/>
+      <path d="M15 6v6"/>
+      <path d="M2 12h19.6"/>
+      <path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/>
+      <circle cx="7" cy="18" r="2"/>
+      <path d="M9 18h5"/>
+      <circle cx="16" cy="18" r="2"/>
+    </symbol>
+
+    <symbol id="i-droplet" viewBox="0 0 24 24">
+      <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>
+    </symbol>
+
+    <symbol id="i-utensils" viewBox="0 0 24 24">
+      <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+      <path d="M7 2v20"/>
+      <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+    </symbol>
+
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5" y1="12" x2="19" y2="12"/>
+    </symbol>
+
+    <symbol id="i-home" viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </symbol>
+
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.3-4.3"/>
+    </symbol>
+
+    <symbol id="i-list" viewBox="0 0 24 24">
+      <line x1="8" y1="6" x2="21" y2="6"/>
+      <line x1="8" y1="12" x2="21" y2="12"/>
+      <line x1="8" y1="18" x2="21" y2="18"/>
+      <line x1="3" y1="6" x2="4.5" y2="6"/>
+      <line x1="3" y1="12" x2="4.5" y2="12"/>
+      <line x1="3" y1="18" x2="4.5" y2="18"/>
+    </symbol>
+
+    <symbol id="i-calendar" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="18" rx="2"/>
+      <line x1="16" y1="2" x2="16" y2="6"/>
+      <line x1="8" y1="2" x2="8" y2="6"/>
+      <line x1="3" y1="10" x2="21" y2="10"/>
+    </symbol>
+
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <polyline points="12 6 12 12 16 14"/>
+    </symbol>
+
+    <symbol id="i-banknote" viewBox="0 0 24 24">
+      <rect x="2" y="6" width="20" height="12" rx="2"/>
+      <circle cx="12" cy="12" r="2"/>
+      <path d="M6 12h.01M18 12h.01"/>
+    </symbol>
+
+    <symbol id="i-arrow-left" viewBox="0 0 24 24">
+      <polyline points="15 18 9 12 15 6"/>
+    </symbol>
+
+    <symbol id="i-chevron-right" viewBox="0 0 24 24">
+      <polyline points="9 18 15 12 9 6"/>
+    </symbol>
+
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <polyline points="20 6 9 17 4 12"/>
+    </symbol>
+
+    <symbol id="i-egg" viewBox="0 0 24 24">
+      <path d="M12 22c4.42 0 7-3.58 7-8 0-4.42-2.58-10-7-10S5 9.58 5 14c0 4.42 2.58 8 7 8z"/>
+    </symbol>
+
+    <symbol id="i-leaf" viewBox="0 0 24 24">
+      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+    </symbol>
+
+    <symbol id="i-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+    </symbol>
+
+    <!-- Solid · Status bar -->
+    <symbol id="i-signal" viewBox="0 0 22 16">
+      <rect x="0" y="11" width="3" height="5" rx="1" fill="currentColor"/>
+      <rect x="5" y="8"  width="3" height="8" rx="1" fill="currentColor"/>
+      <rect x="10" y="4" width="3" height="12" rx="1" fill="currentColor"/>
+      <rect x="15" y="0" width="3" height="16" rx="1" fill="currentColor"/>
+    </symbol>
+
+    <symbol id="i-wifi" viewBox="0 0 22 16">
+      <circle cx="11" cy="13.5" r="1.5" fill="currentColor"/>
+      <path d="M7.05 10.55a5.5 5.5 0 0 1 7.9 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M3.5 7a10.5 10.5 0 0 1 15 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="i-battery" viewBox="0 0 26 13">
+      <rect x="0.5" y="1" width="22" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+      <rect x="2.5" y="3" width="16" height="7" rx="1.5" fill="currentColor"/>
+      <rect x="23.5" y="4.5" width="2" height="4" rx="1" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE HEADER
+     ═══════════════════════════════════════════════════════════ -->
+<header class="page-header">
+  <div class="brand">
+    <div class="brand-mark"><svg style="width:24px;height:32px;color:#06251A" width="100%" height="100%" viewBox="0 0 624 993" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:affinity="https://www.affinity.studio/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-228.493038,-178.652279)">
+        <g transform="matrix(1,0,0,1,-1144.378505,0)">
+            <path d="M1715.91,1017.824L1715.91,1162.248C1693.539,1168.184 1670.044,1171.348 1645.816,1171.348C1597.973,1171.348 1552.988,1159.011 1513.872,1137.349C1489.005,1123.578 1466.51,1106.038 1447.16,1085.502C1445.37,1083.602 1443.607,1081.677 1441.872,1079.726C1410.937,1044.963 1388.747,1002.25 1378.769,955.054C1374.904,936.776 1372.872,917.825 1372.872,898.403C1372.872,892.251 1373.076,886.146 1373.477,880.095L1372.872,880.247L1372.872,732.333L1926.59,592.892L1926.59,740.807L1441.872,862.871L1441.872,880.632C1444.041,899.965 1449.339,918.358 1457.247,935.291C1470.031,962.667 1489.637,986.229 1513.872,1003.786C1542.935,1024.84 1578.655,1037.258 1617.253,1037.258C1629.807,1037.258 1642.056,1035.944 1653.872,1033.447C1658.283,1032.514 1662.635,1031.417 1666.919,1030.161L1715.91,1017.824ZM1715.91,1017.824L1715.91,870.153L1853.951,835.391L1853.951,983.062L1715.91,1017.824ZM1513.872,251.297L1790.716,181.581C1801.058,179.658 1811.72,178.652 1822.616,178.652C1833.313,178.652 1843.786,179.621 1853.951,181.476C1880.826,186.381 1905.551,197.479 1926.59,213.236C1950.309,231 1969.344,254.684 1981.493,282.09C1989.45,300.039 1994.454,319.584 1995.885,340.107L1995.885,502.501L1441.872,642.016L1441.872,493.985L1926.216,372.014C1926.221,371.715 1926.223,371.416 1926.223,371.117C1926.223,338.812 1899.996,312.584 1867.691,312.584C1862.959,312.584 1858.358,313.147 1853.951,314.209L1853.872,314.228C1853.539,314.31 1853.206,314.394 1852.873,314.48L1513.872,399.849L1513.872,251.297Z" style="fill:currentColor;"/>
+        </g>
+    </g>
+</svg>
+</div>
+    <div class="brand-text">
+      <h1>Wafir <span>/ وفّر</span></h1>
+      <p>Design System & Product Mockups · v1</p>
+    </div>
+  </div>
+  <div class="header-actions">
+    <span class="tag live">● Geist typeface</span>
+    <span class="tag">SVG icons</span>
+    <span class="tag">Token-based</span>
+    <button class="theme-toggle" id="theme-toggle">
+      <svg class="icon icon-sm"><use href="#i-sun"/></svg>
+      <span>Light</span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DESIGN SYSTEM SHOWCASE
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ds">
+  <div class="ds-header">
+    <div class="ds-eyebrow">Design System · v1</div>
+    <h2 class="ds-title">Built on tokens, not guesses.</h2>
+    <p class="ds-lead">Every color, size, radius, and motion curve is a named token. Change one token — the entire app updates. This is the foundation the Wafir v1 interface is built on.</p>
+  </div>
+
+  <div class="ds-grid">
+
+    <!-- COLOR -->
+    <div class="ds-block">
+      <div class="ds-block-head">
+        <span class="ds-block-index">01</span>
+        <span class="ds-block-title">Color</span>
+      </div>
+      <div class="ds-swatches">
+        <div class="ds-swatch">
+          <div class="ds-swatch-color" style="background:#0F1115"></div>
+          <div class="ds-swatch-meta">
+            <span class="ds-swatch-name">Background</span>
+            <span class="ds-swatch-hex">#0F1115</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch-color" style="background:#171A21"></div>
+          <div class="ds-swatch-meta">
+            <span class="ds-swatch-name">Surface</span>
+            <span class="ds-swatch-hex">#171A21</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch-color" style="background:#F2F4F7"></div>
+          <div class="ds-swatch-meta">
+            <span class="ds-swatch-name">Text</span>
+            <span class="ds-swatch-hex">#F2F4F7</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch-color" style="background:#8A93A2"></div>
+          <div class="ds-swatch-meta">
+            <span class="ds-swatch-name">Muted</span>
+            <span class="ds-swatch-hex">#8A93A2</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch-color" style="background:#34D399"></div>
+          <div class="ds-swatch-meta">
+            <span class="ds-swatch-name">Accent</span>
+            <span class="ds-swatch-hex">#34D399</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch-color" style="background:#F5B84A"></div>
+          <div class="ds-swatch-meta">
+            <span class="ds-swatch-name">Caution</span>
+            <span class="ds-swatch-hex">#F5B84A</span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-footer">
+        <span>8 semantic tokens</span>
+        <span>WCAG AA</span>
+      </div>
+    </div>
+
+    <!-- TYPE -->
+    <div class="ds-block">
+      <div class="ds-block-head">
+        <span class="ds-block-index">02</span>
+        <span class="ds-block-title">Type — Geist</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-sample" style="font-size:32px;">Ag 123</span>
+        <span class="ds-type-meta">32 / Semi</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-sample" style="font-size:22px;">Safe-to-Spend</span>
+        <span class="ds-type-meta">22 / Semi</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-sample" style="font-size:16px;">Today's allowance</span>
+        <span class="ds-type-meta">16 / Med</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-sample" style="font-size:14px;color:#8A93A2;">Typical price, Oran</span>
+        <span class="ds-type-meta">14 / Reg</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-sample" style="font-size:11px;font-family:'Geist Mono',monospace;letter-spacing:0.12em;color:#8A93A2;text-transform:uppercase;">Section Label</span>
+        <span class="ds-type-meta">11 / Mono</span>
+      </div>
+      <div class="ds-footer">
+        <span>Tabular numerals</span>
+        <span>RTL ready</span>
+      </div>
+    </div>
+
+    <!-- ICONS -->
+    <div class="ds-block">
+      <div class="ds-block-head">
+        <span class="ds-block-index">03</span>
+        <span class="ds-block-title">Icons · 24px stroke 1.75</span>
+      </div>
+      <div class="ds-icons">
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-coffee"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-sandwich"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-bus"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-droplet"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-utensils"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-plus"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-home"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-search"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-list"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-calendar"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-clock"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-banknote"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-arrow-left"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-chevron-right"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-check"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-egg"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-leaf"/></svg></div>
+        <div class="ds-icon-cell"><svg class="icon"><use href="#i-sun"/></svg></div>
+      </div>
+      <div class="ds-footer">
+        <span>17 icons · outline</span>
+        <span>Lucide-inspired</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREENS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="screens-header">
+  <h2 class="screens-title">Screens</h2>
+  <span class="screens-meta">6 screens · Geist typeface · SVG icons · Dark default</span>
+</div>
+
+<main class="grid">
+
+  <!-- ══════════ 01 · ONBOARDING — PERIOD ══════════ -->
+  <div class="phone-wrap">
+    <div class="phone-label">01 · Onboarding — Period</div>
+    <div class="phone">
+      <div class="screen">
+        <div class="status">
+          <span>9:41</span>
+          <div class="icons">
+            <svg class="icon-solid" width="18" height="12"><use href="#i-signal"/></svg>
+            <svg class="icon-solid" width="16" height="12"><use href="#i-wifi"/></svg>
+            <svg class="icon-solid" width="24" height="12"><use href="#i-battery"/></svg>
+          </div>
+        </div>
+        <div class="onboard">
+          <div class="step-dots">
+            <span class="active"></span><span></span><span></span>
+          </div>
+          <h2>How often do<br/>you budget?</h2>
+          <p class="sub">Pick the rhythm that fits your money. You can change it later.</p>
+
+          <div class="period-cards">
+            <div class="period-card selected">
+              <div class="period-icon">
+                <svg class="icon"><use href="#i-calendar"/></svg>
+              </div>
+              <div>
+                <div class="label">Monthly</div>
+                <div class="meta">Most common</div>
+              </div>
+            </div>
+            <div class="period-card">
+              <div class="period-icon">
+                <svg class="icon"><use href="#i-clock"/></svg>
+              </div>
+              <div>
+                <div class="label">Weekly</div>
+                <div class="meta">Fits weekly shopping</div>
+              </div>
+            </div>
+            <div class="period-card">
+              <div class="period-icon">
+                <svg class="icon"><use href="#i-banknote"/></svg>
+              </div>
+              <div>
+                <div class="label">Until scholarship</div>
+                <div class="meta">Custom end date</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:1"></div>
+          <button class="btn-primary">Continue</button>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 02 · ONBOARDING — AMOUNT ══════════ -->
+  <div class="phone-wrap">
+    <div class="phone-label">02 · Onboarding — Amount</div>
+    <div class="phone">
+      <div class="screen">
+        <div class="status">
+          <span>9:41</span>
+          <div class="icons">
+            <svg class="icon-solid" width="18" height="12"><use href="#i-signal"/></svg>
+            <svg class="icon-solid" width="16" height="12"><use href="#i-wifi"/></svg>
+            <svg class="icon-solid" width="24" height="12"><use href="#i-battery"/></svg>
+          </div>
+        </div>
+        <div class="onboard">
+          <div class="step-dots">
+            <span class="active"></span><span class="active"></span><span></span>
+          </div>
+          <h2>How much do you<br/>have this month?</h2>
+          <p class="sub">Total amount, before any fixed costs.</p>
+
+          <div class="amount-display">
+            <div class="num">8000</div>
+            <div class="unit">DZD</div>
+          </div>
+
+          <div class="keypad">
+            <div class="key">1</div>
+            <div class="key">2</div>
+            <div class="key">3</div>
+            <div class="key">4</div>
+            <div class="key">5</div>
+            <div class="key">6</div>
+            <div class="key">7</div>
+            <div class="key">8</div>
+            <div class="key">9</div>
+            <div class="key secondary">.</div>
+            <div class="key">0</div>
+            <div class="key secondary">⌫</div>
+          </div>
+          <button class="btn-primary">Continue</button>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 03 · TODAY ══════════ -->
+  <div class="phone-wrap">
+    <div class="phone-label">03 · Today — Home</div>
+    <div class="phone">
+      <div class="screen">
+        <div class="status">
+          <span>9:41</span>
+          <div class="icons">
+            <svg class="icon-solid" width="18" height="12"><use href="#i-signal"/></svg>
+            <svg class="icon-solid" width="16" height="12"><use href="#i-wifi"/></svg>
+            <svg class="icon-solid" width="24" height="12"><use href="#i-battery"/></svg>
+          </div>
+        </div>
+        <div class="today">
+          <div class="date-row">
+            <span class="date">Tuesday, 20 Oct</span>
+            <div class="period-dots">
+              <i class="done"></i><i class="done"></i><i class="done"></i><i class="today"></i><i></i><i></i><i></i>
+            </div>
+          </div>
+
+          <div class="hero-num-wrap">
+            <div class="hero-num">180</div>
+            <div class="hero-unit">DZD today</div>
+            <div class="hero-translation">≈ sandwich + coffee + bus</div>
+          </div>
+
+          <div class="chips">
+            <div class="chip">
+              <svg class="icon chip-icon"><use href="#i-coffee"/></svg>
+              <span class="chip-amt">50</span>
+              <span class="chip-lbl">Coffee</span>
+            </div>
+            <div class="chip logged">
+              <svg class="icon chip-icon"><use href="#i-sandwich"/></svg>
+              <span class="chip-amt">150</span>
+              <span class="chip-lbl">Sandwich</span>
+            </div>
+            <div class="chip">
+              <svg class="icon chip-icon"><use href="#i-bus"/></svg>
+              <span class="chip-amt">30</span>
+              <span class="chip-lbl">Bus</span>
+            </div>
+            <div class="chip">
+              <svg class="icon chip-icon"><use href="#i-droplet"/></svg>
+              <span class="chip-amt">30</span>
+              <span class="chip-lbl">Water</span>
+            </div>
+            <div class="chip">
+              <svg class="icon chip-icon"><use href="#i-utensils"/></svg>
+              <span class="chip-amt">300</span>
+              <span class="chip-lbl">Meal</span>
+            </div>
+            <div class="chip add">
+              <svg class="icon chip-icon"><use href="#i-plus"/></svg>
+              <span class="chip-lbl">Add</span>
+            </div>
+          </div>
+
+          <div class="goal">
+            <div class="goal-head">
+              <span>Headphones</span>
+              <strong>400 / 1000 DZD</strong>
+            </div>
+            <div class="goal-bar"><div></div></div>
+          </div>
+
+          <div class="today-log">
+            <div class="section-title">Today's log</div>
+            <div class="log-item">
+              <div class="log-icon"><svg class="icon"><use href="#i-coffee"/></svg></div>
+              <div class="li-body">
+                <div class="li-lbl">Coffee</div>
+                <div class="li-time">08:12</div>
+              </div>
+              <div class="li-amt">−50</div>
+            </div>
+            <div class="log-item">
+              <div class="log-icon"><svg class="icon"><use href="#i-sandwich"/></svg></div>
+              <div class="li-body">
+                <div class="li-lbl">Sandwich</div>
+                <div class="li-time">12:40</div>
+              </div>
+              <div class="li-amt">−150</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabbar">
+          <div class="tab active">
+            <svg class="icon"><use href="#i-home"/></svg>
+            <span>Today</span>
+          </div>
+          <div class="tab">
+            <svg class="icon"><use href="#i-search"/></svg>
+            <span>Check</span>
+          </div>
+          <div class="tab">
+            <svg class="icon"><use href="#i-list"/></svg>
+            <span>History</span>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 04 · QUICK ADD ══════════ -->
+  <div class="phone-wrap">
+    <div class="phone-label">04 · Quick Add — Sheet</div>
+    <div class="phone">
+      <div class="screen sheet-scenario">
+        <div class="status">
+          <span>9:41</span>
+          <div class="icons">
+            <svg class="icon-solid" width="18" height="12"><use href="#i-signal"/></svg>
+            <svg class="icon-solid" width="16" height="12"><use href="#i-wifi"/></svg>
+            <svg class="icon-solid" width="24" height="12"><use href="#i-battery"/></svg>
+          </div>
+        </div>
+        <div class="sheet-backdrop"></div>
+        <div class="sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-title">Log an expense</div>
+          <div class="sheet-sub">Today · Tuesday, 20 Oct</div>
+
+          <div class="sheet-amount">120<span>DZD</span></div>
+
+          <div class="keypad">
+            <div class="key">1</div>
+            <div class="key">2</div>
+            <div class="key">3</div>
+            <div class="key">4</div>
+            <div class="key">5</div>
+            <div class="key">6</div>
+            <div class="key">7</div>
+            <div class="key">8</div>
+            <div class="key">9</div>
+            <div class="key secondary">.</div>
+            <div class="key">0</div>
+            <div class="key secondary">⌫</div>
+          </div>
+          <button class="btn-primary">Log it</button>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 05 · CHECK ══════════ -->
+  <div class="phone-wrap">
+    <div class="phone-label">05 · Check — Price Advisor</div>
+    <div class="phone">
+      <div class="screen">
+        <div class="status">
+          <span>9:41</span>
+          <div class="icons">
+            <svg class="icon-solid" width="18" height="12"><use href="#i-signal"/></svg>
+            <svg class="icon-solid" width="16" height="12"><use href="#i-wifi"/></svg>
+            <svg class="icon-solid" width="24" height="12"><use href="#i-battery"/></svg>
+          </div>
+        </div>
+        <div class="check">
+          <div class="nav-row">
+            <div class="nav-back">
+              <svg class="icon"><use href="#i-arrow-left"/></svg>
+            </div>
+            <div class="nav-title">Check a purchase</div>
+          </div>
+
+          <div class="search-box">
+            <svg class="icon"><use href="#i-search"/></svg>
+            <span class="q">chicken</span>
+            <span class="cursor"></span>
+          </div>
+
+          <div class="price-card">
+            <div class="p-name">Chicken · 1 kg</div>
+            <div class="p-price">630<span>DZD</span></div>
+            <div class="p-caption">Typical price · Oran · not live</div>
+            <div class="divider"></div>
+            <div class="p-impact">
+              That's <strong>3.5 days</strong> of your allowance.
+            </div>
+            <div class="verdict caution">
+              <span class="dot"></span>
+              Caution
+            </div>
+          </div>
+
+          <div class="alternatives-title">Cheaper alternatives</div>
+          <div class="alt-item">
+            <div class="alt-icon"><svg class="icon"><use href="#i-egg"/></svg></div>
+            <div class="alt-body">
+              <div class="alt-name">Eggs · 12 pcs</div>
+              <div class="alt-amt">≈ 320 DZD</div>
+            </div>
+            <div class="alt-arrow">
+              <svg class="icon"><use href="#i-chevron-right"/></svg>
+            </div>
+          </div>
+          <div class="alt-item">
+            <div class="alt-icon"><svg class="icon"><use href="#i-leaf"/></svg></div>
+            <div class="alt-body">
+              <div class="alt-name">Lentils · 1 kg</div>
+              <div class="alt-amt">≈ 180 DZD</div>
+            </div>
+            <div class="alt-arrow">
+              <svg class="icon"><use href="#i-chevron-right"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabbar">
+          <div class="tab">
+            <svg class="icon"><use href="#i-home"/></svg>
+            <span>Today</span>
+          </div>
+          <div class="tab active">
+            <svg class="icon"><use href="#i-search"/></svg>
+            <span>Check</span>
+          </div>
+          <div class="tab">
+            <svg class="icon"><use href="#i-list"/></svg>
+            <span>History</span>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 06 · HISTORY + SETTINGS ══════════ -->
+  <div class="phone-wrap">
+    <div class="phone-label">06 · History + Settings</div>
+    <div class="phone">
+      <div class="screen">
+        <div class="status">
+          <span>9:41</span>
+          <div class="icons">
+            <svg class="icon-solid" width="18" height="12"><use href="#i-signal"/></svg>
+            <svg class="icon-solid" width="16" height="12"><use href="#i-wifi"/></svg>
+            <svg class="icon-solid" width="24" height="12"><use href="#i-battery"/></svg>
+          </div>
+        </div>
+        <div class="history">
+          <div class="page-title">History</div>
+
+          <div class="day-group">
+            <div class="day-label">
+              <span>Today · 20 Oct</span>
+              <span class="day-total">200 DZD</span>
+            </div>
+            <div class="log-item">
+              <div class="log-icon"><svg class="icon"><use href="#i-coffee"/></svg></div>
+              <div class="li-body">
+                <div class="li-lbl">Coffee</div>
+                <div class="li-time">08:12</div>
+              </div>
+              <div class="li-amt">−50</div>
+            </div>
+            <div class="log-item">
+              <div class="log-icon"><svg class="icon"><use href="#i-sandwich"/></svg></div>
+              <div class="li-body">
+                <div class="li-lbl">Sandwich</div>
+                <div class="li-time">12:40</div>
+              </div>
+              <div class="li-amt">−150</div>
+            </div>
+          </div>
+
+          <div class="day-group">
+            <div class="day-label">
+              <span>Yesterday · 19 Oct</span>
+              <span class="day-total">230 DZD</span>
+            </div>
+            <div class="log-item">
+              <div class="log-icon"><svg class="icon"><use href="#i-bus"/></svg></div>
+              <div class="li-body">
+                <div class="li-lbl">Bus</div>
+                <div class="li-time">07:55</div>
+              </div>
+              <div class="li-amt">−30</div>
+            </div>
+            <div class="log-item">
+              <div class="log-icon"><svg class="icon"><use href="#i-utensils"/></svg></div>
+              <div class="li-body">
+                <div class="li-lbl">Lunch</div>
+                <div class="li-time">13:10</div>
+              </div>
+              <div class="li-amt">−200</div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="section-label">Settings</div>
+            <div class="setting-row">
+              <span>Period</span>
+              <span class="val">Monthly <svg class="icon"><use href="#i-chevron-right"/></svg></span>
+            </div>
+            <div class="setting-row">
+              <span>Fixed costs</span>
+              <span class="val">2,500 DZD <svg class="icon"><use href="#i-chevron-right"/></svg></span>
+            </div>
+            <div class="setting-row">
+              <span>Savings goal</span>
+              <span class="val">1,000 DZD <svg class="icon"><use href="#i-chevron-right"/></svg></span>
+            </div>
+            <div class="setting-row">
+              <span>Language</span>
+              <span class="val">English <svg class="icon"><use href="#i-chevron-right"/></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabbar">
+          <div class="tab">
+            <svg class="icon"><use href="#i-home"/></svg>
+            <span>Today</span>
+          </div>
+          <div class="tab">
+            <svg class="icon"><use href="#i-search"/></svg>
+            <span>Check</span>
+          </div>
+          <div class="tab active">
+            <svg class="icon"><use href="#i-list"/></svg>
+            <span>History</span>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <p><strong>Wafir v1</strong> · Geist + Geist Mono + Rubik · 17 SVG icons · Token-based design system</p>
+  <p style="margin-top:6px;opacity:.6">Save as wafir-design.html</p>
+</footer>
+
+<script>
+  /* Theme toggle — demonstrates the token system */
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('click', () => {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    if (isLight) {
+      root.removeAttribute('data-theme');
+      toggle.querySelector('span').textContent = 'Light';
+    } else {
+      root.setAttribute('data-theme', 'light');
+      toggle.querySelector('span').textContent = 'Dark';
+    }
+  });
+
+  /* Chip log interaction — visual only */
+  document.querySelectorAll('.chip:not(.add)').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (chip.classList.contains('logged')) return;
+      const amt = parseInt(chip.querySelector('.chip-amt').textContent, 10) || 0;
+      const num = document.querySelector('.hero-num');
+      if (!num) return;
+      const cur = parseInt(num.textContent, 10);
+      const next = cur - amt;
+      num.style.transform = 'translateY(3px)';
+      num.style.opacity = '0.6';
+      setTimeout(() => {
+        num.textContent = next;
+        if (next < 0) num.classList.add('over');
+        num.style.transform = 'translateY(0)';
+        num.style.opacity = '1';
+      }, 130);
+      chip.classList.add('logged');
+      setTimeout(() => chip.classList.remove('logged'), 3000);
+    });
+  });
+</script>
+</body>
+</html>
