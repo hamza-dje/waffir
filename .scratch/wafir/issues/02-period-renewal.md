@@ -4,12 +4,12 @@
 
 **Blocked by:** 01: Budget and expense flow (complete).
 
-**Status:** ready-for-agent
+**Status:** complete
 
-- [ ] Show that the current budget period has ended.
-- [ ] Let the user confirm a new budget and period.
-- [ ] Calculate the new allowance from the new period only.
-- [ ] Keep previous expenses available in history after restart.
-- [ ] Verify renewal at the period boundary and after restart.
+- [x] Show that the current budget period has ended.
+- [x] Let the user confirm a new budget and period.
+- [x] Calculate the new allowance from the new period only.
+- [x] Keep previous expenses available in history after restart.
+- [x] Verify renewal at the period boundary and after restart.
 
-Implementation is deferred at the user's request.
+Verified by the expired-period renewal and restart test.

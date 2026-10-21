@@ -12,4 +12,4 @@
 - [x] Restore the budget and expenses after restart.
 - [x] Pass the budget-flow test, static analysis, and web build.
 
-Initial implementation was completed before ticket approval. No further implementation is authorized now.
+Initial implementation was completed before ticket approval. Follow-up tickets are now authorized.

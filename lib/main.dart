@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,29 +15,29 @@ class WafirApp extends StatelessWidget {
   const WafirApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Wafir',
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: background,
-      colorScheme: const ColorScheme.dark(primary: mint, surface: surface),
-      filledButtonTheme: FilledButtonThemeData(
-        style: FilledButton.styleFrom(
-          minimumSize: const Size(48, 54),
-          foregroundColor: const Color(0xFF06251A),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
+        title: 'Wafir',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: background,
+          colorScheme: const ColorScheme.dark(primary: mint, surface: surface),
+          filledButtonTheme: FilledButtonThemeData(
+            style: FilledButton.styleFrom(
+              minimumSize: const Size(48, 54),
+              foregroundColor: const Color(0xFF06251A),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+            ),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: surface,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
           ),
         ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: surface,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-      ),
-    ),
-    home: const BudgetScreen(),
-  );
+        home: const BudgetScreen(),
+      );
 }
 
 class Expense {
@@ -45,15 +46,15 @@ class Expense {
   final int amount;
   final DateTime date;
   Map<String, dynamic> toJson() => {
-    'label': label,
-    'amount': amount,
-    'date': date.toIso8601String(),
-  };
+        'label': label,
+        'amount': amount,
+        'date': date.toIso8601String(),
+      };
   factory Expense.fromJson(Map<String, dynamic> json) => Expense(
-    json['label'] as String,
-    json['amount'] as int,
-    DateTime.parse(json['date'] as String),
-  );
+        json['label'] as String,
+        json['amount'] as int,
+        DateTime.parse(json['date'] as String),
+      );
 }
 
 class BudgetScreen extends StatefulWidget {
@@ -62,13 +63,18 @@ class BudgetScreen extends StatefulWidget {
   State<BudgetScreen> createState() => _BudgetScreenState();
 }
 
-class _BudgetScreenState extends State<BudgetScreen> {
+class _BudgetScreenState extends State<BudgetScreen>
+    with WidgetsBindingObserver {
   SharedPreferences? prefs;
   int? budget;
   int days = 30;
   int tab = 0;
   DateTime start = DateTime.now();
   List<Expense> expenses = [];
+  List<Expense> pastExpenses = [];
+  bool renewing = false;
+  int draftDays = 30;
+  Timer? dateTimer;
   String? loadError;
   final budgetInput = TextEditingController();
   bool saving = false;
@@ -76,13 +82,24 @@ class _BudgetScreenState extends State<BudgetScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    dateTimer = Timer.periodic(const Duration(minutes: 1), (_) {
+      if (mounted) setState(() {});
+    });
     load();
   }
 
   @override
   void dispose() {
     budgetInput.dispose();
+    dateTimer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) setState(() {});
   }
 
   Future<void> load() async {
@@ -97,6 +114,10 @@ class _BudgetScreenState extends State<BudgetScreen> {
         expenses = (data['expenses'] as List)
             .map((e) => Expense.fromJson(e as Map<String, dynamic>))
             .toList();
+        pastExpenses = ((data['pastExpenses'] ?? []) as List)
+            .map((e) => Expense.fromJson(e as Map<String, dynamic>))
+            .toList();
+        draftDays = days;
       }
       if (mounted) setState(() => prefs = store);
     } catch (_) {
@@ -109,15 +130,23 @@ class _BudgetScreenState extends State<BudgetScreen> {
     }
   }
 
-  Future<bool> persist(int amount, List<Expense> entries) async {
+  Future<bool> persist(
+    int amount,
+    List<Expense> entries, {
+    DateTime? periodStart,
+    int? periodDays,
+    List<Expense>? archive,
+  }) async {
     try {
       final ok = await prefs!.setString(
         'budget_state',
         jsonEncode({
           'budget': amount,
-          'days': days,
-          'start': start.toIso8601String(),
+          'days': periodDays ?? days,
+          'start': (periodStart ?? start).toIso8601String(),
           'expenses': entries.map((e) => e.toJson()).toList(),
+          'pastExpenses':
+              (archive ?? pastExpenses).map((e) => e.toJson()).toList(),
         }),
       );
       if (!ok) throw StateError('Save failed');
@@ -136,15 +165,17 @@ class _BudgetScreenState extends State<BudgetScreen> {
   int get remainingDays {
     final today = DateUtils.dateOnly(DateTime.now());
     return (days - today.difference(DateUtils.dateOnly(start)).inDays).clamp(
-      1,
+      0,
       days,
     );
   }
 
-  int get allowance => ((budget! - spent) / remainingDays).floor();
+  bool get expired => budget != null && remainingDays == 0;
+  int get allowance =>
+      remainingDays == 0 ? 0 : ((budget! - spent) / remainingDays).floor();
 
   Future<void> log(String label, int amount) async {
-    if (saving) return;
+    if (saving || expired) return;
     setState(() => saving = true);
     final next = [...expenses, Expense(label, amount, DateTime.now())];
     final ok = await persist(budget!, next);
@@ -223,101 +254,127 @@ class _BudgetScreenState extends State<BudgetScreen> {
   }
 
   Widget brand() => Row(
-    children: [
-      Container(
-        width: 44,
-        height: 44,
-        padding: const EdgeInsets.all(9),
-        decoration: BoxDecoration(
-          color: mint,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: SvgPicture.asset(
-          'assets/dzd.svg',
-          semanticsLabel: 'Wafir DZD symbol',
-          colorFilter: const ColorFilter.mode(
-            Color(0xFF06251A),
-            BlendMode.srcIn,
+        children: [
+          Container(
+            width: 44,
+            height: 44,
+            padding: const EdgeInsets.all(9),
+            decoration: BoxDecoration(
+              color: mint,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: SvgPicture.asset(
+              'assets/dzd.svg',
+              semanticsLabel: 'Wafir DZD symbol',
+              colorFilter: const ColorFilter.mode(
+                Color(0xFF06251A),
+                BlendMode.srcIn,
+              ),
+            ),
           ),
-        ),
-      ),
-      const SizedBox(width: 12),
-      const Text(
-        'Wafir / وفّر',
-        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-      ),
-    ],
-  );
+          const SizedBox(width: 12),
+          const Text(
+            'Wafir / وفّر',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+          ),
+        ],
+      );
 
   Widget setup() => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      const SizedBox(height: 48),
-      const Text(
-        'Make room for\nwhat matters.',
-        style: TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.w600,
-          height: 1.1,
-        ),
-      ),
-      const SizedBox(height: 16),
-      const Text(
-        'A little clarity for your everyday money.',
-        style: TextStyle(color: Colors.white60, fontSize: 16),
-      ),
-      const SizedBox(height: 40),
-      const Text('How often do you budget?'),
-      const SizedBox(height: 12),
-      Wrap(
-        spacing: 12,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          for (final n in [30, 7])
-            ChoiceChip(
-              label: Text(n == 30 ? 'Monthly · 30 days' : 'Weekly · 7 days'),
-              selected: days == n,
-              onSelected: (_) => setState(() => days = n),
+          const SizedBox(height: 48),
+          const Text(
+            'Make room for\nwhat matters.',
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.w600,
+              height: 1.1,
             ),
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'A little clarity for your everyday money.',
+            style: TextStyle(color: Colors.white60, fontSize: 16),
+          ),
+          const SizedBox(height: 40),
+          Text(renewing
+              ? 'Start a new budget period'
+              : 'How often do you budget?'),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 12,
+            children: [
+              for (final n in [30, 7])
+                ChoiceChip(
+                  label:
+                      Text(n == 30 ? 'Monthly · 30 days' : 'Weekly · 7 days'),
+                  selected: draftDays == n,
+                  onSelected:
+                      saving ? null : (_) => setState(() => draftDays = n),
+                ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          TextField(
+            controller: budgetInput,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Available budget',
+              suffixText: 'DZD',
+              helperText: 'After fixed costs and money set aside for savings',
+            ),
+          ),
+          const SizedBox(height: 24),
+          FilledButton(
+            onPressed: saving
+                ? null
+                : () async {
+                    final amount = int.tryParse(budgetInput.text);
+                    if (amount == null || amount <= 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content:
+                              Text('Enter a positive budget in whole dinars.'),
+                        ),
+                      );
+                      return;
+                    }
+                    setState(() => saving = true);
+                    final nextStart = DateTime.now();
+                    final archive = [...pastExpenses, ...expenses];
+                    final ok = await persist(amount, [],
+                        periodStart: nextStart,
+                        periodDays: draftDays,
+                        archive: archive);
+                    if (mounted) {
+                      setState(() {
+                        if (ok) {
+                          budget = amount;
+                          days = draftDays;
+                          start = nextStart;
+                          expenses = [];
+                          pastExpenses = archive;
+                          renewing = false;
+                          tab = 0;
+                        }
+                        saving = false;
+                      });
+                    }
+                  },
+            child: Text(saving
+                ? 'Saving…'
+                : renewing
+                    ? 'Confirm new period'
+                    : 'Start my budget'),
+          ),
+          if (renewing)
+            TextButton(
+                onPressed:
+                    saving ? null : () => setState(() => renewing = false),
+                child: const Text('Cancel')),
         ],
-      ),
-      const SizedBox(height: 24),
-      TextField(
-        controller: budgetInput,
-        keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
-          labelText: 'Available budget',
-          suffixText: 'DZD',
-          helperText: 'After fixed costs and money set aside for savings',
-        ),
-      ),
-      const SizedBox(height: 24),
-      FilledButton(
-        onPressed: saving
-            ? null
-            : () async {
-                final amount = int.tryParse(budgetInput.text);
-                if (amount == null || amount <= 0) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Enter a positive budget in whole dinars.'),
-                    ),
-                  );
-                  return;
-                }
-                setState(() => saving = true);
-                start = DateTime.now();
-                final ok = await persist(amount, []);
-                if (mounted) {
-                  setState(() {
-                    if (ok) budget = amount;
-                    saving = false;
-                  });
-                }
-              },
-        child: Text(saving ? 'Saving…' : 'Start my budget'),
-      ),
-    ],
-  );
+      );
 
   Widget entries(List<Expense> items) => items.isEmpty
       ? const Padding(
@@ -346,139 +403,160 @@ class _BudgetScreenState extends State<BudgetScreen> {
         );
 
   Widget today() => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      const SizedBox(height: 32),
-      Text(
-        '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-        style: const TextStyle(color: Colors.white60),
-      ),
-      const SizedBox(height: 36),
-      Text(
-        '$allowance',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 88,
-          height: 1.1,
-          letterSpacing: -4,
-          color: allowance < 0 ? const Color(0xFFF5B84A) : mint,
-        ),
-      ),
-      const Text(
-        'DZD per day',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 20),
-      ),
-      const SizedBox(height: 12),
-      Text(
-        '${budget! - spent} DZD left · $remainingDays days remaining',
-        textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white60),
-      ),
-      const SizedBox(height: 36),
-      const Text(
-        'QUICK LOG',
-        style: TextStyle(color: Colors.white54, letterSpacing: 2, fontSize: 12),
-      ),
-      const SizedBox(height: 16),
-      Wrap(
-        spacing: 8,
-        runSpacing: 8,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          for (final item in [
-            ('Coffee', 50),
-            ('Sandwich', 150),
-            ('Bus', 30),
-            ('Water', 30),
-            ('Meal', 300),
-          ])
-            OutlinedButton(
-              onPressed: saving ? null : () => log(item.$1, item.$2),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-              ),
-              child: Text('${item.$1}\n${item.$2} DZD'),
-            ),
-          FilledButton(
-            onPressed: saving ? null : customExpense,
-            child: const Text('+ Add'),
+          const SizedBox(height: 32),
+          if (expired) ...[
+            const Text('Your budget period has ended.',
+                style: TextStyle(color: Color(0xFFF5B84A), fontSize: 20)),
+            const SizedBox(height: 12),
+            FilledButton(
+                onPressed: () => setState(() {
+                      renewing = true;
+                      budgetInput.clear();
+                      draftDays = days;
+                    }),
+                child: const Text('Start new period')),
+            const SizedBox(height: 16),
+          ],
+          Text(
+            '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+            style: const TextStyle(color: Colors.white60),
           ),
-        ],
-      ),
-      const SizedBox(height: 36),
-      const Text(
-        "Today's log",
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-      ),
-      entries(
-        expenses
-            .where((e) => DateUtils.isSameDay(e.date, DateTime.now()))
-            .toList(),
-      ),
-    ],
-  );
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    body: SafeArea(
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 560),
-          child: prefs == null
-              ? Center(
-                  child: loadError == null
-                      ? const CircularProgressIndicator()
-                      : Text(loadError!),
-                )
-              : ListView(
-                  padding: const EdgeInsets.all(24),
-                  children: [
-                    brand(),
-                    if (budget == null)
-                      setup()
-                    else if (tab == 0)
-                      today()
-                    else ...[
-                      const SizedBox(height: 32),
-                      const Text(
-                        'History',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        '$spent DZD spent this period',
-                        style: const TextStyle(color: Colors.white60),
-                      ),
-                      entries(expenses),
-                    ],
-                  ],
+          const SizedBox(height: 36),
+          Text(
+            '$allowance',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 88,
+              height: 1.1,
+              letterSpacing: -4,
+              color: allowance < 0 ? const Color(0xFFF5B84A) : mint,
+            ),
+          ),
+          const Text(
+            'DZD per day',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            '${budget! - spent} DZD left · $remainingDays days remaining',
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white60),
+          ),
+          const SizedBox(height: 36),
+          const Text(
+            'QUICK LOG',
+            style: TextStyle(
+                color: Colors.white54, letterSpacing: 2, fontSize: 12),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final item in [
+                ('Coffee', 50),
+                ('Sandwich', 150),
+                ('Bus', 30),
+                ('Water', 30),
+                ('Meal', 300),
+              ])
+                OutlinedButton(
+                  onPressed:
+                      saving || expired ? null : () => log(item.$1, item.$2),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: Text('${item.$1}\n${item.$2} DZD'),
                 ),
-        ),
-      ),
-    ),
-    bottomNavigationBar: budget == null
-        ? null
-        : NavigationBar(
-            selectedIndex: tab,
-            onDestinationSelected: (value) => setState(() => tab = value),
-            destinations: const [
-              NavigationDestination(
-                icon: Icon(Icons.today_outlined),
-                label: 'Today',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.history),
-                label: 'History',
+              FilledButton(
+                onPressed: saving || expired ? null : customExpense,
+                child: const Text('+ Add'),
               ),
             ],
           ),
-  );
+          const SizedBox(height: 36),
+          const Text(
+            "Today's log",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          ),
+          entries(
+            expenses
+                .where((e) => DateUtils.isSameDay(e.date, DateTime.now()))
+                .toList(),
+          ),
+        ],
+      );
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 560),
+              child: prefs == null
+                  ? Center(
+                      child: loadError == null
+                          ? const CircularProgressIndicator()
+                          : Text(loadError!),
+                    )
+                  : ListView(
+                      padding: const EdgeInsets.all(24),
+                      children: [
+                        brand(),
+                        if (budget == null || renewing)
+                          setup()
+                        else if (tab == 0)
+                          today()
+                        else ...[
+                          const SizedBox(height: 32),
+                          const Text(
+                            'History',
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            '$spent DZD spent this period',
+                            style: const TextStyle(color: Colors.white60),
+                          ),
+                          entries(expenses),
+                          if (pastExpenses.isNotEmpty) ...[
+                            const SizedBox(height: 24),
+                            const Text('Previous periods',
+                                style: TextStyle(fontSize: 20)),
+                            entries(pastExpenses),
+                          ],
+                        ],
+                      ],
+                    ),
+            ),
+          ),
+        ),
+        bottomNavigationBar: budget == null
+            ? null
+            : NavigationBar(
+                selectedIndex: tab,
+                onDestinationSelected: (value) => setState(() => tab = value),
+                destinations: const [
+                  NavigationDestination(
+                    icon: Icon(Icons.today_outlined),
+                    label: 'Today',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.history),
+                    label: 'History',
+                  ),
+                ],
+              ),
+      );
 }
