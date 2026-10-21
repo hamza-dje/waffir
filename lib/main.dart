@@ -266,7 +266,7 @@ class _BudgetScreenState extends State<BudgetScreen>
     final archive = [...pastExpenses, ...expenses];
     final ok = await persist(amount, [],
         periodStart: nextStart, periodDays: periodDays, archive: archive);
-    if (mounted)
+    if (mounted) {
       setState(() {
         if (ok) {
           budget = amount;
@@ -279,6 +279,7 @@ class _BudgetScreenState extends State<BudgetScreen>
         }
         saving = false;
       });
+    }
     return ok;
   }
 

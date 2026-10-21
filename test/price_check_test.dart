@@ -36,8 +36,9 @@ void main() {
     await tester.tap(find.text('Chicken · 1 kg'));
     await tester.pumpAndSettle();
     expect(find.text('That is 3.5 days of your allowance.'), findsOneWidget);
-    expect(find.text('Oran · Reference date: 20 Oct 2026 · Not live'),
-        findsOneWidget);
+    expect(find.text('Reference example · Oran · not live'), findsOneWidget);
+    await tester.tap(find.text('Check your price'));
+    await tester.pumpAndSettle();
     expect(find.text('Eggs · 12 pcs'), findsOneWidget);
     final quoted =
         find.widgetWithText(TextField, 'Your quoted price (optional)');
@@ -50,8 +51,8 @@ void main() {
     expect(find.text('Enter a positive whole amount.'), findsOneWidget);
     await tester.tap(find.text('Today'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('Meal\n300 DZD'));
-    await tester.tap(find.text('Meal\n300 DZD'));
+    await tester.ensureVisible(find.text('Meal'));
+    await tester.tap(find.text('Meal'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();

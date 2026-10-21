@@ -35,11 +35,12 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
         initialDate: now.add(Duration(days: days)),
         firstDate: now.add(const Duration(days: 1)),
         lastDate: now.add(const Duration(days: 3660)));
-    if (end != null)
+    if (end != null) {
       setState(() {
         days = end.difference(now).inDays;
         custom = true;
       });
+    }
   }
 
   Widget option(String title, String detail, String icon, bool selected,
@@ -193,9 +194,10 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                               AmountKeypad(
                                   onKey: (key) => setState(() {
                                         if (key == '⌫') {
-                                          if (amount.text.isNotEmpty)
+                                          if (amount.text.isNotEmpty) {
                                             amount.text = amount.text.substring(
                                                 0, amount.text.length - 1);
+                                          }
                                         } else if (amount.text.length < 9 &&
                                             (key != '.' ||
                                                 !amount.text.contains('.'))) {
@@ -224,8 +226,9 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                         setState(() => busy = true);
                                         final ok =
                                             await widget.onSave(funds, days);
-                                        if (mounted && !ok)
+                                        if (mounted && !ok) {
                                           setState(() => busy = false);
+                                        }
                                       },
                                 child: Text(busy ? 'Saving…' : 'Continue')),
                             if (step == 1 || widget.renewing)

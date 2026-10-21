@@ -4,6 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wafir/main.dart';
 
+Future<void> enterAmount(WidgetTester tester, String amount) async {
+  for (final digit in amount.split('')) {
+    await tester.tap(find.widgetWithText(TextButton, digit));
+    await tester.pump();
+  }
+}
+
 void main() {
   testWidgets('custom expenses reject invalid input and persist valid input',
       (tester) async {
@@ -21,17 +28,15 @@ void main() {
     });
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
-    await tester.tap(find.text('+ Add'));
+    await tester.tap(find.text('Add'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Log it'));
     await tester.pumpAndSettle();
-    expect(find.text('Enter a name'), findsOneWidget);
     expect(find.text('Enter a positive whole amount'), findsOneWidget);
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'What was it for?'), 'Books');
-    await tester.enterText(
-        find.widgetWithText(TextFormField, 'Amount in DZD (whole dinars)'),
-        '120');
+    await enterAmount(tester, '120');
+    await tester.tap(find.text('Add a note'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.widgetWithText(TextField, 'What was it for?'), 'Books');
     await tester.tap(find.text('Log it'));
     await tester.pumpAndSettle();
     expect(find.text('96'), findsOneWidget);
@@ -64,7 +69,9 @@ void main() {
     });
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Budget settings'));
+    await tester.tap(find.text('History'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Fixed costs'));
     await tester.pumpAndSettle();
     Future<void> field(String label, String value) async {
       final finder = find.widgetWithText(TextFormField, label);
@@ -85,8 +92,10 @@ void main() {
     await tester.ensureVisible(find.text('Save budget'));
     await tester.tap(find.text('Save budget'));
     await tester.pumpAndSettle();
+    await tester.tap(find.text('Today'));
+    await tester.pumpAndSettle();
     expect(find.text('181'), findsOneWidget); // (9000 - 2500 - 1000 - 50) / 30.
-    expect(find.text('1000 / 2000 DZD saved'), findsOneWidget);
+    expect(find.text('1000 / 2000 DZD'), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
@@ -117,17 +126,16 @@ void main() {
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
     expect(find.text('Your budget period has ended.'), findsOneWidget);
-    expect(
-        tester
-            .widget<OutlinedButton>(
-                find.widgetWithText(OutlinedButton, 'Coffee\n50 DZD'))
-            .onPressed,
-        isNull);
+    await tester.tap(find.text('Coffee'));
+    await tester.pumpAndSettle();
+    final before = await SharedPreferences.getInstance();
+    expect((jsonDecode(before.getString('budget_state')!)['expenses'] as List).length, 1);
     await tester.tap(find.text('Start new period'));
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(TextField), '1400');
-    await tester.ensureVisible(find.text('Confirm new period'));
-    await tester.tap(find.text('Confirm new period'));
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+    await enterAmount(tester, '1400');
+    await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
     expect(find.text('200'), findsOneWidget);
     await tester.tap(find.text('History'));
@@ -152,15 +160,16 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(TextField), '9000');
-    await tester.ensureVisible(find.text('Start my budget'));
-    await tester.tap(find.text('Start my budget'));
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+    await enterAmount(tester, '9000');
+    await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
     expect(find.text('300'), findsOneWidget);
-    await tester.tap(find.text('Coffee\n50 DZD'));
+    await tester.tap(find.text('Coffee').first);
     await tester.pumpAndSettle();
     expect(find.text('298'), findsOneWidget);
-    expect(find.text('Coffee'), findsOneWidget);
+    expect(find.text('Coffee'), findsNWidgets(2));
     await tester.tap(find.text('History'));
     await tester.pumpAndSettle();
     expect(find.text('50 DZD spent this period'), findsOneWidget);
@@ -168,6 +177,6 @@ void main() {
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
     expect(find.text('298'), findsOneWidget);
-    expect(find.text('Coffee'), findsOneWidget);
+    expect(find.text('Coffee'), findsNWidgets(2));
   });
 }

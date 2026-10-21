@@ -57,8 +57,9 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                     onKey: (key) => setState(() {
                           error = null;
                           if (key == '⌫') {
-                            if (amount.isNotEmpty)
+                            if (amount.isNotEmpty) {
                               amount = amount.substring(0, amount.length - 1);
+                            }
                           } else if (amount.length < 9 &&
                               (key != '.' || !amount.contains('.'))) {
                             amount += key;
