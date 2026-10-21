@@ -1,0 +1,40 @@
+[graphify] MultiDiGraph edge-collapse diagnostic
+input: <in-memory>
+input_stage: provided JSON (normal graph.json is post-build)
+effective_directed: <direct-call>
+nodes: 104
+unverified_code_nodes: 0
+raw_edges: 120
+valid_candidate_edges: 120
+missing_endpoint_edges: 0
+dangling_endpoint_edges: 0
+self_loop_edges: 0
+exact_duplicate_edges: 0
+directed_unique_endpoint_pairs: 112
+directed_same_endpoint_collapsed_edges: 8
+undirected_unique_endpoint_pairs: 112
+undirected_same_endpoint_collapsed_edges: 8
+same_endpoint_group_count: 7
+relation_variant_groups: 2
+source_file_variant_groups: 0
+source_location_variant_groups: 5
+context_variant_groups: 0
+post_build_graph_type: Graph
+post_build_edges: 112
+producer_suppression_sites: 12
+producer_suppression_examples:
+  - L1334 seen_ids arity=unknown
+  - L1867 seen_ids arity=unknown
+  - L1869 seen_doc_refs arity=unknown
+  - L2239 seen_ids arity=unknown
+  - L2386 seen_ids arity=unknown
+  - L3024 seen_keys arity=unknown
+  - L3193 seen_keys arity=unknown
+  - L4885 seen_ids arity=unknown
+examples:
+  - main -> int_get edges=3 relations=['references'] locations=['L179', 'L189', 'L190'] contexts=['variable_type']
+  - budget_settings -> budget_settings_budgetplan edges=2 relations=['defines', 'references'] locations=['L14', 'L3'] contexts=['', 'variable_type']
+  - budget_settings -> budget_settings_target edges=2 relations=['defines'] locations=['L26', 'L8'] contexts=['']
+  - main -> datetime edges=2 relations=['references'] locations=['L49', 'L78'] contexts=['variable_type']
+  - main -> list edges=2 relations=['references'] locations=['L79', 'L80'] contexts=['variable_type']
+note: normal graph.json is post-build; raw producer loss must be measured earlier.

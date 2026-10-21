@@ -1,31 +1,32 @@
 # Graph Report - lib  (2026-10-21)
 
 ## Corpus Check
-- Corpus is ~1,226 words - fits in a single context window. You may not need a graph.
+- Corpus is ~2,677 words - fits in a single context window. You may not need a graph.
 
 ## Summary
-Scope: app source only. The graph merges three repeated endpoint pairs with different source locations. See `raw-extraction.json` for all 54 extracted edges. No endpoints are missing.
-
-- 51 nodes · 51 edges · 3 communities (2 shown, 1 thin omitted)
+- 104 nodes · 112 edges · 6 communities (4 shown, 2 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- Budget data and actions
-- Budget screen state
+- Budget periods and storage
+- Budget settings form
+- Price checks and alternatives
+- Stateful app screens
+- Settings navigation
 - Application entry
 
 ## God Nodes (most connected - your core abstractions)
-1. `BudgetScreen` - 3 edges
-2. `_BudgetScreenState` - 3 edges
-3. `WafirApp` - 2 edges
-4. `Expense` - 1 edges
-5. `mint` - 1 edges
-6. `background` - 1 edges
-7. `surface` - 1 edges
-8. `label` - 1 edges
-9. `amount` - 1 edges
-10. `date` - 1 edges
+1. `_BudgetScreenState` - 4 edges
+2. `BudgetSettingsPage` - 3 edges
+3. `_BudgetSettingsPageState` - 3 edges
+4. `BudgetScreen` - 3 edges
+5. `PriceCheck` - 3 edges
+6. `_PriceCheckState` - 3 edges
+7. `WafirApp` - 2 edges
+8. `editBudget` - 2 edges
+9. `BudgetPlan` - 1 edges
+10. `target` - 1 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -33,31 +34,44 @@ Scope: app source only. The graph merges three repeated endpoint pairs with diff
 ## Import Cycles
 - None detected.
 
-## Communities (3 total, 1 thin omitted)
+## Communities (6 total, 2 thin omitted)
 
-### Community 0 - "Budget data and actions"
-Cohesion: 0.04
-Nodes (44): dart:convert, DateTime, FormState, int?, int get, List, allowance, amount (+36 more)
+### Community 0 - "Budget periods and storage"
+Cohesion: 0.03
+Nodes (58): bool get, budget_settings.dart, dart:async, dart:convert, DateTime, int?, int get, List (+50 more)
 
-### Community 1 - "Budget screen state"
-Cohesion: 0.50
-Nodes (4): BudgetScreen, _BudgetScreenState, State, StatefulWidget
+### Community 1 - "Budget settings form"
+Cohesion: 0.12
+Nodes (15): BudgetPlan, build, createState, dispose, fixed, form, funds, goal (+7 more)
+
+### Community 2 - "Price checks and alternatives"
+Cohesion: 0.12
+Nodes (15): int price,
+  List, package:flutter/material.dart, allowance, alternatives, build, createState, dispose, expired (+7 more)
+
+### Community 3 - "Stateful app screens"
+Cohesion: 0.28
+Nodes (9): BudgetSettingsPage, _BudgetSettingsPageState, BudgetScreen, _BudgetScreenState, PriceCheck, _PriceCheckState, State, StatefulWidget (+1 more)
 
 ## Knowledge Gaps
-- **33 isolated node(s):** `Expense`, `mint`, `background`, `surface`, `label` (+28 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 47 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **1 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **69 isolated node(s):** `BudgetPlan`, `target`, `initial`, `form`, `funds` (+64 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 88 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `WafirApp` connect `Application entry` to `Budget data and actions`?**
-  _High betweenness centrality (0.040) - this node is a cross-community bridge._
-- **Why does `BudgetScreen` connect `Budget screen state` to `Budget data and actions`?**
-  _High betweenness centrality (0.040) - this node is a cross-community bridge._
-- **Why does `_BudgetScreenState` connect `Budget screen state` to `Budget data and actions`?**
-  _High betweenness centrality (0.040) - this node is a cross-community bridge._
-- **What connects `Expense`, `mint`, `background` to the rest of the system?**
-  _33 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Budget data and actions` be split into smaller, more focused modules?**
-  _Cohesion score 0.044444444444444446 - nodes in this community are weakly interconnected._
+- **Why does `_BudgetScreenState` connect `Stateful app screens` to `Budget periods and storage`?**
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `BudgetScreen` connect `Stateful app screens` to `Budget periods and storage`?**
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Why does `WafirApp` connect `Application entry` to `Budget periods and storage`?**
+  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+- **What connects `BudgetPlan`, `target`, `initial` to the rest of the system?**
+  _69 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Budget periods and storage` be split into smaller, more focused modules?**
+  _Cohesion score 0.03389830508474576 - nodes in this community are weakly interconnected._
+- **Should `Budget settings form` be split into smaller, more focused modules?**
+  _Cohesion score 0.125 - nodes in this community are weakly interconnected._
+- **Should `Price checks and alternatives` be split into smaller, more focused modules?**
+  _Cohesion score 0.125 - nodes in this community are weakly interconnected._

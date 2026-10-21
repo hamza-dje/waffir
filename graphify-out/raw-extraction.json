@@ -1,10 +1,186 @@
 {
   "nodes": [
     {
+      "id": "budget_settings",
+      "label": "budget_settings.dart",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_budgetsettingspage",
+      "label": "BudgetSettingsPage",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "statefulwidget",
+      "label": "StatefulWidget",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_budgetsettingspagestate",
+      "label": "_BudgetSettingsPageState",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_budgetplan",
+      "label": "BudgetPlan",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "typedef",
+      "label": "typedef",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_target",
+      "label": "target",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "string_goal_int",
+      "label": "String goal,\n  int",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_initial",
+      "label": "initial",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_form",
+      "label": "form",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_funds",
+      "label": "funds",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_fixed",
+      "label": "fixed",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_saved",
+      "label": "saved",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_goal",
+      "label": "goal",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L25",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_saving",
+      "label": "saving",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_createstate",
+      "label": "createState",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_dispose",
+      "label": "dispose",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L30",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_money",
+      "label": "money",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L37",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_settings_build",
+      "label": "build",
+      "file_type": "code",
+      "source_file": "budget_settings.dart",
+      "source_location": "L57",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_flutter_material_dart",
+      "label": "package:flutter/material.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "formstate",
+      "label": "FormState",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
       "id": "main",
       "label": "main.dart",
       "file_type": "code",
-      "source_file": "lib/main.dart",
+      "source_file": "main.dart",
       "source_location": null,
       "_origin": "ast"
     },
@@ -12,8 +188,8 @@
       "id": "main_wafirapp",
       "label": "WafirApp",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L13",
+      "source_file": "main.dart",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -28,16 +204,16 @@
       "id": "main_expense",
       "label": "Expense",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L42",
+      "source_file": "main.dart",
+      "source_location": "L45",
       "_origin": "ast"
     },
     {
       "id": "main_budgetscreen",
       "label": "BudgetScreen",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L59",
+      "source_file": "main.dart",
+      "source_location": "L62",
       "_origin": "ast"
     },
     {
@@ -52,8 +228,8 @@
       "id": "main_budgetscreenstate",
       "label": "_BudgetScreenState",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L65",
+      "source_file": "main.dart",
+      "source_location": "L68",
       "_origin": "ast"
     },
     {
@@ -65,51 +241,59 @@
       "_origin": "ast"
     },
     {
+      "id": "widgetsbindingobserver",
+      "label": "WidgetsBindingObserver",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
       "id": "main_mint",
       "label": "mint",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L7",
+      "source_file": "main.dart",
+      "source_location": "L10",
       "_origin": "ast"
     },
     {
       "id": "main_background",
       "label": "background",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L8",
+      "source_file": "main.dart",
+      "source_location": "L11",
       "_origin": "ast"
     },
     {
       "id": "main_surface",
       "label": "surface",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L9",
+      "source_file": "main.dart",
+      "source_location": "L12",
       "_origin": "ast"
     },
     {
       "id": "main_label",
       "label": "label",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L44",
+      "source_file": "main.dart",
+      "source_location": "L47",
       "_origin": "ast"
     },
     {
       "id": "main_amount",
       "label": "amount",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L45",
+      "source_file": "main.dart",
+      "source_location": "L48",
       "_origin": "ast"
     },
     {
       "id": "main_date",
       "label": "date",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L46",
+      "source_file": "main.dart",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -124,8 +308,8 @@
       "id": "main_prefs",
       "label": "prefs",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L66",
+      "source_file": "main.dart",
+      "source_location": "L70",
       "_origin": "ast"
     },
     {
@@ -140,8 +324,8 @@
       "id": "main_budget",
       "label": "budget",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L67",
+      "source_file": "main.dart",
+      "source_location": "L71",
       "_origin": "ast"
     },
     {
@@ -153,35 +337,67 @@
       "_origin": "ast"
     },
     {
+      "id": "main_fixedcosts",
+      "label": "fixedCosts",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L72",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_saved",
+      "label": "saved",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L73",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_goalname",
+      "label": "goalName",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L74",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_goaltarget",
+      "label": "goalTarget",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L75",
+      "_origin": "ast"
+    },
+    {
       "id": "main_days",
       "label": "days",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L68",
+      "source_file": "main.dart",
+      "source_location": "L76",
       "_origin": "ast"
     },
     {
       "id": "main_tab",
       "label": "tab",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L69",
+      "source_file": "main.dart",
+      "source_location": "L77",
       "_origin": "ast"
     },
     {
       "id": "main_start",
       "label": "start",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L70",
+      "source_file": "main.dart",
+      "source_location": "L78",
       "_origin": "ast"
     },
     {
       "id": "main_expenses",
       "label": "expenses",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L71",
+      "source_file": "main.dart",
+      "source_location": "L79",
       "_origin": "ast"
     },
     {
@@ -193,11 +409,51 @@
       "_origin": "ast"
     },
     {
+      "id": "main_pastexpenses",
+      "label": "pastExpenses",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L80",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_renewing",
+      "label": "renewing",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L81",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_draftdays",
+      "label": "draftDays",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L82",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_datetimer",
+      "label": "dateTimer",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L83",
+      "_origin": "ast"
+    },
+    {
+      "id": "timer",
+      "label": "Timer?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
       "id": "main_loaderror",
       "label": "loadError",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L72",
+      "source_file": "main.dart",
+      "source_location": "L84",
       "_origin": "ast"
     },
     {
@@ -212,24 +468,24 @@
       "id": "main_budgetinput",
       "label": "budgetInput",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L73",
+      "source_file": "main.dart",
+      "source_location": "L85",
       "_origin": "ast"
     },
     {
       "id": "main_saving",
       "label": "saving",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L74",
+      "source_file": "main.dart",
+      "source_location": "L86",
       "_origin": "ast"
     },
     {
       "id": "main_spent",
       "label": "spent",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L135",
+      "source_file": "main.dart",
+      "source_location": "L179",
       "_origin": "ast"
     },
     {
@@ -241,136 +497,192 @@
       "_origin": "ast"
     },
     {
+      "id": "main_expired",
+      "label": "expired",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L188",
+      "_origin": "ast"
+    },
+    {
+      "id": "bool_get",
+      "label": "bool get",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "main_remaining",
+      "label": "remaining",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L189",
+      "_origin": "ast"
+    },
+    {
       "id": "main_allowance",
       "label": "allowance",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L144",
+      "source_file": "main.dart",
+      "source_location": "L190",
       "_origin": "ast"
     },
     {
       "id": "main_main",
       "label": "main",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L11",
+      "source_file": "main.dart",
+      "source_location": "L14",
       "_origin": "ast"
     },
     {
       "id": "main_build",
       "label": "build",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L16",
+      "source_file": "main.dart",
+      "source_location": "L19",
       "_origin": "ast"
     },
     {
       "id": "main_tojson",
       "label": "toJson",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L47",
+      "source_file": "main.dart",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
       "id": "main_fromjson",
       "label": "fromJson",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L52",
+      "source_file": "main.dart",
+      "source_location": "L55",
       "_origin": "ast"
     },
     {
       "id": "main_createstate",
       "label": "createState",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L62",
+      "source_file": "main.dart",
+      "source_location": "L65",
       "_origin": "ast"
     },
     {
       "id": "main_initstate",
       "label": "initState",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L77",
+      "source_file": "main.dart",
+      "source_location": "L89",
       "_origin": "ast"
     },
     {
       "id": "main_dispose",
       "label": "dispose",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L83",
+      "source_file": "main.dart",
+      "source_location": "L99",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_didchangeapplifecyclestate",
+      "label": "didChangeAppLifecycleState",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L107",
       "_origin": "ast"
     },
     {
       "id": "main_load",
       "label": "load",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L88",
+      "source_file": "main.dart",
+      "source_location": "L111",
       "_origin": "ast"
     },
     {
       "id": "main_persist",
       "label": "persist",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L112",
+      "source_file": "main.dart",
+      "source_location": "L143",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_editbudget",
+      "label": "editBudget",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L193",
+      "_origin": "ast"
+    },
+    {
+      "id": "materialpageroute",
+      "label": "MaterialPageRoute",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
       "_origin": "ast"
     },
     {
       "id": "main_log",
       "label": "log",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L146",
+      "source_file": "main.dart",
+      "source_location": "L223",
       "_origin": "ast"
     },
     {
       "id": "main_customexpense",
       "label": "customExpense",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L159",
+      "source_file": "main.dart",
+      "source_location": "L236",
       "_origin": "ast"
     },
     {
       "id": "main_brand",
       "label": "brand",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L225",
+      "source_file": "main.dart",
+      "source_location": "L303",
       "_origin": "ast"
     },
     {
       "id": "main_setup",
       "label": "setup",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L252",
+      "source_file": "main.dart",
+      "source_location": "L336",
       "_origin": "ast"
     },
     {
       "id": "main_entries",
       "label": "entries",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L322",
+      "source_file": "main.dart",
+      "source_location": "L439",
       "_origin": "ast"
     },
     {
       "id": "main_today",
       "label": "today",
       "file_type": "code",
-      "source_file": "lib/main.dart",
-      "source_location": "L348",
+      "source_file": "main.dart",
+      "source_location": "L465",
       "_origin": "ast"
     },
     {
       "id": "dart_convert",
       "label": "dart:convert",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "dart_async",
+      "label": "dart:async",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -401,8 +713,184 @@
       "_origin": "ast"
     },
     {
+      "id": "budget_settings_dart",
+      "label": "budget_settings.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_dart",
+      "label": "price_check.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
       "id": "formstate",
       "label": "FormState",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check",
+      "label": "price_check.dart",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_pricecheck",
+      "label": "PriceCheck",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "statefulwidget",
+      "label": "StatefulWidget",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_pricecheckstate",
+      "label": "_PriceCheckState",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L28",
+      "_origin": "ast"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_referenceprice",
+      "label": "ReferencePrice",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "typedef",
+      "label": "typedef",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_alternatives",
+      "label": "alternatives",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "int_price_list",
+      "label": "int price,\n  List",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_referenceprices",
+      "label": "referencePrices",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_allowance",
+      "label": "allowance",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_expired",
+      "label": "expired",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_query",
+      "label": "query",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_quote",
+      "label": "quote",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L30",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_selected",
+      "label": "selected",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L31",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_createstate",
+      "label": "createState",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L25",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_dispose",
+      "label": "dispose",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_select",
+      "label": "select",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "price_check_build",
+      "label": "build",
+      "file_type": "code",
+      "source_file": "price_check.dart",
+      "source_location": "L45",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_flutter_material_dart",
+      "label": "package:flutter/material.dart",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -411,13 +899,281 @@
   ],
   "edges": [
     {
+      "source": "budget_settings",
+      "target": "budget_settings_budgetsettingspage",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings_budgetsettingspage",
+      "target": "statefulwidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_budgetsettingspagestate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings_budgetsettingspagestate",
+      "target": "state",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings_budgetsettingspagestate",
+      "target": "budget_settings_budgetsettingspage",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_budgetplan",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "typedef",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_target",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "string_goal_int",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_initial",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_budgetplan",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_form",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_funds",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_fixed",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_saved",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_goal",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_target",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_saving",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_createstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_dispose",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_money",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "budget_settings_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "package_flutter_material_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_settings",
+      "target": "formstate",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_settings.dart",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast"
+    },
+    {
       "source": "main",
       "target": "main_wafirapp",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L13",
+      "source_file": "main.dart",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -427,8 +1183,8 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L13",
+      "source_file": "main.dart",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -438,8 +1194,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L42",
+      "source_file": "main.dart",
+      "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -449,8 +1205,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L59",
+      "source_file": "main.dart",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -460,8 +1216,8 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L59",
+      "source_file": "main.dart",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -471,8 +1227,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L65",
+      "source_file": "main.dart",
+      "source_location": "L68",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -482,8 +1238,8 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L65",
+      "source_file": "main.dart",
+      "source_location": "L68",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -493,8 +1249,19 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L65",
+      "source_file": "main.dart",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main_budgetscreenstate",
+      "target": "widgetsbindingobserver",
+      "relation": "mixes_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L68",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -504,8 +1271,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L7",
+      "source_file": "main.dart",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -515,8 +1282,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L8",
+      "source_file": "main.dart",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -526,8 +1293,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L9",
+      "source_file": "main.dart",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -537,8 +1304,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L44",
+      "source_file": "main.dart",
+      "source_location": "L47",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -548,8 +1315,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L45",
+      "source_file": "main.dart",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -559,8 +1326,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L46",
+      "source_file": "main.dart",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -570,8 +1337,8 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L46",
+      "source_file": "main.dart",
+      "source_location": "L49",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -582,8 +1349,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L66",
+      "source_file": "main.dart",
+      "source_location": "L70",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -593,8 +1360,8 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L66",
+      "source_file": "main.dart",
+      "source_location": "L70",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -605,8 +1372,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L67",
+      "source_file": "main.dart",
+      "source_location": "L71",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -616,10 +1383,54 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L67",
+      "source_file": "main.dart",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_fixedcosts",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_saved",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L73",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_goalname",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_goaltarget",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L75",
+      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -628,8 +1439,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L68",
+      "source_file": "main.dart",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -639,8 +1450,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L69",
+      "source_file": "main.dart",
+      "source_location": "L77",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -650,8 +1461,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L70",
+      "source_file": "main.dart",
+      "source_location": "L78",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -661,8 +1472,8 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L70",
+      "source_file": "main.dart",
+      "source_location": "L78",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -673,8 +1484,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L71",
+      "source_file": "main.dart",
+      "source_location": "L79",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -684,8 +1495,76 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L71",
+      "source_file": "main.dart",
+      "source_location": "L79",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_pastexpenses",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_renewing",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_draftdays",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L82",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_datetimer",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L83",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "timer",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L83",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -696,8 +1575,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L72",
+      "source_file": "main.dart",
+      "source_location": "L84",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -707,8 +1586,8 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L72",
+      "source_file": "main.dart",
+      "source_location": "L84",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -719,8 +1598,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L73",
+      "source_file": "main.dart",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -730,8 +1609,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L74",
+      "source_file": "main.dart",
+      "source_location": "L86",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -741,8 +1620,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L135",
+      "source_file": "main.dart",
+      "source_location": "L179",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -752,8 +1631,54 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L135",
+      "source_file": "main.dart",
+      "source_location": "L179",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_expired",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L188",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "bool_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L188",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_remaining",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L189",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L189",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -764,8 +1689,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L144",
+      "source_file": "main.dart",
+      "source_location": "L190",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -775,8 +1700,8 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L144",
+      "source_file": "main.dart",
+      "source_location": "L190",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -787,8 +1712,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L11",
+      "source_file": "main.dart",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -798,8 +1723,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L16",
+      "source_file": "main.dart",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -809,8 +1734,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L47",
+      "source_file": "main.dart",
+      "source_location": "L50",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -820,8 +1745,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L52",
+      "source_file": "main.dart",
+      "source_location": "L55",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -831,8 +1756,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L62",
+      "source_file": "main.dart",
+      "source_location": "L65",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -842,8 +1767,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L77",
+      "source_file": "main.dart",
+      "source_location": "L89",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -853,8 +1778,19 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L83",
+      "source_file": "main.dart",
+      "source_location": "L99",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_didchangeapplifecyclestate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L107",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -864,8 +1800,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L88",
+      "source_file": "main.dart",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -875,9 +1811,32 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L112",
+      "source_file": "main.dart",
+      "source_location": "L143",
       "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_editbudget",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L193",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main_editbudget",
+      "target": "materialpageroute",
+      "relation": "navigates",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L194",
+      "weight": 1.0,
+      "context": "route_object",
       "_origin": "ast"
     },
     {
@@ -886,8 +1845,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L146",
+      "source_file": "main.dart",
+      "source_location": "L223",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -897,8 +1856,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L159",
+      "source_file": "main.dart",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -908,8 +1867,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L225",
+      "source_file": "main.dart",
+      "source_location": "L303",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -919,8 +1878,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L252",
+      "source_file": "main.dart",
+      "source_location": "L336",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -930,8 +1889,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L322",
+      "source_file": "main.dart",
+      "source_location": "L439",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -941,8 +1900,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L348",
+      "source_file": "main.dart",
+      "source_location": "L465",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -952,8 +1911,8 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L428",
+      "source_file": "main.dart",
+      "source_location": "L587",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -963,8 +1922,19 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
+      "source_file": "main.dart",
       "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "dart_async",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -974,8 +1944,8 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L3",
+      "source_file": "main.dart",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -985,8 +1955,8 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L4",
+      "source_file": "main.dart",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -996,8 +1966,30 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L5",
+      "source_file": "main.dart",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "budget_settings_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "price_check_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -1007,10 +1999,244 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "lib/main.dart",
-      "source_location": "L162",
+      "source_file": "main.dart",
+      "source_location": "L239",
       "weight": 1.0,
       "context": "type_lookup",
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_pricecheck",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check_pricecheck",
+      "target": "statefulwidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_pricecheckstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check_pricecheckstate",
+      "target": "state",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check_pricecheckstate",
+      "target": "price_check_pricecheck",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_referenceprice",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "typedef",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_alternatives",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "int_price_list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_referenceprices",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_allowance",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_expired",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_query",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_quote",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_selected",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_referenceprice",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L31",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_createstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_dispose",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_select",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "price_check_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "price_check",
+      "target": "package_flutter_material_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "price_check.dart",
+      "source_location": "L1",
+      "weight": 1.0,
       "_origin": "ast"
     }
   ],
@@ -1018,6 +2244,8 @@
   "output_tokens": 0,
   "failed_sources": [],
   "extracted_sources": [
-    "lib\\main.dart"
+    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\budget_settings.dart",
+    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\main.dart",
+    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\price_check.dart"
   ]
 }

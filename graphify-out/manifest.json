@@ -1,8 +1,20 @@
 {
   "main.dart": {
-    "mtime": 1792533320.2304542,
-    "seen": 1792539693.7610679,
-    "ast_hash": "bc73556a40b71d1db334abf9ab376ff1",
-    "semantic_hash": "bc73556a40b71d1db334abf9ab376ff1"
+    "mtime": 1792541289.925179,
+    "seen": 1792541327.9263318,
+    "ast_hash": "7b983fc00a7e6b9c30c7de2e5e494b0b",
+    "semantic_hash": "7b983fc00a7e6b9c30c7de2e5e494b0b"
+  },
+  "budget_settings.dart": {
+    "mtime": 1792541064.2013927,
+    "seen": 1792541218.7839365,
+    "ast_hash": "ea364c1b9ffea07f596799fe25f5a88a",
+    "semantic_hash": "ea364c1b9ffea07f596799fe25f5a88a"
+  },
+  "price_check.dart": {
+    "mtime": 1792541013.4065654,
+    "seen": 1792541218.7839541,
+    "ast_hash": "a87ae1007c5b5faec2e70e83c89aa4ee",
+    "semantic_hash": "a87ae1007c5b5faec2e70e83c89aa4ee"
   }
 }
