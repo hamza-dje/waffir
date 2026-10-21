@@ -2,7 +2,7 @@
 
 Flutter implementation started from the supplied product and button-system HTML references.
 
-All four approved tickets are implemented: weekly or 30-day budgets, period renewal with retained history, expense logging, fixed costs, savings goals, price checks, and local storage. The supplied DZD SVG is used in the app and launcher icons.
+All four approved tickets are implemented: weekly, 30-day, or custom end-date budgets, period renewal with retained history, expense logging, fixed costs, savings goals, price checks, and local storage. The supplied DZD SVG is used in the launcher icons. App controls use the original SVG paths from the HTML sprite.
 
 Geist, Geist Mono, and Rubik are bundled for offline use, with the weights specified in the HTML. Geist is the main typeface; Geist Mono is used for section labels; Rubik is assigned to the Arabic brand text with platform glyph fallback.
 
@@ -21,4 +21,4 @@ flutter analyze
 flutter test
 ```
 
-The HTML references are copied under `references/`; source files in Downloads are preserved. Regenerate launcher icons with `flutter test tool/generate_icons.dart`. Language support was excluded from the approved tickets.
+The HTML references are copied under `references/`; source files in Downloads are preserved. Regenerate launcher icons with `flutter test tool/generate_icons.dart`. Generate local visual QA pages with `python tool/reference_screens.py`. Language support was excluded from the approved tickets. Budget settings are available in History. Tap a savings card to edit the goal.

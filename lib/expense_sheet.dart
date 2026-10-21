@@ -35,9 +35,10 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                         decoration:
                             panel(radius: 2, color: const Color(0x995B6472)))),
                 const SizedBox(height: 20),
-                Text('Quick add', style: type(20, weight: FontWeight.w600)),
+                Text('Log an expense',
+                    style: type(20, weight: FontWeight.w600)),
                 const SizedBox(height: 4),
-                Text('Log it and get back to your day.',
+                Text('Today · ${DateTime.now().day}/${DateTime.now().month}',
                     style: type(11, color: tertiaryText)),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 12, 0, 20),

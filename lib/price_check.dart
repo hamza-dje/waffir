@@ -29,7 +29,7 @@ class PriceCheck extends StatefulWidget {
 }
 
 class _PriceCheckState extends State<PriceCheck> {
-  final query = TextEditingController();
+  final query = TextEditingController(text: 'chicken');
   final quote = TextEditingController();
   ReferencePrice? selected = referencePrices.first;
   @override
@@ -94,7 +94,7 @@ class _PriceCheckState extends State<PriceCheck> {
                             Text('${price.name} · ${price.unit}',
                                 style: type(13, weight: FontWeight.w500)),
                             const SizedBox(height: 2),
-                            Text('${price.price} DZD',
+                            Text('≈ ${price.price} DZD',
                                 style: type(11, color: tertiaryText))
                           ])),
                       const SourceIcon('chevron-right',
@@ -121,11 +121,11 @@ class _PriceCheckState extends State<PriceCheck> {
             Text('Check a purchase', style: type(15, weight: FontWeight.w600))
           ])),
       TextField(
+          key: const ValueKey('purchase-search'),
           controller: query,
           style: type(15, weight: FontWeight.w500),
           decoration: InputDecoration(
-              hintText: 'Chicken',
-              labelText: 'Search purchases',
+              hintText: 'Search purchases',
               floatingLabelBehavior: FloatingLabelBehavior.never,
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
@@ -172,8 +172,17 @@ class _PriceCheckState extends State<PriceCheck> {
                   padding: EdgeInsets.symmetric(vertical: 18),
                   child: Divider(color: hairline, height: 1)),
               if (valid && !widget.expired && widget.allowance > 0) ...[
-                Text(
-                    'That is ${(cost / widget.allowance).toStringAsFixed(1)} days of your allowance.',
+                Text.rich(
+                    TextSpan(children: [
+                      const TextSpan(text: "That's "),
+                      TextSpan(
+                          text:
+                              '${(cost / widget.allowance).toStringAsFixed(1)} days',
+                          style: TextStyle(
+                              color: cost > widget.allowance ? caution : mint,
+                              fontWeight: FontWeight.w600)),
+                      const TextSpan(text: ' of your allowance.'),
+                    ]),
                     key: const ValueKey('price-days'),
                     style: type(15, height: 1.5)),
                 const SizedBox(height: 16),
@@ -187,8 +196,8 @@ class _PriceCheckState extends State<PriceCheck> {
                             : const Color(0x1F34D399)),
                     child: Text(
                         cost > widget.allowance
-                            ? '●  ABOVE DAILY BUDGET'
-                            : '●  WITHIN DAILY BUDGET',
+                            ? '●  CAUTION'
+                            : '●  WITHIN BUDGET',
                         style: TextStyle(
                             fontFamily: 'GeistMono',
                             fontSize: 10,

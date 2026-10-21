@@ -87,10 +87,8 @@ class _BudgetScreenState extends State<BudgetScreen>
   List<Expense> expenses = [];
   List<Expense> pastExpenses = [];
   bool renewing = false;
-  int draftDays = 30;
   Timer? dateTimer;
   String? loadError;
-  final budgetInput = TextEditingController();
   bool saving = false;
 
   @override
@@ -105,7 +103,6 @@ class _BudgetScreenState extends State<BudgetScreen>
 
   @override
   void dispose() {
-    budgetInput.dispose();
     dateTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -135,7 +132,6 @@ class _BudgetScreenState extends State<BudgetScreen>
         pastExpenses = ((data['pastExpenses'] ?? []) as List)
             .map((e) => Expense.fromJson(e as Map<String, dynamic>))
             .toList();
-        draftDays = days;
       }
       if (mounted) setState(() => prefs = store);
     } catch (_) {
@@ -323,8 +319,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                             '${e.date.hour.toString().padLeft(2, '0')}:${e.date.minute.toString().padLeft(2, '0')}',
                             style: type(11, color: tertiaryText))
                       ])),
-                  Text('−${e.amount} DZD',
-                      style: type(13, weight: FontWeight.w600))
+                  Text('−${e.amount}', style: type(13, weight: FontWeight.w600))
                 ]))
         ]);
 
@@ -386,7 +381,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                                 : surfaceHigh))
             ])),
         const SizedBox(height: 36),
-        Text('$allowance',
+        Text('$allowance', key: const ValueKey('daily-allowance'),
             textAlign: TextAlign.center,
             style: type(88,
                     weight: FontWeight.w600,
@@ -401,14 +396,14 @@ class _BudgetScreenState extends State<BudgetScreen>
         const SizedBox(height: 10),
         Text('$remaining DZD left · $remainingDays days remaining',
             textAlign: TextAlign.center, style: type(11, color: tertiaryText)),
-        const SizedBox(height: 24),
+        const SizedBox(height: 32),
         GridView.count(
             crossAxisCount: 3,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
-            mainAxisExtent: 90,
+            mainAxisExtent: 98,
             children: [
               for (final item in [
                 ('Coffee', 50),
@@ -434,13 +429,14 @@ class _BudgetScreenState extends State<BudgetScreen>
                                 child: Column(children: [
                                   SourceIcon(iconFor(item.$1), size: 24),
                                   const SizedBox(height: 6),
-                                  Text('${item.$2} DZD',
+                                  Text('${item.$2}',
                                       style: type(13,
-                                          weight: FontWeight.w600, height: 1)),
+                                          weight: FontWeight.w600,
+                                          height: 1.5)),
                                   const SizedBox(height: 6),
                                   Text(item.$1,
                                       style: type(10,
-                                          color: tertiaryText, height: 1))
+                                          color: tertiaryText, height: 1.5))
                                 ]))))),
               Material(
                   color: const Color(0x1F34D399),
@@ -479,13 +475,12 @@ class _BudgetScreenState extends State<BudgetScreen>
                                       goalName.isEmpty
                                           ? 'Your savings'
                                           : goalName,
-                                      style:
-                                          type(13, weight: FontWeight.w600))),
+                                      style: type(11, color: tertiaryText))),
                               Text(
                                   goalTarget > 0
                                       ? '$saved / $goalTarget DZD'
                                       : '$saved DZD',
-                                  style: type(11, color: tertiaryText))
+                                  style: type(13, weight: FontWeight.w600))
                             ]),
                             if (goalTarget > 0) ...[
                               const SizedBox(height: 10),

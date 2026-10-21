@@ -26,16 +26,16 @@ void main() {
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
     await tester.enterText(
-        find.widgetWithText(TextField, 'Search purchases'), 'unknown');
+        find.byKey(const ValueKey('purchase-search')), 'unknown');
     await tester.pumpAndSettle();
     expect(find.text('No matching purchase. Try chicken, eggs or lentils.'),
         findsOneWidget);
     await tester.enterText(
-        find.widgetWithText(TextField, 'Search purchases'), 'chicken');
+        find.byKey(const ValueKey('purchase-search')), 'chicken');
     await tester.pumpAndSettle();
     await tester.tap(find.text('Chicken · 1 kg'));
     await tester.pumpAndSettle();
-    expect(find.text('That is 3.5 days of your allowance.'), findsOneWidget);
+    expect(find.text("That's 3.5 days of your allowance."), findsOneWidget);
     expect(find.text('Reference example · Oran · not live'), findsOneWidget);
     await tester.tap(find.text('Check your price'));
     await tester.pumpAndSettle();
@@ -45,7 +45,7 @@ void main() {
     await tester.ensureVisible(quoted);
     await tester.enterText(quoted, '90');
     await tester.pumpAndSettle();
-    expect(find.text('That is 0.5 days of your allowance.'), findsOneWidget);
+    expect(find.text("That's 0.5 days of your allowance."), findsOneWidget);
     await tester.enterText(quoted, '0');
     await tester.pumpAndSettle();
     expect(find.text('Enter a positive whole amount.'), findsOneWidget);
@@ -58,14 +58,14 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Chicken · 1 kg'));
     await tester.pumpAndSettle();
-    expect(find.text('That is 3.7 days of your allowance.'), findsOneWidget);
+    expect(find.text("That's 3.7 days of your allowance."), findsOneWidget);
     await tester.drag(find.byType(ListView), const Offset(0, -700));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Eggs · 12 pcs').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Eggs · 12 pcs').last);
     await tester.pumpAndSettle();
-    expect(find.text('That is 1.9 days of your allowance.'), findsOneWidget);
+    expect(find.text("That's 1.9 days of your allowance."), findsOneWidget);
   });
 
   for (final allowance in [0, -10]) {

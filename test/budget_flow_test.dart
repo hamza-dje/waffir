@@ -36,7 +36,8 @@ void main() {
     await enterAmount(tester, '120');
     await tester.tap(find.text('Add a note'));
     await tester.pumpAndSettle();
-    await tester.enterText(find.widgetWithText(TextField, 'What was it for?'), 'Books');
+    await tester.enterText(
+        find.widgetWithText(TextField, 'What was it for?'), 'Books');
     await tester.tap(find.text('Log it'));
     await tester.pumpAndSettle();
     expect(find.text('96'), findsOneWidget);
@@ -129,7 +130,10 @@ void main() {
     await tester.tap(find.text('Coffee'));
     await tester.pumpAndSettle();
     final before = await SharedPreferences.getInstance();
-    expect((jsonDecode(before.getString('budget_state')!)['expenses'] as List).length, 1);
+    expect(
+        (jsonDecode(before.getString('budget_state')!)['expenses'] as List)
+            .length,
+        1);
     await tester.tap(find.text('Start new period'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Continue'));
@@ -165,7 +169,7 @@ void main() {
     await enterAmount(tester, '9000');
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
-    expect(find.text('300'), findsOneWidget);
+    expect(tester.widget<Text>(find.byKey(const ValueKey('daily-allowance'))).data, '300');
     await tester.tap(find.text('Coffee').first);
     await tester.pumpAndSettle();
     expect(find.text('298'), findsOneWidget);
