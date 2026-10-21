@@ -5,6 +5,42 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wafir/main.dart';
 
 void main() {
+  testWidgets('custom expenses reject invalid input and persist valid input',
+      (tester) async {
+    tester.view.physicalSize = const Size(390, 1000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    SharedPreferences.setMockInitialValues({
+      'budget_state': jsonEncode({
+        'budget': 3000,
+        'days': 30,
+        'start': DateTime.now().toIso8601String(),
+        'expenses': [],
+      })
+    });
+    await tester.pumpWidget(const WafirApp());
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('+ Add'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Log it'));
+    await tester.pumpAndSettle();
+    expect(find.text('Enter a name'), findsOneWidget);
+    expect(find.text('Enter a positive whole amount'), findsOneWidget);
+    await tester.enterText(
+        find.widgetWithText(TextFormField, 'What was it for?'), 'Books');
+    await tester.enterText(
+        find.widgetWithText(TextFormField, 'Amount in DZD (whole dinars)'),
+        '120');
+    await tester.tap(find.text('Log it'));
+    await tester.pumpAndSettle();
+    expect(find.text('96'), findsOneWidget);
+    expect(find.text('Books'), findsOneWidget);
+    final store = await SharedPreferences.getInstance();
+    final data =
+        jsonDecode(store.getString('budget_state')!) as Map<String, dynamic>;
+    expect((data['expenses'] as List).single['amount'], 120);
+  });
   testWidgets(
       'edit reserves without counting expenses twice, then restore goal',
       (tester) async {

@@ -234,13 +234,14 @@ class _BudgetScreenState extends State<BudgetScreen>
   }
 
   Future<void> customExpense() async {
-    final name = TextEditingController();
-    final amount = TextEditingController();
+    var name = '';
+    var amount = '';
     final form = GlobalKey<FormState>();
     final result = await showModalBottomSheet<(String, int)>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => Padding(
+      builder: (context) => SingleChildScrollView(
+          child: Padding(
         padding: EdgeInsets.fromLTRB(
           24,
           24,
@@ -259,7 +260,8 @@ class _BudgetScreenState extends State<BudgetScreen>
               ),
               const SizedBox(height: 24),
               TextFormField(
-                controller: name,
+                onChanged: (value) => name = value,
+                maxLength: 60,
                 autofocus: true,
                 decoration: const InputDecoration(
                   labelText: 'What was it for?',
@@ -269,7 +271,7 @@ class _BudgetScreenState extends State<BudgetScreen>
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: amount,
+                onChanged: (value) => amount = value,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Amount in DZD (whole dinars)',
@@ -283,8 +285,8 @@ class _BudgetScreenState extends State<BudgetScreen>
                 onPressed: () {
                   if (form.currentState!.validate()) {
                     Navigator.pop(context, (
-                      name.text.trim(),
-                      int.parse(amount.text),
+                      name.trim(),
+                      int.parse(amount),
                     ));
                   }
                 },
@@ -293,9 +295,8 @@ class _BudgetScreenState extends State<BudgetScreen>
             ],
           ),
         ),
-      ),
+      )),
     );
-    // The sheet route may still animate after its result resolves.
     if (result != null && mounted) await log(result.$1, result.$2);
   }
 
@@ -516,7 +517,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 8),
-                          Text('$saved / $goalTarget DZD saved'),
+                          Text(goalTarget > 0
+                              ? '$saved / $goalTarget DZD saved'
+                              : '$saved DZD reserved'),
                           if (goalTarget > 0) ...[
                             const SizedBox(height: 12),
                             LinearProgressIndicator(
@@ -593,6 +596,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                           : Text(loadError!),
                     )
                   : ListView(
+                      key: ValueKey('$tab-$renewing'),
                       padding: const EdgeInsets.all(24),
                       children: [
                         brand(),
