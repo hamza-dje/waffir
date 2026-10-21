@@ -18,9 +18,11 @@ flutter build appbundle --release --split-debug-info=build/symbols/android
 
 The ARM64 APK is 65.93% smaller than the universal APK. Each split APK contains one processor architecture. The AAB contains all architectures; a store generates device-specific downloads from it. It is not installed directly.
 
+After cleanup, `build/app/outputs/flutter-apk/` contains only `app-arm64-v8a-release.apk`. The other APKs and SHA-1 sidecars were removed at the user's request. The table retains their build records.
+
 All split APK signatures and ZIP integrity checks passed. Their Flutter assets match the previously verified universal APK byte for byte. The AAB archive and JAR signature checks passed. Signing still uses the debug key. No app code or design assets changed. These size builds were not launched on a device.
 
-Keep `build/symbols/android/*.symbols` with the release for crash symbolization. Icon tree shaking remains enabled by default. The existing universal APK is retained below for devices of unknown architecture.
+Keep `build/symbols/android/*.symbols` with the release for crash symbolization. Icon tree shaking remains enabled by default. The original universal APK record is below; that file was removed during cleanup.
 
 ## Original universal APK
 
