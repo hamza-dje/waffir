@@ -1,4 +1,4 @@
-// Run with: flutter test tool/capture_design.dart
+// Run with: flutter test test/design_capture.dart
 // Uses synthetic data; does not change the installed app's storage.
 import 'dart:convert';
 import 'dart:io';

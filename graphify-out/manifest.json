@@ -1,20 +1,38 @@
 {
-  "main.dart": {
-    "mtime": 1792541289.925179,
-    "seen": 1792541327.9263318,
-    "ast_hash": "7b983fc00a7e6b9c30c7de2e5e494b0b",
-    "semantic_hash": "7b983fc00a7e6b9c30c7de2e5e494b0b"
-  },
   "budget_settings.dart": {
-    "mtime": 1792541064.2013927,
-    "seen": 1792541218.7839365,
-    "ast_hash": "ea364c1b9ffea07f596799fe25f5a88a",
-    "semantic_hash": "ea364c1b9ffea07f596799fe25f5a88a"
+    "mtime": 1792582425.2690456,
+    "seen": 1792583509.1283574,
+    "ast_hash": "8aac7c5cbc7ac0eab390f4188e004929",
+    "semantic_hash": null
+  },
+  "design.dart": {
+    "mtime": 1792582374.2188227,
+    "seen": 1792583509.1289234,
+    "ast_hash": "18e51bf4829b321dec45a18f9e09e4f0",
+    "semantic_hash": null
+  },
+  "expense_sheet.dart": {
+    "mtime": 1792583149.3542674,
+    "seen": 1792583509.1291187,
+    "ast_hash": "f9df9406af6c6d029d8b3bb79da7d1cb",
+    "semantic_hash": null
+  },
+  "main.dart": {
+    "mtime": 1792583251.4135504,
+    "seen": 1792583509.129272,
+    "ast_hash": "1bce44780e8e725d72173b4652cb869b",
+    "semantic_hash": null
+  },
+  "onboarding.dart": {
+    "mtime": 1792583264.2434626,
+    "seen": 1792583509.1294465,
+    "ast_hash": "a0c7cb1db5958caf7208b74d4b4aad08",
+    "semantic_hash": null
   },
   "price_check.dart": {
-    "mtime": 1792541013.4065654,
-    "seen": 1792541218.7839541,
-    "ast_hash": "a87ae1007c5b5faec2e70e83c89aa4ee",
-    "semantic_hash": "a87ae1007c5b5faec2e70e83c89aa4ee"
+    "mtime": 1792582838.4151492,
+    "seen": 1792583509.1295986,
+    "ast_hash": "5d27c73f7b5bf42854438fbcf604817d",
+    "semantic_hash": null
   }
 }
