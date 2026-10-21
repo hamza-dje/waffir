@@ -61,7 +61,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                               ? const LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
-                                  colors: [Color(0xFF193025), surface])
+                                  colors: [Color(0xFF192528), surface])
                               : null,
                           border: Border.all(
                               color: selected ? mint : Colors.transparent,
@@ -88,8 +88,6 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                               const SizedBox(height: 2),
                               Text(detail, style: type(11, color: tertiaryText))
                             ])),
-                        if (selected)
-                          const SourceIcon('check', color: mint, size: 18)
                       ])))));
 
   @override
@@ -103,16 +101,19 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Row(children: [
-                              for (var i = 0; i < 3; i++)
-                                Container(
-                                    width: 24,
-                                    height: 4,
-                                    margin: const EdgeInsets.only(right: 6),
-                                    decoration: panel(
-                                        radius: 2,
-                                        color: i <= step ? mint : surfaceHigh))
-                            ]),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  for (var i = 0; i < 3; i++)
+                                    Container(
+                                        width: 24,
+                                        height: 4,
+                                        margin: const EdgeInsets.only(right: 6),
+                                        decoration: panel(
+                                            radius: 2,
+                                            color:
+                                                i <= step ? mint : surfaceHigh))
+                                ]),
                             const SizedBox(height: 28),
                             if (step == 0) ...[
                               Text('How often do\nyou budget?',
@@ -163,34 +164,31 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                               Text('Total amount, before any fixed costs.',
                                   style: type(13, color: secondaryText)),
                               const SizedBox(height: 28),
-                              Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.baseline,
-                                  textBaseline: TextBaseline.alphabetic,
-                                  children: [
-                                    Expanded(
-                                        child: TextField(
-                                            controller: amount,
-                                            readOnly: true,
-                                            showCursor: false,
+                              Expanded(
+                                  child: Center(
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                    Semantics(
+                                        label: 'Total funds in DZD',
+                                        value: amount.text.isEmpty
+                                            ? '0'
+                                            : amount.text,
+                                        child: Text(
+                                            amount.text.isEmpty
+                                                ? '0'
+                                                : amount.text,
                                             style: type(64,
                                                 weight: FontWeight.w600,
-                                                spacing: -2),
-                                            decoration: const InputDecoration(
-                                                hintText: '0',
-                                                labelText: 'Total funds',
-                                                floatingLabelBehavior:
-                                                    FloatingLabelBehavior.never,
-                                                filled: false,
-                                                border: InputBorder.none,
-                                                enabledBorder: InputBorder.none,
-                                                focusedBorder: InputBorder.none,
-                                                contentPadding:
-                                                    EdgeInsets.zero))),
+                                                spacing: -2.56,
+                                                height: 1))),
+                                    const SizedBox(height: 10),
                                     Text('DZD',
-                                        style: type(16, color: tertiaryText))
-                                  ]),
-                              const SizedBox(height: 24),
+                                        style: type(16,
+                                            color: tertiaryText,
+                                            weight: FontWeight.w500,
+                                            spacing: .32)),
+                                  ]))),
                               AmountKeypad(
                                   onKey: (key) => setState(() {
                                         if (key == '⌫') {
@@ -205,8 +203,8 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                         }
                                       })),
                             ],
-                            const Spacer(),
-                            const SizedBox(height: 24),
+                            if (step == 0) const Spacer(),
+                            const SizedBox(height: 12),
                             FilledButton(
                                 onPressed: busy
                                     ? null
@@ -231,7 +229,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                         }
                                       },
                                 child: Text(busy ? 'Saving…' : 'Continue')),
-                            if (step == 1 || widget.renewing)
+                            if (widget.renewing)
                               TextButton(
                                   onPressed: busy
                                       ? null
@@ -276,8 +274,17 @@ class AmountKeypad extends StatelessWidget {
                                   foregroundColor: primaryText,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16))),
-                              child: Text(row[i],
-                                  style: type(22, weight: FontWeight.w500)))))
+                              child: row[i] == '⌫'
+                                  ? Semantics(
+                                      label: 'Delete last digit',
+                                      child: const SourceIcon('backspace',
+                                          size: 22, color: tertiaryText))
+                                  : Text(row[i],
+                                      style: type(22,
+                                          weight: FontWeight.w500,
+                                          color: row[i] == '.'
+                                              ? tertiaryText
+                                              : primaryText)))))
                 ]
               ]))
       ]);

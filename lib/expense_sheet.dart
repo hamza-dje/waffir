@@ -38,8 +38,18 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 Text('Log an expense',
                     style: type(20, weight: FontWeight.w600)),
                 const SizedBox(height: 4),
-                Text('Today · ${DateTime.now().day}/${DateTime.now().month}',
-                    style: type(11, color: tertiaryText)),
+                Row(children: [
+                  Expanded(
+                      child: Text(
+                          'Today · ${DateTime.now().day}/${DateTime.now().month}',
+                          style: type(11, color: tertiaryText))),
+                  if (!details)
+                    InkWell(
+                        onTap: () => setState(() => details = true),
+                        child: Text('Add a note',
+                            style: type(11, color: secondaryText)))
+                ]),
+                const SizedBox(height: 20),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 12, 0, 20),
                     child: Text.rich(
@@ -71,14 +81,7 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                       controller: name,
                       maxLength: 60,
                       decoration:
-                          const InputDecoration(labelText: 'What was it for?'))
-                else
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                          onPressed: () => setState(() => details = true),
-                          child: Text('Add a note',
-                              style: type(11, color: secondaryText)))),
+                          const InputDecoration(labelText: 'What was it for?')),
                 if (error != null)
                   Padding(
                       padding: const EdgeInsets.only(bottom: 8),

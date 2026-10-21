@@ -145,7 +145,6 @@ void main() {
     await tester.tap(find.text('History'));
     await tester.pumpAndSettle();
     expect(find.text('Old expense'), findsOneWidget);
-    expect(find.text('0 DZD spent this period'), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
@@ -169,14 +168,16 @@ void main() {
     await enterAmount(tester, '9000');
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
-    expect(tester.widget<Text>(find.byKey(const ValueKey('daily-allowance'))).data, '300');
+    expect(
+        tester.widget<Text>(find.byKey(const ValueKey('daily-allowance'))).data,
+        '300');
     await tester.tap(find.text('Coffee').first);
     await tester.pumpAndSettle();
     expect(find.text('298'), findsOneWidget);
     expect(find.text('Coffee'), findsNWidgets(2));
     await tester.tap(find.text('History'));
     await tester.pumpAndSettle();
-    expect(find.text('50 DZD spent this period'), findsOneWidget);
+    expect(find.text('−50'), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();

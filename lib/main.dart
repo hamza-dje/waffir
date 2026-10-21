@@ -33,6 +33,10 @@ class WafirApp extends StatelessWidget {
           colorScheme: const ColorScheme.dark(primary: mint, surface: surface),
           filledButtonTheme: FilledButtonThemeData(
             style: FilledButton.styleFrom(
+              textStyle: const TextStyle(
+                  fontFamily: 'Geist',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600),
               minimumSize: const Size(48, 54),
               foregroundColor: const Color(0xFF06251A),
               shape: RoundedRectangleBorder(
@@ -284,7 +288,7 @@ class _BudgetScreenState extends State<BudgetScreen>
         'sandwich' => 'sandwich',
         'bus' => 'bus',
         'water' => 'droplet',
-        'meal' => 'utensils',
+        'meal' || 'lunch' => 'utensils',
         _ => 'banknote',
       };
 
@@ -294,7 +298,7 @@ class _BudgetScreenState extends State<BudgetScreen>
           child: Text('Nothing logged yet. Start with your next expense.',
               style: type(13, color: secondaryText)))
       : Column(children: [
-          for (final e in items.reversed)
+          for (final e in items)
             Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
@@ -381,7 +385,8 @@ class _BudgetScreenState extends State<BudgetScreen>
                                 : surfaceHigh))
             ])),
         const SizedBox(height: 36),
-        Text('$allowance', key: const ValueKey('daily-allowance'),
+        Text('$allowance',
+            key: const ValueKey('daily-allowance'),
             textAlign: TextAlign.center,
             style: type(88,
                     weight: FontWeight.w600,
@@ -540,17 +545,14 @@ class _BudgetScreenState extends State<BudgetScreen>
       for (final day in grouped.entries) ...[
         Row(children: [
           Expanded(
-              child: sectionLabel(DateUtils.isSameDay(day.key, DateTime.now())
-                  ? 'Today'
-                  : dateLabel(day.key))),
+              child: sectionLabel(
+                  '${DateUtils.isSameDay(day.key, DateTime.now()) ? 'Today' : DateUtils.isSameDay(day.key, DateTime.now().subtract(const Duration(days: 1))) ? 'Yesterday' : dateLabel(day.key).split(', ').first} · ${dateLabel(day.key).split(', ').last}')),
           Text('${day.value.fold<int>(0, (sum, e) => sum + e.amount)} DZD',
               style: type(11))
         ]),
         entries(day.value.reversed.toList()),
         const SizedBox(height: 20)
       ],
-      Text('$spent DZD spent this period',
-          style: type(11, color: tertiaryText)),
       const SizedBox(height: 24),
       const Divider(color: hairline, height: 1),
       const SizedBox(height: 20),
