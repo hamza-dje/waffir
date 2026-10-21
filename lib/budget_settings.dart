@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'design.dart';
 
 typedef BudgetPlan = ({
   int funds,
@@ -55,7 +56,12 @@ class _BudgetSettingsPageState extends State<BudgetSettingsPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: const Text('Budget settings')),
+      appBar: AppBar(
+          leading: IconButton(
+              tooltip: 'Back',
+              onPressed: () => Navigator.pop(context),
+              icon: const SourceIcon('arrow-left')),
+          title: const Text('Budget settings')),
       body: Center(
           child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 560),

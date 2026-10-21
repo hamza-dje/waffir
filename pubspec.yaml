@@ -17,6 +17,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/dzd.svg
+    - assets/icons/
     - assets/fonts/Geist-OFL.txt
     - assets/fonts/GeistMono-OFL.txt
     - assets/fonts/Rubik-OFL.txt

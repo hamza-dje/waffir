@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'dart:async';
-import 'dart:ui' show FontFeature;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'budget_settings.dart';
 import 'price_check.dart';
 
-const mint = Color(0xFF34D399);
-const background = Color(0xFF0F1115);
-const surface = Color(0xFF171A21);
+import 'design.dart';
+import 'onboarding.dart';
+import 'expense_sheet.dart';
 
 void main() => runApp(const WafirApp());
 
@@ -24,6 +22,13 @@ class WafirApp extends StatelessWidget {
           fontFamily: 'Geist',
           fontFamilyFallback: const ['Rubik'],
           brightness: Brightness.dark,
+          textTheme: ThemeData.dark().textTheme.apply(
+              bodyColor: primaryText,
+              displayColor: primaryText,
+              fontFamily: 'Geist'),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: background,
+              surfaceTintColor: Colors.transparent),
           scaffoldBackgroundColor: background,
           colorScheme: const ColorScheme.dark(primary: mint, surface: surface),
           filledButtonTheme: FilledButtonThemeData(
@@ -237,431 +242,414 @@ class _BudgetScreenState extends State<BudgetScreen>
   }
 
   Future<void> customExpense() async {
-    var name = '';
-    var amount = '';
-    final form = GlobalKey<FormState>();
     final result = await showModalBottomSheet<(String, int)>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => SingleChildScrollView(
-          child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          24,
-          24,
-          24,
-          MediaQuery.viewInsetsOf(context).bottom + 24,
-        ),
-        child: Form(
-          key: form,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text(
-                'Log an expense',
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 24),
-              TextFormField(
-                onChanged: (value) => name = value,
-                maxLength: 60,
-                autofocus: true,
-                decoration: const InputDecoration(
-                  labelText: 'What was it for?',
-                ),
-                validator: (v) =>
-                    v == null || v.trim().isEmpty ? 'Enter a name' : null,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                onChanged: (value) => amount = value,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Amount in DZD (whole dinars)',
-                ),
-                validator: (v) => (int.tryParse(v ?? '') ?? 0) <= 0
-                    ? 'Enter a positive whole amount'
-                    : null,
-              ),
-              const SizedBox(height: 24),
-              FilledButton(
-                onPressed: () {
-                  if (form.currentState!.validate()) {
-                    Navigator.pop(context, (
-                      name.trim(),
-                      int.parse(amount),
-                    ));
-                  }
-                },
-                child: const Text('Log it'),
-              ),
-            ],
-          ),
-        ),
-      )),
+      backgroundColor: surface,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
+      builder: (_) => const ExpenseSheet(),
     );
     if (result != null && mounted) await log(result.$1, result.$2);
   }
 
-  Widget brand() => Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            padding: const EdgeInsets.all(9),
-            decoration: BoxDecoration(
-              color: mint,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: SvgPicture.asset(
-              'assets/dzd.svg',
-              semanticsLabel: 'Waffir DZD symbol',
-              colorFilter: const ColorFilter.mode(
-                Color(0xFF06251A),
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          const Expanded(
-              child: Text.rich(
-                  TextSpan(children: [
-                    TextSpan(text: 'Waffir / '),
-                    TextSpan(
-                        text: 'وفّر', style: TextStyle(fontFamily: 'Rubik')),
-                  ]),
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
-          if (budget != null && !renewing)
-            IconButton(
-                onPressed: saving ? null : editBudget,
-                tooltip: 'Budget settings',
-                icon: const Icon(Icons.settings_outlined)),
-        ],
-      );
+  Future<bool> startPeriod(int amount, int periodDays) async {
+    if (saving) return false;
+    if (fixedCosts + saved > amount) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'New funds must cover fixed costs and saved money. Edit Budget settings first.')));
+      return false;
+    }
+    setState(() => saving = true);
+    final nextStart = DateTime.now();
+    final archive = [...pastExpenses, ...expenses];
+    final ok = await persist(amount, [],
+        periodStart: nextStart, periodDays: periodDays, archive: archive);
+    if (mounted)
+      setState(() {
+        if (ok) {
+          budget = amount;
+          days = periodDays;
+          start = nextStart;
+          expenses = [];
+          pastExpenses = archive;
+          renewing = false;
+          tab = 0;
+        }
+        saving = false;
+      });
+    return ok;
+  }
 
-  Widget setup() => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 48),
-          const Text(
-            'Make room for\nwhat matters.',
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.w600,
-              height: 1.1,
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'A little clarity for your everyday money.',
-            style: TextStyle(color: Colors.white60, fontSize: 16),
-          ),
-          const SizedBox(height: 40),
-          Text(renewing
-              ? 'Start a new budget period'
-              : 'How often do you budget?'),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 12,
-            children: [
-              for (final n in [30, 7])
-                ChoiceChip(
-                  label:
-                      Text(n == 30 ? 'Monthly · 30 days' : 'Weekly · 7 days'),
-                  selected: draftDays == n,
-                  onSelected:
-                      saving ? null : (_) => setState(() => draftDays = n),
-                ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          TextField(
-            controller: budgetInput,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Total funds',
-              suffixText: 'DZD',
-              helperText: 'Set fixed costs and savings in Budget settings.',
-            ),
-          ),
-          const SizedBox(height: 24),
-          FilledButton(
-            onPressed: saving
-                ? null
-                : () async {
-                    final amount = int.tryParse(budgetInput.text);
-                    if (amount == null || amount <= 0) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content:
-                              Text('Enter a positive budget in whole dinars.'),
-                        ),
-                      );
-                      return;
-                    }
-                    setState(() => saving = true);
-                    final nextStart = DateTime.now();
-                    if (fixedCosts + saved > amount) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                              'New funds must cover fixed costs and saved money. Edit Budget settings first.')));
-                      setState(() => saving = false);
-                      return;
-                    }
-                    final archive = [...pastExpenses, ...expenses];
-                    final ok = await persist(amount, [],
-                        periodStart: nextStart,
-                        periodDays: draftDays,
-                        archive: archive);
-                    if (mounted) {
-                      setState(() {
-                        if (ok) {
-                          budget = amount;
-                          days = draftDays;
-                          start = nextStart;
-                          expenses = [];
-                          pastExpenses = archive;
-                          renewing = false;
-                          tab = 0;
-                        }
-                        saving = false;
-                      });
-                    }
-                  },
-            child: Text(saving
-                ? 'Saving…'
-                : renewing
-                    ? 'Confirm new period'
-                    : 'Start my budget'),
-          ),
-          if (renewing)
-            TextButton(
-                onPressed:
-                    saving ? null : () => setState(() => renewing = false),
-                child: const Text('Cancel')),
-        ],
-      );
+  String iconFor(String label) => switch (label.toLowerCase()) {
+        'coffee' => 'coffee',
+        'sandwich' => 'sandwich',
+        'bus' => 'bus',
+        'water' => 'droplet',
+        'meal' => 'utensils',
+        _ => 'banknote',
+      };
 
   Widget entries(List<Expense> items) => items.isEmpty
-      ? const Padding(
-          padding: EdgeInsets.symmetric(vertical: 24),
-          child: Text(
-            'Nothing logged yet. Start with your next expense.',
-            style: TextStyle(color: Colors.white60),
-          ),
-        )
-      : Column(
-          children: [
-            for (final e in items.reversed)
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.receipt_long_outlined, color: mint),
-                title: Text(e.label),
-                subtitle: Text(
-                  '${e.date.day}/${e.date.month} · ${e.date.hour.toString().padLeft(2, '0')}:${e.date.minute.toString().padLeft(2, '0')}',
-                ),
-                trailing: Text(
-                  '−${e.amount} DZD',
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-              ),
-          ],
-        );
+      ? Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
+          child: Text('Nothing logged yet. Start with your next expense.',
+              style: type(13, color: secondaryText)))
+      : Column(children: [
+          for (final e in items.reversed)
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+                decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: hairline))),
+                child: Row(children: [
+                  Container(
+                      width: 36,
+                      height: 36,
+                      decoration: panel(radius: 12),
+                      child: Center(
+                          child: SourceIcon(iconFor(e.label),
+                              size: 18, color: secondaryText))),
+                  const SizedBox(width: 12),
+                  Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                        Text(e.label, style: type(13, weight: FontWeight.w500)),
+                        const SizedBox(height: 1),
+                        Text(
+                            '${e.date.hour.toString().padLeft(2, '0')}:${e.date.minute.toString().padLeft(2, '0')}',
+                            style: type(11, color: tertiaryText))
+                      ])),
+                  Text('−${e.amount} DZD',
+                      style: type(13, weight: FontWeight.w600))
+                ]))
+        ]);
 
-  Widget today() => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 32),
-          if (expired) ...[
-            const Text('Your budget period has ended.',
-                style: TextStyle(color: Color(0xFFF5B84A), fontSize: 20)),
-            const SizedBox(height: 12),
-            FilledButton(
-                onPressed: () => setState(() {
-                      renewing = true;
-                      budgetInput.clear();
-                      draftDays = days;
-                    }),
-                child: const Text('Start new period')),
-            const SizedBox(height: 16),
-          ],
-          Text(
-            '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-            style: const TextStyle(color: Colors.white60),
-          ),
-          const SizedBox(height: 36),
-          Text(
-            '$allowance',
+  String dateLabel(DateTime date) {
+    const weekdays = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    return '${weekdays[date.weekday - 1]}, ${date.day} ${months[date.month - 1]}';
+  }
+
+  Widget today() =>
+      Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        if (expired) ...[
+          Text('Your budget period has ended.',
+              style: type(15, color: caution)),
+          FilledButton(
+              onPressed: () => setState(() => renewing = true),
+              child: const Text('Start new period')),
+          const SizedBox(height: 16)
+        ],
+        Padding(
+            padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
+            child: Row(children: [
+              Expanded(
+                  child: Text(dateLabel(DateTime.now()),
+                      style: type(13,
+                          color: secondaryText, weight: FontWeight.w500))),
+              for (var i = 0; i < 7; i++)
+                Container(
+                    width: 6,
+                    height: 6,
+                    margin: const EdgeInsets.only(left: 4),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: i == DateTime.now().weekday - 1
+                            ? mint
+                            : i < DateTime.now().weekday - 1
+                                ? const Color(0x8034D399)
+                                : surfaceHigh))
+            ])),
+        const SizedBox(height: 36),
+        Text('$allowance',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontFeatures: const [FontFeature.tabularFigures()],
-              fontSize: 88,
-              height: 1.1,
-              letterSpacing: -4,
-              color: allowance < 0 ? const Color(0xFFF5B84A) : mint,
-            ),
-          ),
-          const Text(
-            'DZD per day',
+            style: type(88,
+                    weight: FontWeight.w600,
+                    spacing: -3.96,
+                    height: 1,
+                    color: allowance < 0 ? caution : mint)
+                .copyWith(fontFeatures: const [FontFeature.tabularFigures()])),
+        const SizedBox(height: 8),
+        Text('DZD today',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            '$remaining DZD left · $remainingDays days remaining',
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white60),
-          ),
-          const SizedBox(height: 36),
-          if (saved > 0 || goalTarget > 0) ...[
-            Card(
-                child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(goalName.isEmpty ? 'Your savings' : goalName,
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600)),
-                          const SizedBox(height: 8),
-                          Text(goalTarget > 0
-                              ? '$saved / $goalTarget DZD saved'
-                              : '$saved DZD reserved'),
-                          if (goalTarget > 0) ...[
-                            const SizedBox(height: 12),
-                            LinearProgressIndicator(
-                                value: (saved / goalTarget).clamp(0, 1),
-                                semanticsLabel: 'Savings goal progress'),
-                            if (saved >= goalTarget) const Text('Goal reached'),
-                          ],
-                          TextButton(
-                              onPressed: saving ? null : editBudget,
-                              child: const Text('Update savings')),
-                        ]))),
-            const SizedBox(height: 24),
-          ],
-          const Text(
-            'QUICK LOG',
-            style: TextStyle(
-                fontFamily: 'GeistMono',
-                color: Colors.white54,
-                letterSpacing: 2,
-                fontSize: 12),
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
+            style: type(16, color: secondaryText, weight: FontWeight.w500)),
+        const SizedBox(height: 10),
+        Text('$remaining DZD left · $remainingDays days remaining',
+            textAlign: TextAlign.center, style: type(11, color: tertiaryText)),
+        const SizedBox(height: 24),
+        GridView.count(
+            crossAxisCount: 3,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            mainAxisExtent: 90,
             children: [
               for (final item in [
                 ('Coffee', 50),
                 ('Sandwich', 150),
                 ('Bus', 30),
                 ('Water', 30),
-                ('Meal', 300),
+                ('Meal', 300)
               ])
-                OutlinedButton(
-                  onPressed:
-                      saving || expired ? null : () => log(item.$1, item.$2),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  child: Text('${item.$1}\n${item.$2} DZD'),
-                ),
-              FilledButton(
-                onPressed: saving || expired ? null : customExpense,
-                child: const Text('+ Add'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 36),
-          const Text(
-            "Today's log",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          entries(
-            expenses
-                .where((e) => DateUtils.isSameDay(e.date, DateTime.now()))
-                .toList(),
-          ),
-        ],
-      );
+                Semantics(
+                    label: '${item.$1}, ${item.$2} DZD',
+                    button: true,
+                    child: Material(
+                        color: surface,
+                        borderRadius: BorderRadius.circular(20),
+                        child: InkWell(
+                            onTap: saving || expired
+                                ? null
+                                : () => log(item.$1, item.$2),
+                            borderRadius: BorderRadius.circular(20),
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(8, 14, 8, 12),
+                                child: Column(children: [
+                                  SourceIcon(iconFor(item.$1), size: 24),
+                                  const SizedBox(height: 6),
+                                  Text('${item.$2} DZD',
+                                      style: type(13,
+                                          weight: FontWeight.w600, height: 1)),
+                                  const SizedBox(height: 6),
+                                  Text(item.$1,
+                                      style: type(10,
+                                          color: tertiaryText, height: 1))
+                                ]))))),
+              Material(
+                  color: const Color(0x1F34D399),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(color: Color(0x3D34D399))),
+                  child: InkWell(
+                      onTap: saving || expired ? null : customExpense,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SourceIcon('plus', color: mint),
+                            const SizedBox(height: 6),
+                            Text('Add',
+                                style: type(10,
+                                    color: mint, weight: FontWeight.w500))
+                          ])))
+            ]),
+        if (saved > 0 || goalTarget > 0)
+          Padding(
+              padding: const EdgeInsets.only(top: 22),
+              child: Material(
+                  color: surface,
+                  borderRadius: BorderRadius.circular(20),
+                  child: InkWell(
+                      onTap: saving ? null : editBudget,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 16),
+                          child: Column(children: [
+                            Row(children: [
+                              Expanded(
+                                  child: Text(
+                                      goalName.isEmpty
+                                          ? 'Your savings'
+                                          : goalName,
+                                      style:
+                                          type(13, weight: FontWeight.w600))),
+                              Text(
+                                  goalTarget > 0
+                                      ? '$saved / $goalTarget DZD'
+                                      : '$saved DZD',
+                                  style: type(11, color: tertiaryText))
+                            ]),
+                            if (goalTarget > 0) ...[
+                              const SizedBox(height: 10),
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(3),
+                                  child: LinearProgressIndicator(
+                                      value: (saved / goalTarget).clamp(0, 1),
+                                      minHeight: 6,
+                                      color: mint,
+                                      backgroundColor: surfaceHigh,
+                                      semanticsLabel: 'Savings goal progress'))
+                            ]
+                          ]))))),
+        const SizedBox(height: 20),
+        sectionLabel("Today's log"),
+        entries(expenses
+            .where((e) => DateUtils.isSameDay(e.date, DateTime.now()))
+            .toList()),
+      ]);
+
+  Widget setting(String label, String value) => Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Material(
+          color: surface,
+          borderRadius: BorderRadius.circular(16),
+          child: InkWell(
+              onTap: saving ? null : editBudget,
+              borderRadius: BorderRadius.circular(16),
+              child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 13, horizontal: 14),
+                  child: Row(children: [
+                    Expanded(
+                        child: Text(label,
+                            style: type(13, weight: FontWeight.w500))),
+                    Text(value, style: type(11, color: tertiaryText)),
+                    const SizedBox(width: 4),
+                    const SourceIcon('chevron-right',
+                        size: 14, color: tertiaryText)
+                  ])))));
+
+  Widget history() {
+    final all = [...pastExpenses, ...expenses]
+      ..sort((a, b) => b.date.compareTo(a.date));
+    final grouped = <DateTime, List<Expense>>{};
+    for (final expense in all) {
+      grouped
+          .putIfAbsent(DateUtils.dateOnly(expense.date), () => [])
+          .add(expense);
+    }
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Padding(
+          padding: const EdgeInsets.fromLTRB(4, 4, 4, 20),
+          child: Text('History',
+              style: type(26, weight: FontWeight.w600, spacing: -.78))),
+      if (all.isEmpty) entries([]),
+      for (final day in grouped.entries) ...[
+        Row(children: [
+          Expanded(
+              child: sectionLabel(DateUtils.isSameDay(day.key, DateTime.now())
+                  ? 'Today'
+                  : dateLabel(day.key))),
+          Text('${day.value.fold<int>(0, (sum, e) => sum + e.amount)} DZD',
+              style: type(11))
+        ]),
+        entries(day.value.reversed.toList()),
+        const SizedBox(height: 20)
+      ],
+      Text('$spent DZD spent this period',
+          style: type(11, color: tertiaryText)),
+      const SizedBox(height: 24),
+      const Divider(color: hairline, height: 1),
+      const SizedBox(height: 20),
+      sectionLabel('Settings'),
+      setting(
+          'Period',
+          days == 30
+              ? 'Monthly'
+              : days == 7
+                  ? 'Weekly'
+                  : '$days days'),
+      setting('Fixed costs', '$fixedCosts DZD'),
+      setting('Savings goal', '$goalTarget DZD'),
+      Container(
+          padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 14),
+          decoration: panel(radius: 16),
+          child: Row(children: [
+            Expanded(child: Text('Language', style: type(13))),
+            Text('English', style: type(11, color: tertiaryText))
+          ])),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 560),
-              child: prefs == null
-                  ? Center(
-                      child: loadError == null
-                          ? const CircularProgressIndicator()
-                          : Text(loadError!),
-                    )
-                  : ListView(
-                      key: ValueKey('$tab-$renewing'),
-                      padding: const EdgeInsets.all(24),
-                      children: [
-                        brand(),
-                        if (budget == null || renewing)
-                          setup()
-                        else if (tab == 0)
-                          today()
-                        else if (tab == 1)
-                          PriceCheck(allowance: allowance, expired: expired)
-                        else ...[
-                          const SizedBox(height: 32),
-                          const Text(
-                            'History',
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w600,
+            child: Center(
+                child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 560),
+                    child: prefs == null
+                        ? Center(
+                            child: loadError == null
+                                ? const CircularProgressIndicator()
+                                : Text(loadError!))
+                        : budget == null || renewing
+                            ? BudgetOnboarding(
+                                initialDays: days,
+                                renewing: renewing,
+                                onSave: startPeriod,
+                                onCancel: () =>
+                                    setState(() => renewing = false))
+                            : ListView(
+                                key: ValueKey('$tab-$renewing'),
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 8, 20, 20),
+                                children: [
+                                    if (tab == 0)
+                                      today()
+                                    else if (tab == 1)
+                                      PriceCheck(
+                                          allowance: allowance,
+                                          expired: expired,
+                                          onBack: () => setState(() => tab = 0))
+                                    else
+                                      history()
+                                  ])))),
+        bottomNavigationBar: budget == null || renewing
+            ? null
+            : Container(
+                decoration: const BoxDecoration(
+                    color: background,
+                    border: Border(top: BorderSide(color: hairline))),
+                child: SafeArea(
+                    top: false,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 14, 24, 10),
+                      child: Row(children: [
+                        for (var i = 0; i < 3; i++)
+                          Expanded(
+                            child: InkWell(
+                              onTap: () => setState(() => tab = i),
+                              borderRadius: BorderRadius.circular(10),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 12),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SourceIcon(['home', 'search', 'list'][i],
+                                          size: 22,
+                                          color:
+                                              tab == i ? mint : tertiaryText),
+                                      const SizedBox(height: 5),
+                                      Text(['Today', 'Check', 'History'][i],
+                                          style: type(10,
+                                              weight: FontWeight.w500,
+                                              color: tab == i
+                                                  ? mint
+                                                  : tertiaryText)),
+                                    ]),
+                              ),
                             ),
                           ),
-                          Text(
-                            '$spent DZD spent this period',
-                            style: const TextStyle(color: Colors.white60),
-                          ),
-                          entries(expenses),
-                          if (pastExpenses.isNotEmpty) ...[
-                            const SizedBox(height: 24),
-                            const Text('Previous periods',
-                                style: TextStyle(fontSize: 20)),
-                            entries(pastExpenses),
-                          ],
-                        ],
-                      ],
-                    ),
-            ),
-          ),
-        ),
-        bottomNavigationBar: budget == null
-            ? null
-            : NavigationBar(
-                selectedIndex: tab,
-                onDestinationSelected: (value) => setState(() => tab = value),
-                destinations: const [
-                  NavigationDestination(
-                    icon: Icon(Icons.today_outlined),
-                    label: 'Today',
-                  ),
-                  NavigationDestination(
-                    icon: Icon(Icons.search),
-                    label: 'Check',
-                  ),
-                  NavigationDestination(
-                    icon: Icon(Icons.history),
-                    label: 'History',
-                  ),
-                ],
+                      ]),
+                    )),
               ),
       );
 }
