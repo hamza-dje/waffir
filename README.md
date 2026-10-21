@@ -21,4 +21,12 @@ flutter analyze
 flutter test
 ```
 
+For a smaller Android download:
+
+```sh
+flutter build apk --release --split-per-abi --split-debug-info=build/symbols/android
+```
+
+Use `app-arm64-v8a-release.apk` for an ARM64 phone. See `APK_BUILD.md` for all builds and sizes. Keep the symbol files with the release.
+
 The HTML references are copied under `references/`; source files in Downloads are preserved. Regenerate launcher icons with `flutter test tool/generate_icons.dart`. Generate local visual QA pages with `python tool/reference_screens.py`. Language support was excluded from the approved tickets. Budget settings are available in History. Tap a savings card to edit the goal.
