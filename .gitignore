@@ -6,3 +6,5 @@ build/
 graphify-out/.graphify*
 graphify-out/cache/
 lib/graphify-out/
+__pycache__/
+*.pyc

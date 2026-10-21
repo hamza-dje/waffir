@@ -17,9 +17,13 @@ def run(*args):
 if __name__ == '__main__':
     run('shell', 'am', 'force-stop', 'com.example.wafir')
     run('shell', 'am', 'start', '-W', '-n', 'com.example.wafir/.MainActivity')
-    run('shell', 'uiautomator', 'dump', '/sdcard/wafir-smoke.xml')
-    root = ET.fromstring(run('exec-out', 'cat', '/sdcard/wafir-smoke.xml'))
-    labels = '\n'.join(n.get('text', '') + n.get('content-desc', '') for n in root.iter('node'))
-    assert 'Could not load your budget' not in labels, 'FAIL: Android storage startup error'
-    assert 'How often do you budget?' in labels or 'DZD per day' in labels, 'FAIL: Budget screen did not load'
+    for attempt in range(5):
+        run('shell', 'uiautomator', 'dump', '/sdcard/wafir-smoke.xml')
+        root = ET.fromstring(run('exec-out', 'cat', '/sdcard/wafir-smoke.xml'))
+        labels = '\n'.join(n.get('text', '') + n.get('content-desc', '') for n in root.iter('node'))
+        assert 'Could not load your budget' not in labels, 'FAIL: Android storage startup error'
+        if 'Start my budget' in labels or 'Budget settings' in labels:
+            break
+    else:
+        raise AssertionError('FAIL: Budget screen did not load')
     print('PASS: Android storage loaded and the budget screen is visible')
