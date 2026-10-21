@@ -130,7 +130,8 @@ class _BudgetScreenState extends State<BudgetScreen>
         draftDays = days;
       }
       if (mounted) setState(() => prefs = store);
-    } catch (_) {
+    } catch (error, stack) {
+      debugPrint('[DEBUG-storage-startup] $error\n$stack');
       if (mounted) {
         setState(
           () =>
