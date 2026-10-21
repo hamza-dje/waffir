@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'budget_settings.dart';
 
 const mint = Color(0xFF34D399);
 const background = Color(0xFF0F1115);
@@ -67,6 +68,10 @@ class _BudgetScreenState extends State<BudgetScreen>
     with WidgetsBindingObserver {
   SharedPreferences? prefs;
   int? budget;
+  int fixedCosts = 0;
+  int saved = 0;
+  String goalName = '';
+  int goalTarget = 0;
   int days = 30;
   int tab = 0;
   DateTime start = DateTime.now();
@@ -109,6 +114,10 @@ class _BudgetScreenState extends State<BudgetScreen>
       if (raw != null) {
         final data = jsonDecode(raw) as Map<String, dynamic>;
         budget = data['budget'] as int;
+        fixedCosts = (data['fixedCosts'] ?? 0) as int;
+        saved = (data['saved'] ?? 0) as int;
+        goalName = (data['goalName'] ?? '') as String;
+        goalTarget = (data['goalTarget'] ?? 0) as int;
         days = data['days'] as int;
         start = DateTime.parse(data['start'] as String);
         expenses = (data['expenses'] as List)
@@ -136,12 +145,17 @@ class _BudgetScreenState extends State<BudgetScreen>
     DateTime? periodStart,
     int? periodDays,
     List<Expense>? archive,
+    BudgetPlan? plan,
   }) async {
     try {
       final ok = await prefs!.setString(
         'budget_state',
         jsonEncode({
-          'budget': amount,
+          'budget': plan?.funds ?? amount,
+          'fixedCosts': plan?.fixed ?? fixedCosts,
+          'saved': plan?.saved ?? saved,
+          'goalName': plan?.goal ?? goalName,
+          'goalTarget': plan?.target ?? goalTarget,
           'days': periodDays ?? days,
           'start': (periodStart ?? start).toIso8601String(),
           'expenses': entries.map((e) => e.toJson()).toList(),
@@ -171,8 +185,38 @@ class _BudgetScreenState extends State<BudgetScreen>
   }
 
   bool get expired => budget != null && remainingDays == 0;
+  int get remaining => budget! - fixedCosts - saved - spent;
   int get allowance =>
-      remainingDays == 0 ? 0 : ((budget! - spent) / remainingDays).floor();
+      remainingDays == 0 ? 0 : (remaining / remainingDays).floor();
+
+  Future<void> editBudget() async {
+    await Navigator.of(context).push(MaterialPageRoute<void>(
+        builder: (_) => BudgetSettingsPage(
+                initial: (
+                  funds: budget!,
+                  fixed: fixedCosts,
+                  saved: saved,
+                  goal: goalName,
+                  target: goalTarget
+                ),
+                onSave: (plan) async {
+                  if (saving) return false;
+                  setState(() => saving = true);
+                  final ok = await persist(budget!, expenses, plan: plan);
+                  if (mounted)
+                    setState(() {
+                      if (ok) {
+                        budget = plan.funds;
+                        fixedCosts = plan.fixed;
+                        saved = plan.saved;
+                        goalName = plan.goal;
+                        goalTarget = plan.target;
+                      }
+                      saving = false;
+                    });
+                  return ok;
+                })));
+  }
 
   Future<void> log(String label, int amount) async {
     if (saving || expired) return;
@@ -273,10 +317,16 @@ class _BudgetScreenState extends State<BudgetScreen>
             ),
           ),
           const SizedBox(width: 12),
-          const Text(
+          const Expanded(
+              child: Text(
             'Wafir / وفّر',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          ),
+          )),
+          if (budget != null && !renewing)
+            IconButton(
+                onPressed: saving ? null : editBudget,
+                tooltip: 'Budget settings',
+                icon: const Icon(Icons.settings_outlined)),
         ],
       );
 
@@ -320,9 +370,9 @@ class _BudgetScreenState extends State<BudgetScreen>
             controller: budgetInput,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
-              labelText: 'Available budget',
+              labelText: 'Total funds',
               suffixText: 'DZD',
-              helperText: 'After fixed costs and money set aside for savings',
+              helperText: 'Set fixed costs and savings in Budget settings.',
             ),
           ),
           const SizedBox(height: 24),
@@ -342,6 +392,13 @@ class _BudgetScreenState extends State<BudgetScreen>
                     }
                     setState(() => saving = true);
                     final nextStart = DateTime.now();
+                    if (fixedCosts + saved > amount) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                              'New funds must cover fixed costs and saved money. Edit Budget settings first.')));
+                      setState(() => saving = false);
+                      return;
+                    }
                     final archive = [...pastExpenses, ...expenses];
                     final ok = await persist(amount, [],
                         periodStart: nextStart,
@@ -441,11 +498,36 @@ class _BudgetScreenState extends State<BudgetScreen>
           ),
           const SizedBox(height: 12),
           Text(
-            '${budget! - spent} DZD left · $remainingDays days remaining',
+            '$remaining DZD left · $remainingDays days remaining',
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.white60),
           ),
           const SizedBox(height: 36),
+          if (saved > 0 || goalTarget > 0) ...[
+            Card(
+                child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(goalName.isEmpty ? 'Your savings' : goalName,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 8),
+                          Text('$saved / $goalTarget DZD saved'),
+                          if (goalTarget > 0) ...[
+                            const SizedBox(height: 12),
+                            LinearProgressIndicator(
+                                value: (saved / goalTarget).clamp(0, 1),
+                                semanticsLabel: 'Savings goal progress'),
+                            if (saved >= goalTarget) const Text('Goal reached'),
+                          ],
+                          TextButton(
+                              onPressed: saving ? null : editBudget,
+                              child: const Text('Update savings')),
+                        ]))),
+            const SizedBox(height: 24),
+          ],
           const Text(
             'QUICK LOG',
             style: TextStyle(
