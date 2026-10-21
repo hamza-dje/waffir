@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'budget_settings.dart';
+import 'price_check.dart';
 
 const mint = Color(0xFF34D399);
 const background = Color(0xFF0F1115);
@@ -203,7 +204,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                   if (saving) return false;
                   setState(() => saving = true);
                   final ok = await persist(budget!, expenses, plan: plan);
-                  if (mounted)
+                  if (mounted) {
                     setState(() {
                       if (ok) {
                         budget = plan.funds;
@@ -214,6 +215,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                       }
                       saving = false;
                     });
+                  }
                   return ok;
                 })));
   }
@@ -598,6 +600,8 @@ class _BudgetScreenState extends State<BudgetScreen>
                           setup()
                         else if (tab == 0)
                           today()
+                        else if (tab == 1)
+                          PriceCheck(allowance: allowance, expired: expired)
                         else ...[
                           const SizedBox(height: 32),
                           const Text(
@@ -633,6 +637,10 @@ class _BudgetScreenState extends State<BudgetScreen>
                   NavigationDestination(
                     icon: Icon(Icons.today_outlined),
                     label: 'Today',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.search),
+                    label: 'Check',
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.history),

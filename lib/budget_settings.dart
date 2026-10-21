@@ -107,10 +107,11 @@ class _BudgetSettingsPageState extends State<BudgetSettingsPage> {
                                 setState(() => saving = true);
                                 final ok = await widget.onSave(next);
                                 if (!context.mounted) return;
-                                if (ok)
+                                if (ok) {
                                   Navigator.pop(context);
-                                else
+                                } else {
                                   setState(() => saving = false);
+                                }
                               },
                         child: Text(saving ? 'Saving…' : 'Save budget')),
                   ])))));
