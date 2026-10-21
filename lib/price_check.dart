@@ -102,7 +102,7 @@ class _PriceCheckState extends State<PriceCheck> {
                           'Oran · Reference date: 20 Oct 2026 · Not live'),
                       const SizedBox(height: 8),
                       const Text(
-                          'Source: user-provided Wafir mockup. Illustrative prices; not verified market prices.',
+                          'Source: user-provided Waffir mockup. Illustrative prices; not verified market prices.',
                           style: TextStyle(color: Colors.white60)),
                       const SizedBox(height: 20),
                       TextField(

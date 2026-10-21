@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:ui' show FontFeature;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,9 +18,11 @@ class WafirApp extends StatelessWidget {
   const WafirApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Wafir',
+        title: 'Waffir',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          fontFamily: 'Geist',
+          fontFamilyFallback: const ['Rubik'],
           brightness: Brightness.dark,
           scaffoldBackgroundColor: background,
           colorScheme: const ColorScheme.dark(primary: mint, surface: surface),
@@ -130,8 +133,7 @@ class _BudgetScreenState extends State<BudgetScreen>
         draftDays = days;
       }
       if (mounted) setState(() => prefs = store);
-    } catch (error, stack) {
-      debugPrint('[DEBUG-storage-startup] $error\n$stack');
+    } catch (_) {
       if (mounted) {
         setState(
           () =>
@@ -313,7 +315,7 @@ class _BudgetScreenState extends State<BudgetScreen>
             ),
             child: SvgPicture.asset(
               'assets/dzd.svg',
-              semanticsLabel: 'Wafir DZD symbol',
+              semanticsLabel: 'Waffir DZD symbol',
               colorFilter: const ColorFilter.mode(
                 Color(0xFF06251A),
                 BlendMode.srcIn,
@@ -322,10 +324,13 @@ class _BudgetScreenState extends State<BudgetScreen>
           ),
           const SizedBox(width: 12),
           const Expanded(
-              child: Text(
-            'Wafir / وفّر',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          )),
+              child: Text.rich(
+                  TextSpan(children: [
+                    TextSpan(text: 'Waffir / '),
+                    TextSpan(
+                        text: 'وفّر', style: TextStyle(fontFamily: 'Rubik')),
+                  ]),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600))),
           if (budget != null && !renewing)
             IconButton(
                 onPressed: saving ? null : editBudget,
@@ -489,6 +494,8 @@ class _BudgetScreenState extends State<BudgetScreen>
             '$allowance',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontFeatures: const [FontFeature.tabularFigures()],
               fontSize: 88,
               height: 1.1,
               letterSpacing: -4,
@@ -537,7 +544,10 @@ class _BudgetScreenState extends State<BudgetScreen>
           const Text(
             'QUICK LOG',
             style: TextStyle(
-                color: Colors.white54, letterSpacing: 2, fontSize: 12),
+                fontFamily: 'GeistMono',
+                color: Colors.white54,
+                letterSpacing: 2,
+                fontSize: 12),
           ),
           const SizedBox(height: 16),
           Wrap(

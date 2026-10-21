@@ -1,8 +1,10 @@
-# Wafir / وفّر
+# Waffir / وفّر
 
 Flutter implementation started from the supplied product and button-system HTML references.
 
 All four approved tickets are implemented: weekly or 30-day budgets, period renewal with retained history, expense logging, fixed costs, savings goals, price checks, and local storage. The supplied DZD SVG is used in the app and launcher icons.
+
+Geist, Geist Mono, and Rubik are bundled for offline use, with the weights specified in the HTML. Geist is the main typeface; Geist Mono is used for section labels; Rubik is assigned to the Arabic brand text with platform glyph fallback.
 
 Amounts use whole DZD. The allowance excludes fixed costs, savings, and current-period expenses. Expired periods require renewal before more expenses can be logged. Renewal archives expenses and keeps fixed costs and savings; the new total funds must cover these reserves. Settings and data from version 0.1.0 are retained.
 
