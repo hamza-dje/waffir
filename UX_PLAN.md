@@ -1,6 +1,7 @@
 # Approved Waffir flow
 
 - Keep the existing colors, bundled fonts, and source SVG icons.
+- Use the supplied DZD SVG for currency labels. Remove visible outlines from controls, cards, and inputs.
 - Onboarding: budget dates, full amount, then optional usual products with prices and icons. No preset products.
 - Tabs: Home, History, Budget. Remove price check.
 - Home: Left today is the large figure. Keep the initial daily average visible. Also show today's limit and spending, calculated savings, and the projected daily average from tomorrow.

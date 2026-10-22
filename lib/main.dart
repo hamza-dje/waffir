@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'budget_settings.dart';
-import 'price_check.dart';
-
+import 'budget_data.dart';
 import 'design.dart';
+import 'editors.dart';
 import 'onboarding.dart';
 import 'expense_sheet.dart';
 
@@ -47,27 +44,30 @@ class WafirApp extends StatelessWidget {
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
             fillColor: surface,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide.none),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide.none),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide.none),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide.none),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide.none),
           ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide.none,
+                  backgroundColor: surface,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14)))),
         ),
         home: const BudgetScreen(),
-      );
-}
-
-class Expense {
-  Expense(this.label, this.amount, this.date);
-  final String label;
-  final int amount;
-  final DateTime date;
-  Map<String, dynamic> toJson() => {
-        'label': label,
-        'amount': amount,
-        'date': date.toIso8601String(),
-      };
-  factory Expense.fromJson(Map<String, dynamic> json) => Expense(
-        json['label'] as String,
-        json['amount'] as int,
-        DateTime.parse(json['date'] as String),
       );
 }
 
@@ -80,21 +80,12 @@ class BudgetScreen extends StatefulWidget {
 class _BudgetScreenState extends State<BudgetScreen>
     with WidgetsBindingObserver {
   SharedPreferences? prefs;
-  int? budget;
-  int fixedCosts = 0;
-  int saved = 0;
-  String goalName = '';
-  int goalTarget = 0;
-  int days = 30;
+  BudgetData data = BudgetData();
   int tab = 0;
-  DateTime start = DateTime.now();
-  List<Expense> expenses = [];
-  List<Expense> pastExpenses = [];
-  bool renewing = false;
-  Timer? dateTimer;
+  bool saving = false, creating = false;
+  BudgetRecord? carrySource;
   String? loadError;
-  bool saving = false;
-
+  Timer? dateTimer;
   @override
   void initState() {
     super.initState();
@@ -120,534 +111,669 @@ class _BudgetScreenState extends State<BudgetScreen>
   Future<void> load() async {
     try {
       final store = await SharedPreferences.getInstance();
-      final raw = store.getString('budget_state');
-      if (raw != null) {
-        final data = jsonDecode(raw) as Map<String, dynamic>;
-        budget = data['budget'] as int;
-        fixedCosts = (data['fixedCosts'] ?? 0) as int;
-        saved = (data['saved'] ?? 0) as int;
-        goalName = (data['goalName'] ?? '') as String;
-        goalTarget = (data['goalTarget'] ?? 0) as int;
-        days = data['days'] as int;
-        start = DateTime.parse(data['start'] as String);
-        expenses = (data['expenses'] as List)
-            .map((e) => Expense.fromJson(e as Map<String, dynamic>))
-            .toList();
-        pastExpenses = ((data['pastExpenses'] ?? []) as List)
-            .map((e) => Expense.fromJson(e as Map<String, dynamic>))
-            .toList();
+      final raw =
+          store.getString('budget_state_v2') ?? store.getString('budget_state');
+      final loaded = raw == null ? BudgetData() : BudgetData.decode(raw);
+      if (loaded.budgets.where((b) => b.closedAt == null).length > 1 ||
+          loaded.budgets.any((b) => b.validate() != null) ||
+          loaded.products.any((p) =>
+              p.name.trim().isEmpty || p.price <= 0 || p.price > 999999999)) {
+        throw const FormatException('Invalid budget data');
       }
-      if (mounted) setState(() => prefs = store);
+      if (mounted) {
+        setState(() {
+          prefs = store;
+          data = loaded;
+          creating = loaded.budgets.isEmpty;
+        });
+      }
     } catch (_) {
       if (mounted) {
-        setState(
-          () =>
-              loadError = 'Could not load your budget. Please restart the app.',
-        );
+        setState(() => loadError =
+            'Could not load your budget. Restart the app. Your saved data has not been changed.');
       }
     }
   }
 
-  Future<bool> persist(
-    int amount,
-    List<Expense> entries, {
-    DateTime? periodStart,
-    int? periodDays,
-    List<Expense>? archive,
-    BudgetPlan? plan,
-  }) async {
+  Future<bool> save(BudgetData next) async {
+    if (saving) return false;
+    setState(() => saving = true);
     try {
-      final ok = await prefs!.setString(
-        'budget_state',
-        jsonEncode({
-          'budget': plan?.funds ?? amount,
-          'fixedCosts': plan?.fixed ?? fixedCosts,
-          'saved': plan?.saved ?? saved,
-          'goalName': plan?.goal ?? goalName,
-          'goalTarget': plan?.target ?? goalTarget,
-          'days': periodDays ?? days,
-          'start': (periodStart ?? start).toIso8601String(),
-          'expenses': entries.map((e) => e.toJson()).toList(),
-          'pastExpenses':
-              (archive ?? pastExpenses).map((e) => e.toJson()).toList(),
-        }),
-      );
-      if (!ok) throw StateError('Save failed');
+      if (!await prefs!.setString('budget_state_v2', next.encode())) {
+        throw StateError('Save failed');
+      }
+      if (mounted) setState(() => data = next);
       return true;
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not save. Please try again.')),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: CurrencyText('Could not save. Please try again.')));
       }
       return false;
+    } finally {
+      if (mounted) setState(() => saving = false);
     }
   }
 
-  int get spent => expenses.fold(0, (sum, e) => sum + e.amount);
-  int get remainingDays {
-    final today = DateUtils.dateOnly(DateTime.now());
-    return (days - today.difference(DateUtils.dateOnly(start)).inDays).clamp(
-      0,
-      days,
-    );
-  }
-
-  bool get expired => budget != null && remainingDays == 0;
-  int get remaining => budget! - fixedCosts - saved - spent;
-  int get allowance =>
-      remainingDays == 0 ? 0 : (remaining / remainingDays).floor();
-
-  Future<void> editBudget() async {
-    await Navigator.of(context).push(MaterialPageRoute<void>(
-        builder: (_) => BudgetSettingsPage(
-                initial: (
-                  funds: budget!,
-                  fixed: fixedCosts,
-                  saved: saved,
-                  goal: goalName,
-                  target: goalTarget
-                ),
-                onSave: (plan) async {
-                  if (saving) return false;
-                  setState(() => saving = true);
-                  final ok = await persist(budget!, expenses, plan: plan);
-                  if (mounted) {
-                    setState(() {
-                      if (ok) {
-                        budget = plan.funds;
-                        fixedCosts = plan.fixed;
-                        saved = plan.saved;
-                        goalName = plan.goal;
-                        goalTarget = plan.target;
-                      }
-                      saving = false;
-                    });
-                  }
-                  return ok;
-                })));
-  }
-
-  Future<void> log(String label, int amount) async {
-    if (saving || expired) return;
-    setState(() => saving = true);
-    final next = [...expenses, Expense(label, amount, DateTime.now())];
-    final ok = await persist(budget!, next);
-    if (mounted) {
-      setState(() {
-        if (ok) expenses = next;
-        saving = false;
-      });
-    }
+  Future<void> log(String label, int amount, String icon) async {
+    final active = data.active;
+    if (active == null || !active.canLog(DateTime.now()) || saving) return;
+    await save(data.replace(active.copyWith(expenses: [
+      ...active.expenses,
+      Expense(label, amount, DateTime.now(), icon)
+    ])));
   }
 
   Future<void> customExpense() async {
     final result = await showModalBottomSheet<(String, int)>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: surface,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
-      builder: (_) => const ExpenseSheet(),
-    );
-    if (result != null && mounted) await log(result.$1, result.$2);
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: surface,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
+        builder: (_) => const ExpenseSheet());
+    if (result != null && mounted) await log(result.$1, result.$2, 'banknote');
   }
 
-  Future<bool> startPeriod(int amount, int periodDays) async {
-    if (saving) return false;
-    if (fixedCosts + saved > amount) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'New funds must cover fixed costs and saved money. Edit Budget settings first.')));
+  Future<bool> replaceBudget(BudgetRecord record) async {
+    final error = record.validate();
+    if (error != null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: CurrencyText(error)));
       return false;
     }
-    setState(() => saving = true);
-    final nextStart = DateTime.now();
-    final archive = [...pastExpenses, ...expenses];
-    final ok = await persist(amount, [],
-        periodStart: nextStart, periodDays: periodDays, archive: archive);
+    return save(data.replace(record));
+  }
+
+  Future<void> editBudget(String id) async {
+    final record = data.budgets.firstWhere((b) => b.id == id);
+    await Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+            builder: (_) =>
+                BudgetEditor(initial: record, onSave: replaceBudget)));
+  }
+
+  Future<void> editExpense(String id, int index) async {
+    if (saving) return;
+    final record = data.budgets.firstWhere((b) => b.id == id);
+    final result = await Navigator.push<Object>(
+        context,
+        MaterialPageRoute(
+            builder: (_) => ExpenseEditor(
+                expense: record.expenses[index], budget: record)));
+    if (result == null || !mounted) return;
+    final items = [...record.expenses];
+    if (result == 'delete') {
+      items.removeAt(index);
+    } else if (result is Expense) {
+      items[index] = result;
+    } else {
+      return;
+    }
+    await replaceBudget(record.copyWith(expenses: items));
+  }
+
+  Future<void> newBudget([BudgetRecord? source]) async {
+    if (saving || data.active != null) return;
+    int? choice;
+    if (source != null && !source.legacy && source.balance > 0) {
+      choice = await showDialog<int>(
+          context: context,
+          builder: (context) => AlertDialog(
+                  backgroundColor: surface,
+                  title: const CurrencyText('Start a new budget'),
+                  content: CurrencyText(
+                      '${source.balance} DA is left in the saved budget.'),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const CurrencyText('Later')),
+                    TextButton(
+                        onPressed: () => Navigator.pop(context, 0),
+                        child: const CurrencyText('Enter new amount')),
+                    FilledButton(
+                        onPressed: () => Navigator.pop(context, source.balance),
+                        child: const CurrencyText('Use remaining money'))
+                  ]));
+      if (choice == null) return;
+    }
     if (mounted) {
       setState(() {
-        if (ok) {
-          budget = amount;
-          days = periodDays;
-          start = nextStart;
-          expenses = [];
-          pastExpenses = archive;
-          renewing = false;
-          tab = 0;
-        }
-        saving = false;
+        carrySource = choice != null && choice > 0 ? source : null;
+        creating = true;
+      });
+    }
+  }
+
+  Future<bool> startBudget(int funds, DateTime start, DateTime end,
+      List<UsualProduct> products) async {
+    if (data.active != null) return false;
+    final useCarry = carrySource != null && carrySource!.balance == funds;
+    final record = BudgetRecord(
+        id: DateTime.now().microsecondsSinceEpoch.toString(),
+        funds: funds,
+        start: start,
+        end: end,
+        carriedFrom: useCarry ? carrySource!.id : null,
+        carriedAmount: useCarry ? funds : 0);
+    final error = record.validate();
+    if (error != null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: CurrencyText(error)));
+      return false;
+    }
+    final ok = await save(
+        BudgetData(budgets: [...data.budgets, record], products: products));
+    if (ok && mounted) {
+      setState(() {
+        creating = false;
+        carrySource = null;
+        tab = 0;
       });
     }
     return ok;
   }
 
-  String iconFor(String label) => switch (label.toLowerCase()) {
-        'coffee' => 'coffee',
-        'sandwich' => 'sandwich',
-        'bus' => 'bus',
-        'water' => 'droplet',
-        'meal' || 'lunch' => 'utensils',
-        _ => 'banknote',
-      };
-
-  Widget entries(List<Expense> items) => items.isEmpty
-      ? Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
-          child: Text('Nothing logged yet. Start with your next expense.',
-              style: type(13, color: secondaryText)))
-      : Column(children: [
-          for (final e in items)
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-                decoration: const BoxDecoration(
-                    border: Border(bottom: BorderSide(color: hairline))),
-                child: Row(children: [
-                  Container(
-                      width: 36,
-                      height: 36,
-                      decoration: panel(radius: 12),
-                      child: Center(
-                          child: SourceIcon(iconFor(e.label),
-                              size: 18, color: secondaryText))),
-                  const SizedBox(width: 12),
-                  Expanded(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                        Text(e.label, style: type(13, weight: FontWeight.w500)),
-                        const SizedBox(height: 1),
-                        Text(
-                            '${e.date.hour.toString().padLeft(2, '0')}:${e.date.minute.toString().padLeft(2, '0')}',
-                            style: type(11, color: tertiaryText))
-                      ])),
-                  Text('−${e.amount}', style: type(13, weight: FontWeight.w600))
-                ]))
-        ]);
-
-  String dateLabel(DateTime date) {
-    const weekdays = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    ];
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ];
-    return '${weekdays[date.weekday - 1]}, ${date.day} ${months[date.month - 1]}';
+  Future<void> stopBudget() async {
+    final active = data.active;
+    if (active == null || saving) return;
+    final yes = await confirmAction(
+        context,
+        'Stop and save budget?',
+        'Keep this budget in History. No more expenses can be added to it. You can still correct its entries.',
+        'Stop and save');
+    if (!yes || !mounted) return;
+    final closed = active.copyWith(closedAt: DateTime.now());
+    if (await replaceBudget(closed) && mounted) await newBudget(closed);
   }
 
-  Widget today() =>
+  BudgetRecord? get lastSaved =>
+      data.budgets.reversed.where((b) => b.closedAt != null).firstOrNull;
+  Widget heading(String label) => Padding(
+      padding: const EdgeInsets.fromLTRB(4, 4, 4, 20),
+      child: CurrencyText(label,
+          style: type(26, weight: FontWeight.w600, spacing: -.78)));
+  Widget stat(String label, String value, {Color color = primaryText}) =>
+      Container(
+          padding: const EdgeInsets.all(14),
+          decoration: panel(radius: 16),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            CurrencyText(label, style: type(11, color: secondaryText)),
+            const SizedBox(height: 6),
+            CurrencyText(value,
+                style: type(21, color: color, weight: FontWeight.w600))
+          ]));
+  Widget emptyHome() =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (expired) ...[
-          Text('Your budget period has ended.',
-              style: type(15, color: caution)),
-          FilledButton(
-              onPressed: () => setState(() => renewing = true),
-              child: const Text('Start new period')),
-          const SizedBox(height: 16)
-        ],
-        Padding(
-            padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
-            child: Row(children: [
-              Expanded(
-                  child: Text(dateLabel(DateTime.now()),
-                      style: type(13,
-                          color: secondaryText, weight: FontWeight.w500))),
-              for (var i = 0; i < 7; i++)
-                Container(
-                    width: 6,
-                    height: 6,
-                    margin: const EdgeInsets.only(left: 4),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: i == DateTime.now().weekday - 1
-                            ? mint
-                            : i < DateTime.now().weekday - 1
-                                ? const Color(0x8034D399)
-                                : surfaceHigh))
-            ])),
+        heading('Home'),
         const SizedBox(height: 36),
-        Text('$allowance',
-            key: const ValueKey('daily-allowance'),
+        const SourceIcon('banknote', size: 44, color: mint),
+        const SizedBox(height: 24),
+        CurrencyText('No active budget',
             textAlign: TextAlign.center,
-            style: type(88,
-                    weight: FontWeight.w600,
-                    spacing: -3.96,
-                    height: 1,
-                    color: allowance < 0 ? caution : mint)
-                .copyWith(fontFeatures: const [FontFeature.tabularFigures()])),
-        const SizedBox(height: 8),
-        Text('DZD today',
+            style: type(26, weight: FontWeight.w600)),
+        const SizedBox(height: 12),
+        CurrencyText('Your saved budgets and expenses are in History.',
+            textAlign: TextAlign.center, style: type(13, color: secondaryText)),
+        const SizedBox(height: 28),
+        FilledButton(
+            onPressed: saving ? null : () => newBudget(lastSaved),
+            child: const CurrencyText('Start new budget')),
+      ]);
+  Widget home(BudgetRecord b) {
+    final f = BudgetFigures(b, DateTime.now());
+    final usable = b.canLog(DateTime.now());
+    final future = daysBetween(DateTime.now(), b.start) > 0;
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Padding(
+          padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
+          child: Row(children: [
+            Expanded(
+                child: CurrencyText(dateText(DateTime.now()),
+                    style: type(13,
+                        color: secondaryText, weight: FontWeight.w500))),
+            CurrencyText('${f.remainingDays} days left',
+                style: type(11, color: tertiaryText))
+          ])),
+      const SizedBox(height: 30),
+      if (!usable) ...[
+        CurrencyText(
+            future
+                ? 'Budget starts ${dateText(b.start)}'
+                : 'Your budget period has ended.',
             textAlign: TextAlign.center,
-            style: type(16, color: secondaryText, weight: FontWeight.w500)),
-        const SizedBox(height: 10),
-        Text('$remaining DZD left · $remainingDays days remaining',
-            textAlign: TextAlign.center, style: type(11, color: tertiaryText)),
-        const SizedBox(height: 32),
-        GridView.count(
-            crossAxisCount: 3,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            mainAxisExtent: 98,
-            children: [
-              for (final item in [
-                ('Coffee', 50),
-                ('Sandwich', 150),
-                ('Bus', 30),
-                ('Water', 30),
-                ('Meal', 300)
-              ])
-                Semantics(
-                    label: '${item.$1}, ${item.$2} DZD',
-                    button: true,
-                    child: Material(
-                        color: surface,
-                        borderRadius: BorderRadius.circular(20),
-                        child: InkWell(
-                            onTap: saving || expired
-                                ? null
-                                : () => log(item.$1, item.$2),
-                            borderRadius: BorderRadius.circular(20),
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(8, 14, 8, 12),
-                                child: Column(children: [
-                                  SourceIcon(iconFor(item.$1), size: 24),
-                                  const SizedBox(height: 6),
-                                  Text('${item.$2}',
-                                      style: type(13,
-                                          weight: FontWeight.w600,
-                                          height: 1.5)),
-                                  const SizedBox(height: 6),
-                                  Text(item.$1,
-                                      style: type(10,
-                                          color: tertiaryText, height: 1.5))
-                                ]))))),
+            style: type(15, color: caution)),
+        const SizedBox(height: 16)
+      ],
+      FittedBox(
+          fit: BoxFit.scaleDown,
+          child: CurrencyText(f.leftToday == null ? '—' : money(f.leftToday!),
+              key: const ValueKey('left-today'),
+              style: type(80,
+                      weight: FontWeight.w600,
+                      spacing: -3.6,
+                      height: 1,
+                      color: (f.leftToday ?? 0) < 0 ? caution : mint)
+                  .copyWith(
+                      fontFeatures: const [FontFeature.tabularFigures()]))),
+      const SizedBox(height: 8),
+      CurrencyText('DA left today',
+          textAlign: TextAlign.center,
+          style: type(16, color: secondaryText, weight: FontWeight.w500)),
+      const SizedBox(height: 10),
+      CurrencyText('${b.balance} DA left in this budget',
+          textAlign: TextAlign.center, style: type(11, color: tertiaryText)),
+      if (usable && f.leftToday! <= 0)
+        Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: CurrencyText('Stop for today',
+                textAlign: TextAlign.center,
+                style: type(14, color: caution, weight: FontWeight.w600))),
+      const SizedBox(height: 24),
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Expanded(
+            child: stat('Original daily average', '${money(f.original)} DA',
+                color: mint)),
+        const SizedBox(width: 8),
+        Expanded(
+            child: stat("Today's limit",
+                f.todayLimit == null ? '—' : '${money(f.todayLimit!)} DA'))
+      ]),
+      const SizedBox(height: 8),
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Expanded(child: stat('Spent today', '${f.spentToday} DA')),
+        const SizedBox(width: 8),
+        Expanded(
+            child: stat(f.savings < 0 ? 'Over budget so far' : 'Saved so far',
+                '${money(f.savings.abs())} DA',
+                color: f.savings < 0 ? caution : primaryText))
+      ]),
+      const SizedBox(height: 8),
+      Container(
+          padding: const EdgeInsets.all(14),
+          decoration: panel(radius: 16),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            CurrencyText('Daily average from tomorrow',
+                style: type(11, color: secondaryText)),
+            const SizedBox(height: 6),
+            CurrencyText(
+                f.upcoming == null
+                    ? (future ? 'Not started' : 'No days remaining')
+                    : '${money(f.upcoming!)} DA',
+                key: const ValueKey('upcoming-average'),
+                style: type(21, weight: FontWeight.w600)),
+            const SizedBox(height: 4),
+            CurrencyText('Estimate. Updates with today’s spending.',
+                style: type(11, color: tertiaryText))
+          ])),
+      const SizedBox(height: 24),
+      sectionLabel('Usual expenses'),
+      if (data.products.isEmpty)
+        Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: TextButton(
+                onPressed: () => setState(() => tab = 2),
+                child: const CurrencyText(
+                    'Set up your usual products in Budget'))),
+      GridView.count(
+          crossAxisCount: 3,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          mainAxisExtent: 100,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            for (final p in data.products)
               Material(
-                  color: const Color(0x1F34D399),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: const BorderSide(color: Color(0x3D34D399))),
-                  child: InkWell(
-                      onTap: saving || expired ? null : customExpense,
-                      borderRadius: BorderRadius.circular(20),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SourceIcon('plus', color: mint),
-                            const SizedBox(height: 6),
-                            Text('Add',
-                                style: type(10,
-                                    color: mint, weight: FontWeight.w500))
-                          ])))
-            ]),
-        if (saved > 0 || goalTarget > 0)
-          Padding(
-              padding: const EdgeInsets.only(top: 22),
-              child: Material(
                   color: surface,
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(
-                      onTap: saving ? null : editBudget,
+                      onTap: !usable || saving
+                          ? null
+                          : () => log(p.name, p.price, p.icon),
                       borderRadius: BorderRadius.circular(20),
                       child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 16),
+                          padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
                           child: Column(children: [
-                            Row(children: [
-                              Expanded(
-                                  child: Text(
-                                      goalName.isEmpty
-                                          ? 'Your savings'
-                                          : goalName,
-                                      style: type(11, color: tertiaryText))),
-                              Text(
-                                  goalTarget > 0
-                                      ? '$saved / $goalTarget DZD'
-                                      : '$saved DZD',
-                                  style: type(13, weight: FontWeight.w600))
-                            ]),
-                            if (goalTarget > 0) ...[
-                              const SizedBox(height: 10),
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(3),
-                                  child: LinearProgressIndicator(
-                                      value: (saved / goalTarget).clamp(0, 1),
-                                      minHeight: 6,
-                                      color: mint,
-                                      backgroundColor: surfaceHigh,
-                                      semanticsLabel: 'Savings goal progress'))
-                            ]
-                          ]))))),
-        const SizedBox(height: 20),
-        sectionLabel("Today's log"),
-        entries(expenses
-            .where((e) => DateUtils.isSameDay(e.date, DateTime.now()))
-            .toList()),
-      ]);
-
-  Widget setting(String label, String value) => Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: Material(
-          color: surface,
-          borderRadius: BorderRadius.circular(16),
-          child: InkWell(
-              onTap: saving ? null : editBudget,
-              borderRadius: BorderRadius.circular(16),
-              child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 13, horizontal: 14),
-                  child: Row(children: [
-                    Expanded(
-                        child: Text(label,
-                            style: type(13, weight: FontWeight.w500))),
-                    Text(value, style: type(11, color: tertiaryText)),
-                    const SizedBox(width: 4),
-                    const SourceIcon('chevron-right',
-                        size: 14, color: tertiaryText)
-                  ])))));
-
-  Widget history() {
-    final all = [...pastExpenses, ...expenses]
-      ..sort((a, b) => b.date.compareTo(a.date));
-    final grouped = <DateTime, List<Expense>>{};
-    for (final expense in all) {
-      grouped
-          .putIfAbsent(DateUtils.dateOnly(expense.date), () => [])
-          .add(expense);
-    }
-    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Padding(
-          padding: const EdgeInsets.fromLTRB(4, 4, 4, 20),
-          child: Text('History',
-              style: type(26, weight: FontWeight.w600, spacing: -.78))),
-      if (all.isEmpty) entries([]),
-      for (final day in grouped.entries) ...[
-        Row(children: [
-          Expanded(
-              child: sectionLabel(
-                  '${DateUtils.isSameDay(day.key, DateTime.now()) ? 'Today' : DateUtils.isSameDay(day.key, DateTime.now().subtract(const Duration(days: 1))) ? 'Yesterday' : dateLabel(day.key).split(', ').first} · ${dateLabel(day.key).split(', ').last}')),
-          Text('${day.value.fold<int>(0, (sum, e) => sum + e.amount)} DZD',
-              style: type(11))
-        ]),
-        entries(day.value.reversed.toList()),
-        const SizedBox(height: 20)
-      ],
+                            SourceIcon(p.icon, size: 24),
+                            const SizedBox(height: 6),
+                            CurrencyText('${p.price}',
+                                style: type(13, weight: FontWeight.w600)),
+                            const SizedBox(height: 4),
+                            CurrencyText(p.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: type(10, color: tertiaryText))
+                          ])))),
+            Material(
+                color: const Color(0x1F34D399),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide.none),
+                child: InkWell(
+                    onTap: !usable || saving ? null : customExpense,
+                    borderRadius: BorderRadius.circular(20),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SourceIcon('plus', color: mint),
+                          const SizedBox(height: 6),
+                          CurrencyText('Add', style: type(11, color: mint))
+                        ])))
+          ]),
       const SizedBox(height: 24),
-      const Divider(color: hairline, height: 1),
-      const SizedBox(height: 20),
-      sectionLabel('Settings'),
-      setting(
-          'Period',
-          days == 30
-              ? 'Monthly'
-              : days == 7
-                  ? 'Weekly'
-                  : '$days days'),
-      setting('Fixed costs', '$fixedCosts DZD'),
-      setting('Savings goal', '$goalTarget DZD'),
-      Container(
-          padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 14),
-          decoration: panel(radius: 16),
-          child: Row(children: [
-            Expanded(child: Text('Language', style: type(13))),
-            Text('English', style: type(11, color: tertiaryText))
-          ])),
+      sectionLabel("Today's log"),
+      ExpenseRows(
+          budget: b,
+          onlyToday: true,
+          onEdit: (index) => editExpense(b.id, index)),
     ]);
   }
 
+  Widget
+      history() =>
+          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            heading('History'),
+            if (data.budgets.isEmpty)
+              CurrencyText('No budgets saved yet.',
+                  style: type(13, color: secondaryText)),
+            for (final b in data.budgets.reversed)
+              Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Material(
+                      color: surface,
+                      borderRadius: BorderRadius.circular(20),
+                      child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          leading: SourceIcon(b.closedAt == null ? 'banknote' : 'list',
+                              color: b.closedAt == null ? mint : secondaryText),
+                          title: CurrencyText(
+                              b.legacy
+                                  ? 'Earlier expenses'
+                                  : b.closedAt == null
+                                      ? 'Active budget'
+                                      : 'Saved budget',
+                              style: type(15, weight: FontWeight.w600)),
+                          subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: CurrencyText(
+                                  '${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${b.balance} DA left'}',
+                                  style: type(11, color: secondaryText))),
+                          trailing: const SourceIcon('chevron-right',
+                              size: 16, color: tertiaryText),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                  builder: (_) => BudgetHistoryPage(
+                                      getRecord: () => data.budgets
+                                          .firstWhere((r) => r.id == b.id),
+                                      transfer: () =>
+                                          data.budgets.where((r) => r.carriedFrom == b.id).fold<int>(0, (sum, r) => sum + r.carriedAmount),
+                                      onEditBudget: () => editBudget(b.id),
+                                      onEditExpense: (i) => editExpense(b.id, i))))))),
+          ]);
+  Widget budgetPage() =>
+      Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        heading('Budget'),
+        if (data.active case final b?) ...[
+          Container(
+              padding: const EdgeInsets.all(18),
+              decoration: panel(),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CurrencyText('${b.funds} DA',
+                        style: type(28, weight: FontWeight.w600)),
+                    const SizedBox(height: 6),
+                    CurrencyText(
+                        '${dateText(b.start)} – ${dateText(b.end)} · ${b.days} days',
+                        style: type(12, color: secondaryText)),
+                    const SizedBox(height: 8),
+                    CurrencyText('${b.balance} DA left',
+                        style: type(13, color: secondaryText)),
+                    if (b.carriedFrom != null)
+                      Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: CurrencyText(
+                              '${b.carriedAmount} DA carried from a saved budget.',
+                              style: type(11, color: tertiaryText))),
+                    const SizedBox(height: 16),
+                    OutlinedButton(
+                        onPressed: saving ? null : () => editBudget(b.id),
+                        child: const CurrencyText('Edit budget')),
+                    TextButton(
+                        onPressed: saving ? null : stopBudget,
+                        child: CurrencyText('Stop and save budget',
+                            style: type(14, color: caution))),
+                  ])),
+        ] else
+          FilledButton(
+              onPressed: saving ? null : () => newBudget(lastSaved),
+              child: const CurrencyText('Start new budget')),
+        const SizedBox(height: 24),
+        sectionLabel('Usual products'),
+        ProductList(
+            products: data.products,
+            enabled: !saving,
+            onChanged: (products) =>
+                save(BudgetData(budgets: data.budgets, products: products))),
+      ]);
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-            child: Center(
-                child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 560),
-                    child: prefs == null
-                        ? Center(
-                            child: loadError == null
-                                ? const CircularProgressIndicator()
-                                : Text(loadError!))
-                        : budget == null || renewing
-                            ? BudgetOnboarding(
-                                initialDays: days,
-                                renewing: renewing,
-                                onSave: startPeriod,
-                                onCancel: () =>
-                                    setState(() => renewing = false))
-                            : ListView(
-                                key: ValueKey('$tab-$renewing'),
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 8, 20, 20),
-                                children: [
-                                    if (tab == 0)
-                                      today()
-                                    else if (tab == 1)
-                                      PriceCheck(
-                                          allowance: allowance,
-                                          expired: expired,
-                                          onBack: () => setState(() => tab = 0))
-                                    else
-                                      history()
-                                  ])))),
-        bottomNavigationBar: budget == null || renewing
-            ? null
-            : Container(
-                decoration: const BoxDecoration(
-                    color: background,
-                    border: Border(top: BorderSide(color: hairline))),
-                child: SafeArea(
-                    top: false,
-                    child: Padding(
+      body: SafeArea(
+          child: Center(
+              child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 560),
+                  child: prefs == null
+                      ? Center(
+                          child: loadError == null
+                              ? const CircularProgressIndicator()
+                              : Padding(
+                                  padding: const EdgeInsets.all(24),
+                                  child: CurrencyText(loadError!)))
+                      : creating
+                          ? BudgetOnboarding(
+                              initialFunds: carrySource?.balance,
+                              products: data.products,
+                              onSave: startBudget,
+                              onCancel: () => setState(() {
+                                    creating = false;
+                                    carrySource = null;
+                                  }))
+                          : ListView(
+                              key: ValueKey(tab),
+                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+                              children: [
+                                  if (tab == 0)
+                                    data.active == null
+                                        ? emptyHome()
+                                        : home(data.active!)
+                                  else if (tab == 1)
+                                    history()
+                                  else
+                                    budgetPage()
+                                ])))),
+      bottomNavigationBar: prefs == null || creating
+          ? null
+          : Container(
+              decoration: const BoxDecoration(
+                color: background,
+              ),
+              child: SafeArea(
+                  top: false,
+                  child: Padding(
                       padding: const EdgeInsets.fromLTRB(24, 14, 24, 10),
                       child: Row(children: [
                         for (var i = 0; i < 3; i++)
                           Expanded(
-                            child: InkWell(
-                              onTap: () => setState(() => tab = i),
-                              borderRadius: BorderRadius.circular(10),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 12),
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      SourceIcon(['home', 'search', 'list'][i],
-                                          size: 22,
-                                          color:
-                                              tab == i ? mint : tertiaryText),
-                                      const SizedBox(height: 5),
-                                      Text(['Today', 'Check', 'History'][i],
-                                          style: type(10,
-                                              weight: FontWeight.w500,
-                                              color: tab == i
-                                                  ? mint
-                                                  : tertiaryText)),
-                                    ]),
-                              ),
-                            ),
-                          ),
-                      ]),
-                    )),
-              ),
-      );
+                              child: InkWell(
+                                  onTap: () => setState(() => tab = i),
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 4, horizontal: 12),
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SourceIcon(
+                                                ['home', 'list', 'banknote'][i],
+                                                size: 22,
+                                                color: tab == i
+                                                    ? mint
+                                                    : tertiaryText),
+                                            const SizedBox(height: 5),
+                                            CurrencyText(
+                                                [
+                                                  'Home',
+                                                  'History',
+                                                  'Budget'
+                                                ][i],
+                                                style: type(10,
+                                                    weight: FontWeight.w500,
+                                                    color: tab == i
+                                                        ? mint
+                                                        : tertiaryText))
+                                          ]))))
+                      ])))));
+}
+
+class ExpenseRows extends StatelessWidget {
+  const ExpenseRows(
+      {super.key,
+      required this.budget,
+      required this.onEdit,
+      this.onlyToday = false});
+  final BudgetRecord budget;
+  final ValueChanged<int> onEdit;
+  final bool onlyToday;
+  @override
+  Widget build(BuildContext context) {
+    final indexed = budget.expenses
+        .asMap()
+        .entries
+        .where(
+            (e) => !onlyToday || daysBetween(e.value.date, DateTime.now()) == 0)
+        .toList()
+      ..sort((a, b) => b.value.date.compareTo(a.value.date));
+    final groups = <DateTime, List<MapEntry<int, Expense>>>{};
+    for (final e in indexed) {
+      groups.putIfAbsent(dayOnly(e.value.date), () => []).add(e);
+    }
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      if (indexed.isEmpty)
+        Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
+            child: CurrencyText('No expenses yet.',
+                style: type(13, color: secondaryText))),
+      for (final group in groups.entries) ...[
+        if (!onlyToday)
+          Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Row(children: [
+                Expanded(child: sectionLabel(dateText(group.key))),
+                CurrencyText(
+                    '${group.value.fold<int>(0, (sum, e) => sum + e.value.amount)} DA',
+                    style: type(11))
+              ])),
+        for (final entry in group.value)
+          InkWell(
+              onTap: () => onEdit(entry.key),
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+                  decoration: const BoxDecoration(),
+                  child: Row(children: [
+                    Container(
+                        width: 36,
+                        height: 36,
+                        decoration: panel(radius: 12),
+                        child: Center(
+                            child: SourceIcon(entry.value.icon,
+                                size: 18, color: secondaryText))),
+                    const SizedBox(width: 12),
+                    Expanded(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                          CurrencyText(entry.value.label,
+                              style: type(13, weight: FontWeight.w500)),
+                          const SizedBox(height: 1),
+                          CurrencyText(
+                              '${entry.value.date.hour.toString().padLeft(2, '0')}:${entry.value.date.minute.toString().padLeft(2, '0')} · tap to edit',
+                              style: type(11, color: tertiaryText))
+                        ])),
+                    CurrencyText('−${entry.value.amount}',
+                        style: type(13, weight: FontWeight.w600))
+                  ]))),
+      ],
+    ]);
+  }
+}
+
+class BudgetHistoryPage extends StatefulWidget {
+  const BudgetHistoryPage(
+      {super.key,
+      required this.getRecord,
+      required this.onEditBudget,
+      required this.onEditExpense,
+      required this.transfer});
+  final BudgetRecord Function() getRecord;
+  final int Function() transfer;
+  final Future<void> Function() onEditBudget;
+  final Future<void> Function(int) onEditExpense;
+  @override
+  State<BudgetHistoryPage> createState() => _BudgetHistoryPageState();
+}
+
+class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
+  @override
+  Widget build(BuildContext context) {
+    final b = widget.getRecord();
+    final transfer = widget.transfer();
+    return Scaffold(
+        appBar: editorBar(
+            context, b.closedAt == null ? 'Active budget' : 'Saved budget'),
+        body: ListView(padding: const EdgeInsets.all(20), children: [
+          CurrencyText('${dateText(b.start)} – ${dateText(b.end)}',
+              style: type(13, color: secondaryText)),
+          const SizedBox(height: 12),
+          CurrencyText(
+              b.legacy
+                  ? 'Original budget unavailable'
+                  : '${b.funds} DA budget · ${b.balance} DA left',
+              style: type(20, weight: FontWeight.w600)),
+          const SizedBox(height: 8),
+          CurrencyText('${b.spent} DA spent',
+              style: type(13, color: secondaryText)),
+          if (b.closedAt != null)
+            CurrencyText('Saved ${dateText(b.closedAt!)}',
+                style: type(11, color: tertiaryText)),
+          if (transfer > 0)
+            Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: CurrencyText(
+                    '$transfer DA carried to the next budget. This transfer stays fixed after corrections.',
+                    style: type(12, color: secondaryText))),
+          const SizedBox(height: 16),
+          OutlinedButton(
+              onPressed: () async {
+                await widget.onEditBudget();
+                if (mounted) setState(() {});
+              },
+              child: const CurrencyText('Edit budget')),
+          const SizedBox(height: 20),
+          sectionLabel('Expenses'),
+          ExpenseRows(
+              budget: b,
+              onEdit: (i) async {
+                await widget.onEditExpense(i);
+                if (mounted) setState(() {});
+              }),
+        ]));
+  }
 }

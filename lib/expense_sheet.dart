@@ -35,18 +35,18 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                         decoration:
                             panel(radius: 2, color: const Color(0x995B6472)))),
                 const SizedBox(height: 20),
-                Text('Log an expense',
+                CurrencyText('Log an expense',
                     style: type(20, weight: FontWeight.w600)),
                 const SizedBox(height: 4),
                 Row(children: [
                   Expanded(
-                      child: Text(
+                      child: CurrencyText(
                           'Today · ${DateTime.now().day}/${DateTime.now().month}',
                           style: type(11, color: tertiaryText))),
                   if (!details)
                     InkWell(
                         onTap: () => setState(() => details = true),
-                        child: Text('Add a note',
+                        child: CurrencyText('Add a note',
                             style: type(11, color: secondaryText)))
                 ]),
                 const SizedBox(height: 20),
@@ -58,9 +58,11 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                               text: amount.isEmpty ? '0' : amount,
                               style: type(52,
                                   weight: FontWeight.w600, spacing: -2)),
-                          TextSpan(
-                              text: ' DZD',
-                              style: type(20, color: tertiaryText))
+                          const TextSpan(text: ' '),
+                          const WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child:
+                                  CurrencySymbol(size: 22, color: tertiaryText))
                         ]),
                         textAlign: TextAlign.center)),
                 AmountKeypad(
@@ -85,7 +87,8 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 if (error != null)
                   Padding(
                       padding: const EdgeInsets.only(bottom: 8),
-                      child: Text(error!, style: type(13, color: caution))),
+                      child: CurrencyText(error!,
+                          style: type(13, color: caution))),
                 const SizedBox(height: 12),
                 FilledButton(
                     onPressed: () {
@@ -99,6 +102,6 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                         value
                       ));
                     },
-                    child: const Text('Log it')),
+                    child: const CurrencyText('Log it')),
               ])));
 }

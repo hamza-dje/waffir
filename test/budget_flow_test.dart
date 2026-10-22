@@ -1,187 +1,254 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wafir/main.dart';
+import 'package:wafir/budget_data.dart';
+import 'package:wafir/design.dart';
 
-Future<void> enterAmount(WidgetTester tester, String amount) async {
-  for (final digit in amount.split('')) {
+Future<void> tap(WidgetTester tester, String text, {bool last = false}) async {
+  final finder = last ? find.text(text).last : find.text(text).first;
+  await tester.ensureVisible(finder);
+  await tester.pumpAndSettle();
+  await tester.tap(finder);
+  await tester.pumpAndSettle();
+}
+
+Future<void> field(WidgetTester tester, String label, String value) async {
+  final finder = find.widgetWithText(TextFormField, label);
+  await tester.ensureVisible(finder);
+  await tester.enterText(finder, value);
+  await tester.pumpAndSettle();
+}
+
+Future<void> digits(WidgetTester tester, String value) async {
+  for (final digit in value.split('')) {
     await tester.tap(find.widgetWithText(TextButton, digit));
     await tester.pump();
   }
 }
 
+String figure(WidgetTester tester, String key) =>
+    tester.widget<CurrencyText>(find.byKey(ValueKey(key))).data;
+Future<BudgetData> stored() async => BudgetData.decode(
+    (await SharedPreferences.getInstance()).getString('budget_state_v2')!);
+Future<void> boot(WidgetTester tester, Map<String, Object> values) async {
+  tester.view.physicalSize = const Size(390, 900);
+  tester.view.devicePixelRatio = 1;
+  addTearDown(tester.view.reset);
+  SharedPreferences.setMockInitialValues(values);
+  await tester.pumpWidget(const WafirApp());
+  await tester.pumpAndSettle();
+}
+
+BudgetRecord seed({int funds = 3000, List<Expense> expenses = const []}) {
+  final start = dayOnly(DateTime.now());
+  return BudgetRecord(
+      id: 'seed',
+      funds: funds,
+      start: start,
+      end: DateTime(start.year, start.month, start.day + 29),
+      expenses: expenses);
+}
+
+Future<void> pickDate(WidgetTester tester, String label, DateTime value) async {
+  await tap(tester, label);
+  await tester.tap(find.byTooltip('Switch to input'));
+  await tester.pumpAndSettle();
+  await tester.enterText(
+      find.descendant(
+          of: find.byType(DatePickerDialog),
+          matching: find.byType(TextFormField)),
+      '${value.month}/${value.day}/${value.year}');
+  await tap(tester, 'OK');
+}
+
 void main() {
-  testWidgets('custom expenses reject invalid input and persist valid input',
+  testWidgets(
+      'onboarding products, fixed daily limit, product snapshots, and corrections survive restart',
       (tester) async {
-    tester.view.physicalSize = const Size(390, 1000);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    SharedPreferences.setMockInitialValues({
-      'budget_state': jsonEncode({
-        'budget': 3000,
-        'days': 30,
-        'start': DateTime.now().toIso8601String(),
-        'expenses': [],
-      })
-    });
+    await boot(tester, {});
+    await tap(tester, 'Continue');
+    await digits(tester, '3000');
+    await tap(tester, 'Continue');
+    await tap(tester, 'Add product');
+    await tap(tester, 'Save product');
+    expect(find.text('Enter a name'), findsOneWidget);
+    expect(find.text('Enter a positive whole amount'), findsOneWidget);
+    await field(tester, 'Product name', 'Tea');
+    await field(tester, 'Usual price', '50');
+    await tester.tap(
+        find.byWidgetPredicate((w) => w is SourceIcon && w.name == 'coffee'));
+    await tester.pump();
+    await tap(tester, 'Save product');
+    await tap(tester, 'Start budget');
+    expect(figure(tester, 'left-today'), '100');
+    expect(find.text('Check'), findsNothing);
+    expect(find.text('Coffee'), findsNothing);
+    await tap(tester, 'Tea');
+    expect(figure(tester, 'left-today'), '50');
+    expect(figure(tester, 'upcoming-average'), '101.72 DA');
+    expect((await stored()).active!.expenses.single.icon, 'coffee');
+    await tap(tester, 'Budget', last: true);
+    await tap(tester, 'Tea');
+    await field(tester, 'Usual price', '75');
+    await tap(tester, 'Save product');
+    expect((await stored()).active!.expenses.single.amount, 50);
+    await tap(tester, 'Home', last: true);
+    await tap(tester, 'Tea');
+    expect(figure(tester, 'left-today'), '-25');
+    expect(find.text('Stop for today'), findsOneWidget);
+    await tap(tester, 'History', last: true);
+    await tap(tester, 'Active budget');
+    await tap(tester, 'Tea');
+    await field(tester, 'Expense name', 'Tea corrected');
+    await field(tester, 'Amount', '30');
+    await tap(tester, 'Save expense');
+    expect((await stored()).active!.spent, 80);
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    await tap(tester, 'Home', last: true);
+    expect(figure(tester, 'left-today'), '20');
+    await tester.pumpWidget(const SizedBox());
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Add'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Log it'));
-    await tester.pumpAndSettle();
-    expect(find.text('Enter a positive whole amount'), findsOneWidget);
-    await enterAmount(tester, '120');
-    await tester.tap(find.text('Add a note'));
-    await tester.pumpAndSettle();
-    await tester.enterText(
-        find.widgetWithText(TextField, 'What was it for?'), 'Books');
-    await tester.tap(find.text('Log it'));
-    await tester.pumpAndSettle();
-    expect(find.text('96'), findsOneWidget);
-    expect(find.text('Books'), findsOneWidget);
-    final store = await SharedPreferences.getInstance();
-    final data =
-        jsonDecode(store.getString('budget_state')!) as Map<String, dynamic>;
-    expect((data['expenses'] as List).single['amount'], 120);
+    expect(figure(tester, 'left-today'), '20');
+    expect((await stored()).products.single.price, 75);
+    await tap(tester, 'Budget', last: true);
+    await tap(tester, 'Tea');
+    await tap(tester, 'Remove product');
+    await tap(tester, 'Remove');
+    expect((await stored()).products, isEmpty);
+    expect((await stored()).active!.spent, 80);
   });
   testWidgets(
-      'edit reserves without counting expenses twice, then restore goal',
+      'stop, carry over, correct saved history, and delete without changing transfer',
       (tester) async {
-    tester.view.physicalSize = const Size(390, 1000);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    SharedPreferences.setMockInitialValues({
-      'budget_state': jsonEncode({
-        'budget': 9000,
-        'days': 30,
-        'start': DateTime.now().toIso8601String(),
-        'expenses': [
-          {
-            'label': 'Coffee',
-            'amount': 50,
-            'date': DateTime.now().toIso8601String()
-          }
-        ],
-      })
+    final old = seed(expenses: [Expense('Old expense', 50, DateTime.now())]);
+    await boot(tester, {
+      'budget_state_v2': BudgetData(budgets: [old]).encode()
     });
+    await tap(tester, 'Budget', last: true);
+    await tap(tester, 'Stop and save budget');
+    await tap(tester, 'Stop and save');
+    await tap(tester, 'Use remaining money');
+    await tap(tester, '7 days');
+    await tap(tester, 'Continue');
+    await tap(tester, 'Continue');
+    await tap(tester, 'Skip for now');
+    var data = await stored();
+    expect(data.active!.funds, 2950);
+    expect(data.active!.days, 7);
+    expect(data.active!.carriedFrom, 'seed');
+    expect(data.budgets.first.closedAt, isNotNull);
+    await tap(tester, 'History', last: true);
+    await tap(tester, 'Saved budget');
+    await tap(tester, 'Old expense');
+    await field(tester, 'Amount', '100');
+    await tap(tester, 'Save expense');
+    data = await stored();
+    expect(data.budgets.first.balance, 2900);
+    expect(data.active!.funds, 2950);
+    await tap(tester, 'Old expense');
+    await tap(tester, 'Delete expense');
+    await tap(tester, 'Cancel');
+    expect((await stored()).budgets.first.expenses, hasLength(1));
+    await tap(tester, 'Delete expense');
+    await tap(tester, 'Delete');
+    data = await stored();
+    expect(data.budgets.first.expenses, isEmpty);
+    expect(data.active!.carriedAmount, 2950);
+    await tester.pumpWidget(const SizedBox());
     await tester.pumpWidget(const WafirApp());
     await tester.pumpAndSettle();
-    await tester.tap(find.text('History'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Fixed costs'));
-    await tester.pumpAndSettle();
-    Future<void> field(String label, String value) async {
-      final finder = find.widgetWithText(TextFormField, label);
-      await tester.ensureVisible(finder);
-      await tester.enterText(finder, value);
-    }
-
-    await field('Fixed costs', '9500');
-    await tester.ensureVisible(find.text('Save budget'));
-    await tester.tap(find.text('Save budget'));
-    await tester.pumpAndSettle();
-    expect(find.text('Fixed costs and savings exceed total funds.'),
+    expect((await stored()).active!.funds, 2950);
+  });
+  testWidgets(
+      'budget and expense dates recalculate history and reject excluded entries',
+      (tester) async {
+    final now = dayOnly(DateTime.now()),
+        yesterday = dayOnly(DateTime.now().subtract(const Duration(days: 1)));
+    final b = seed(expenses: [Expense('Past meal', 200, yesterday)]).copyWith(
+        start: yesterday,
+        end: DateTime(yesterday.year, yesterday.month, yesterday.day + 29));
+    await boot(tester, {
+      'budget_state_v2': BudgetData(budgets: [b]).encode()
+    });
+    expect(figure(tester, 'left-today'), '96.55');
+    await tap(tester, 'Budget', last: true);
+    await tap(tester, 'Edit budget');
+    await pickDate(tester, 'Start date', now);
+    await tap(tester, 'Save budget');
+    expect(
+        find.text(
+            'These dates exclude an expense. Correct that expense first.'),
         findsOneWidget);
-    await field('Fixed costs', '2500');
-    await field('Savings reserved', '1000');
-    await field('Savings goal name', 'Headphones');
-    await field('Goal target', '2000');
-    await tester.ensureVisible(find.text('Save budget'));
-    await tester.tap(find.text('Save budget'));
+    expect((await stored()).active!.days, 30);
+    await pickDate(tester, 'Start date', yesterday);
+    await field(tester, 'Total funds', '6000');
+    await tap(tester, 'Save budget');
+    expect((await stored()).active!.funds, 6000);
+    await tap(tester, 'History', last: true);
+    await tap(tester, 'Active budget');
+    await tap(tester, 'Past meal');
+    await pickDate(tester, 'Expense date', now);
+    await tap(tester, 'Save expense');
+    expect(daysBetween((await stored()).active!.expenses.single.date, now), 0);
+    await tester.tap(find.byTooltip('Back'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Today'));
-    await tester.pumpAndSettle();
-    expect(find.text('181'), findsOneWidget); // (9000 - 2500 - 1000 - 50) / 30.
-    expect(find.text('1000 / 2000 DZD'), findsOneWidget);
-    await tester.pumpWidget(const SizedBox());
-    await tester.pumpWidget(const WafirApp());
-    await tester.pumpAndSettle();
-    expect(find.text('181'), findsOneWidget);
-    expect(find.text('Headphones'), findsOneWidget);
+    await tap(tester, 'Home', last: true);
+    expect(figure(tester, 'left-today'), '6.90'); // 6000/29 - 200.
   });
-  testWidgets('renew an expired period and retain history after restart',
+  testWidgets(
+      'legacy funds migrate without reserves or presets and the old data stays intact',
       (tester) async {
-    tester.view.physicalSize = const Size(390, 1000);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    final oldStart = DateTime.now().subtract(const Duration(days: 7));
-    SharedPreferences.setMockInitialValues({
-      'budget_state': jsonEncode({
-        'budget': 700,
-        'days': 7,
-        'start': oldStart.toIso8601String(),
-        'expenses': [
-          {
-            'label': 'Old expense',
-            'amount': 70,
-            'date': oldStart.toIso8601String()
-          }
-        ],
-      })
+    final now = DateTime.now();
+    final raw = jsonEncode({
+      'budget': 3000,
+      'fixedCosts': 500,
+      'saved': 200,
+      'days': 30,
+      'start': now.toIso8601String(),
+      'expenses': [Expense('Legacy entry', 50, now).toJson()],
+      'pastExpenses': []
     });
-    await tester.pumpWidget(const WafirApp());
-    await tester.pumpAndSettle();
-    expect(find.text('Your budget period has ended.'), findsOneWidget);
-    await tester.tap(find.text('Coffee'));
-    await tester.pumpAndSettle();
-    final before = await SharedPreferences.getInstance();
+    await boot(tester, {'budget_state': raw});
+    expect(figure(tester, 'left-today'), '50');
+    expect(find.text('Coffee'), findsNothing);
+    await tap(tester, 'Add');
+    await digits(tester, '20');
+    await tap(tester, 'Log it');
+    expect(figure(tester, 'left-today'), '30');
+    expect((await stored()).active!.spent, 70);
     expect(
-        (jsonDecode(before.getString('budget_state')!)['expenses'] as List)
-            .length,
-        1);
-    await tester.tap(find.text('Start new period'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Continue'));
-    await tester.pumpAndSettle();
-    await enterAmount(tester, '1400');
-    await tester.tap(find.text('Continue'));
-    await tester.pumpAndSettle();
-    expect(find.text('200'), findsOneWidget);
-    await tester.tap(find.text('History'));
-    await tester.pumpAndSettle();
-    expect(find.text('Old expense'), findsOneWidget);
-    await tester.pumpWidget(const SizedBox());
-    await tester.pumpWidget(const WafirApp());
-    await tester.pumpAndSettle();
-    expect(find.text('200'), findsOneWidget);
-    await tester.tap(find.text('History'));
-    await tester.pumpAndSettle();
-    expect(find.text('Old expense'), findsOneWidget);
+        (await SharedPreferences.getInstance()).getString('budget_state'), raw);
+    await tap(tester, 'Budget', last: true);
+    expect(find.text('Fixed costs'), findsNothing);
+    expect(find.text('Savings reserved'), findsNothing);
   });
-  testWidgets('budget, expense and history survive app restart', (
-    tester,
-  ) async {
-    tester.view.physicalSize = const Size(390, 1000);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    SharedPreferences.setMockInitialValues({});
-    await tester.pumpWidget(const WafirApp());
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Continue'));
-    await tester.pumpAndSettle();
-    await enterAmount(tester, '9000');
-    await tester.tap(find.text('Continue'));
-    await tester.pumpAndSettle();
-    expect(
-        tester.widget<Text>(find.byKey(const ValueKey('daily-allowance'))).data,
-        '300');
-    await tester.tap(find.text('Coffee').first);
-    await tester.pumpAndSettle();
-    expect(find.text('298'), findsOneWidget);
-    expect(find.text('Coffee'), findsNWidgets(2));
-    await tester.tap(find.text('History'));
-    await tester.pumpAndSettle();
-    expect(find.text('−50'), findsOneWidget);
-    await tester.pumpWidget(const SizedBox());
-    await tester.pumpWidget(const WafirApp());
-    await tester.pumpAndSettle();
-    expect(find.text('298'), findsOneWidget);
-    expect(find.text('Coffee'), findsNWidgets(2));
+  testWidgets('a final-day overspent budget cannot carry a negative balance',
+      (tester) async {
+    final now = dayOnly(DateTime.now());
+    final b = seed(funds: 100, expenses: [Expense('Food', 150, now)])
+        .copyWith(end: now);
+    await boot(tester, {
+      'budget_state_v2': BudgetData(budgets: [b]).encode()
+    });
+    expect(figure(tester, 'left-today'), '-50');
+    expect(figure(tester, 'upcoming-average'), 'No days remaining');
+    await tap(tester, 'Budget', last: true);
+    await tap(tester, 'Stop and save budget');
+    await tap(tester, 'Stop and save');
+    expect(find.text('Use remaining money'), findsNothing);
+    expect(find.text('Choose your\nbudget dates'), findsOneWidget);
+    await tap(tester, 'Cancel');
+    expect((await stored()).active, isNull);
+  });
+  testWidgets('invalid stored data shows an error without replacing it',
+      (tester) async {
+    await boot(tester, {'budget_state_v2': 'bad json'});
+    expect(find.textContaining('Could not load your budget'), findsOneWidget);
+    expect((await SharedPreferences.getInstance()).getString('budget_state_v2'),
+        'bad json');
   });
 }

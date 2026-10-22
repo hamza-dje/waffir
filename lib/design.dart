@@ -50,3 +50,56 @@ Widget sectionLabel(String text) => Padding(
 
 BoxDecoration panel({double radius = 20, Color color = surface}) =>
     BoxDecoration(color: color, borderRadius: BorderRadius.circular(radius));
+
+class CurrencySymbol extends StatelessWidget {
+  const CurrencySymbol({super.key, this.size = 18, this.color});
+  final double size;
+  final Color? color;
+  @override
+  Widget build(BuildContext context) => SvgPicture.asset('assets/dzd.svg',
+      width: size * 624 / 993,
+      height: size,
+      excludeFromSemantics: true,
+      colorFilter: ColorFilter.mode(
+          color ?? DefaultTextStyle.of(context).style.color ?? primaryText,
+          BlendMode.srcIn));
+}
+
+// Keep currency accessible as text while drawing the supplied vector mark.
+class CurrencyText extends StatelessWidget {
+  const CurrencyText(this.data,
+      {super.key, this.style, this.textAlign, this.maxLines, this.overflow});
+  final String data;
+  final TextStyle? style;
+  final TextAlign? textAlign;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  @override
+  Widget build(BuildContext context) {
+    final matches = RegExp(r'\b(?:DZD|DA)\b').allMatches(data).toList();
+    if (matches.isEmpty) {
+      return Text(data,
+          style: style,
+          textAlign: textAlign,
+          maxLines: maxLines,
+          overflow: overflow);
+    }
+    final spans = <InlineSpan>[];
+    var cursor = 0;
+    for (final match in matches) {
+      spans.add(TextSpan(text: data.substring(cursor, match.start)));
+      spans.add(WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: CurrencySymbol(
+              size: (style?.fontSize ?? 14) * 1.1, color: style?.color)));
+      cursor = match.end;
+    }
+    spans.add(TextSpan(text: data.substring(cursor)));
+    return Text.rich(TextSpan(children: spans),
+        semanticsLabel: data,
+        style: style,
+        textAlign: textAlign,
+        maxLines: maxLines,
+        overflow: overflow);
+  }
+}
