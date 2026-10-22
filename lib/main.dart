@@ -174,24 +174,27 @@ class _BudgetScreenState extends State<BudgetScreen>
     }
   }
 
-  Future<void> log(String label, int amount, String icon) async {
+  Future<void> log(String label, int amount, String icon,
+      [DateTime? date]) async {
     final active = data.active;
     if (active == null || !active.canLog(DateTime.now()) || saving) return;
     await save(data.replace(active.copyWith(expenses: [
       ...active.expenses,
-      Expense(label, amount, DateTime.now(), icon)
+      Expense(label, amount, date ?? DateTime.now(), icon)
     ])));
   }
 
   Future<void> customExpense() async {
-    final result = await showModalBottomSheet<(String, int)>(
+    final result = await showModalBottomSheet<Expense>(
         context: context,
         isScrollControlled: true,
         backgroundColor: surface,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
         builder: (_) => const ExpenseSheet());
-    if (result != null && mounted) await log(result.$1, result.$2, 'banknote');
+    if (result != null && mounted) {
+      await log(result.label, result.amount, result.icon, result.date);
+    }
   }
 
   Future<bool> replaceBudget(BudgetRecord record) async {
@@ -397,6 +400,11 @@ class _BudgetScreenState extends State<BudgetScreen>
                 textAlign: TextAlign.center,
                 style: type(14, color: caution, weight: FontWeight.w600))),
       const SizedBox(height: 24),
+      FilledButton.icon(
+          onPressed: !usable || saving ? null : customExpense,
+          icon: const SourceIcon('plus', color: Color(0xFF06251A)),
+          label: const Text('Add expense')),
+      const SizedBox(height: 16),
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
             child: stat('Original daily average', '${money(f.original)} DA',
@@ -440,62 +448,41 @@ class _BudgetScreenState extends State<BudgetScreen>
       CurrencyText('Estimates. Update with today’s spending.',
           style: type(11, color: tertiaryText)),
       const SizedBox(height: 24),
-      sectionLabel('Usual expenses'),
-      if (data.products.isEmpty)
-        Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: TextButton(
-                onPressed: () => setState(() => tab = 2),
-                child: const CurrencyText(
-                    'Set up your usual products in Budget'))),
-      GridView.count(
-          crossAxisCount: 3,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          mainAxisExtent: 100 * MediaQuery.textScalerOf(context).scale(1),
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            for (final p in data.products)
-              Material(
-                  color: surface,
-                  borderRadius: BorderRadius.circular(20),
-                  child: InkWell(
-                      onTap: !usable || saving
-                          ? null
-                          : () => log(p.name, p.price, p.icon),
-                      borderRadius: BorderRadius.circular(20),
-                      child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
-                          child: Column(children: [
-                            Opacity(
-                                opacity: .55,
-                                child: SourceIcon(p.icon, size: 24)),
-                            const SizedBox(height: 6),
-                            CurrencyText('${p.price} DA',
-                                style: type(13, weight: FontWeight.w600)),
-                            const SizedBox(height: 4),
-                            CurrencyText(p.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: type(10, color: tertiaryText))
-                          ])))),
-            Material(
-                color: const Color(0x1F34D399),
-                shape: RoundedRectangleBorder(
+      if (data.products.isNotEmpty) sectionLabel('Usual expenses'),
+      if (data.products.isNotEmpty)
+        GridView.count(
+            crossAxisCount: 3,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            mainAxisExtent: 100 * MediaQuery.textScalerOf(context).scale(1),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              for (final p in data.products)
+                Material(
+                    color: surface,
                     borderRadius: BorderRadius.circular(20),
-                    side: BorderSide.none),
-                child: InkWell(
-                    onTap: !usable || saving ? null : customExpense,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SourceIcon('plus', color: mint),
-                          const SizedBox(height: 6),
-                          CurrencyText('Add', style: type(11, color: mint))
-                        ])))
-          ]),
+                    child: InkWell(
+                        onTap: !usable || saving
+                            ? null
+                            : () => log(p.name, p.price, p.icon),
+                        borderRadius: BorderRadius.circular(20),
+                        child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
+                            child: Column(children: [
+                              Opacity(
+                                  opacity: .55,
+                                  child: SourceIcon(p.icon, size: 24)),
+                              const SizedBox(height: 6),
+                              CurrencyText('${p.price} DA',
+                                  style: type(13, weight: FontWeight.w600)),
+                              const SizedBox(height: 4),
+                              CurrencyText(p.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: type(10, color: tertiaryText))
+                            ])))),
+            ]),
       const SizedBox(height: 24),
       sectionLabel("Today's log"),
       ExpenseRows(
@@ -505,49 +492,51 @@ class _BudgetScreenState extends State<BudgetScreen>
     ]);
   }
 
-  Widget
-      history() =>
-          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            heading('History'),
-            if (data.budgets.isEmpty)
-              CurrencyText('No budgets saved yet.',
-                  style: type(13, color: secondaryText)),
-            for (final b in data.budgets.reversed)
-              Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Material(
-                      color: surface,
-                      borderRadius: BorderRadius.circular(20),
-                      child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          leading: SourceIcon(b.closedAt == null ? 'banknote' : 'list',
-                              color: b.closedAt == null ? mint : secondaryText),
-                          title: CurrencyText(
-                              b.legacy
-                                  ? 'Earlier expenses'
-                                  : b.closedAt == null
-                                      ? 'Active budget'
-                                      : 'Saved budget',
-                              style: type(15, weight: FontWeight.w600)),
-                          subtitle: Padding(
-                              padding: const EdgeInsets.only(top: 4),
-                              child: CurrencyText(
-                                  '${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${b.balance} DA left'}',
-                                  style: type(11, color: secondaryText))),
-                          trailing: const SourceIcon('chevron-right',
-                              size: 16, color: tertiaryText),
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                  builder: (_) => BudgetHistoryPage(
-                                      getRecord: () => data.budgets
-                                          .firstWhere((r) => r.id == b.id),
-                                      transfer: () =>
-                                          data.budgets.where((r) => r.carriedFrom == b.id).fold<int>(0, (sum, r) => sum + r.carriedAmount),
-                                      onEditBudget: () => editBudget(b.id),
-                                      onEditExpense: (i) => editExpense(b.id, i))))))),
-          ]);
+  Widget history() =>
+      Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        heading('History'),
+        if (data.budgets.isEmpty)
+          CurrencyText('No budgets saved yet.',
+              style: type(13, color: secondaryText)),
+        for (final b in data.budgets.reversed)
+          Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Material(
+                  color: b.closedAt == null ? const Color(0x2634D399) : surface,
+                  borderRadius: BorderRadius.circular(20),
+                  child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 10),
+                      leading: SourceIcon(b.closedAt == null ? 'banknote' : 'list',
+                          color: b.closedAt == null ? mint : secondaryText),
+                      title: CurrencyText(
+                          b.legacy
+                              ? 'Earlier expenses'
+                              : b.closedAt == null
+                                  ? 'Active budget'
+                                  : 'Saved budget',
+                          style: type(15,
+                              weight: FontWeight.w600,
+                              color: b.closedAt == null ? mint : primaryText)),
+                      subtitle: Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: CurrencyText(
+                              '${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${b.balance} DA left'}',
+                              style: type(11, color: secondaryText))),
+                      trailing: const SourceIcon('chevron-right',
+                          size: 16, color: tertiaryText),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                              builder: (_) => BudgetHistoryPage(
+                                  getRecord: () => data.budgets
+                                      .firstWhere((r) => r.id == b.id),
+                                  transfer: () => data.budgets
+                                      .where((r) => r.carriedFrom == b.id)
+                                      .fold<int>(0, (sum, r) => sum + r.carriedAmount),
+                                  onEditBudget: () => editBudget(b.id),
+                                  onEditExpense: (i) => editExpense(b.id, i))))))),
+      ]);
   Widget budgetPage() =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         heading('Budget'),
@@ -558,11 +547,15 @@ class _BudgetScreenState extends State<BudgetScreen>
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    CurrencyText('${b.funds} DA',
-                        style: type(28, weight: FontWeight.w600)),
+                    Row(children: [
+                      Expanded(
+                          child: CurrencyText('${b.funds} DA',
+                              style: type(28, weight: FontWeight.w600))),
+                      Text('${b.days} days',
+                          style: type(13, color: secondaryText))
+                    ]),
                     const SizedBox(height: 6),
-                    CurrencyText(
-                        '${dateText(b.start)} – ${dateText(b.end)} · ${b.days} days',
+                    CurrencyText('${dateText(b.start)} – ${dateText(b.end)}',
                         style: type(12, color: secondaryText)),
                     const SizedBox(height: 8),
                     CurrencyText('${b.balance} DA left',
@@ -577,16 +570,20 @@ class _BudgetScreenState extends State<BudgetScreen>
                     Row(children: [
                       Expanded(
                           flex: 2,
-                          child: TextButton(
+                          child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  backgroundColor: surfaceHigh),
                               onPressed: saving ? null : () => editBudget(b.id),
-                              child: const CurrencyText('Edit budget',
+                              child: const CurrencyText('Edit',
                                   textAlign: TextAlign.center))),
                       const SizedBox(width: 8),
                       Expanded(
                           flex: 3,
-                          child: TextButton(
+                          child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  backgroundColor: const Color(0x1FF5B84A)),
                               onPressed: saving ? null : stopBudget,
-                              child: CurrencyText('Stop and save budget',
+                              child: CurrencyText('Stop and Save',
                                   textAlign: TextAlign.center,
                                   style: type(14, color: caution)))),
                     ]),
@@ -687,17 +684,20 @@ class ExpenseRows extends StatelessWidget {
       {super.key,
       required this.budget,
       required this.onEdit,
-      this.onlyToday = false});
+      this.onlyToday = false,
+      this.query = ''});
   final BudgetRecord budget;
   final ValueChanged<int> onEdit;
   final bool onlyToday;
+  final String query;
   @override
   Widget build(BuildContext context) {
     final indexed = budget.expenses
         .asMap()
         .entries
-        .where(
-            (e) => !onlyToday || daysBetween(e.value.date, DateTime.now()) == 0)
+        .where((e) =>
+            (!onlyToday || daysBetween(e.value.date, DateTime.now()) == 0) &&
+            e.value.label.toLowerCase().contains(query.trim().toLowerCase()))
         .toList()
       ..sort((a, b) => b.value.date.compareTo(a.value.date));
     final groups = <DateTime, List<MapEntry<int, Expense>>>{};
@@ -708,7 +708,10 @@ class ExpenseRows extends StatelessWidget {
       if (indexed.isEmpty)
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
-            child: CurrencyText('No expenses yet.',
+            child: CurrencyText(
+                query.trim().isEmpty
+                    ? 'No expenses yet.'
+                    : 'No matching expenses.',
                 style: type(13, color: secondaryText))),
       for (final group in groups.entries) ...[
         if (!onlyToday)
@@ -726,8 +729,9 @@ class ExpenseRows extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: Container(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-                  decoration: const BoxDecoration(),
+                      const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                  margin: const EdgeInsets.only(bottom: 8),
+                  decoration: panel(radius: 16),
                   child: Row(children: [
                     Container(
                         width: 36,
@@ -772,6 +776,21 @@ class BudgetHistoryPage extends StatefulWidget {
 }
 
 class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
+  String query = '';
+  Widget summaryCard(String label, String amount, [String? detail]) =>
+      Container(
+          padding: const EdgeInsets.all(16),
+          decoration: panel(),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(label, style: type(12, color: secondaryText)),
+            const SizedBox(height: 8),
+            CurrencyText(amount, style: type(22, weight: FontWeight.w600)),
+            if (detail != null) ...[
+              const SizedBox(height: 6),
+              Text(detail, style: type(11, color: secondaryText))
+            ]
+          ]));
   @override
   Widget build(BuildContext context) {
     final b = widget.getRecord();
@@ -783,14 +802,20 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
           CurrencyText('${dateText(b.start)} – ${dateText(b.end)}',
               style: type(13, color: secondaryText)),
           const SizedBox(height: 12),
-          CurrencyText(
-              b.legacy
-                  ? 'Original budget unavailable'
-                  : '${b.funds} DA budget · ${b.balance} DA left',
-              style: type(20, weight: FontWeight.w600)),
+          summaryCard(
+              'Total budget', b.legacy ? 'Unavailable' : '${b.funds} DA'),
           const SizedBox(height: 8),
-          CurrencyText('${b.spent} DA spent',
-              style: type(13, color: secondaryText)),
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Expanded(
+                child: summaryCard(
+                    'Left',
+                    b.legacy ? 'Unavailable' : '${b.balance} DA',
+                    '${BudgetFigures(b, b.closedAt ?? DateTime.now()).remainingDays} days left')),
+            const SizedBox(width: 8),
+            Expanded(
+                child: summaryCard('Spent', '${b.spent} DA',
+                    '${BudgetFigures(b, b.closedAt ?? DateTime.now()).completed} completed days')),
+          ]),
           if (b.closedAt != null)
             CurrencyText('Saved ${dateText(b.closedAt!)}',
                 style: type(11, color: tertiaryText)),
@@ -809,8 +834,18 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
               child: const CurrencyText('Edit budget')),
           const SizedBox(height: 20),
           sectionLabel('Expenses'),
+          TextField(
+            onChanged: (value) => setState(() => query = value),
+            decoration: const InputDecoration(
+                hintText: 'Search expense names',
+                prefixIcon: Padding(
+                    padding: EdgeInsets.all(14),
+                    child: SourceIcon('search', color: secondaryText))),
+          ),
+          const SizedBox(height: 12),
           ExpenseRows(
               budget: b,
+              query: query,
               onEdit: (i) async {
                 await widget.onEditExpense(i);
                 if (mounted) setState(() {});

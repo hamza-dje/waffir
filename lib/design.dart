@@ -145,6 +145,11 @@ class LabeledField extends StatelessWidget {
                     currency ? TextInputType.number : TextInputType.text,
                 validator: validator,
                 decoration: InputDecoration(
+                    hintText: currency
+                        ? (label == 'Total funds' ? 'e.g. 3000' : 'e.g. 50')
+                        : 'e.g. Coffee',
+                    hintStyle: type(14, color: tertiaryText),
+                    fillColor: surfaceHigh,
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
                     prefix: currency

@@ -76,7 +76,7 @@ void main() {
     });
     expect(find.byType(CurrencySymbol), findsWidgets);
     await tap(tester, 'Budget', last: true);
-    await tap(tester, 'Edit budget');
+    await tap(tester, 'Edit');
     final theme = Theme.of(tester.element(find.byType(TextFormField)))
         .inputDecorationTheme;
     for (final border in [
@@ -102,7 +102,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
     await tap(tester, 'Budget', last: true);
-    await tap(tester, 'Edit budget');
+    await tap(tester, 'Edit');
     expect(tester.takeException(), isNull);
   });
   testWidgets(
@@ -144,8 +144,11 @@ void main() {
     await tap(tester, 'Tea');
     await field(tester, 'Expense name', 'Tea corrected');
     await field(tester, 'Amount', '30');
+    await tester.ensureVisible(find.bySemanticsLabel('bus icon'));
+    await tester.tap(find.bySemanticsLabel('bus icon'));
     await tap(tester, 'Save expense');
     expect((await stored()).active!.spent, 80);
+    expect((await stored()).active!.expenses.last.icon, 'bus');
     await tester.tap(find.byTooltip('Back'));
     await tester.pumpAndSettle();
     await tap(tester, 'Home', last: true);
@@ -170,7 +173,7 @@ void main() {
       'budget_state_v2': BudgetData(budgets: [old]).encode()
     });
     await tap(tester, 'Budget', last: true);
-    await tap(tester, 'Stop and save budget');
+    await tap(tester, 'Stop and Save');
     await tap(tester, 'Stop and save');
     await tap(tester, 'Use remaining money');
     await tap(tester, '7 days');
@@ -217,7 +220,7 @@ void main() {
     });
     expect(figure(tester, 'left-today'), '96.55');
     await tap(tester, 'Budget', last: true);
-    await tap(tester, 'Edit budget');
+    await tap(tester, 'Edit');
     await pickDate(tester, 'Start date', now);
     await tap(tester, 'Save budget');
     expect(
@@ -256,9 +259,16 @@ void main() {
     await boot(tester, {'budget_state': raw});
     expect(figure(tester, 'left-today'), '50');
     expect(find.text('Coffee'), findsNothing);
-    await tap(tester, 'Add');
+    expect(find.text('USUAL EXPENSES'), findsNothing);
+    await tap(tester, 'Add expense');
     await digits(tester, '20');
+    await tap(tester, 'Continue');
+    expect(find.text('Add a note'), findsNothing);
+    await field(tester, 'What was it for?', 'Lunch');
+    await tester.ensureVisible(find.bySemanticsLabel('utensils icon'));
+    await tester.tap(find.bySemanticsLabel('utensils icon'));
     await tap(tester, 'Log it');
+    expect((await stored()).active!.expenses.last.icon, 'utensils');
     expect(figure(tester, 'left-today'), '30');
     expect((await stored()).active!.spent, 70);
     expect(
@@ -278,12 +288,36 @@ void main() {
     expect(figure(tester, 'left-today'), '-50');
     expect(figure(tester, 'upcoming-average'), 'No days remaining');
     await tap(tester, 'Budget', last: true);
-    await tap(tester, 'Stop and save budget');
+    await tap(tester, 'Stop and Save');
     await tap(tester, 'Stop and save');
     expect(find.text('Use remaining money'), findsNothing);
     expect(find.text('Choose your\nbudget dates'), findsOneWidget);
     await tap(tester, 'Cancel');
     expect((await stored()).active, isNull);
+  });
+  testWidgets('history search filters names and keeps the correct edit index',
+      (tester) async {
+    await boot(tester, {
+      'budget_state_v2': BudgetData(budgets: [
+        seed(expenses: [
+          Expense('Coffee', 50, DateTime.now()),
+          Expense('Bus fare', 30, DateTime.now())
+        ])
+      ]).encode()
+    });
+    await tap(tester, 'History', last: true);
+    await tap(tester, 'Active budget');
+    final search = find.byType(TextField).first;
+    await tester.ensureVisible(search);
+    await tester.enterText(search, 'BUS');
+    await tester.pumpAndSettle();
+    expect(find.text('Coffee'), findsNothing);
+    expect(find.text('Bus fare'), findsOneWidget);
+    await tap(tester, 'Bus fare');
+    await field(tester, 'Amount', '40');
+    await tap(tester, 'Save expense');
+    expect((await stored()).active!.expenses.last.amount, 40);
+    expect((await stored()).active!.expenses.first.amount, 50);
   });
   testWidgets('invalid stored data shows an error without replacing it',
       (tester) async {

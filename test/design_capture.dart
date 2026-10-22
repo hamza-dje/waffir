@@ -83,15 +83,17 @@ void main() {
     await tester
         .pumpWidget(RepaintBoundary(key: boundary, child: const WafirApp()));
     await capture('home');
-    await tester.ensureVisible(find.text('Add'));
+    await tester.ensureVisible(find.text('Add expense'));
     await capture('home-expenses');
-    await tester.tap(find.text('Add'));
+    await tester.tap(find.text('Add expense'));
     await tester.pumpAndSettle();
     for (final digit in '120'.split('')) {
       await tester.tap(find.widgetWithText(TextButton, digit));
       await tester.pump();
     }
     await capture('expense');
+    await tester.tap(find.text('Continue'));
+    await capture('expense-details');
     Navigator.of(tester.element(find.text('Log it'))).pop();
     await tester.pumpAndSettle();
     await tester.tap(find.text('History').last);
@@ -107,7 +109,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Budget').last);
     await capture('budget');
-    await tester.tap(find.text('Edit budget'));
+    await tester.tap(find.text('Edit'));
     await capture('edit-budget');
   });
 }

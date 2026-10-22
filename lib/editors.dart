@@ -195,6 +195,8 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
   late final name = TextEditingController(text: widget.expense.label);
   late final amount = TextEditingController(text: '${widget.expense.amount}');
   late DateTime date = dayOnly(widget.expense.date);
+  late String icon = widget.expense.icon;
+  late TimeOfDay time = TimeOfDay.fromDateTime(widget.expense.date);
   @override
   void dispose() {
     name.dispose();
@@ -228,19 +230,24 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                   dayOnly(widget.budget.closedAt ?? DateTime.now()),
                   dayOnly(DateTime.now())
                 ].reduce((a, b) => a.isBefore(b) ? a : b)),
+            ExpenseTime(time, (value) => setState(() => time = value)),
             const SizedBox(height: 16),
+            ExpenseIcons(icon, (value) => setState(() => icon = value)),
+            const SizedBox(height: 20),
             FilledButton(
                 onPressed: () {
                   if (!form.currentState!.validate()) return;
-                  final old = widget.expense.date;
+                  final chosen = DateTime(
+                      date.year, date.month, date.day, time.hour, time.minute);
+                  if (chosen.isAfter(DateTime.now())) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Choose a time before now')));
+                    return;
+                  }
                   Navigator.pop(
                       context,
-                      Expense(
-                          name.text.trim(),
-                          int.parse(amount.text),
-                          DateTime(date.year, date.month, date.day, old.hour,
-                              old.minute, old.second),
-                          widget.expense.icon));
+                      Expense(name.text.trim(), int.parse(amount.text), chosen,
+                          icon));
                 },
                 child: const CurrencyText('Save expense')),
             const SizedBox(height: 12),
@@ -295,31 +302,7 @@ class _ProductEditorState extends State<ProductEditor> {
                 controller: price,
                 validator: positiveMoney),
             const SizedBox(height: 24),
-            sectionLabel('Icon'),
-            Wrap(spacing: 8, runSpacing: 8, children: [
-              for (final choice in productIcons)
-                Semantics(
-                    label: '$choice icon',
-                    selected: choice == icon,
-                    button: true,
-                    child: InkWell(
-                        onTap: () => setState(() => icon = choice),
-                        borderRadius: BorderRadius.circular(14),
-                        child: Container(
-                            width: 52,
-                            height: 52,
-                            decoration: BoxDecoration(
-                              color: choice == icon
-                                  ? const Color(0x1F34D399)
-                                  : surface,
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            child: Center(
-                                child: SourceIcon(choice,
-                                    color: choice == icon
-                                        ? mint
-                                        : secondaryText)))))
-            ]),
+            ExpenseIcons(icon, (value) => setState(() => icon = value)),
             const SizedBox(height: 24),
             FilledButton(
                 onPressed: () {
@@ -433,4 +416,48 @@ class ProductList extends StatelessWidget {
                   'Tap to edit or remove. Past expenses stay unchanged.',
                   style: type(11, color: tertiaryText))),
       ]);
+}
+
+class ExpenseIcons extends StatelessWidget {
+  const ExpenseIcons(this.value, this.onChanged, {super.key});
+  final String value;
+  final ValueChanged<String> onChanged;
+  @override
+  Widget build(BuildContext context) =>
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        sectionLabel('Icon'),
+        Wrap(spacing: 8, runSpacing: 8, children: [
+          for (final icon in productIcons)
+            Semantics(
+                label: '$icon icon',
+                selected: icon == value,
+                child: InkWell(
+                    onTap: () => onChanged(icon),
+                    borderRadius: BorderRadius.circular(14),
+                    child: Container(
+                        width: 48,
+                        height: 48,
+                        decoration: panel(
+                            radius: 14,
+                            color: icon == value
+                                ? const Color(0x2634D399)
+                                : surfaceHigh),
+                        child: Center(
+                            child: SourceIcon(icon,
+                                color: icon == value ? mint : secondaryText)))))
+        ])
+      ]);
+}
+
+class ExpenseTime extends StatelessWidget {
+  const ExpenseTime(this.value, this.onChanged, {super.key});
+  final TimeOfDay value;
+  final ValueChanged<TimeOfDay> onChanged;
+  @override
+  Widget build(BuildContext context) => OutlinedButton(
+      onPressed: () async {
+        final time = await showTimePicker(context: context, initialTime: value);
+        if (time != null) onChanged(time);
+      },
+      child: Text('Time: ${value.format(context)}'));
 }
