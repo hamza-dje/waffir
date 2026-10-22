@@ -16,13 +16,13 @@ class WafirApp extends StatelessWidget {
         title: 'Waffir',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: 'Geist',
+          fontFamily: 'RedHatDisplay',
           fontFamilyFallback: const ['Rubik'],
           brightness: Brightness.dark,
           textTheme: ThemeData.dark().textTheme.apply(
               bodyColor: primaryText,
               displayColor: primaryText,
-              fontFamily: 'Geist'),
+              fontFamily: 'RedHatDisplay'),
           appBarTheme: const AppBarTheme(
               backgroundColor: background,
               surfaceTintColor: Colors.transparent),
@@ -31,7 +31,7 @@ class WafirApp extends StatelessWidget {
           filledButtonTheme: FilledButtonThemeData(
             style: FilledButton.styleFrom(
               textStyle: const TextStyle(
-                  fontFamily: 'Geist',
+                  fontFamily: 'RedHatDisplay',
                   fontSize: 16,
                   fontWeight: FontWeight.w600),
               minimumSize: const Size(48, 54),
@@ -43,6 +43,11 @@ class WafirApp extends StatelessWidget {
           ),
           dialogTheme: const DialogThemeData(
             backgroundColor: surface,
+            titleTextStyle: TextStyle(
+                fontFamily: 'Geist',
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+                color: primaryText),
             insetPadding: overlayInsets,
             constraints: BoxConstraints(minWidth: 560, maxWidth: 560),
             shape: RoundedRectangleBorder(
@@ -84,7 +89,7 @@ class WafirApp extends StatelessWidget {
                   minimumSize: const Size(48, 44),
                   padding: const EdgeInsets.symmetric(horizontal: 22),
                   textStyle: const TextStyle(
-                      fontFamily: 'Geist',
+                      fontFamily: 'RedHatDisplay',
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       letterSpacing: -.14),
@@ -95,7 +100,7 @@ class WafirApp extends StatelessWidget {
                   minimumSize: const Size(48, 44),
                   foregroundColor: secondaryText,
                   textStyle: const TextStyle(
-                      fontFamily: 'Geist',
+                      fontFamily: 'RedHatDisplay',
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       letterSpacing: -.14),

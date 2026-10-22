@@ -113,7 +113,7 @@ Past savings or overspending affect the next day's allowance. Today's purchases 
 <details>
 <summary><b>Small details that matter</b></summary>
 
-Waffir uses a dark theme, mint actions, and amber warnings. It bundles **Geist**, **Geist Mono**, and **Rubik**, with their font licenses.
+Waffir uses a dark theme, mint actions, and amber warnings. **Geist** stays on headings and key amounts. **Red Hat Display** is used for body text, labels, and controls. Geist Mono and Rubik remain bundled, with all font licenses included.
 
 The supplied [dinar symbol](assets/dzd.svg) appears to the left of amounts with reduced opacity. Product icons are also muted. Fields have separate labels and no visible outlines.
 

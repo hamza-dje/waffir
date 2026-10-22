@@ -21,7 +21,16 @@ flutter:
     - assets/fonts/Geist-OFL.txt
     - assets/fonts/GeistMono-OFL.txt
     - assets/fonts/Rubik-OFL.txt
+    - assets/fonts/RedHatDisplay-OFL.txt
   fonts:
+    - family: RedHatDisplay
+      fonts:
+        - asset: assets/fonts/RedHatDisplay-400.ttf
+          weight: 400
+        - asset: assets/fonts/RedHatDisplay-500.ttf
+          weight: 500
+        - asset: assets/fonts/RedHatDisplay-600.ttf
+          weight: 600
     - family: Geist
       fonts:
         - asset: assets/fonts/Geist-400.ttf

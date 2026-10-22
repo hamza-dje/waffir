@@ -17,13 +17,15 @@ void main() {
     tester.view.devicePixelRatio = 1;
     tester.view.padding = const FakeViewPadding(top: 30, bottom: 20);
     addTearDown(tester.view.reset);
-    for (final family in ['Geist', 'GeistMono', 'Rubik']) {
+    for (final family in ['Geist', 'GeistMono', 'Rubik', 'RedHatDisplay']) {
       final loader = FontLoader(family);
-      for (final weight in family == 'Geist'
-          ? [400, 500, 600, 700]
-          : family == 'Rubik'
-              ? [400, 500, 600]
-              : [400, 500]) {
+      for (final weight in family == 'RedHatDisplay'
+          ? [400, 500, 600]
+          : family == 'Geist'
+              ? [400, 500, 600, 700]
+              : family == 'Rubik'
+                  ? [400, 500, 600]
+                  : [400, 500]) {
         loader.addFont(rootBundle.load('assets/fonts/$family-$weight.ttf'));
       }
       await loader.load();

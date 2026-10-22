@@ -32,6 +32,8 @@ TextStyle type(double size,
         double? spacing,
         double? height}) =>
     TextStyle(
+        // Keep Geist for display text and RedHatDisplay for smaller UI text.
+        fontFamily: size >= 20 ? 'Geist' : 'RedHatDisplay',
         fontSize: size,
         color: color,
         fontWeight: weight,
@@ -42,7 +44,7 @@ Widget sectionLabel(String text) => Padding(
     padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
     child: Text(text.toUpperCase(),
         style: const TextStyle(
-            fontFamily: 'GeistMono',
+            fontFamily: 'RedHatDisplay',
             fontSize: 10,
             fontWeight: FontWeight.w500,
             letterSpacing: 1.2,
@@ -170,7 +172,9 @@ ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(
       minimumSize: const Size(48, 44),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       textStyle: const TextStyle(
-          fontFamily: 'Geist', fontSize: 13, fontWeight: FontWeight.w600),
+          fontFamily: 'RedHatDisplay',
+          fontSize: 13,
+          fontWeight: FontWeight.w600),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     );
 

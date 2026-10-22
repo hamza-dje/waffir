@@ -400,7 +400,7 @@ class ProductList extends StatelessWidget {
                 minimumSize: const Size(48, 44),
                 padding: const EdgeInsets.symmetric(horizontal: 22),
                 textStyle: const TextStyle(
-                    fontFamily: 'Geist',
+                    fontFamily: 'RedHatDisplay',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     letterSpacing: -.14),
