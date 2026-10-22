@@ -791,6 +791,10 @@ class ExpenseRows extends StatelessWidget {
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
                       onTap: () => onEdit(entry.key),
+                  overlayColor: WidgetStateProperty.resolveWith((states) =>
+                      states.contains(WidgetState.pressed)
+                          ? const Color(0x40000000)
+                          : null),
                       borderRadius: BorderRadius.circular(16),
                       child: Padding(
                           padding: const EdgeInsets.symmetric(
