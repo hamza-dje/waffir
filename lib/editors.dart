@@ -454,10 +454,33 @@ class ExpenseTime extends StatelessWidget {
   final TimeOfDay value;
   final ValueChanged<TimeOfDay> onChanged;
   @override
-  Widget build(BuildContext context) => OutlinedButton(
-      onPressed: () async {
-        final time = await showTimePicker(context: context, initialTime: value);
-        if (time != null) onChanged(time);
-      },
-      child: Text('Time: ${value.format(context)}'));
+  Widget build(BuildContext context) =>
+      Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Text('Time',
+            style: type(13, color: secondaryText, weight: FontWeight.w500)),
+        const SizedBox(height: 8),
+        Semantics(
+            label: 'Expense time',
+            button: true,
+            value: value.format(context),
+            child: InkWell(
+                borderRadius: BorderRadius.circular(14),
+                onTap: () async {
+                  final time = await showTimePicker(
+                      context: context, initialTime: value);
+                  if (time != null) onChanged(time);
+                },
+                child: InputDecorator(
+                    decoration: const InputDecoration(
+                        fillColor: surfaceHigh,
+                        contentPadding: EdgeInsets.all(16),
+                        prefixIcon: Padding(
+                            padding: EdgeInsets.all(14),
+                            child: SourceIcon('clock', color: secondaryText)),
+                        suffixIcon: Padding(
+                            padding: EdgeInsets.all(16),
+                            child: SourceIcon('chevron-right',
+                                size: 16, color: tertiaryText))),
+                    child: Text(value.format(context), style: type(16)))))
+      ]);
 }

@@ -523,8 +523,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                           child: CurrencyText(
                               '${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${b.balance} DA left'}',
                               style: type(11, color: secondaryText))),
-                      trailing: const SourceIcon('chevron-right',
-                          size: 16, color: tertiaryText),
+                      trailing: SourceIcon('chevron-right',
+                          size: 16,
+                          color: b.closedAt == null ? mint : tertiaryText),
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute<void>(
