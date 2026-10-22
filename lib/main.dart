@@ -443,6 +443,13 @@ class _BudgetScreenState extends State<BudgetScreen>
                         .copyWith(fontFeatures: const [
                       FontFeature.tabularFigures()
                     ]))),
+            if (usable && f.leftToday! <= 0)
+              Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: CurrencyText('Stop for today',
+                      textAlign: TextAlign.center,
+                      style:
+                          type(14, color: caution, weight: FontWeight.w600))),
             const SizedBox(height: 8),
             CurrencyText('Left today',
                 textAlign: TextAlign.center,
@@ -451,13 +458,6 @@ class _BudgetScreenState extends State<BudgetScreen>
             CurrencyText('${b.balance} DA left in this budget',
                 textAlign: TextAlign.center,
                 style: type(11, color: tertiaryText)),
-            if (usable && f.leftToday! <= 0)
-              Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: CurrencyText('Stop for today',
-                      textAlign: TextAlign.center,
-                      style:
-                          type(14, color: caution, weight: FontWeight.w600))),
             const SizedBox(height: 24),
             FilledButton.icon(
                 onPressed: !usable || saving ? null : customExpense,
