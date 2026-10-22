@@ -435,7 +435,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                 child: CurrencyText(
                     f.leftToday == null ? '—' : '${money(f.leftToday!)} DA',
                     key: const ValueKey('left-today'),
-                    style: type(80,
+                    style: type(72,
                             weight: FontWeight.w600,
                             spacing: -3.6,
                             height: 1,
