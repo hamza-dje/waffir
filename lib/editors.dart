@@ -353,6 +353,9 @@ class ProductList extends StatelessWidget {
                   color: surface,
                   borderRadius: BorderRadius.circular(16),
                   child: ListTile(
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 20),
+                      horizontalTitleGap: 20,
                       leading: Opacity(
                           opacity: .55,
                           child: SourceIcon(products[i].icon,
@@ -361,8 +364,12 @@ class ProductList extends StatelessWidget {
                           style: type(14, weight: FontWeight.w500)),
                       subtitle: CurrencyText('${products[i].price} DA',
                           style: type(12, color: tertiaryText)),
-                      trailing: const SourceIcon('chevron-right',
-                          size: 16, color: tertiaryText),
+                      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                        Text('Edit', style: type(12, color: secondaryText)),
+                        const SizedBox(width: 4),
+                        const SourceIcon('chevron-right',
+                            size: 16, color: secondaryText),
+                      ]),
                       onTap: !enabled
                           ? null
                           : () async {
