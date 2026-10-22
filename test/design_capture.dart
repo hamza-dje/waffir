@@ -109,7 +109,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Budget').last);
     await capture('budget');
-    await tester.tap(find.text('Edit'));
+    await tester.tap(find.widgetWithText(OutlinedButton, 'Edit'));
     await capture('edit-budget');
   });
 }

@@ -7,7 +7,10 @@ import 'package:wafir/budget_data.dart';
 import 'package:wafir/design.dart';
 
 Future<void> tap(WidgetTester tester, String text, {bool last = false}) async {
-  final finder = last ? find.text(text).last : find.text(text).first;
+  final matches = text == 'Edit'
+      ? find.widgetWithText(OutlinedButton, text)
+      : find.text(text);
+  final finder = last ? matches.last : matches.first;
   await tester.ensureVisible(finder);
   await tester.pumpAndSettle();
   await tester.tap(finder);
