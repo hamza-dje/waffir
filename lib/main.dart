@@ -783,37 +783,42 @@ class ExpenseRows extends StatelessWidget {
                     style: type(11))
               ])),
         for (final entry in group.value)
-          InkWell(
-              onTap: () => onEdit(entry.key),
-              borderRadius: BorderRadius.circular(12),
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-                  margin: const EdgeInsets.only(bottom: 8),
-                  decoration: panel(radius: 16),
-                  child: Row(children: [
-                    Container(
-                        width: 36,
-                        height: 36,
-                        decoration: panel(radius: 12),
-                        child: Center(
-                            child: SourceIcon(entry.value.icon,
-                                size: 18, color: secondaryText))),
-                    const SizedBox(width: 12),
-                    Expanded(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                          CurrencyText(entry.value.label,
-                              style: type(13, weight: FontWeight.w500)),
-                          const SizedBox(height: 1),
-                          CurrencyText(
-                              '${entry.value.date.hour.toString().padLeft(2, '0')}:${entry.value.date.minute.toString().padLeft(2, '0')} · tap to edit',
-                              style: type(11, color: tertiaryText))
-                        ])),
-                    CurrencyText('−${entry.value.amount} DA',
-                        style: type(13, weight: FontWeight.w600))
-                  ]))),
+          Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Material(
+                  color: surface,
+                  borderRadius: BorderRadius.circular(16),
+                  clipBehavior: Clip.antiAlias,
+                  child: InkWell(
+                      onTap: () => onEdit(entry.key),
+                      borderRadius: BorderRadius.circular(16),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 12),
+                          child: Row(children: [
+                            Container(
+                                width: 36,
+                                height: 36,
+                                decoration: panel(radius: 12),
+                                child: Center(
+                                    child: SourceIcon(entry.value.icon,
+                                        size: 18, color: secondaryText))),
+                            const SizedBox(width: 12),
+                            Expanded(
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                  CurrencyText(entry.value.label,
+                                      style: type(13, weight: FontWeight.w500)),
+                                  const SizedBox(height: 1),
+                                  CurrencyText(
+                                      '${entry.value.date.hour.toString().padLeft(2, '0')}:${entry.value.date.minute.toString().padLeft(2, '0')} · tap to edit',
+                                      style: type(11, color: tertiaryText))
+                                ])),
+                            CurrencyText('−${entry.value.amount} DA',
+                                style: type(13, weight: FontWeight.w600))
+                          ]))))),
       ],
     ]);
   }

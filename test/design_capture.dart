@@ -103,6 +103,11 @@ void main() {
     await tester.tap(find.text('Active budget'));
     await capture('history-details');
     await tester.ensureVisible(find.text('Coffee').first);
+    final press =
+        await tester.startGesture(tester.getCenter(find.text('Coffee').first));
+    await capture('expense-pressed');
+    await press.cancel();
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Coffee').first);
     await capture('edit-expense');
     await tester.ensureVisible(find.text('Delete expense'));
