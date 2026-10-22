@@ -258,9 +258,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                       'This entry will be removed from the budget.', 'Delete');
                   if (yes && context.mounted) Navigator.pop(context, 'delete');
                 },
-                child: CurrencyText('Delete expense',
-                    style:
-                        type(14, color: background, weight: FontWeight.w600))),
+                child: const CurrencyText('Delete expense')),
           ])));
 }
 
