@@ -570,7 +570,6 @@ class _BudgetScreenState extends State<BudgetScreen>
                     const SizedBox(height: 16),
                     Row(children: [
                       Expanded(
-                          flex: 2,
                           child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                   backgroundColor: surfaceHigh),
@@ -579,7 +578,6 @@ class _BudgetScreenState extends State<BudgetScreen>
                                   textAlign: TextAlign.center))),
                       const SizedBox(width: 8),
                       Expanded(
-                          flex: 3,
                           child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                   backgroundColor: const Color(0x1FF5B84A)),
