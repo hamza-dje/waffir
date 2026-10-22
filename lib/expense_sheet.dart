@@ -48,9 +48,9 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                           'Today · ${DateTime.now().day}/${DateTime.now().month}',
                           style: type(11, color: tertiaryText))),
                 ]),
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
                 Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 12, 0, 20),
+                    padding: const EdgeInsets.fromLTRB(0, 4, 0, 8),
                     child: CurrencyText('${amount.isEmpty ? '0' : amount} DA',
                         style: type(52, weight: FontWeight.w600, spacing: -2),
                         textAlign: TextAlign.center)),
