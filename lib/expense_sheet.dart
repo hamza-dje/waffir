@@ -74,9 +74,9 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                       controller: name,
                       maxLength: 60),
                 if (details) ...[
-                  ExpenseTime(time, (value) => setState(() => time = value)),
-                  const SizedBox(height: 16),
                   ExpenseIcons(icon, (value) => setState(() => icon = value)),
+                  const SizedBox(height: 16),
+                  ExpenseTime(time, (value) => setState(() => time = value)),
                 ],
                 if (error != null)
                   Padding(
