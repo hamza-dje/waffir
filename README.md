@@ -1,32 +1,24 @@
-# Waffir / وفّر
+# Waffir
 
-Flutter implementation started from the supplied product and button-system HTML references.
+Flutter budgeting app with Home, History, and Budget tabs. The agreed behavior is in [UX_PLAN.md](UX_PLAN.md).
 
-All four approved tickets are implemented: weekly, 30-day, or custom end-date budgets, period renewal with retained history, expense logging, fixed costs, savings goals, price checks, and local storage. The supplied DZD SVG is used in the launcher icons. App controls use the original SVG paths from the HTML sprite.
+Onboarding collects inclusive start/end dates, full funds, and optional usual products. Users can log a product with one tap or enter a custom expense. History supports name, amount, and date corrections and confirmed deletion. Budget supports corrections, product management, and stopping and saving a period. A new budget can use the remaining positive balance or a new amount. Completed transfers remain fixed after historical corrections.
 
-Geist, Geist Mono, and Rubik are bundled for offline use, with the weights specified in the HTML. Geist is the main typeface; Geist Mono is used for section labels; Rubik is assigned to the Arabic brand text with platform glyph fallback.
+Home separates past days, today, and future days. Left today is the large figure. The original daily average stays visible. Today's limit is fixed against spending before today. Calculated savings use completed days. The upcoming average spreads the balance across future days. Tomorrow's limit includes today's result and protects the original average for all later days. Negative amounts remain visible. No future figures are calculated on the last day. Inputs use whole dinars; averages retain precision and display up to two decimal places.
 
-Amounts use whole DZD. The allowance excludes fixed costs, savings, and current-period expenses. Expired periods require renewal before more expenses can be logged. Renewal archives expenses and keeps fixed costs and savings; the new total funds must cover these reserves. Settings and data from version 0.1.0 are retained.
+The original Geist, Geist Mono, and Rubik fonts and supplied SVG icons are bundled. The supplied DZD mark appears before every amount at the visual height of the digits, with reduced opacity. Usual-product icons are also faded. Inputs have separate labels and no outlines. The button styles follow the supplied design system.
 
-Price checks use three illustrative reference items from the supplied mockup, dated 20 Oct 2026 for Oran. They are marked as examples, not verified market prices or live quotes. Users can enter a quoted price for comparison. Zero and negative allowances are handled without division.
+The previous stored funds, dates, and expenses are preserved. New data uses `budget_state_v2`; the legacy `budget_state` value remains untouched. Fixed-cost deductions, reserved savings, preset products, and price check were removed as agreed. Older archived expenses without recorded budget funds are identified as such.
 
-## Run
-
-Use Flutter on PATH, or `C:\Users\hamza\develop\flutter\bin\flutter.bat` on this machine:
-
-```
-flutter pub get
-flutter run -d chrome
-flutter analyze
-flutter test
-```
-
-For a smaller Android download:
+## Checks and build
 
 ```sh
+flutter analyze
+flutter test
+flutter test test/design_capture.dart
 flutter build apk --release --split-per-abi --split-debug-info=build/symbols/android
 ```
 
-Use `app-arm64-v8a-release.apk` for an ARM64 phone. See `APK_BUILD.md` for all builds and sizes. Keep the symbol files with the release.
+The deliverable is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Keep the symbol files with the release. See [APK_BUILD.md](APK_BUILD.md) for version, size, signature, and native checks.
 
-The HTML references are copied under `references/`; source files in Downloads are preserved. Regenerate launcher icons with `flutter test tool/generate_icons.dart`. Generate local visual QA pages with `python tool/reference_screens.py`. Language support was excluded from the approved tickets. Budget settings are available in History. Tap a savings card to edit the goal.
+Visual captures are under `build/ux/`. Refresh the deterministic app graph with `py -3.13 tool/refresh_graph.py`. The supplied HTML files remain in `references/`. No new dependencies were added.

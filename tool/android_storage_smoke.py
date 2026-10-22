@@ -22,7 +22,7 @@ if __name__ == '__main__':
         root = ET.fromstring(run('exec-out', 'cat', '/sdcard/wafir-smoke.xml'))
         labels = '\n'.join(n.get('text', '') + n.get('content-desc', '') for n in root.iter('node'))
         assert 'Could not load your budget' not in labels, 'FAIL: Android storage startup error'
-        if 'Continue' in labels or ('Today' in labels and 'History' in labels):
+        if 'Continue' in labels or all(tab in labels for tab in ['Home', 'History', 'Budget']):
             break
     else:
         raise AssertionError('FAIL: Budget screen did not load')

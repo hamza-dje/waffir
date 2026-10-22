@@ -1,45 +1,32 @@
-# Waffir APK
+# Waffir 0.3.0 APK
 
-## Smaller release files
+- File: `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`.
+- Size: 18,199,317 bytes (17.36 MiB).
+- SHA-256: `b47b0c53ca2a3ea7857ca236753b9cf8110595e63680595b365ff6fce9b209a7`.
+- Display name: Waffir. Package: `com.example.wafir`.
+- Version name: 0.3.0. Base build: 4. ARM64 APK version code: 2004.
+- Android API 24 minimum; target API 36. ARM64 architecture only.
+- Signing: existing Android debug key. APK v2 signature verified. This is a release-mode direct-install build; store distribution needs production signing.
 
-Built with Flutter's size-reduction flags:
+## Build
 
 ```sh
 flutter build apk --release --split-per-abi --split-debug-info=build/symbols/android
-flutter build appbundle --release --split-debug-info=build/symbols/android
 ```
 
-| File | Size | SHA-256 |
-| --- | ---: | --- |
-| `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk` | 17.36 MiB | `5761707fc543c3f00ca5097fdb4cf0eb07faf79fb4048c8ec83c34d1a4be00f3` |
-| `build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk` | 14.70 MiB | `2df9d9ca65a8eeec4743fee6787c0faf0af8bd1473b9bc2e2fd3d73b4271425f` |
-| `build/app/outputs/flutter-apk/app-x86_64-release.apk` | 18.83 MiB | `8d64d85d0f0762706df9c1cb7971a918e394c8278b88d56c84ee806138d28b21` |
-| `build/app/outputs/bundle/release/app-release.aab` | 47.15 MiB | `3d0eaf01aef3928143a9eb202cadbdfc197b04c18b83e1699cdd3cf93c70333a` |
+Only the ARM64 APK is retained in `flutter-apk/`. Other APKs and SHA-1 sidecars were removed after verification. Keep `build/symbols/android/*.symbols` with this release.
 
-The ARM64 APK is 65.93% smaller than the universal APK. Each split APK contains one processor architecture. The AAB contains all architectures; a store generates device-specific downloads from it. It is not installed directly.
+## Verification
 
-After cleanup, `build/app/outputs/flutter-apk/` contains only `app-arm64-v8a-release.apk`. The other APKs and SHA-1 sidecars were removed at the user's request. The table retains their build records.
+- Analyzer: no issues.
+- Twelve calculation and flow tests, plus one bundled-font visual capture test: passed.
+- Checks cover the separate past/today/future calculations, the 200-dinar tomorrow-limit example, final-day and overspending states, migration without data loss, product snapshots, budget and expense corrections, date guards, deletion, fixed transfers, restart, SVG currency, outline-free inputs, and larger text on a small screen.
+- ARM64 APK archive, ABI, package/version metadata, SVG/font/license bytes, and signature: verified.
+- Android API 35 x86_64 companion release: installed over the previous app without clearing data. Native onboarding and a custom product logged 50 dinars, leaving 50 today, 101.72 future average, and 150 tomorrow limit. Correcting the expense to 150 produced -50 today and 98.28 future average.
+- Native stop/save and carry-over created a 2850-dinar budget. A saved-history correction changed the old balance to 2950 while the transfer stayed 2850. Force-stop/restart restored the new budget.
+- The final appearance build was reinstalled and cold-started. It restored 95 today, 98.28 future average, and 190 tomorrow limit. Native captures confirm the left-side faded currency mark, faded product icons, and one-row budget actions.
+- On that final build, a new expense was logged, restored after restart, edited through the SVG-prefixed input, and deleted after confirmation. The carried budget returned to 2850 dinars, with 95 today and 190 tomorrow limit.
 
-All split APK signatures and ZIP integrity checks passed. Their Flutter assets match the previously verified universal APK byte for byte. The AAB archive and JAR signature checks passed. Signing still uses the debug key. No app code or design assets changed. These size builds were not launched on a device.
+The ARM64 binary was not run on physical ARM64 hardware. Runtime checks used the companion x86_64 APK from the same source and build flags. JNI/Kotlin keep rules remain in `android/app/proguard-rules.pro` for release storage.
 
-Keep `build/symbols/android/*.symbols` with the release for crash symbolization. Icon tree shaking remains enabled by default. The original universal APK record is below; that file was removed during cleanup.
-
-## Original universal APK
-
-- Version: 0.2.1 (3).
-- File: `build/app/outputs/flutter-apk/app-release.apk`.
-- Size: 53,418,387 bytes (50.9 MiB).
-- SHA-256: `093878cdb27a3bfc93d7e5418ba9fc75ffcf793139794e9fee69c65e355a99a5`.
-- Package: `com.example.wafir`.
-- Requires Android 7.0 (API 24) or later. Targets API 36.
-- Architectures: arm64-v8a, armeabi-v7a, x86_64.
-- Build: `flutter build apk --release`.
-- Signing: Android debug key; APK v2 signature verified. This is a release-mode build for direct installation, not a store-signed release.
-- Display name: Waffir. The package ID is retained for data compatibility.
-- Passed: analyzer, seven flow tests, one six-screen capture test, release build, APK ZIP integrity, all three ABIs, bundled fonts, SVG assets, and signature verification.
-- Android API 35: upgrade and real storage startup passed. The native keypad saved 120 DZD; force-stop/restart restored the expense and 8830 DZD left in the test budget.
-- All four approved tickets are complete. The language ticket was removed. Budgets, period renewal, retained history, expenses, fixed costs, savings goals, reference price checks, and local storage are implemented.
-
-The JNI/Kotlin keep rules in `android/app/proguard-rules.pro` prevent release shrinking from removing classes used by the preferences plugin. See `design-qa.md` for the visual comparison and native-platform differences.
-
-Build output is excluded from Git. This record and the graphify app map are committed.
+Source and records are committed. Build outputs and captures are excluded from Git. The app graph reflects the current code.

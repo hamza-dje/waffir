@@ -1,184 +1,456 @@
 {
   "nodes": [
     {
-      "id": "budget_settings",
-      "label": "budget_settings.dart",
+      "id": "budget_data",
+      "label": "budget_data.dart",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
       "source_location": null,
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_budgetsettingspage",
-      "label": "BudgetSettingsPage",
+      "id": "budget_data_usualproduct",
+      "label": "UsualProduct",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "statefulwidget",
-      "label": "StatefulWidget",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "budget_settings_budgetsettingspagestate",
-      "label": "_BudgetSettingsPageState",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L21",
-      "_origin": "ast"
-    },
-    {
-      "id": "state",
-      "label": "State",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "budget_settings_budgetplan",
-      "label": "BudgetPlan",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L4",
-      "_origin": "ast"
-    },
-    {
-      "id": "typedef",
-      "label": "typedef",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "budget_settings_target",
-      "label": "target",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L9",
-      "_origin": "ast"
-    },
-    {
-      "id": "string_goal_int",
-      "label": "String goal,\n  int",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "budget_settings_initial",
-      "label": "initial",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L15",
-      "_origin": "ast"
-    },
-    {
-      "id": "budget_settings_form",
-      "label": "form",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L22",
-      "_origin": "ast"
-    },
-    {
-      "id": "budget_settings_funds",
-      "label": "funds",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L23",
-      "_origin": "ast"
-    },
-    {
-      "id": "budget_settings_fixed",
-      "label": "fixed",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
       "source_location": "L24",
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_saved",
-      "label": "saved",
+      "id": "budget_data_expense",
+      "label": "Expense",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L25",
+      "source_file": "budget_data.dart",
+      "source_location": "L34",
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_goal",
-      "label": "goal",
+      "id": "budget_data_budgetrecord",
+      "label": "BudgetRecord",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
+      "source_location": "L53",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_budgetfigures",
+      "label": "BudgetFigures",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L143",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_budgetdata",
+      "label": "BudgetData",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L169",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_producticons",
+      "label": "productIcons",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
       "source_location": "L26",
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_saving",
-      "label": "saving",
+      "id": "budget_data_price",
+      "label": "price",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_icon",
+      "label": "icon",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
       "source_location": "L28",
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_createstate",
-      "label": "createState",
+      "id": "budget_data_label",
+      "label": "label",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L18",
+      "source_file": "budget_data.dart",
+      "source_location": "L36",
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_dispose",
-      "label": "dispose",
+      "id": "budget_data_amount",
+      "label": "amount",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L31",
+      "source_file": "budget_data.dart",
+      "source_location": "L37",
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_money",
-      "label": "money",
+      "id": "budget_data_date",
+      "label": "date",
       "file_type": "code",
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
       "source_location": "L38",
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_build",
-      "label": "build",
-      "file_type": "code",
-      "source_file": "budget_settings.dart",
-      "source_location": "L58",
-      "_origin": "ast"
-    },
-    {
-      "id": "package_flutter_material_dart",
-      "label": "package:flutter/material.dart",
+      "id": "datetime",
+      "label": "DateTime",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
       "_origin": "ast"
     },
     {
-      "id": "design_dart",
-      "label": "design.dart",
+      "id": "budget_data_id",
+      "label": "id",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L65",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_funds",
+      "label": "funds",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L66",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_start",
+      "label": "start",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L67",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_end",
+      "label": "end",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L68",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_expenses",
+      "label": "expenses",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L69",
+      "_origin": "ast"
+    },
+    {
+      "id": "list",
+      "label": "List",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
       "_origin": "ast"
     },
     {
-      "id": "formstate",
-      "label": "FormState",
+      "id": "budget_data_closedat",
+      "label": "closedAt",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L70",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_carriedfrom",
+      "label": "carriedFrom",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L71",
+      "_origin": "ast"
+    },
+    {
+      "id": "string",
+      "label": "String?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_carriedamount",
+      "label": "carriedAmount",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L72",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_legacy",
+      "label": "legacy",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L74",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_days",
+      "label": "days",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L75",
+      "_origin": "ast"
+    },
+    {
+      "id": "int_get",
+      "label": "int get",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_spent",
+      "label": "spent",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L76",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_balance",
+      "label": "balance",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L77",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_budget",
+      "label": "budget",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L146",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_completed",
+      "label": "completed",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L148",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_remainingdays",
+      "label": "remainingDays",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L149",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_beforetoday",
+      "label": "beforeToday",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L150",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_spenttoday",
+      "label": "spentToday",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L153",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_original",
+      "label": "original",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L156",
+      "_origin": "ast"
+    },
+    {
+      "id": "double_get",
+      "label": "double get",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_todaylimit",
+      "label": "todayLimit",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L157",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_lefttoday",
+      "label": "leftToday",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L159",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_savings",
+      "label": "savings",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L160",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_upcoming",
+      "label": "upcoming",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L161",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_tomorrowlimit",
+      "label": "tomorrowLimit",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L164",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_budgets",
+      "label": "budgets",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L175",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_products",
+      "label": "products",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L176",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_active",
+      "label": "active",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L177",
+      "_origin": "ast"
+    },
+    {
+      "id": "budgetrecord_get",
+      "label": "BudgetRecord? get",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_dayonly",
+      "label": "dayOnly",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_daysbetween",
+      "label": "daysBetween",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_safeicon",
+      "label": "safeIcon",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_tojson",
+      "label": "toJson",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_fromjson",
+      "label": "fromJson",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L30",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_canlog",
+      "label": "canLog",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L78",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_validate",
+      "label": "validate",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L82",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_copywith",
+      "label": "copyWith",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L99",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_replace",
+      "label": "replace",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L179",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_encode",
+      "label": "encode",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L182",
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_decode",
+      "label": "decode",
+      "file_type": "code",
+      "source_file": "budget_data.dart",
+      "source_location": "L187",
+      "_origin": "ast"
+    },
+    {
+      "id": "dart_convert",
+      "label": "dart:convert",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -206,6 +478,30 @@
       "file_type": "code",
       "source_file": null,
       "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_currencysymbol",
+      "label": "CurrencySymbol",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L54",
+      "_origin": "ast"
+    },
+    {
+      "id": "design_currencytext",
+      "label": "CurrencyText",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L71",
+      "_origin": "ast"
+    },
+    {
+      "id": "design_labeledfield",
+      "label": "LabeledField",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L116",
       "_origin": "ast"
     },
     {
@@ -313,6 +609,142 @@
       "_origin": "ast"
     },
     {
+      "id": "design_data",
+      "label": "data",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L74",
+      "_origin": "ast"
+    },
+    {
+      "id": "design_style",
+      "label": "style",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L75",
+      "_origin": "ast"
+    },
+    {
+      "id": "textstyle",
+      "label": "TextStyle?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_textalign",
+      "label": "textAlign",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L76",
+      "_origin": "ast"
+    },
+    {
+      "id": "textalign",
+      "label": "TextAlign?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_maxlines",
+      "label": "maxLines",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L77",
+      "_origin": "ast"
+    },
+    {
+      "id": "int",
+      "label": "int?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_overflow",
+      "label": "overflow",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L78",
+      "_origin": "ast"
+    },
+    {
+      "id": "textoverflow",
+      "label": "TextOverflow?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_label",
+      "label": "label",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L125",
+      "_origin": "ast"
+    },
+    {
+      "id": "design_controller",
+      "label": "controller",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L126",
+      "_origin": "ast"
+    },
+    {
+      "id": "texteditingcontroller",
+      "label": "TextEditingController",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_currency",
+      "label": "currency",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L127",
+      "_origin": "ast"
+    },
+    {
+      "id": "design_maxlength",
+      "label": "maxLength",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L128",
+      "_origin": "ast"
+    },
+    {
+      "id": "design_validator",
+      "label": "validator",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L129",
+      "_origin": "ast"
+    },
+    {
+      "id": "formfieldvalidator",
+      "label": "FormFieldValidator",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_enabled",
+      "label": "enabled",
+      "file_type": "code",
+      "source_file": "design.dart",
+      "source_location": "L130",
+      "_origin": "ast"
+    },
+    {
       "id": "design_build",
       "label": "build",
       "file_type": "code",
@@ -355,6 +787,406 @@
     {
       "id": "package_flutter_svg_flutter_svg_dart",
       "label": "package:flutter_svg/flutter_svg.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors",
+      "label": "editors.dart",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_datecontrol",
+      "label": "DateControl",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L58",
+      "_origin": "ast"
+    },
+    {
+      "id": "statelesswidget",
+      "label": "StatelessWidget",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_budgeteditor",
+      "label": "BudgetEditor",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L110",
+      "_origin": "ast"
+    },
+    {
+      "id": "statefulwidget",
+      "label": "StatefulWidget",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_budgeteditorstate",
+      "label": "_BudgetEditorState",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L118",
+      "_origin": "ast"
+    },
+    {
+      "id": "state",
+      "label": "State",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_expenseeditor",
+      "label": "ExpenseEditor",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L185",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_expenseeditorstate",
+      "label": "_ExpenseEditorState",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L193",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_producteditor",
+      "label": "ProductEditor",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L258",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_producteditorstate",
+      "label": "_ProductEditorState",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L265",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_productlist",
+      "label": "ProductList",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L348",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_months",
+      "label": "months",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_amount",
+      "label": "amount",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "return",
+      "label": "return",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_label",
+      "label": "label",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L61",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_value",
+      "label": "value",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L62",
+      "_origin": "ast"
+    },
+    {
+      "id": "datetime",
+      "label": "DateTime",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_onchanged",
+      "label": "onChanged",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L63",
+      "_origin": "ast"
+    },
+    {
+      "id": "valuechanged",
+      "label": "ValueChanged",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_first",
+      "label": "first",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L64",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_last",
+      "label": "last",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L65",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_initial",
+      "label": "initial",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L112",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_form",
+      "label": "form",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L119",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_funds",
+      "label": "funds",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L120",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_start",
+      "label": "start",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L121",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_busy",
+      "label": "busy",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L122",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_error",
+      "label": "error",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L123",
+      "_origin": "ast"
+    },
+    {
+      "id": "string",
+      "label": "String?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_expense",
+      "label": "expense",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L187",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_budget",
+      "label": "budget",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L188",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L195",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_date",
+      "label": "date",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L197",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_price",
+      "label": "price",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L268",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_icon",
+      "label": "icon",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L270",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_products",
+      "label": "products",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L354",
+      "_origin": "ast"
+    },
+    {
+      "id": "list",
+      "label": "List",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_enabled",
+      "label": "enabled",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L356",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_datetext",
+      "label": "dateText",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_money",
+      "label": "money",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_positivemoney",
+      "label": "positiveMoney",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L26",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_editorbar",
+      "label": "editorBar",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_confirmaction",
+      "label": "confirmAction",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_build",
+      "label": "build",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L67",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_createstate",
+      "label": "createState",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L115",
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_dispose",
+      "label": "dispose",
+      "file_type": "code",
+      "source_file": "editors.dart",
+      "source_location": "L125",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_flutter_material_dart",
+      "label": "package:flutter/material.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_dart",
+      "label": "budget_data.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "design_dart",
+      "label": "design.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "formstate",
+      "label": "FormState",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -501,7 +1333,7 @@
       "label": "WafirApp",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L15",
+      "source_location": "L12",
       "_origin": "ast"
     },
     {
@@ -513,19 +1345,11 @@
       "_origin": "ast"
     },
     {
-      "id": "main_expense",
-      "label": "Expense",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L57",
-      "_origin": "ast"
-    },
-    {
       "id": "main_budgetscreen",
       "label": "BudgetScreen",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L74",
+      "source_location": "L93",
       "_origin": "ast"
     },
     {
@@ -541,7 +1365,7 @@
       "label": "_BudgetScreenState",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L80",
+      "source_location": "L99",
       "_origin": "ast"
     },
     {
@@ -561,35 +1385,27 @@
       "_origin": "ast"
     },
     {
-      "id": "main_label",
-      "label": "label",
+      "id": "main_expenserows",
+      "label": "ExpenseRows",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L59",
+      "source_location": "L685",
       "_origin": "ast"
     },
     {
-      "id": "main_amount",
-      "label": "amount",
+      "id": "main_budgethistorypage",
+      "label": "BudgetHistoryPage",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L60",
+      "source_location": "L759",
       "_origin": "ast"
     },
     {
-      "id": "main_date",
-      "label": "date",
+      "id": "main_budgethistorypagestate",
+      "label": "_BudgetHistoryPageState",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L61",
-      "_origin": "ast"
-    },
-    {
-      "id": "datetime",
-      "label": "DateTime",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
+      "source_location": "L774",
       "_origin": "ast"
     },
     {
@@ -597,7 +1413,7 @@
       "label": "prefs",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L82",
+      "source_location": "L101",
       "_origin": "ast"
     },
     {
@@ -609,59 +1425,11 @@
       "_origin": "ast"
     },
     {
-      "id": "main_budget",
-      "label": "budget",
+      "id": "main_data",
+      "label": "data",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L83",
-      "_origin": "ast"
-    },
-    {
-      "id": "int",
-      "label": "int?",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "main_fixedcosts",
-      "label": "fixedCosts",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L84",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_saved",
-      "label": "saved",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L85",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_goalname",
-      "label": "goalName",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L86",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_goaltarget",
-      "label": "goalTarget",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L87",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_days",
-      "label": "days",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L88",
+      "source_location": "L102",
       "_origin": "ast"
     },
     {
@@ -669,63 +1437,23 @@
       "label": "tab",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L89",
+      "source_location": "L103",
       "_origin": "ast"
     },
     {
-      "id": "main_start",
-      "label": "start",
+      "id": "main_saving",
+      "label": "saving",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L90",
+      "source_location": "L104",
       "_origin": "ast"
     },
     {
-      "id": "main_expenses",
-      "label": "expenses",
+      "id": "main_carrysource",
+      "label": "carrySource",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L91",
-      "_origin": "ast"
-    },
-    {
-      "id": "list",
-      "label": "List",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "main_pastexpenses",
-      "label": "pastExpenses",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L92",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_renewing",
-      "label": "renewing",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L93",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_datetimer",
-      "label": "dateTimer",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L94",
-      "_origin": "ast"
-    },
-    {
-      "id": "timer",
-      "label": "Timer?",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
+      "source_location": "L105",
       "_origin": "ast"
     },
     {
@@ -733,7 +1461,7 @@
       "label": "loadError",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L95",
+      "source_location": "L106",
       "_origin": "ast"
     },
     {
@@ -745,59 +1473,67 @@
       "_origin": "ast"
     },
     {
-      "id": "main_saving",
-      "label": "saving",
+      "id": "main_datetimer",
+      "label": "dateTimer",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L96",
+      "source_location": "L107",
       "_origin": "ast"
     },
     {
-      "id": "main_spent",
-      "label": "spent",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L187",
-      "_origin": "ast"
-    },
-    {
-      "id": "int_get",
-      "label": "int get",
+      "id": "timer",
+      "label": "Timer?",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
       "_origin": "ast"
     },
     {
-      "id": "main_expired",
-      "label": "expired",
+      "id": "main_lastsaved",
+      "label": "lastSaved",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L196",
+      "source_location": "L310",
       "_origin": "ast"
     },
     {
-      "id": "bool_get",
-      "label": "bool get",
+      "id": "budgetrecord_get",
+      "label": "BudgetRecord? get",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
       "_origin": "ast"
     },
     {
-      "id": "main_remaining",
-      "label": "remaining",
+      "id": "main_budget",
+      "label": "budget",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L197",
+      "source_location": "L691",
       "_origin": "ast"
     },
     {
-      "id": "main_allowance",
-      "label": "allowance",
+      "id": "main_onedit",
+      "label": "onEdit",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L198",
+      "source_location": "L692",
+      "_origin": "ast"
+    },
+    {
+      "id": "valuechanged",
+      "label": "ValueChanged",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "main_onlytoday",
+      "label": "onlyToday",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L693",
       "_origin": "ast"
     },
     {
@@ -805,7 +1541,7 @@
       "label": "main",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L13",
+      "source_location": "L10",
       "_origin": "ast"
     },
     {
@@ -813,23 +1549,7 @@
       "label": "build",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L18",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_tojson",
-      "label": "toJson",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L62",
-      "_origin": "ast"
-    },
-    {
-      "id": "main_fromjson",
-      "label": "fromJson",
-      "file_type": "code",
-      "source_file": "main.dart",
-      "source_location": "L67",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -837,7 +1557,7 @@
       "label": "createState",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L77",
+      "source_location": "L96",
       "_origin": "ast"
     },
     {
@@ -845,7 +1565,7 @@
       "label": "initState",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L99",
+      "source_location": "L109",
       "_origin": "ast"
     },
     {
@@ -853,7 +1573,7 @@
       "label": "dispose",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L109",
+      "source_location": "L119",
       "_origin": "ast"
     },
     {
@@ -861,7 +1581,7 @@
       "label": "didChangeAppLifecycleState",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L116",
+      "source_location": "L126",
       "_origin": "ast"
     },
     {
@@ -869,15 +1589,39 @@
       "label": "load",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L120",
+      "source_location": "L130",
       "_origin": "ast"
     },
     {
-      "id": "main_persist",
-      "label": "persist",
+      "id": "main_save",
+      "label": "save",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L151",
+      "source_location": "L157",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_log",
+      "label": "log",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L177",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_customexpense",
+      "label": "customExpense",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L186",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_replacebudget",
+      "label": "replaceBudget",
+      "file_type": "code",
+      "source_file": "main.dart",
+      "source_location": "L197",
       "_origin": "ast"
     },
     {
@@ -885,7 +1629,7 @@
       "label": "editBudget",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L201",
+      "source_location": "L207",
       "_origin": "ast"
     },
     {
@@ -897,67 +1641,67 @@
       "_origin": "ast"
     },
     {
-      "id": "main_log",
-      "label": "log",
+      "id": "main_editexpense",
+      "label": "editExpense",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L231",
+      "source_location": "L216",
       "_origin": "ast"
     },
     {
-      "id": "main_customexpense",
-      "label": "customExpense",
+      "id": "main_newbudget",
+      "label": "newBudget",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L244",
+      "source_location": "L236",
       "_origin": "ast"
     },
     {
-      "id": "main_startperiod",
-      "label": "startPeriod",
+      "id": "main_startbudget",
+      "label": "startBudget",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L256",
+      "source_location": "L268",
       "_origin": "ast"
     },
     {
-      "id": "main_iconfor",
-      "label": "iconFor",
+      "id": "main_stopbudget",
+      "label": "stopBudget",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L286",
+      "source_location": "L297",
       "_origin": "ast"
     },
     {
-      "id": "main_entries",
-      "label": "entries",
+      "id": "main_heading",
+      "label": "heading",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L295",
+      "source_location": "L312",
       "_origin": "ast"
     },
     {
-      "id": "main_datelabel",
-      "label": "dateLabel",
+      "id": "main_stat",
+      "label": "stat",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L330",
+      "source_location": "L316",
       "_origin": "ast"
     },
     {
-      "id": "main_today",
-      "label": "today",
+      "id": "main_emptyhome",
+      "label": "emptyHome",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L357",
+      "source_location": "L332",
       "_origin": "ast"
     },
     {
-      "id": "main_setting",
-      "label": "setting",
+      "id": "main_home",
+      "label": "home",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L509",
+      "source_location": "L349",
       "_origin": "ast"
     },
     {
@@ -965,15 +1709,15 @@
       "label": "history",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L530",
+      "source_location": "L509",
       "_origin": "ast"
     },
     {
-      "id": "dart_convert",
-      "label": "dart:convert",
+      "id": "main_budgetpage",
+      "label": "budgetPage",
       "file_type": "code",
-      "source_file": null,
-      "source_location": null,
+      "source_file": "main.dart",
+      "source_location": "L551",
       "_origin": "ast"
     },
     {
@@ -1001,16 +1745,8 @@
       "_origin": "ast"
     },
     {
-      "id": "budget_settings_dart",
-      "label": "budget_settings.dart",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_dart",
-      "label": "price_check.dart",
+      "id": "budget_data_dart",
+      "label": "budget_data.dart",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -1019,6 +1755,14 @@
     {
       "id": "design_dart",
       "label": "design.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "editors_dart",
+      "label": "editors.dart",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -1053,7 +1797,7 @@
       "label": "BudgetOnboarding",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L4",
+      "source_location": "L6",
       "_origin": "ast"
     },
     {
@@ -1069,7 +1813,7 @@
       "label": "_BudgetOnboardingState",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L19",
+      "source_location": "L23",
       "_origin": "ast"
     },
     {
@@ -1085,7 +1829,7 @@
       "label": "AmountKeypad",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L247",
+      "source_location": "L211",
       "_origin": "ast"
     },
     {
@@ -1097,27 +1841,11 @@
       "_origin": "ast"
     },
     {
-      "id": "onboarding_initialdays",
-      "label": "initialDays",
-      "file_type": "code",
-      "source_file": "onboarding.dart",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "onboarding_renewing",
-      "label": "renewing",
-      "file_type": "code",
-      "source_file": "onboarding.dart",
-      "source_location": "L13",
-      "_origin": "ast"
-    },
-    {
       "id": "onboarding_oncancel",
       "label": "onCancel",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L14",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -1129,35 +1857,67 @@
       "_origin": "ast"
     },
     {
+      "id": "onboarding_initialfunds",
+      "label": "initialFunds",
+      "file_type": "code",
+      "source_file": "onboarding.dart",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "int",
+      "label": "int?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "onboarding_products",
+      "label": "products",
+      "file_type": "code",
+      "source_file": "onboarding.dart",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "list",
+      "label": "List",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
       "id": "onboarding_step",
       "label": "step",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L20",
+      "source_location": "L24",
       "_origin": "ast"
     },
     {
-      "id": "onboarding_days",
-      "label": "days",
+      "id": "onboarding_start",
+      "label": "start",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L21",
+      "source_location": "L25",
       "_origin": "ast"
     },
     {
-      "id": "onboarding_custom",
-      "label": "custom",
+      "id": "datetime",
+      "label": "DateTime",
       "file_type": "code",
-      "source_file": "onboarding.dart",
-      "source_location": "L22",
+      "source_file": null,
+      "source_location": null,
       "_origin": "ast"
     },
     {
-      "id": "onboarding_busy",
-      "label": "busy",
+      "id": "onboarding_end",
+      "label": "end",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L23",
+      "source_location": "L26",
       "_origin": "ast"
     },
     {
@@ -1165,7 +1925,31 @@
       "label": "amount",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L24",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "onboarding_busy",
+      "label": "busy",
+      "file_type": "code",
+      "source_file": "onboarding.dart",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "onboarding_error",
+      "label": "error",
+      "file_type": "code",
+      "source_file": "onboarding.dart",
+      "source_location": "L30",
+      "_origin": "ast"
+    },
+    {
+      "id": "string",
+      "label": "String?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
       "_origin": "ast"
     },
     {
@@ -1173,7 +1957,7 @@
       "label": "onKey",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L249",
+      "source_location": "L213",
       "_origin": "ast"
     },
     {
@@ -1189,7 +1973,7 @@
       "label": "keyHeight",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L250",
+      "source_location": "L214",
       "_origin": "ast"
     },
     {
@@ -1197,31 +1981,15 @@
       "label": "createState",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L16",
+      "source_location": "L20",
       "_origin": "ast"
     },
     {
-      "id": "onboarding_dispose",
-      "label": "dispose",
-      "file_type": "code",
-      "source_file": "onboarding.dart",
-      "source_location": "L26",
-      "_origin": "ast"
-    },
-    {
-      "id": "onboarding_choosedate",
-      "label": "chooseDate",
+      "id": "onboarding_next",
+      "label": "next",
       "file_type": "code",
       "source_file": "onboarding.dart",
       "source_location": "L31",
-      "_origin": "ast"
-    },
-    {
-      "id": "onboarding_option",
-      "label": "option",
-      "file_type": "code",
-      "source_file": "onboarding.dart",
-      "source_location": "L46",
       "_origin": "ast"
     },
     {
@@ -1229,12 +1997,20 @@
       "label": "build",
       "file_type": "code",
       "source_file": "onboarding.dart",
-      "source_location": "L94",
+      "source_location": "L58",
       "_origin": "ast"
     },
     {
       "id": "package_flutter_material_dart",
       "label": "package:flutter/material.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast"
+    },
+    {
+      "id": "budget_data_dart",
+      "label": "budget_data.dart",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -1249,184 +2025,8 @@
       "_origin": "ast"
     },
     {
-      "id": "price_check",
-      "label": "price_check.dart",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_pricecheck",
-      "label": "PriceCheck",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L21",
-      "_origin": "ast"
-    },
-    {
-      "id": "statefulwidget",
-      "label": "StatefulWidget",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_pricecheckstate",
-      "label": "_PriceCheckState",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L31",
-      "_origin": "ast"
-    },
-    {
-      "id": "state",
-      "label": "State",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_referenceprice",
-      "label": "ReferencePrice",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L4",
-      "_origin": "ast"
-    },
-    {
-      "id": "typedef",
-      "label": "typedef",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_alternatives",
-      "label": "alternatives",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L8",
-      "_origin": "ast"
-    },
-    {
-      "id": "int_price_list",
-      "label": "int price,\n  List",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_referenceprices",
-      "label": "referencePrices",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_allowance",
-      "label": "allowance",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L24",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_expired",
-      "label": "expired",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L25",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_onback",
-      "label": "onBack",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L26",
-      "_origin": "ast"
-    },
-    {
-      "id": "voidcallback",
-      "label": "VoidCallback?",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_query",
-      "label": "query",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L32",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_quote",
-      "label": "quote",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L33",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_selected",
-      "label": "selected",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L34",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_createstate",
-      "label": "createState",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L28",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_dispose",
-      "label": "dispose",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L36",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_select",
-      "label": "select",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L42",
-      "_origin": "ast"
-    },
-    {
-      "id": "price_check_build",
-      "label": "build",
-      "file_type": "code",
-      "source_file": "price_check.dart",
-      "source_location": "L48",
-      "_origin": "ast"
-    },
-    {
-      "id": "package_flutter_material_dart",
-      "label": "package:flutter/material.dart",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast"
-    },
-    {
-      "id": "design_dart",
-      "label": "design.dart",
+      "id": "editors_dart",
+      "label": "editors.dart",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
@@ -1435,282 +2035,907 @@
   ],
   "edges": [
     {
-      "source": "budget_settings",
-      "target": "budget_settings_budgetsettingspage",
+      "source": "budget_data",
+      "target": "budget_data_usualproduct",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L12",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings_budgetsettingspage",
-      "target": "statefulwidget",
-      "relation": "inherits",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L12",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_budgetsettingspagestate",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings_budgetsettingspagestate",
-      "target": "state",
-      "relation": "inherits",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings_budgetsettingspagestate",
-      "target": "budget_settings_budgetsettingspage",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_budgetplan",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "typedef",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L4",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_target",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "string_goal_int",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_initial",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L15",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_budgetplan",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L15",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_form",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L22",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_funds",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L23",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "budget_settings_fixed",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
       "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_saved",
+      "source": "budget_data",
+      "target": "budget_data_expense",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L25",
+      "source_file": "budget_data.dart",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_goal",
+      "source": "budget_data",
+      "target": "budget_data_budgetrecord",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_budgetfigures",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L143",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_budgetdata",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L169",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_producticons",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_name",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
       "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_target",
+      "source": "budget_data",
+      "target": "budget_data_price",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
       "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_saving",
+      "source": "budget_data",
+      "target": "budget_data_icon",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
       "source_location": "L28",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_createstate",
+      "source": "budget_data",
+      "target": "budget_data_label",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L18",
+      "source_file": "budget_data.dart",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_dispose",
+      "source": "budget_data",
+      "target": "budget_data_amount",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L31",
+      "source_file": "budget_data.dart",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_money",
+      "source": "budget_data",
+      "target": "budget_data_date",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
+      "source_file": "budget_data.dart",
       "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "budget_settings",
-      "target": "budget_settings_build",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L58",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "package_flutter_material_dart",
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "design_dart",
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "budget_settings",
-      "target": "formstate",
+      "source": "budget_data",
+      "target": "datetime",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "budget_settings.dart",
-      "source_location": "L22",
+      "source_file": "budget_data.dart",
+      "source_location": "L38",
       "weight": 1.0,
-      "context": "type_lookup",
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_icon",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_id",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_funds",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_start",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_end",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L68",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_expenses",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L69",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L69",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_closedat",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L70",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_carriedfrom",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L71",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_carriedamount",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_legacy",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_days",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L75",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_spent",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L76",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_balance",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L77",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_budget",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_budgetrecord",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L146",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_date",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L147",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_completed",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L148",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L148",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_remainingdays",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L149",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L149",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_beforetoday",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L150",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L150",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_spenttoday",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L153",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "int_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L153",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_original",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L156",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "double_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L156",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_todaylimit",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L157",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "double_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L157",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_lefttoday",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L159",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "double_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_savings",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L160",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "double_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L160",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_upcoming",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L161",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "double_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L161",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_tomorrowlimit",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L164",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "double_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L164",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_budgets",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L175",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L175",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_products",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L176",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L176",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_active",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L177",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budgetrecord_get",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L177",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_dayonly",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_daysbetween",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_safeicon",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_tojson",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_fromjson",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_tojson",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_fromjson",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L46",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_canlog",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L78",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_validate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L82",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_copywith",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L99",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_tojson",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_fromjson",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L127",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_replace",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L179",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_encode",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L182",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "budget_data_decode",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L187",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "budget_data",
+      "target": "dart_convert",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "budget_data.dart",
+      "source_location": "L1",
+      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -1732,6 +2957,72 @@
       "confidence_score": 1.0,
       "source_file": "design.dart",
       "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_currencysymbol",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design_currencysymbol",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_currencytext",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design_currencytext",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_labeledfield",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design_labeledfield",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L116",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -1881,6 +3172,245 @@
     },
     {
       "source": "design",
+      "target": "design_size",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_color",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "color",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L57",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_data",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_style",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "textstyle",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L75",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_textalign",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "textalign",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L76",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_maxlines",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "int",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L77",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_overflow",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L78",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "textoverflow",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L78",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_label",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L125",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_controller",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L126",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "texteditingcontroller",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L126",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_currency",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L127",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_maxlength",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L128",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "int",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L128",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_validator",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L129",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "formfieldvalidator",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L129",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_enabled",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L130",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
       "target": "design_build",
       "relation": "defines",
       "confidence": "EXTRACTED",
@@ -1925,6 +3455,39 @@
     },
     {
       "source": "design",
+      "target": "design_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
+      "target": "design_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "design.dart",
+      "source_location": "L132",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "design",
       "target": "package_flutter_material_dart",
       "relation": "imports",
       "confidence": "EXTRACTED",
@@ -1943,6 +3506,948 @@
       "source_file": "design.dart",
       "source_location": "L2",
       "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_datecontrol",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_datecontrol",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_budgeteditor",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_budgeteditor",
+      "target": "statefulwidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_budgeteditorstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L118",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_budgeteditorstate",
+      "target": "state",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L118",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_budgeteditorstate",
+      "target": "editors_budgeteditor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L118",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_expenseeditor",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L185",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_expenseeditor",
+      "target": "statefulwidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L185",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_expenseeditorstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L193",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_expenseeditorstate",
+      "target": "state",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L193",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_expenseeditorstate",
+      "target": "editors_expenseeditor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L193",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_producteditor",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L258",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_producteditor",
+      "target": "statefulwidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L258",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_producteditorstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L265",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_producteditorstate",
+      "target": "state",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L265",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_producteditorstate",
+      "target": "editors_producteditor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L265",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_productlist",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L348",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors_productlist",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L348",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_months",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_amount",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_amount",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "return",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_label",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_value",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L62",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_onchanged",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "valuechanged",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L63",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_first",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L64",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_last",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L65",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_initial",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L112",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "budget_data_budgetrecord",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L112",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_form",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L119",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_funds",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L120",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_start",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L121",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L121",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_busy",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L122",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_error",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L123",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L123",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_expense",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L187",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "budget_data_expense",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L187",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_budget",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L188",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "budget_data_budgetrecord",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L188",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_form",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L194",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_name",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L195",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_amount",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L196",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_date",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L197",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L197",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_initial",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L260",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "budget_data_usualproduct",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_form",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L266",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_name",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L267",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_price",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L268",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_icon",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L270",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_products",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L354",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L354",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_onchanged",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L355",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "valuechanged",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L355",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_enabled",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L356",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_datetext",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_money",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_positivemoney",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_editorbar",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_confirmaction",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_createstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L115",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_dispose",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L125",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L131",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_createstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L190",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_dispose",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L199",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L206",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_createstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L262",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_dispose",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L272",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L279",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "editors_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L358",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "package_flutter_material_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "budget_data_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "design_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "formstate",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L119",
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "formstate",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L194",
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "formstate",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L266",
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast"
+    },
+    {
+      "source": "editors",
+      "target": "budget_data_usualproduct",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L421",
+      "weight": 1.0,
+      "context": "type_lookup",
       "_origin": "ast"
     },
     {
@@ -2129,7 +4634,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L15",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2140,18 +4645,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L15",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_expense",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L57",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2162,7 +4656,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L74",
+      "source_location": "L93",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2173,7 +4667,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L74",
+      "source_location": "L93",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2184,7 +4678,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L80",
+      "source_location": "L99",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2195,7 +4689,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L80",
+      "source_location": "L99",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2206,7 +4700,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L80",
+      "source_location": "L99",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2217,53 +4711,85 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L80",
+      "source_location": "L99",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_label",
+      "target": "main_expenserows",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L59",
+      "source_location": "L685",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main_expenserows",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L685",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_amount",
+      "target": "main_budgethistorypage",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L60",
+      "source_location": "L759",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main_budgethistorypage",
+      "target": "statefulwidget",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L759",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_date",
+      "target": "main_budgethistorypagestate",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L61",
+      "source_location": "L774",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "main",
-      "target": "datetime",
+      "source": "main_budgethistorypagestate",
+      "target": "state",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L774",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main_budgethistorypagestate",
+      "target": "main_budgethistorypage",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L61",
+      "source_location": "L774",
       "weight": 1.0,
-      "context": "variable_type",
       "_origin": "ast"
     },
     {
@@ -2273,7 +4799,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L82",
+      "source_location": "L101",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2284,87 +4810,32 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L82",
+      "source_location": "L101",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_budget",
+      "target": "main_data",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L83",
+      "source_location": "L102",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "int",
+      "target": "budget_data_budgetdata",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L83",
+      "source_location": "L102",
       "weight": 1.0,
       "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_fixedcosts",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L84",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_saved",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L85",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_goalname",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L86",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_goaltarget",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L87",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_days",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L88",
-      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -2374,109 +4845,40 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L89",
+      "source_location": "L103",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_start",
+      "target": "main_saving",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L90",
+      "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "datetime",
+      "target": "main_carrysource",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L105",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "budget_data_budgetrecord",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L90",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_expenses",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L91",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "list",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L91",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_pastexpenses",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L92",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "list",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L92",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_renewing",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L93",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_datetimer",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L94",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "timer",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L94",
+      "source_location": "L105",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -2488,7 +4890,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L95",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2499,112 +4901,112 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L95",
+      "source_location": "L106",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_saving",
+      "target": "main_datetimer",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L96",
+      "source_location": "L107",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_spent",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L187",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "int_get",
+      "target": "timer",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L187",
+      "source_location": "L107",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_expired",
+      "target": "main_lastsaved",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L196",
+      "source_location": "L310",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "bool_get",
+      "target": "budgetrecord_get",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L196",
+      "source_location": "L310",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_remaining",
+      "target": "main_budget",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L197",
+      "source_location": "L691",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "int_get",
+      "target": "budget_data_budgetrecord",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L197",
+      "source_location": "L691",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_allowance",
+      "target": "main_onedit",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L198",
+      "source_location": "L692",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "int_get",
+      "target": "valuechanged",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L198",
+      "source_location": "L692",
       "weight": 1.0,
       "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_onlytoday",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L693",
+      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -2614,7 +5016,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L13",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2625,29 +5027,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L18",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_tojson",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L62",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_fromjson",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L67",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2658,7 +5038,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L77",
+      "source_location": "L96",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2669,7 +5049,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L99",
+      "source_location": "L109",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2680,7 +5060,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L109",
+      "source_location": "L119",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2691,7 +5071,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L116",
+      "source_location": "L126",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2702,42 +5082,19 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L120",
+      "source_location": "L130",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_persist",
+      "target": "main_save",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L151",
+      "source_location": "L157",
       "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "main_editbudget",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L201",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main_editbudget",
-      "target": "materialpageroute",
-      "relation": "navigates",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L202",
-      "weight": 1.0,
-      "context": "route_object",
       "_origin": "ast"
     },
     {
@@ -2747,7 +5104,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L231",
+      "source_location": "L177",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2758,73 +5115,129 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L244",
+      "source_location": "L186",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_startperiod",
+      "target": "main_replacebudget",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L256",
+      "source_location": "L197",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_iconfor",
+      "target": "main_editbudget",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L286",
+      "source_location": "L207",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main_editbudget",
+      "target": "materialpageroute",
+      "relation": "navigates",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L211",
+      "weight": 1.0,
+      "context": "route_object",
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_editexpense",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L216",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_entries",
+      "target": "main_newbudget",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L295",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_datelabel",
+      "target": "main_startbudget",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L330",
+      "source_location": "L268",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_today",
+      "target": "main_stopbudget",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L357",
+      "source_location": "L297",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "main_setting",
+      "target": "main_heading",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L509",
+      "source_location": "L312",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_stat",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L316",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_emptyhome",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L332",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_home",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L349",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2835,7 +5248,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L530",
+      "source_location": "L509",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_budgetpage",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L551",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2846,18 +5270,40 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L580",
+      "source_location": "L607",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "dart_convert",
-      "relation": "imports",
+      "target": "main_build",
+      "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L1",
+      "source_location": "L695",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_createstate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L771",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "main_build",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L776",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2868,7 +5314,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L2",
+      "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2879,7 +5325,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L4",
+      "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2890,29 +5336,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L5",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "main",
-      "target": "budget_settings_dart",
+      "target": "budget_data_dart",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "main",
-      "target": "price_check_dart",
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main.dart",
-      "source_location": "L7",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2923,7 +5358,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L9",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "main",
+      "target": "editors_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2934,7 +5380,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L10",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2945,7 +5391,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L11",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2956,7 +5402,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2967,7 +5413,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2978,7 +5424,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L19",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -2989,7 +5435,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L19",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3000,7 +5446,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L19",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3011,7 +5457,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L247",
+      "source_location": "L211",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3022,29 +5468,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L247",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "onboarding",
-      "target": "onboarding_initialdays",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "onboarding.dart",
-      "source_location": "L12",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "onboarding",
-      "target": "onboarding_renewing",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "onboarding.dart",
-      "source_location": "L13",
+      "source_location": "L211",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3055,7 +5479,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L14",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3066,7 +5490,53 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L14",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "onboarding_initialfunds",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "int",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "onboarding_products",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -3078,41 +5548,54 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L20",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "onboarding",
-      "target": "onboarding_days",
+      "target": "onboarding_start",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L21",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "onboarding",
-      "target": "onboarding_custom",
+      "target": "datetime",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "onboarding_end",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L22",
+      "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "onboarding",
-      "target": "onboarding_busy",
-      "relation": "defines",
+      "target": "datetime",
+      "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L23",
+      "source_location": "L26",
       "weight": 1.0,
+      "context": "variable_type",
       "_origin": "ast"
     },
     {
@@ -3122,8 +5605,65 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L24",
+      "source_location": "L27",
       "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "onboarding_products",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "list",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "onboarding_busy",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "onboarding_error",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L30",
+      "weight": 1.0,
+      "context": "variable_type",
       "_origin": "ast"
     },
     {
@@ -3133,7 +5673,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L249",
+      "source_location": "L213",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3144,7 +5684,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L249",
+      "source_location": "L213",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -3156,7 +5696,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L250",
+      "source_location": "L214",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3167,24 +5707,13 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L16",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "onboarding",
-      "target": "onboarding_dispose",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "onboarding.dart",
-      "source_location": "L26",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "onboarding",
-      "target": "onboarding_choosedate",
+      "target": "onboarding_next",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -3195,12 +5724,12 @@
     },
     {
       "source": "onboarding",
-      "target": "onboarding_option",
+      "target": "onboarding_build",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L46",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3211,18 +5740,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "onboarding.dart",
-      "source_location": "L94",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "onboarding",
-      "target": "onboarding_build",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "onboarding.dart",
-      "source_location": "L252",
+      "source_location": "L216",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -3239,7 +5757,7 @@
     },
     {
       "source": "onboarding",
-      "target": "design_dart",
+      "target": "budget_data_dart",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -3249,270 +5767,24 @@
       "_origin": "ast"
     },
     {
-      "source": "price_check",
-      "target": "price_check_pricecheck",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check_pricecheck",
-      "target": "statefulwidget",
-      "relation": "inherits",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_pricecheckstate",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L31",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check_pricecheckstate",
-      "target": "state",
-      "relation": "inherits",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L31",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check_pricecheckstate",
-      "target": "price_check_pricecheck",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L31",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_referenceprice",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "typedef",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L4",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_alternatives",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L8",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "int_price_list",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L8",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_referenceprices",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L10",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_allowance",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L24",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_expired",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L25",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_onback",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L26",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "voidcallback",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L26",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_query",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L32",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_quote",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L33",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_selected",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L34",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_referenceprice",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L34",
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_createstate",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L28",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_dispose",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L36",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_select",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L42",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "price_check_build",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L48",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
-      "target": "package_flutter_material_dart",
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "price_check",
+      "source": "onboarding",
       "target": "design_dart",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "price_check.dart",
-      "source_location": "L2",
+      "source_file": "onboarding.dart",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "onboarding",
+      "target": "editors_dart",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "onboarding.dart",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast"
     }
@@ -3521,11 +5793,11 @@
   "output_tokens": 0,
   "failed_sources": [],
   "extracted_sources": [
-    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\budget_settings.dart",
+    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\budget_data.dart",
     "C:\\Users\\hamza\\Desktop\\waffir\\lib\\design.dart",
+    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\editors.dart",
     "C:\\Users\\hamza\\Desktop\\waffir\\lib\\expense_sheet.dart",
     "C:\\Users\\hamza\\Desktop\\waffir\\lib\\main.dart",
-    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\onboarding.dart",
-    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\price_check.dart"
+    "C:\\Users\\hamza\\Desktop\\waffir\\lib\\onboarding.dart"
   ]
 }
