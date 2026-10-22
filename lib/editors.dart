@@ -387,6 +387,7 @@ class ProductList extends StatelessWidget {
                                   'Remove');
                               if (yes) onChanged([...products]..removeAt(i));
                             }))),
+        if (products.isNotEmpty) const SizedBox(height: 16),
         FilledButton.icon(
             style: FilledButton.styleFrom(
                 minimumSize: const Size(48, 44),

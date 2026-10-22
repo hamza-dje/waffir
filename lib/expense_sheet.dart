@@ -83,7 +83,7 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                       padding: const EdgeInsets.only(bottom: 8),
                       child: CurrencyText(error!,
                           style: type(13, color: caution))),
-                const SizedBox(height: 12),
+                const SizedBox(height: 24),
                 FilledButton(
                     onPressed: () {
                       final value = int.tryParse(amount);
