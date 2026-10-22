@@ -28,7 +28,7 @@ to_json(graph, communities, str(out/'graph.json'), force=True, community_labels=
 report = generate(graph, communities, score_all(graph, communities), labels,
                   god_nodes(graph), surprising_connections(graph, communities),
                   detect(root), {'input_tokens': 0, 'output_tokens': 0}, str(root))
-out.joinpath('GRAPH_REPORT.md').write_text(report, encoding='utf-8')
+Path('.codex/graphify-out/GRAPH_REPORT.md').write_text(report, encoding='utf-8')
 out.joinpath('GRAPH_HEALTH.txt').write_text(
     f'AST extraction only. {graph.number_of_nodes()} nodes; {graph.number_of_edges()} graph edges.\n'
     f'Raw edges: {len(raw["edges"])}. Same-endpoint relations may be merged by graphify; raw extraction is retained.\n'

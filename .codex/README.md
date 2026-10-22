@@ -23,4 +23,4 @@ flutter build apk --release --split-per-abi --split-debug-info=build/symbols/and
 
 The deliverable is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Keep the symbol files with the release. See [APK_BUILD.md](APK_BUILD.md) for version, size, signature, and native checks.
 
-Visual captures are under `build/ux/`. Refresh the deterministic app graph with `py -3.13 tool/refresh_graph.py`. The supplied HTML files remain in `references/`. No new dependencies were added.
+Visual captures are under `build/ux/`. Refresh the deterministic app graph with `py -3.13 tool/refresh_graph.py`. The supplied HTML files remain in `.codex/references/`. No new dependencies were added.

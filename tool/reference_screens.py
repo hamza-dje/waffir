@@ -2,7 +2,7 @@
 from pathlib import Path
 import re
 
-source = Path('references/deepseek_html_20261020_60ee13.html').read_text(encoding='utf-8')
+source = Path('.codex/references/deepseek_html_20261020_60ee13.html').read_text(encoding='utf-8')
 head = source[:source.index('</head>')]
 sprite = re.search(r'<svg width="0".*?</svg>', source, re.S).group()
 fonts = ''.join(f"@font-face{{font-family:'{family}';font-weight:{weight};src:url('/assets/fonts/{family}-{weight}.ttf')}}"
