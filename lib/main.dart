@@ -468,7 +468,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                       child: Padding(
                           padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
                           child: Column(children: [
-                            SourceIcon(p.icon, size: 24),
+                            Opacity(
+                                opacity: .55,
+                                child: SourceIcon(p.icon, size: 24)),
                             const SizedBox(height: 6),
                             CurrencyText('${p.price} DA',
                                 style: type(13, weight: FontWeight.w600)),

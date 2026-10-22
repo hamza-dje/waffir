@@ -3,6 +3,7 @@
 - Keep the existing colors, bundled fonts, and source SVG icons.
 - Use the supplied DZD SVG for currency labels. Remove visible outlines from controls, cards, and inputs.
 - Put the currency mark beside every amount at the visible height of the digits. Input labels are separate and above their fields. Budget edit and stop actions share one row. Add product uses the supplied medium primary button style.
+- Currency marks are on the left at 65% opacity. Usual-product icons are at 55% opacity. Amounts remain fully visible.
 - Onboarding: budget dates, full amount, then optional usual products with prices and icons. No preset products.
 - Tabs: Home, History, Budget. Remove price check.
 - Home: Left today is the large figure. Keep the initial daily average visible. Also show today's limit and spending, calculated savings, and the projected daily average from tomorrow.

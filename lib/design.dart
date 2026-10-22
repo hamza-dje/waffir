@@ -56,13 +56,15 @@ class CurrencySymbol extends StatelessWidget {
   final double size;
   final Color? color;
   @override
-  Widget build(BuildContext context) => SvgPicture.asset('assets/dzd.svg',
-      width: size * 624 / 993,
-      height: size,
-      excludeFromSemantics: true,
-      colorFilter: ColorFilter.mode(
-          color ?? DefaultTextStyle.of(context).style.color ?? primaryText,
-          BlendMode.srcIn));
+  Widget build(BuildContext context) => Opacity(
+      opacity: .65,
+      child: SvgPicture.asset('assets/dzd.svg',
+          width: size * 624 / 993,
+          height: size,
+          excludeFromSemantics: true,
+          colorFilter: ColorFilter.mode(
+              color ?? DefaultTextStyle.of(context).style.color ?? primaryText,
+              BlendMode.srcIn)));
 }
 
 // Keep currency accessible as text while drawing the supplied vector mark.
@@ -76,7 +78,9 @@ class CurrencyText extends StatelessWidget {
   final TextOverflow? overflow;
   @override
   Widget build(BuildContext context) {
-    final matches = RegExp(r'\b(?:DZD|DA)\b').allMatches(data).toList();
+    final matches = RegExp(r'([−-]?\d+(?:\.\d+)?)\s+(?:DZD|DA)\b')
+        .allMatches(data)
+        .toList();
     if (matches.isEmpty) {
       return Text(data,
           style: style,
@@ -88,14 +92,15 @@ class CurrencyText extends StatelessWidget {
     var cursor = 0;
     for (final match in matches) {
       spans.add(TextSpan(text: data.substring(cursor, match.start)));
+      final fontSize =
+          style?.fontSize ?? DefaultTextStyle.of(context).style.fontSize ?? 14;
       spans.add(WidgetSpan(
           alignment: PlaceholderAlignment.middle,
-          child: CurrencySymbol(
-              size: (style?.fontSize ??
-                      DefaultTextStyle.of(context).style.fontSize ??
-                      14) *
-                  .72,
-              color: style?.color)));
+          child: Padding(
+              padding: EdgeInsets.only(right: fontSize * .16),
+              child:
+                  CurrencySymbol(size: fontSize * .72, color: style?.color))));
+      spans.add(TextSpan(text: match.group(1)));
       cursor = match.end;
     }
     spans.add(TextSpan(text: data.substring(cursor)));
@@ -142,6 +147,10 @@ class LabeledField extends StatelessWidget {
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
-                    suffix: currency ? const CurrencySymbol(size: 12) : null))),
+                    prefix: currency
+                        ? const Padding(
+                            padding: EdgeInsets.only(right: 8),
+                            child: CurrencySymbol(size: 12))
+                        : null))),
       ]);
 }

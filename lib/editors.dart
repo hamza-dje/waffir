@@ -370,8 +370,10 @@ class ProductList extends StatelessWidget {
                   color: surface,
                   borderRadius: BorderRadius.circular(16),
                   child: ListTile(
-                      leading:
-                          SourceIcon(products[i].icon, color: secondaryText),
+                      leading: Opacity(
+                          opacity: .55,
+                          child: SourceIcon(products[i].icon,
+                              color: secondaryText)),
                       title: CurrencyText(products[i].name,
                           style: type(14, weight: FontWeight.w500)),
                       subtitle: CurrencyText('${products[i].price} DA',
