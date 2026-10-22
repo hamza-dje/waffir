@@ -103,6 +103,11 @@ void main() {
     await tester.ensureVisible(find.text('Coffee').first);
     await tester.tap(find.text('Coffee').first);
     await capture('edit-expense');
+    await tester.ensureVisible(find.text('Delete expense'));
+    await tester.tap(find.text('Delete expense'));
+    await capture('delete-dialog');
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Back'));
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Back'));

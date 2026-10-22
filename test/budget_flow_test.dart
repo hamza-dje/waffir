@@ -179,6 +179,7 @@ void main() {
     await tap(tester, 'Stop and Save');
     await tap(tester, 'Stop and save');
     await tap(tester, 'Use remaining money');
+    await tap(tester, 'Continue');
     await tap(tester, '7 days');
     await tap(tester, 'Continue');
     await tap(tester, 'Continue');

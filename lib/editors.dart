@@ -42,17 +42,16 @@ Future<bool> confirmAction(BuildContext context, String title, String message,
     await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-                backgroundColor: surface,
-                title: CurrencyText(title),
-                content: CurrencyText(message),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: const CurrencyText('Cancel')),
-                  FilledButton(
-                      onPressed: () => Navigator.pop(context, true),
-                      child: CurrencyText(action)),
-                ])) ??
+              backgroundColor: surface,
+              title: CurrencyText(title),
+              content: CurrencyText(message),
+              actions: [
+                DialogActions(
+                    onCancel: () => Navigator.pop(context, false),
+                    onConfirm: () => Navigator.pop(context, true),
+                    confirmLabel: action)
+              ],
+            )) ??
     false;
 
 class DateControl extends StatelessWidget {
@@ -251,14 +250,17 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                 },
                 child: const CurrencyText('Save expense')),
             const SizedBox(height: 12),
-            TextButton(
+            FilledButton(
+                style: FilledButton.styleFrom(
+                    backgroundColor: caution, foregroundColor: background),
                 onPressed: () async {
                   final yes = await confirmAction(context, 'Delete expense?',
                       'This entry will be removed from the budget.', 'Delete');
                   if (yes && context.mounted) Navigator.pop(context, 'delete');
                 },
                 child: CurrencyText('Delete expense',
-                    style: type(14, color: caution))),
+                    style:
+                        type(14, color: background, weight: FontWeight.w600))),
           ])));
 }
 

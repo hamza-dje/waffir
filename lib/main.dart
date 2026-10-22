@@ -41,8 +41,24 @@ class WafirApp extends StatelessWidget {
               ),
             ),
           ),
+          dialogTheme: const DialogThemeData(
+            backgroundColor: surface,
+            insetPadding: overlayInsets,
+            constraints: BoxConstraints(minWidth: 560, maxWidth: 560),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+          ),
+          bottomSheetTheme: const BottomSheetThemeData(
+              constraints: BoxConstraints(maxWidth: 680)),
+          datePickerTheme: DatePickerThemeData(
+              cancelButtonStyle: compactAction(cancel: true),
+              confirmButtonStyle: compactAction()),
+          timePickerTheme: TimePickerThemeData(
+              cancelButtonStyle: compactAction(cancel: true),
+              confirmButtonStyle: compactAction()),
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
+            hintStyle: type(14, color: secondaryText),
             fillColor: surface,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
@@ -240,24 +256,53 @@ class _BudgetScreenState extends State<BudgetScreen>
     if (saving || data.active != null) return;
     int? choice;
     if (source != null && !source.legacy && source.balance > 0) {
+      var selected = source.balance;
       choice = await showDialog<int>(
           context: context,
-          builder: (context) => AlertDialog(
-                  backgroundColor: surface,
-                  title: const CurrencyText('Start a new budget'),
-                  content: CurrencyText(
-                      '${source.balance} DA is left in the saved budget.'),
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const CurrencyText('Later')),
-                    TextButton(
-                        onPressed: () => Navigator.pop(context, 0),
-                        child: const CurrencyText('Enter new amount')),
-                    FilledButton(
-                        onPressed: () => Navigator.pop(context, source.balance),
-                        child: const CurrencyText('Use remaining money'))
-                  ]));
+          builder: (context) => StatefulBuilder(
+              builder: (context, update) => AlertDialog(
+                    title: const Text('Start a new budget'),
+                    content: SizedBox(
+                        width: double.maxFinite,
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              CurrencyText(
+                                  '${source.balance} DA is left in the saved budget.'),
+                              const SizedBox(height: 16),
+                              for (final value in [source.balance, 0])
+                                Padding(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                            backgroundColor: selected == value
+                                                ? const Color(0x2634D399)
+                                                : surfaceHigh),
+                                        onPressed: () =>
+                                            update(() => selected = value),
+                                        child: Row(children: [
+                                          SourceIcon(
+                                              selected == value
+                                                  ? 'check'
+                                                  : 'banknote',
+                                              color: selected == value
+                                                  ? mint
+                                                  : secondaryText),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                              child: Text(value == 0
+                                                  ? 'Enter new amount'
+                                                  : 'Use remaining money')),
+                                        ]))),
+                            ])),
+                    actions: [
+                      DialogActions(
+                          onCancel: () => Navigator.pop(context),
+                          onConfirm: () => Navigator.pop(context, selected),
+                          confirmLabel: 'Continue')
+                    ],
+                  )));
       if (choice == null) return;
     }
     if (mounted) {
@@ -374,36 +419,46 @@ class _BudgetScreenState extends State<BudgetScreen>
             style: type(15, color: caution)),
         const SizedBox(height: 16)
       ],
-      FittedBox(
-          fit: BoxFit.scaleDown,
-          child: CurrencyText(
-              f.leftToday == null ? '—' : '${money(f.leftToday!)} DA',
-              key: const ValueKey('left-today'),
-              style: type(80,
-                      weight: FontWeight.w600,
-                      spacing: -3.6,
-                      height: 1,
-                      color: (f.leftToday ?? 0) < 0 ? caution : mint)
-                  .copyWith(
-                      fontFeatures: const [FontFeature.tabularFigures()]))),
-      const SizedBox(height: 8),
-      CurrencyText('Left today',
-          textAlign: TextAlign.center,
-          style: type(16, color: secondaryText, weight: FontWeight.w500)),
-      const SizedBox(height: 10),
-      CurrencyText('${b.balance} DA left in this budget',
-          textAlign: TextAlign.center, style: type(11, color: tertiaryText)),
-      if (usable && f.leftToday! <= 0)
-        Padding(
-            padding: const EdgeInsets.only(top: 12),
-            child: CurrencyText('Stop for today',
+      Container(
+          key: const ValueKey('today-section'),
+          padding: const EdgeInsets.all(20),
+          decoration: panel(),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            FittedBox(
+                fit: BoxFit.scaleDown,
+                child: CurrencyText(
+                    f.leftToday == null ? '—' : '${money(f.leftToday!)} DA',
+                    key: const ValueKey('left-today'),
+                    style: type(80,
+                            weight: FontWeight.w600,
+                            spacing: -3.6,
+                            height: 1,
+                            color: (f.leftToday ?? 0) < 0 ? caution : mint)
+                        .copyWith(fontFeatures: const [
+                      FontFeature.tabularFigures()
+                    ]))),
+            const SizedBox(height: 8),
+            CurrencyText('Left today',
                 textAlign: TextAlign.center,
-                style: type(14, color: caution, weight: FontWeight.w600))),
-      const SizedBox(height: 24),
-      FilledButton.icon(
-          onPressed: !usable || saving ? null : customExpense,
-          icon: const SourceIcon('plus', color: Color(0xFF06251A)),
-          label: const Text('Add expense')),
+                style: type(16, color: secondaryText, weight: FontWeight.w500)),
+            const SizedBox(height: 10),
+            CurrencyText('${b.balance} DA left in this budget',
+                textAlign: TextAlign.center,
+                style: type(11, color: tertiaryText)),
+            if (usable && f.leftToday! <= 0)
+              Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: CurrencyText('Stop for today',
+                      textAlign: TextAlign.center,
+                      style:
+                          type(14, color: caution, weight: FontWeight.w600))),
+            const SizedBox(height: 24),
+            FilledButton.icon(
+                onPressed: !usable || saving ? null : customExpense,
+                icon: const SourceIcon('plus', color: Color(0xFF06251A)),
+                label: const Text('Add expense')),
+          ])),
       const SizedBox(height: 16),
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
@@ -776,7 +831,8 @@ class BudgetHistoryPage extends StatefulWidget {
 
 class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
   String query = '';
-  Widget summaryCard(String label, String amount, [String? detail]) =>
+  Widget summaryCard(String label, String amount,
+          [String? detail, Color color = primaryText]) =>
       Container(
           padding: const EdgeInsets.all(16),
           decoration: panel(),
@@ -784,7 +840,8 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(label, style: type(12, color: secondaryText)),
             const SizedBox(height: 8),
-            CurrencyText(amount, style: type(22, weight: FontWeight.w600)),
+            CurrencyText(amount,
+                style: type(22, weight: FontWeight.w600, color: color)),
             if (detail != null) ...[
               const SizedBox(height: 6),
               Text(detail, style: type(11, color: secondaryText))
@@ -809,11 +866,15 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
                 child: summaryCard(
                     'Left',
                     b.legacy ? 'Unavailable' : '${b.balance} DA',
-                    '${BudgetFigures(b, b.closedAt ?? DateTime.now()).remainingDays} days left')),
+                    '${BudgetFigures(b, b.closedAt ?? DateTime.now()).remainingDays} days left',
+                    mint)),
             const SizedBox(width: 8),
             Expanded(
-                child: summaryCard('Spent', '${b.spent} DA',
-                    '${BudgetFigures(b, b.closedAt ?? DateTime.now()).completed} completed days')),
+                child: summaryCard(
+                    'Spent',
+                    '${b.spent} DA',
+                    '${BudgetFigures(b, b.closedAt ?? DateTime.now()).completed} completed days',
+                    caution)),
           ]),
           if (b.closedAt != null)
             CurrencyText('Saved ${dateText(b.closedAt!)}',
@@ -825,7 +886,11 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
                     '$transfer DA carried to the next budget. This transfer stays fixed after corrections.',
                     style: type(12, color: secondaryText))),
           const SizedBox(height: 16),
-          OutlinedButton(
+          FilledButton(
+              style: FilledButton.styleFrom(
+                  backgroundColor: primaryText,
+                  foregroundColor: background,
+                  minimumSize: const Size(48, 44)),
               onPressed: () async {
                 await widget.onEditBudget();
                 if (mounted) setState(() {});
@@ -837,6 +902,10 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
             onChanged: (value) => setState(() => query = value),
             decoration: const InputDecoration(
                 hintText: 'Search expense names',
+                hintStyle: TextStyle(
+                    fontSize: 14,
+                    color: secondaryText,
+                    fontWeight: FontWeight.w400),
                 prefixIcon: Padding(
                     padding: EdgeInsets.all(14),
                     child: SourceIcon('search', color: secondaryText))),

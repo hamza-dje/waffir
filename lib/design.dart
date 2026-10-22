@@ -159,3 +159,42 @@ class LabeledField extends StatelessWidget {
                         : null))),
       ]);
 }
+
+const ink = Color(0xFF06251A);
+const cancelSurface = Color(0xFF343B46);
+const overlayInsets = EdgeInsets.symmetric(horizontal: 16, vertical: 24);
+
+ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(
+      backgroundColor: cancel ? cancelSurface : mint,
+      foregroundColor: cancel ? primaryText : ink,
+      minimumSize: const Size(48, 44),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      textStyle: const TextStyle(
+          fontFamily: 'Geist', fontSize: 13, fontWeight: FontWeight.w600),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+    );
+
+class DialogActions extends StatelessWidget {
+  const DialogActions(
+      {super.key,
+      required this.onCancel,
+      required this.onConfirm,
+      required this.confirmLabel,
+      this.cancelLabel = 'Cancel'});
+  final VoidCallback onCancel, onConfirm;
+  final String confirmLabel, cancelLabel;
+  @override
+  Widget build(BuildContext context) => Row(children: [
+        Expanded(
+            child: FilledButton(
+                style: compactAction(cancel: true),
+                onPressed: onCancel,
+                child: Text(cancelLabel, textAlign: TextAlign.center))),
+        const SizedBox(width: 8),
+        Expanded(
+            child: FilledButton(
+                style: compactAction(),
+                onPressed: onConfirm,
+                child: Text(confirmLabel, textAlign: TextAlign.center))),
+      ]);
+}
