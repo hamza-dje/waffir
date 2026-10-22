@@ -116,5 +116,10 @@ void main() {
     await capture('budget');
     await tester.tap(find.widgetWithText(OutlinedButton, 'Edit'));
     await capture('edit-budget');
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Stop and Save'));
+    await tester.tap(find.text('Stop and Save'));
+    await capture('stop-save-dialog');
   });
 }
