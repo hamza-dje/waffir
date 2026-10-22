@@ -15,7 +15,7 @@ Future<void> tap(WidgetTester tester, String text, {bool last = false}) async {
 }
 
 Future<void> field(WidgetTester tester, String label, String value) async {
-  final finder = find.widgetWithText(TextFormField, label);
+  final finder = find.byKey(ValueKey('input-$label'));
   await tester.ensureVisible(finder);
   await tester.enterText(finder, value);
   await tester.pumpAndSettle();
@@ -28,8 +28,11 @@ Future<void> digits(WidgetTester tester, String value) async {
   }
 }
 
-String figure(WidgetTester tester, String key) =>
-    tester.widget<CurrencyText>(find.byKey(ValueKey(key))).data;
+String figure(WidgetTester tester, String key) {
+  final value = tester.widget<CurrencyText>(find.byKey(ValueKey(key))).data;
+  return key == 'left-today' ? value.replaceFirst(RegExp(r' DA$'), '') : value;
+}
+
 Future<BudgetData> stored() async => BudgetData.decode(
     (await SharedPreferences.getInstance()).getString('budget_state_v2')!);
 Future<void> boot(WidgetTester tester, Map<String, Object> values) async {
@@ -52,7 +55,9 @@ BudgetRecord seed({int funds = 3000, List<Expense> expenses = const []}) {
 }
 
 Future<void> pickDate(WidgetTester tester, String label, DateTime value) async {
-  await tap(tester, label);
+  await tester.ensureVisible(find.byKey(ValueKey('date-$label')));
+  await tester.tap(find.byKey(ValueKey('date-$label')));
+  await tester.pumpAndSettle();
   await tester.tap(find.byTooltip('Switch to input'));
   await tester.pumpAndSettle();
   await tester.enterText(
@@ -64,6 +69,42 @@ Future<void> pickDate(WidgetTester tester, String label, DateTime value) async {
 }
 
 void main() {
+  testWidgets('currency uses the SVG and input borders stay invisible',
+      (tester) async {
+    await boot(tester, {
+      'budget_state_v2': BudgetData(budgets: [seed()]).encode()
+    });
+    expect(find.byType(CurrencySymbol), findsWidgets);
+    await tap(tester, 'Budget', last: true);
+    await tap(tester, 'Edit budget');
+    final theme = Theme.of(tester.element(find.byType(TextFormField)))
+        .inputDecorationTheme;
+    for (final border in [
+      theme.border,
+      theme.enabledBorder,
+      theme.focusedBorder,
+      theme.errorBorder,
+      theme.focusedErrorBorder
+    ]) {
+      expect(border!.borderSide.style, BorderStyle.none);
+    }
+  });
+  testWidgets('home and editors fit a small screen with larger text',
+      (tester) async {
+    await boot(tester, {
+      'budget_state_v2': BudgetData(
+          budgets: [seed()],
+          products: [const UsualProduct('Coffee', 50, 'coffee')]).encode()
+    });
+    tester.view.physicalSize = const Size(360, 696);
+    tester.platformDispatcher.textScaleFactorTestValue = 1.5;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    await tap(tester, 'Budget', last: true);
+    await tap(tester, 'Edit budget');
+    expect(tester.takeException(), isNull);
+  });
   testWidgets(
       'onboarding products, fixed daily limit, product snapshots, and corrections survive restart',
       (tester) async {

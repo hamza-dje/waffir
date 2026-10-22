@@ -161,6 +161,9 @@ class BudgetFigures {
   double? get upcoming => budget.canLog(date) && remainingDays > 1
       ? budget.balance / (remainingDays - 1)
       : null;
+  double? get tomorrowLimit => budget.canLog(date) && remainingDays > 1
+      ? original + savings + original - spentToday
+      : null;
 }
 
 class BudgetData {

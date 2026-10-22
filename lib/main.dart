@@ -64,6 +64,25 @@ class WafirApp extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                   side: BorderSide.none,
                   backgroundColor: surface,
+                  foregroundColor: primaryText,
+                  minimumSize: const Size(48, 44),
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  textStyle: const TextStyle(
+                      fontFamily: 'Geist',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -.14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14)))),
+          textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                  minimumSize: const Size(48, 44),
+                  foregroundColor: secondaryText,
+                  textStyle: const TextStyle(
+                      fontFamily: 'Geist',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -.14),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),
         ),
@@ -294,15 +313,20 @@ class _BudgetScreenState extends State<BudgetScreen>
       padding: const EdgeInsets.fromLTRB(4, 4, 4, 20),
       child: CurrencyText(label,
           style: type(26, weight: FontWeight.w600, spacing: -.78)));
-  Widget stat(String label, String value, {Color color = primaryText}) =>
+  Widget stat(String label, String value,
+          {Color color = primaryText, Key? valueKey, double? labelHeight}) =>
       Container(
           padding: const EdgeInsets.all(14),
           decoration: panel(radius: 16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            CurrencyText(label, style: type(11, color: secondaryText)),
+            SizedBox(
+                height: labelHeight,
+                child:
+                    CurrencyText(label, style: type(11, color: secondaryText))),
             const SizedBox(height: 6),
             CurrencyText(value,
+                key: valueKey,
                 style: type(21, color: color, weight: FontWeight.w600))
           ]));
   Widget emptyHome() =>
@@ -349,7 +373,8 @@ class _BudgetScreenState extends State<BudgetScreen>
       ],
       FittedBox(
           fit: BoxFit.scaleDown,
-          child: CurrencyText(f.leftToday == null ? '—' : money(f.leftToday!),
+          child: CurrencyText(
+              f.leftToday == null ? '—' : '${money(f.leftToday!)} DA',
               key: const ValueKey('left-today'),
               style: type(80,
                       weight: FontWeight.w600,
@@ -359,7 +384,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                   .copyWith(
                       fontFeatures: const [FontFeature.tabularFigures()]))),
       const SizedBox(height: 8),
-      CurrencyText('DA left today',
+      CurrencyText('Left today',
           textAlign: TextAlign.center,
           style: type(16, color: secondaryText, weight: FontWeight.w500)),
       const SizedBox(height: 10),
@@ -391,24 +416,29 @@ class _BudgetScreenState extends State<BudgetScreen>
                 color: f.savings < 0 ? caution : primaryText))
       ]),
       const SizedBox(height: 8),
-      Container(
-          padding: const EdgeInsets.all(14),
-          decoration: panel(radius: 16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            CurrencyText('Daily average from tomorrow',
-                style: type(11, color: secondaryText)),
-            const SizedBox(height: 6),
-            CurrencyText(
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Expanded(
+            child: stat(
+                'Daily average from tomorrow',
                 f.upcoming == null
                     ? (future ? 'Not started' : 'No days remaining')
                     : '${money(f.upcoming!)} DA',
-                key: const ValueKey('upcoming-average'),
-                style: type(21, weight: FontWeight.w600)),
-            const SizedBox(height: 4),
-            CurrencyText('Estimate. Updates with today’s spending.',
-                style: type(11, color: tertiaryText))
-          ])),
+                valueKey: const ValueKey('upcoming-average'),
+                labelHeight: MediaQuery.textScalerOf(context).scale(30))),
+        const SizedBox(width: 8),
+        Expanded(
+            child: stat(
+                'Tomorrow’s limit',
+                f.tomorrowLimit == null
+                    ? (future ? 'Not started' : 'No days remaining')
+                    : '${money(f.tomorrowLimit!)} DA',
+                valueKey: const ValueKey('tomorrow-limit'),
+                labelHeight: MediaQuery.textScalerOf(context).scale(30),
+                color: (f.tomorrowLimit ?? 0) < 0 ? caution : primaryText)),
+      ]),
+      const SizedBox(height: 6),
+      CurrencyText('Estimates. Update with today’s spending.',
+          style: type(11, color: tertiaryText)),
       const SizedBox(height: 24),
       sectionLabel('Usual expenses'),
       if (data.products.isEmpty)
@@ -422,7 +452,7 @@ class _BudgetScreenState extends State<BudgetScreen>
           crossAxisCount: 3,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
-          mainAxisExtent: 100,
+          mainAxisExtent: 100 * MediaQuery.textScalerOf(context).scale(1),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           children: [
@@ -440,7 +470,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                           child: Column(children: [
                             SourceIcon(p.icon, size: 24),
                             const SizedBox(height: 6),
-                            CurrencyText('${p.price}',
+                            CurrencyText('${p.price} DA',
                                 style: type(13, weight: FontWeight.w600)),
                             const SizedBox(height: 4),
                             CurrencyText(p.name,
@@ -542,13 +572,22 @@ class _BudgetScreenState extends State<BudgetScreen>
                               '${b.carriedAmount} DA carried from a saved budget.',
                               style: type(11, color: tertiaryText))),
                     const SizedBox(height: 16),
-                    OutlinedButton(
-                        onPressed: saving ? null : () => editBudget(b.id),
-                        child: const CurrencyText('Edit budget')),
-                    TextButton(
-                        onPressed: saving ? null : stopBudget,
-                        child: CurrencyText('Stop and save budget',
-                            style: type(14, color: caution))),
+                    Row(children: [
+                      Expanded(
+                          flex: 2,
+                          child: TextButton(
+                              onPressed: saving ? null : () => editBudget(b.id),
+                              child: const CurrencyText('Edit budget',
+                                  textAlign: TextAlign.center))),
+                      const SizedBox(width: 8),
+                      Expanded(
+                          flex: 3,
+                          child: TextButton(
+                              onPressed: saving ? null : stopBudget,
+                              child: CurrencyText('Stop and save budget',
+                                  textAlign: TextAlign.center,
+                                  style: type(14, color: caution)))),
+                    ]),
                   ])),
         ] else
           FilledButton(
@@ -707,7 +746,7 @@ class ExpenseRows extends StatelessWidget {
                               '${entry.value.date.hour.toString().padLeft(2, '0')}:${entry.value.date.minute.toString().padLeft(2, '0')} · tap to edit',
                               style: type(11, color: tertiaryText))
                         ])),
-                    CurrencyText('−${entry.value.amount}',
+                    CurrencyText('−${entry.value.amount} DA',
                         style: type(13, weight: FontWeight.w600))
                   ]))),
       ],

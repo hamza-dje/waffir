@@ -143,18 +143,11 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                             child: FittedBox(
                                                 fit: BoxFit.scaleDown,
                                                 child: CurrencyText(
-                                                    amount.isEmpty
-                                                        ? '0'
-                                                        : amount,
+                                                    '${amount.isEmpty ? '0' : amount} DA',
                                                     style: type(64,
                                                         weight: FontWeight.w600,
                                                         spacing: -2.56,
                                                         height: 1)))),
-                                        const SizedBox(height: 10),
-                                        CurrencyText('DA',
-                                            style: type(16,
-                                                color: tertiaryText,
-                                                weight: FontWeight.w500)),
                                       ]))),
                                   AmountKeypad(
                                       onKey: (key) => setState(() {

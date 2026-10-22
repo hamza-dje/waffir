@@ -52,18 +52,8 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 const SizedBox(height: 20),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 12, 0, 20),
-                    child: Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                              text: amount.isEmpty ? '0' : amount,
-                              style: type(52,
-                                  weight: FontWeight.w600, spacing: -2)),
-                          const TextSpan(text: ' '),
-                          const WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              child:
-                                  CurrencySymbol(size: 22, color: tertiaryText))
-                        ]),
+                    child: CurrencyText('${amount.isEmpty ? '0' : amount} DA',
+                        style: type(52, weight: FontWeight.w600, spacing: -2),
                         textAlign: TextAlign.center)),
                 AmountKeypad(
                     keyHeight: 52,
@@ -79,11 +69,10 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                           }
                         })),
                 if (details)
-                  TextField(
+                  LabeledField(
+                      label: 'What was it for?',
                       controller: name,
-                      maxLength: 60,
-                      decoration:
-                          const InputDecoration(labelText: 'What was it for?')),
+                      maxLength: 60),
                 if (error != null)
                   Padding(
                       padding: const EdgeInsets.only(bottom: 8),

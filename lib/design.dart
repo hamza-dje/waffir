@@ -91,7 +91,11 @@ class CurrencyText extends StatelessWidget {
       spans.add(WidgetSpan(
           alignment: PlaceholderAlignment.middle,
           child: CurrencySymbol(
-              size: (style?.fontSize ?? 14) * 1.1, color: style?.color)));
+              size: (style?.fontSize ??
+                      DefaultTextStyle.of(context).style.fontSize ??
+                      14) *
+                  .72,
+              color: style?.color)));
       cursor = match.end;
     }
     spans.add(TextSpan(text: data.substring(cursor)));
@@ -102,4 +106,42 @@ class CurrencyText extends StatelessWidget {
         maxLines: maxLines,
         overflow: overflow);
   }
+}
+
+class LabeledField extends StatelessWidget {
+  const LabeledField(
+      {super.key,
+      required this.label,
+      required this.controller,
+      this.currency = false,
+      this.maxLength,
+      this.validator,
+      this.enabled = true});
+  final String label;
+  final TextEditingController controller;
+  final bool currency;
+  final int? maxLength;
+  final FormFieldValidator<String>? validator;
+  final bool enabled;
+  @override
+  Widget build(BuildContext context) =>
+      Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        CurrencyText(label,
+            style: type(13, color: secondaryText, weight: FontWeight.w500)),
+        const SizedBox(height: 8),
+        Semantics(
+            label: label,
+            child: TextFormField(
+                key: ValueKey('input-$label'),
+                controller: controller,
+                enabled: enabled,
+                maxLength: maxLength,
+                keyboardType:
+                    currency ? TextInputType.number : TextInputType.text,
+                validator: validator,
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    suffix: currency ? const CurrencySymbol(size: 12) : null))),
+      ]);
 }

@@ -19,6 +19,7 @@ void main() {
     expect(first.leftToday, 50);
     expect(first.upcoming, closeTo(2950 / 29, 1e-9));
     expect(first.savings, 0);
+    expect(first.tomorrowLimit, 150);
     final second = BudgetFigures(
         budget(expenses: [
           Expense('Coffee', 50, start),
@@ -29,6 +30,16 @@ void main() {
     expect(second.leftToday, closeTo(2950 / 29 - 100, 1e-9));
     expect(second.upcoming, closeTo(2850 / 28, 1e-9));
     expect(second.savings, 50);
+    expect(second.tomorrowLimit, 150);
+    final example = BudgetFigures(
+        budget(expenses: [
+          Expense('Coffee', 50, start),
+          Expense('Coffee', 50, DateTime(2026, 10, 2))
+        ]),
+        DateTime(2026, 10, 2));
+    expect(example.tomorrowLimit, 200);
+    expect(example.budget.balance - example.tomorrowLimit!,
+        example.original * (example.remainingDays - 2));
     final over =
         BudgetFigures(budget(expenses: [Expense('Food', 200, start)]), start);
     expect(over.leftToday, -100);
@@ -40,6 +51,14 @@ void main() {
     final one = BudgetFigures(budget(days: 1), start);
     expect(one.todayLimit, 3000);
     expect(one.upcoming, isNull);
+    expect(one.tomorrowLimit, isNull);
+    final nearEnd = BudgetRecord(
+        id: 'two',
+        funds: 200,
+        start: start,
+        end: DateTime(2026, 10, 2),
+        expenses: [Expense('Food', 180, start)]);
+    expect(BudgetFigures(nearEnd, start).tomorrowLimit, 20);
     final expired = BudgetFigures(budget(), DateTime(2026, 10, 31));
     expect(expired.remainingDays, 0);
     expect(expired.leftToday, isNull);

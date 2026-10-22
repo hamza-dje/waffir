@@ -65,37 +65,46 @@ class DateControl extends StatelessWidget {
   final DateTime? last;
   @override
   Widget build(BuildContext context) => Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: OutlinedButton(
-          onPressed: () async {
-            final min = first ?? DateTime(2000), max = last ?? DateTime(2100);
-            final initial = value.isBefore(min)
-                ? min
-                : value.isAfter(max)
-                    ? max
-                    : value;
-            final chosen = await showDatePicker(
-                context: context,
-                initialDate: initial,
-                firstDate: min,
-                lastDate: max);
-            if (chosen != null) onChanged(dayOnly(chosen));
-          },
-          style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.all(16),
-              side: BorderSide.none,
-              backgroundColor: surface,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16))),
-          child: Row(children: [
-            const SourceIcon('calendar', color: secondaryText),
-            const SizedBox(width: 12),
-            Expanded(
-                child:
-                    CurrencyText(label, style: type(13, color: secondaryText))),
-            CurrencyText(dateText(value),
-                style: type(13, weight: FontWeight.w500))
-          ])));
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        CurrencyText(label,
+            style: type(13, color: secondaryText, weight: FontWeight.w500)),
+        const SizedBox(height: 8),
+        Semantics(
+            label: label,
+            child: OutlinedButton(
+                key: ValueKey('date-$label'),
+                onPressed: () async {
+                  final min = first ?? DateTime(2000),
+                      max = last ?? DateTime(2100);
+                  final initial = value.isBefore(min)
+                      ? min
+                      : value.isAfter(max)
+                          ? max
+                          : value;
+                  final chosen = await showDatePicker(
+                      context: context,
+                      initialDate: initial,
+                      firstDate: min,
+                      lastDate: max);
+                  if (chosen != null) onChanged(dayOnly(chosen));
+                },
+                style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.all(16),
+                    side: BorderSide.none,
+                    backgroundColor: surface,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14))),
+                child: Row(children: [
+                  const SourceIcon('calendar', color: secondaryText),
+                  const SizedBox(width: 12),
+                  Expanded(
+                      child: CurrencyText(dateText(value),
+                          style: type(14, weight: FontWeight.w500))),
+                  const SourceIcon('chevron-right',
+                      size: 16, color: tertiaryText),
+                ])))
+      ]));
 }
 
 class BudgetEditor extends StatefulWidget {
@@ -131,12 +140,11 @@ class _BudgetEditorState extends State<BudgetEditor> {
                 'Your expenses stay in this budget. All figures update after saving.',
                 style: type(13, color: secondaryText)),
             const SizedBox(height: 24),
-            TextFormField(
+            LabeledField(
+                label: 'Total funds',
+                currency: true,
                 controller: funds,
                 enabled: !busy,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    labelText: 'Total funds', suffix: CurrencySymbol(size: 18)),
                 validator: positiveMoney),
             const SizedBox(height: 20),
             DateControl('Start date', start, (d) => setState(() => start = d)),
@@ -200,18 +208,17 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
       body: Form(
           key: form,
           child: ListView(padding: const EdgeInsets.all(24), children: [
-            TextFormField(
+            LabeledField(
+                label: 'Expense name',
                 controller: name,
                 maxLength: 60,
-                decoration: const InputDecoration(labelText: 'Expense name'),
                 validator: (v) =>
                     (v ?? '').trim().isEmpty ? 'Enter a name' : null),
             const SizedBox(height: 16),
-            TextFormField(
+            LabeledField(
+                label: 'Amount',
+                currency: true,
                 controller: amount,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    labelText: 'Amount', suffix: CurrencySymbol(size: 18)),
                 validator: positiveMoney),
             const SizedBox(height: 20),
             DateControl('Expense date', date, (d) => setState(() => date = d),
@@ -275,18 +282,17 @@ class _ProductEditorState extends State<ProductEditor> {
       body: Form(
           key: form,
           child: ListView(padding: const EdgeInsets.all(24), children: [
-            TextFormField(
+            LabeledField(
+                label: 'Product name',
                 controller: name,
                 maxLength: 40,
-                decoration: const InputDecoration(labelText: 'Product name'),
                 validator: (v) =>
                     (v ?? '').trim().isEmpty ? 'Enter a name' : null),
             const SizedBox(height: 16),
-            TextFormField(
+            LabeledField(
+                label: 'Usual price',
+                currency: true,
                 controller: price,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    labelText: 'Usual price', suffix: CurrencySymbol(size: 18)),
                 validator: positiveMoney),
             const SizedBox(height: 24),
             sectionLabel('Icon'),
@@ -382,8 +388,9 @@ class ProductList extends StatelessWidget {
                                           ProductEditor(initial: products[i])));
                               if (updated is UsualProduct) {
                                 onChanged([...products]..[i] = updated);
-                              } else if (updated == 'delete')
+                              } else if (updated == 'delete') {
                                 onChanged([...products]..removeAt(i));
+                              }
                             },
                       onLongPress: !enabled
                           ? null
@@ -395,7 +402,17 @@ class ProductList extends StatelessWidget {
                                   'Remove');
                               if (yes) onChanged([...products]..removeAt(i));
                             }))),
-        OutlinedButton.icon(
+        FilledButton.icon(
+            style: FilledButton.styleFrom(
+                minimumSize: const Size(48, 44),
+                padding: const EdgeInsets.symmetric(horizontal: 22),
+                textStyle: const TextStyle(
+                    fontFamily: 'Geist',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: -.14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14))),
             onPressed: !enabled
                 ? null
                 : () async {
@@ -405,7 +422,7 @@ class ProductList extends StatelessWidget {
                             builder: (_) => const ProductEditor()));
                     if (product != null) onChanged([...products, product]);
                   },
-            icon: const SourceIcon('plus', color: mint),
+            icon: const SourceIcon('plus', size: 17, color: Color(0xFF06251A)),
             label: const CurrencyText('Add product')),
         if (products.isNotEmpty)
           Padding(
