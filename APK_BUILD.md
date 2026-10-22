@@ -2,7 +2,7 @@
 
 - File: `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`.
 - Size: 18,461,625 bytes (17.61 MiB).
-- SHA-256: `c6b395ac46c6d41519851733698c6c1385560d6929e2cbb057761ca2a3e91709`.
+- SHA-256: `c8a69d56c71cccf7bfe38de3d3bb9a1048801d26acccfa2d5cbfcbb3ffaa47d8`.
 - Display name: Waffir. Package: `com.example.wafir`.
 - Version: 0.3.1+5. ARM64 version code: 2005.
 - Android API 24 minimum; target API 36. ARM64 only.

@@ -1,5 +1,7 @@
 # Waffir UX and visual check
 
+Final spacing update: equal-width Budget actions; more horizontal space beside product icons with explicit Edit chevrons; 24 px gaps above Add product and Log it; compact amount spacing; Time below the icons. All 14 tests and analyzer pass. Bundled-font captures were refreshed.
+
 Follow-up: Time uses a separate label and a filled, outline-free input with the source clock icon. The active-budget chevron uses mint. Analyzer and bundled-font capture check passed; the ARM64 APK was rebuilt.
 
 Result: passed for the approved UX plan and later visual changes.
