@@ -1461,7 +1461,7 @@
       "label": "ExpenseRows",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L683",
+      "source_location": "L681",
       "_origin": "ast"
     },
     {
@@ -1469,7 +1469,7 @@
       "label": "BudgetHistoryPage",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L764",
+      "source_location": "L762",
       "_origin": "ast"
     },
     {
@@ -1477,7 +1477,7 @@
       "label": "_BudgetHistoryPageState",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L779",
+      "source_location": "L777",
       "_origin": "ast"
     },
     {
@@ -1581,7 +1581,7 @@
       "label": "budget",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L690",
+      "source_location": "L688",
       "_origin": "ast"
     },
     {
@@ -1589,7 +1589,7 @@
       "label": "onEdit",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L691",
+      "source_location": "L689",
       "_origin": "ast"
     },
     {
@@ -1605,7 +1605,7 @@
       "label": "onlyToday",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L692",
+      "source_location": "L690",
       "_origin": "ast"
     },
     {
@@ -1613,7 +1613,7 @@
       "label": "query",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L693",
+      "source_location": "L691",
       "_origin": "ast"
     },
     {
@@ -1805,7 +1805,7 @@
       "label": "summaryCard",
       "file_type": "code",
       "source_file": "main.dart",
-      "source_location": "L781",
+      "source_location": "L779",
       "_origin": "ast"
     },
     {
@@ -5046,7 +5046,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L683",
+      "source_location": "L681",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5057,7 +5057,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L683",
+      "source_location": "L681",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5068,7 +5068,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L764",
+      "source_location": "L762",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5079,7 +5079,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L764",
+      "source_location": "L762",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5090,7 +5090,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L779",
+      "source_location": "L777",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5101,7 +5101,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L779",
+      "source_location": "L777",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5112,7 +5112,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L779",
+      "source_location": "L777",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5283,7 +5283,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L690",
+      "source_location": "L688",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5294,7 +5294,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L690",
+      "source_location": "L688",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -5306,7 +5306,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L691",
+      "source_location": "L689",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5317,7 +5317,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L691",
+      "source_location": "L689",
       "weight": 1.0,
       "context": "variable_type",
       "_origin": "ast"
@@ -5329,7 +5329,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L692",
+      "source_location": "L690",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5340,7 +5340,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L693",
+      "source_location": "L691",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5351,7 +5351,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L780",
+      "source_location": "L778",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5616,7 +5616,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L605",
+      "source_location": "L603",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5627,7 +5627,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L695",
+      "source_location": "L693",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5638,7 +5638,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L776",
+      "source_location": "L774",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5649,7 +5649,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L781",
+      "source_location": "L779",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5660,7 +5660,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L796",
+      "source_location": "L794",
       "weight": 1.0,
       "_origin": "ast"
     },
