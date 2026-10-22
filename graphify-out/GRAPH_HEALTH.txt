@@ -1,3 +1,0 @@
-AST extraction only. 230 nodes; 285 graph edges.
-Raw edges: 360. Same-endpoint relations may be merged by graphify; raw extraction is retained.
-No semantic agent calls or model tokens were used.
