@@ -9,7 +9,7 @@ from graphify.build import build_from_json
 from graphify.cluster import cluster, score_all
 from graphify.analyze import god_nodes, surprising_connections
 from graphify.report import generate
-from graphify.export import to_json, to_html
+from graphify.export import to_json
 
 root = Path('lib').resolve()
 out = Path('graphify-out')
@@ -25,7 +25,6 @@ communities = cluster(graph)
 labels = {key: ' / '.join(sorted({Path(graph.nodes[n].get('source_file') or 'app').stem for n in members}))
           for key, members in communities.items()}
 to_json(graph, communities, str(out/'graph.json'), force=True, community_labels=labels)
-to_html(graph, communities, str(out/'graph.html'), community_labels=labels)
 report = generate(graph, communities, score_all(graph, communities), labels,
                   god_nodes(graph), surprising_connections(graph, communities),
                   detect(root), {'input_tokens': 0, 'output_tokens': 0}, str(root))
