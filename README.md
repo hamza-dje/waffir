@@ -2,6 +2,8 @@
 
 Flutter budgeting app with Home, History, and Budget tabs. The agreed behavior is in [UX_PLAN.md](UX_PLAN.md).
 
+Version 0.3.1 adds a primary Home expense action, a two-step amount/details flow, icon and time editing, input placeholders, and searchable history cards. Empty usual-expense sections stay hidden. Budget actions use the design-system buttons.
+
 Onboarding collects inclusive start/end dates, full funds, and optional usual products. Users can log a product with one tap or enter a custom expense. History supports name, amount, and date corrections and confirmed deletion. Budget supports corrections, product management, and stopping and saving a period. A new budget can use the remaining positive balance or a new amount. Completed transfers remain fixed after historical corrections.
 
 Home separates past days, today, and future days. Left today is the large figure. The original daily average stays visible. Today's limit is fixed against spending before today. Calculated savings use completed days. The upcoming average spreads the balance across future days. Tomorrow's limit includes today's result and protects the original average for all later days. Negative amounts remain visible. No future figures are calculated on the last day. Inputs use whole dinars; averages retain precision and display up to two decimal places.

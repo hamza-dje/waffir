@@ -2,6 +2,8 @@
 
 Result: passed for the approved UX plan and later visual changes.
 
+0.3.1 update: 14 tests pass, including case-insensitive history search with correct edit indices, custom expense icon persistence, and icon correction. Current bundled-font captures show the Home CTA, mint active-budget card, separate history totals, expense cards, visible detail input, icon picker, and one-row Budget amount/days and action buttons. Search uses the original SVG. These new layouts were checked in Flutter captures; the older native evidence below refers to 0.3.0.
+
 Targets: `UX_PLAN.md`, the supplied HTML design tokens and SVG paths, and the user's screenshots and follow-up instructions. The approved three-tab UX replaces the original mockup flow.
 
 ## Evidence

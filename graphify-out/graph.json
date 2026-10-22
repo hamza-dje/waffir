@@ -606,29 +606,7 @@
       "file_type": "code",
       "norm_label": "budget",
       "source_file": "main.dart",
-      "source_location": "L691"
-    },
-    {
-      "id": "main_budgethistorypage",
-      "label": "BudgetHistoryPage",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app / budget_data / main",
-      "file_type": "code",
-      "norm_label": "budgethistorypage",
-      "source_file": "main.dart",
-      "source_location": "L759"
-    },
-    {
-      "id": "main_budgethistorypagestate",
-      "label": "_BudgetHistoryPageState",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app / budget_data / main",
-      "file_type": "code",
-      "norm_label": "_budgethistorypagestate",
-      "source_file": "main.dart",
-      "source_location": "L774"
+      "source_location": "L689"
     },
     {
       "id": "main_budgetpage",
@@ -639,29 +617,7 @@
       "file_type": "code",
       "norm_label": "budgetpage",
       "source_file": "main.dart",
-      "source_location": "L551"
-    },
-    {
-      "id": "main_budgetscreen",
-      "label": "BudgetScreen",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app / budget_data / main",
-      "file_type": "code",
-      "norm_label": "budgetscreen",
-      "source_file": "main.dart",
-      "source_location": "L93"
-    },
-    {
-      "id": "main_budgetscreenstate",
-      "label": "_BudgetScreenState",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app / budget_data / main",
-      "file_type": "code",
-      "norm_label": "_budgetscreenstate",
-      "source_file": "main.dart",
-      "source_location": "L99"
+      "source_location": "L540"
     },
     {
       "id": "main_build",
@@ -705,7 +661,7 @@
       "file_type": "code",
       "norm_label": "customexpense",
       "source_file": "main.dart",
-      "source_location": "L186"
+      "source_location": "L187"
     },
     {
       "id": "main_data",
@@ -760,7 +716,7 @@
       "file_type": "code",
       "norm_label": "editbudget",
       "source_file": "main.dart",
-      "source_location": "L207"
+      "source_location": "L210"
     },
     {
       "id": "main_editexpense",
@@ -771,7 +727,7 @@
       "file_type": "code",
       "norm_label": "editexpense",
       "source_file": "main.dart",
-      "source_location": "L216"
+      "source_location": "L219"
     },
     {
       "id": "main_emptyhome",
@@ -782,7 +738,7 @@
       "file_type": "code",
       "norm_label": "emptyhome",
       "source_file": "main.dart",
-      "source_location": "L332"
+      "source_location": "L335"
     },
     {
       "id": "main_heading",
@@ -793,7 +749,7 @@
       "file_type": "code",
       "norm_label": "heading",
       "source_file": "main.dart",
-      "source_location": "L312"
+      "source_location": "L315"
     },
     {
       "id": "main_history",
@@ -804,7 +760,7 @@
       "file_type": "code",
       "norm_label": "history",
       "source_file": "main.dart",
-      "source_location": "L509"
+      "source_location": "L495"
     },
     {
       "id": "main_home",
@@ -815,7 +771,7 @@
       "file_type": "code",
       "norm_label": "home",
       "source_file": "main.dart",
-      "source_location": "L349"
+      "source_location": "L352"
     },
     {
       "id": "main_initstate",
@@ -837,7 +793,7 @@
       "file_type": "code",
       "norm_label": "lastsaved",
       "source_file": "main.dart",
-      "source_location": "L310"
+      "source_location": "L313"
     },
     {
       "id": "main_load",
@@ -892,7 +848,7 @@
       "file_type": "code",
       "norm_label": "newbudget",
       "source_file": "main.dart",
-      "source_location": "L236"
+      "source_location": "L239"
     },
     {
       "id": "main_onedit",
@@ -903,7 +859,7 @@
       "file_type": "code",
       "norm_label": "onedit",
       "source_file": "main.dart",
-      "source_location": "L692"
+      "source_location": "L690"
     },
     {
       "id": "main_onlytoday",
@@ -914,7 +870,7 @@
       "file_type": "code",
       "norm_label": "onlytoday",
       "source_file": "main.dart",
-      "source_location": "L693"
+      "source_location": "L691"
     },
     {
       "id": "main_prefs",
@@ -928,6 +884,17 @@
       "source_location": "L101"
     },
     {
+      "id": "main_query",
+      "label": "query",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app / budget_data / main",
+      "file_type": "code",
+      "norm_label": "query",
+      "source_file": "main.dart",
+      "source_location": "L692"
+    },
+    {
       "id": "main_replacebudget",
       "label": "replaceBudget",
       "_origin": "ast",
@@ -936,7 +903,7 @@
       "file_type": "code",
       "norm_label": "replacebudget",
       "source_file": "main.dart",
-      "source_location": "L197"
+      "source_location": "L200"
     },
     {
       "id": "main_save",
@@ -969,7 +936,7 @@
       "file_type": "code",
       "norm_label": "startbudget",
       "source_file": "main.dart",
-      "source_location": "L268"
+      "source_location": "L271"
     },
     {
       "id": "main_stat",
@@ -980,7 +947,7 @@
       "file_type": "code",
       "norm_label": "stat",
       "source_file": "main.dart",
-      "source_location": "L316"
+      "source_location": "L319"
     },
     {
       "id": "main_stopbudget",
@@ -991,7 +958,18 @@
       "file_type": "code",
       "norm_label": "stopbudget",
       "source_file": "main.dart",
-      "source_location": "L297"
+      "source_location": "L300"
+    },
+    {
+      "id": "main_summarycard",
+      "label": "summaryCard",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app / budget_data / main",
+      "file_type": "code",
+      "norm_label": "summarycard",
+      "source_file": "main.dart",
+      "source_location": "L780"
     },
     {
       "id": "main_tab",
@@ -1049,508 +1027,409 @@
       "source_location": null
     },
     {
-      "id": "widgetsbindingobserver",
-      "label": "WidgetsBindingObserver",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app / budget_data / main",
-      "file_type": "code",
-      "norm_label": "widgetsbindingobserver",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "color",
-      "label": "Color",
+      "id": "budget_data_dart",
+      "label": "budget_data.dart",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "color",
+      "norm_label": "budget_data.dart",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "design",
+      "id": "datetime",
+      "label": "DateTime",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "datetime",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "design_dart",
       "label": "design.dart",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
       "norm_label": "design.dart",
-      "source_file": "design.dart",
+      "source_file": null,
       "source_location": null
     },
     {
-      "id": "design_background",
-      "label": "background",
+      "id": "editors_dart",
+      "label": "editors.dart",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "background",
-      "source_file": "design.dart",
-      "source_location": "L5"
+      "norm_label": "editors.dart",
+      "source_file": null,
+      "source_location": null
     },
     {
-      "id": "design_build",
-      "label": "build",
+      "id": "expense_sheet",
+      "label": "expense_sheet.dart",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "build",
-      "source_file": "design.dart",
-      "source_location": "L22"
+      "norm_label": "expense_sheet.dart",
+      "source_file": "expense_sheet.dart",
+      "source_location": null
     },
     {
-      "id": "design_caution",
-      "label": "caution",
+      "id": "expense_sheet_amount",
+      "label": "amount",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "caution",
-      "source_file": "design.dart",
-      "source_location": "L11"
-    },
-    {
-      "id": "design_color",
-      "label": "color",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "color",
-      "source_file": "design.dart",
-      "source_location": "L20"
-    },
-    {
-      "id": "design_controller",
-      "label": "controller",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "controller",
-      "source_file": "design.dart",
-      "source_location": "L126"
-    },
-    {
-      "id": "design_currency",
-      "label": "currency",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "currency",
-      "source_file": "design.dart",
-      "source_location": "L127"
-    },
-    {
-      "id": "design_currencysymbol",
-      "label": "CurrencySymbol",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "currencysymbol",
-      "source_file": "design.dart",
-      "source_location": "L54"
-    },
-    {
-      "id": "design_currencytext",
-      "label": "CurrencyText",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "currencytext",
-      "source_file": "design.dart",
-      "source_location": "L71"
-    },
-    {
-      "id": "design_data",
-      "label": "data",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "data",
-      "source_file": "design.dart",
-      "source_location": "L74"
-    },
-    {
-      "id": "design_enabled",
-      "label": "enabled",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "enabled",
-      "source_file": "design.dart",
-      "source_location": "L130"
-    },
-    {
-      "id": "design_hairline",
-      "label": "hairline",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "hairline",
-      "source_file": "design.dart",
-      "source_location": "L12"
-    },
-    {
-      "id": "design_label",
-      "label": "label",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "label",
-      "source_file": "design.dart",
-      "source_location": "L125"
-    },
-    {
-      "id": "design_labeledfield",
-      "label": "LabeledField",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "labeledfield",
-      "source_file": "design.dart",
-      "source_location": "L116"
-    },
-    {
-      "id": "design_maxlength",
-      "label": "maxLength",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "maxlength",
-      "source_file": "design.dart",
-      "source_location": "L128"
-    },
-    {
-      "id": "design_maxlines",
-      "label": "maxLines",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "maxlines",
-      "source_file": "design.dart",
-      "source_location": "L77"
-    },
-    {
-      "id": "design_mint",
-      "label": "mint",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "mint",
-      "source_file": "design.dart",
-      "source_location": "L4"
-    },
-    {
-      "id": "design_name",
-      "label": "name",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "name",
-      "source_file": "design.dart",
-      "source_location": "L18"
-    },
-    {
-      "id": "design_overflow",
-      "label": "overflow",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "overflow",
-      "source_file": "design.dart",
-      "source_location": "L78"
-    },
-    {
-      "id": "design_panel",
-      "label": "panel",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "panel",
-      "source_file": "design.dart",
-      "source_location": "L51"
-    },
-    {
-      "id": "design_primarytext",
-      "label": "primaryText",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "primarytext",
-      "source_file": "design.dart",
-      "source_location": "L8"
-    },
-    {
-      "id": "design_secondarytext",
-      "label": "secondaryText",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "secondarytext",
-      "source_file": "design.dart",
-      "source_location": "L9"
-    },
-    {
-      "id": "design_sectionlabel",
-      "label": "sectionLabel",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "sectionlabel",
-      "source_file": "design.dart",
-      "source_location": "L41"
-    },
-    {
-      "id": "design_size",
-      "label": "size",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "size",
-      "source_file": "design.dart",
-      "source_location": "L19"
-    },
-    {
-      "id": "design_sourceicon",
-      "label": "SourceIcon",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "sourceicon",
-      "source_file": "design.dart",
+      "norm_label": "amount",
+      "source_file": "expense_sheet.dart",
       "source_location": "L15"
     },
     {
-      "id": "design_style",
-      "label": "style",
+      "id": "expense_sheet_build",
+      "label": "build",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "style",
-      "source_file": "design.dart",
-      "source_location": "L75"
+      "norm_label": "build",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L27"
     },
     {
-      "id": "design_surface",
-      "label": "surface",
+      "id": "expense_sheet_createstate",
+      "label": "createState",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "surface",
-      "source_file": "design.dart",
-      "source_location": "L6"
-    },
-    {
-      "id": "design_surfacehigh",
-      "label": "surfaceHigh",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "surfacehigh",
-      "source_file": "design.dart",
-      "source_location": "L7"
-    },
-    {
-      "id": "design_tertiarytext",
-      "label": "tertiaryText",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "tertiarytext",
-      "source_file": "design.dart",
+      "norm_label": "createstate",
+      "source_file": "expense_sheet.dart",
       "source_location": "L10"
     },
     {
-      "id": "design_textalign",
-      "label": "textAlign",
+      "id": "expense_sheet_details",
+      "label": "details",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "textalign",
-      "source_file": "design.dart",
-      "source_location": "L76"
+      "norm_label": "details",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L17"
     },
     {
-      "id": "design_type",
-      "label": "type",
+      "id": "expense_sheet_dispose",
+      "label": "dispose",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "type",
-      "source_file": "design.dart",
-      "source_location": "L29"
+      "norm_label": "dispose",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L21"
     },
     {
-      "id": "design_validator",
-      "label": "validator",
+      "id": "expense_sheet_error",
+      "label": "error",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "validator",
-      "source_file": "design.dart",
-      "source_location": "L129"
+      "norm_label": "error",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L16"
     },
     {
-      "id": "editors_datecontrol",
-      "label": "DateControl",
+      "id": "expense_sheet_icon",
+      "label": "icon",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "datecontrol",
-      "source_file": "editors.dart",
+      "norm_label": "icon",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L18"
+    },
+    {
+      "id": "expense_sheet_name",
+      "label": "name",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "name",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L14"
+    },
+    {
+      "id": "expense_sheet_time",
+      "label": "time",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "time",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L19"
+    },
+    {
+      "id": "int",
+      "label": "int?",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "int?",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "list",
+      "label": "List",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "list",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "onboarding",
+      "label": "onboarding.dart",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "onboarding.dart",
+      "source_file": "onboarding.dart",
+      "source_location": null
+    },
+    {
+      "id": "onboarding_amount",
+      "label": "amount",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "amount",
+      "source_file": "onboarding.dart",
+      "source_location": "L27"
+    },
+    {
+      "id": "onboarding_build",
+      "label": "build",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "build",
+      "source_file": "onboarding.dart",
       "source_location": "L58"
     },
     {
-      "id": "editors_productlist",
-      "label": "ProductList",
+      "id": "onboarding_busy",
+      "label": "busy",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "productlist",
-      "source_file": "editors.dart",
-      "source_location": "L348"
-    },
-    {
-      "id": "formfieldvalidator",
-      "label": "FormFieldValidator",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "formfieldvalidator",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "main_expenserows",
-      "label": "ExpenseRows",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "expenserows",
-      "source_file": "main.dart",
-      "source_location": "L685"
-    },
-    {
-      "id": "main_wafirapp",
-      "label": "WafirApp",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "wafirapp",
-      "source_file": "main.dart",
-      "source_location": "L12"
-    },
-    {
-      "id": "onboarding_amountkeypad",
-      "label": "AmountKeypad",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
-      "file_type": "code",
-      "norm_label": "amountkeypad",
+      "norm_label": "busy",
       "source_file": "onboarding.dart",
-      "source_location": "L211"
+      "source_location": "L29"
     },
     {
-      "id": "package_flutter_svg_flutter_svg_dart",
-      "label": "package:flutter_svg/flutter_svg.dart",
+      "id": "onboarding_createstate",
+      "label": "createState",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "package:flutter_svg/flutter_svg.dart",
+      "norm_label": "createstate",
+      "source_file": "onboarding.dart",
+      "source_location": "L20"
+    },
+    {
+      "id": "onboarding_dart",
+      "label": "onboarding.dart",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "onboarding.dart",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "statelesswidget",
-      "label": "StatelessWidget",
+      "id": "onboarding_end",
+      "label": "end",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "statelesswidget",
+      "norm_label": "end",
+      "source_file": "onboarding.dart",
+      "source_location": "L26"
+    },
+    {
+      "id": "onboarding_error",
+      "label": "error",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "error",
+      "source_file": "onboarding.dart",
+      "source_location": "L30"
+    },
+    {
+      "id": "onboarding_initialfunds",
+      "label": "initialFunds",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "initialfunds",
+      "source_file": "onboarding.dart",
+      "source_location": "L17"
+    },
+    {
+      "id": "onboarding_keyheight",
+      "label": "keyHeight",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "keyheight",
+      "source_file": "onboarding.dart",
+      "source_location": "L214"
+    },
+    {
+      "id": "onboarding_next",
+      "label": "next",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "next",
+      "source_file": "onboarding.dart",
+      "source_location": "L31"
+    },
+    {
+      "id": "onboarding_oncancel",
+      "label": "onCancel",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "oncancel",
+      "source_file": "onboarding.dart",
+      "source_location": "L16"
+    },
+    {
+      "id": "onboarding_onkey",
+      "label": "onKey",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "onkey",
+      "source_file": "onboarding.dart",
+      "source_location": "L213"
+    },
+    {
+      "id": "onboarding_products",
+      "label": "products",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "products",
+      "source_file": "onboarding.dart",
+      "source_location": "L18"
+    },
+    {
+      "id": "onboarding_start",
+      "label": "start",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "start",
+      "source_file": "onboarding.dart",
+      "source_location": "L25"
+    },
+    {
+      "id": "onboarding_step",
+      "label": "step",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "step",
+      "source_file": "onboarding.dart",
+      "source_location": "L24"
+    },
+    {
+      "id": "package_flutter_material_dart",
+      "label": "package:flutter/material.dart",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app / expense_sheet / onboarding",
+      "file_type": "code",
+      "norm_label": "package:flutter/material.dart",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "textalign",
-      "label": "TextAlign?",
+      "id": "string",
+      "label": "String?",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "textalign?",
+      "norm_label": "string?",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "texteditingcontroller",
-      "label": "TextEditingController",
+      "id": "timeofday",
+      "label": "TimeOfDay",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "texteditingcontroller",
+      "norm_label": "timeofday",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "textoverflow",
-      "label": "TextOverflow?",
+      "id": "valuechanged",
+      "label": "ValueChanged",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "textoverflow?",
+      "norm_label": "valuechanged",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "textstyle",
-      "label": "TextStyle?",
+      "id": "voidcallback",
+      "label": "VoidCallback?",
       "_origin": "ast",
       "community": 2,
-      "community_name": "app / design / editors / main / onboarding",
+      "community_name": "app / expense_sheet / onboarding",
       "file_type": "code",
-      "norm_label": "textstyle?",
+      "norm_label": "voidcallback?",
       "source_file": null,
       "source_location": null
     },
@@ -1619,28 +1498,6 @@
       "norm_label": "budget",
       "source_file": "editors.dart",
       "source_location": "L188"
-    },
-    {
-      "id": "editors_budgeteditor",
-      "label": "BudgetEditor",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
-      "file_type": "code",
-      "norm_label": "budgeteditor",
-      "source_file": "editors.dart",
-      "source_location": "L110"
-    },
-    {
-      "id": "editors_budgeteditorstate",
-      "label": "_BudgetEditorState",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
-      "file_type": "code",
-      "norm_label": "_budgeteditorstate",
-      "source_file": "editors.dart",
-      "source_location": "L118"
     },
     {
       "id": "editors_build",
@@ -1739,7 +1596,7 @@
       "file_type": "code",
       "norm_label": "enabled",
       "source_file": "editors.dart",
-      "source_location": "L356"
+      "source_location": "L339"
     },
     {
       "id": "editors_error",
@@ -1762,28 +1619,6 @@
       "norm_label": "expense",
       "source_file": "editors.dart",
       "source_location": "L187"
-    },
-    {
-      "id": "editors_expenseeditor",
-      "label": "ExpenseEditor",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
-      "file_type": "code",
-      "norm_label": "expenseeditor",
-      "source_file": "editors.dart",
-      "source_location": "L185"
-    },
-    {
-      "id": "editors_expenseeditorstate",
-      "label": "_ExpenseEditorState",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
-      "file_type": "code",
-      "norm_label": "_expenseeditorstate",
-      "source_file": "editors.dart",
-      "source_location": "L193"
     },
     {
       "id": "editors_first",
@@ -1827,7 +1662,7 @@
       "file_type": "code",
       "norm_label": "icon",
       "source_file": "editors.dart",
-      "source_location": "L270"
+      "source_location": "L198"
     },
     {
       "id": "editors_initial",
@@ -1926,29 +1761,7 @@
       "file_type": "code",
       "norm_label": "price",
       "source_file": "editors.dart",
-      "source_location": "L268"
-    },
-    {
-      "id": "editors_producteditor",
-      "label": "ProductEditor",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
-      "file_type": "code",
-      "norm_label": "producteditor",
-      "source_file": "editors.dart",
-      "source_location": "L258"
-    },
-    {
-      "id": "editors_producteditorstate",
-      "label": "_ProductEditorState",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
-      "file_type": "code",
-      "norm_label": "_producteditorstate",
-      "source_file": "editors.dart",
-      "source_location": "L265"
+      "source_location": "L275"
     },
     {
       "id": "editors_products",
@@ -1959,7 +1772,7 @@
       "file_type": "code",
       "norm_label": "products",
       "source_file": "editors.dart",
-      "source_location": "L354"
+      "source_location": "L337"
     },
     {
       "id": "editors_start",
@@ -1971,6 +1784,17 @@
       "norm_label": "start",
       "source_file": "editors.dart",
       "source_location": "L121"
+    },
+    {
+      "id": "editors_time",
+      "label": "time",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "app / budget_data / editors",
+      "file_type": "code",
+      "norm_label": "time",
+      "source_file": "editors.dart",
+      "source_location": "L199"
     },
     {
       "id": "editors_value",
@@ -2006,110 +1830,528 @@
       "source_location": null
     },
     {
-      "id": "state",
-      "label": "State",
+      "id": "color",
+      "label": "Color",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
+      "community": 4,
+      "community_name": "app / design",
       "file_type": "code",
-      "norm_label": "state",
+      "norm_label": "color",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "statefulwidget",
-      "label": "StatefulWidget",
+      "id": "design",
+      "label": "design.dart",
       "_origin": "ast",
-      "community": 3,
-      "community_name": "app / budget_data / editors",
+      "community": 4,
+      "community_name": "app / design",
       "file_type": "code",
-      "norm_label": "statefulwidget",
+      "norm_label": "design.dart",
+      "source_file": "design.dart",
+      "source_location": null
+    },
+    {
+      "id": "design_background",
+      "label": "background",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "background",
+      "source_file": "design.dart",
+      "source_location": "L5"
+    },
+    {
+      "id": "design_build",
+      "label": "build",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "build",
+      "source_file": "design.dart",
+      "source_location": "L22"
+    },
+    {
+      "id": "design_caution",
+      "label": "caution",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "caution",
+      "source_file": "design.dart",
+      "source_location": "L11"
+    },
+    {
+      "id": "design_color",
+      "label": "color",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "color",
+      "source_file": "design.dart",
+      "source_location": "L20"
+    },
+    {
+      "id": "design_controller",
+      "label": "controller",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "controller",
+      "source_file": "design.dart",
+      "source_location": "L126"
+    },
+    {
+      "id": "design_currency",
+      "label": "currency",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "currency",
+      "source_file": "design.dart",
+      "source_location": "L127"
+    },
+    {
+      "id": "design_data",
+      "label": "data",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "data",
+      "source_file": "design.dart",
+      "source_location": "L74"
+    },
+    {
+      "id": "design_enabled",
+      "label": "enabled",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "enabled",
+      "source_file": "design.dart",
+      "source_location": "L130"
+    },
+    {
+      "id": "design_hairline",
+      "label": "hairline",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "hairline",
+      "source_file": "design.dart",
+      "source_location": "L12"
+    },
+    {
+      "id": "design_label",
+      "label": "label",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "label",
+      "source_file": "design.dart",
+      "source_location": "L125"
+    },
+    {
+      "id": "design_maxlength",
+      "label": "maxLength",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "maxlength",
+      "source_file": "design.dart",
+      "source_location": "L128"
+    },
+    {
+      "id": "design_maxlines",
+      "label": "maxLines",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "maxlines",
+      "source_file": "design.dart",
+      "source_location": "L77"
+    },
+    {
+      "id": "design_mint",
+      "label": "mint",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "mint",
+      "source_file": "design.dart",
+      "source_location": "L4"
+    },
+    {
+      "id": "design_name",
+      "label": "name",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "name",
+      "source_file": "design.dart",
+      "source_location": "L18"
+    },
+    {
+      "id": "design_overflow",
+      "label": "overflow",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "overflow",
+      "source_file": "design.dart",
+      "source_location": "L78"
+    },
+    {
+      "id": "design_panel",
+      "label": "panel",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "panel",
+      "source_file": "design.dart",
+      "source_location": "L51"
+    },
+    {
+      "id": "design_primarytext",
+      "label": "primaryText",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "primarytext",
+      "source_file": "design.dart",
+      "source_location": "L8"
+    },
+    {
+      "id": "design_secondarytext",
+      "label": "secondaryText",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "secondarytext",
+      "source_file": "design.dart",
+      "source_location": "L9"
+    },
+    {
+      "id": "design_sectionlabel",
+      "label": "sectionLabel",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "sectionlabel",
+      "source_file": "design.dart",
+      "source_location": "L41"
+    },
+    {
+      "id": "design_size",
+      "label": "size",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "size",
+      "source_file": "design.dart",
+      "source_location": "L19"
+    },
+    {
+      "id": "design_style",
+      "label": "style",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "style",
+      "source_file": "design.dart",
+      "source_location": "L75"
+    },
+    {
+      "id": "design_surface",
+      "label": "surface",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "surface",
+      "source_file": "design.dart",
+      "source_location": "L6"
+    },
+    {
+      "id": "design_surfacehigh",
+      "label": "surfaceHigh",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "surfacehigh",
+      "source_file": "design.dart",
+      "source_location": "L7"
+    },
+    {
+      "id": "design_tertiarytext",
+      "label": "tertiaryText",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "tertiarytext",
+      "source_file": "design.dart",
+      "source_location": "L10"
+    },
+    {
+      "id": "design_textalign",
+      "label": "textAlign",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "textalign",
+      "source_file": "design.dart",
+      "source_location": "L76"
+    },
+    {
+      "id": "design_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "design.dart",
+      "source_location": "L29"
+    },
+    {
+      "id": "design_validator",
+      "label": "validator",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "validator",
+      "source_file": "design.dart",
+      "source_location": "L129"
+    },
+    {
+      "id": "formfieldvalidator",
+      "label": "FormFieldValidator",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "app / design",
+      "file_type": "code",
+      "norm_label": "formfieldvalidator",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "budget_data_dart",
-      "label": "budget_data.dart",
+      "id": "package_flutter_svg_flutter_svg_dart",
+      "label": "package:flutter_svg/flutter_svg.dart",
       "_origin": "ast",
       "community": 4,
-      "community_name": "app / onboarding",
+      "community_name": "app / design",
       "file_type": "code",
-      "norm_label": "budget_data.dart",
+      "norm_label": "package:flutter_svg/flutter_svg.dart",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "datetime",
-      "label": "DateTime",
+      "id": "textalign",
+      "label": "TextAlign?",
       "_origin": "ast",
       "community": 4,
-      "community_name": "app / onboarding",
+      "community_name": "app / design",
       "file_type": "code",
-      "norm_label": "datetime",
+      "norm_label": "textalign?",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "editors_dart",
-      "label": "editors.dart",
+      "id": "texteditingcontroller",
+      "label": "TextEditingController",
       "_origin": "ast",
       "community": 4,
-      "community_name": "app / onboarding",
+      "community_name": "app / design",
       "file_type": "code",
-      "norm_label": "editors.dart",
+      "norm_label": "texteditingcontroller",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "int",
-      "label": "int?",
+      "id": "textoverflow",
+      "label": "TextOverflow?",
       "_origin": "ast",
       "community": 4,
-      "community_name": "app / onboarding",
+      "community_name": "app / design",
       "file_type": "code",
-      "norm_label": "int?",
+      "norm_label": "textoverflow?",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "list",
-      "label": "List",
+      "id": "textstyle",
+      "label": "TextStyle?",
       "_origin": "ast",
       "community": 4,
-      "community_name": "app / onboarding",
+      "community_name": "app / design",
       "file_type": "code",
-      "norm_label": "list",
+      "norm_label": "textstyle?",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "onboarding",
-      "label": "onboarding.dart",
+      "id": "editors_budgeteditor",
+      "label": "BudgetEditor",
       "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
       "file_type": "code",
-      "norm_label": "onboarding.dart",
-      "source_file": "onboarding.dart",
-      "source_location": null
+      "norm_label": "budgeteditor",
+      "source_file": "editors.dart",
+      "source_location": "L110"
     },
     {
-      "id": "onboarding_amount",
-      "label": "amount",
+      "id": "editors_budgeteditorstate",
+      "label": "_BudgetEditorState",
       "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
       "file_type": "code",
-      "norm_label": "amount",
-      "source_file": "onboarding.dart",
-      "source_location": "L27"
+      "norm_label": "_budgeteditorstate",
+      "source_file": "editors.dart",
+      "source_location": "L118"
+    },
+    {
+      "id": "editors_expenseeditor",
+      "label": "ExpenseEditor",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "expenseeditor",
+      "source_file": "editors.dart",
+      "source_location": "L185"
+    },
+    {
+      "id": "editors_expenseeditorstate",
+      "label": "_ExpenseEditorState",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "_expenseeditorstate",
+      "source_file": "editors.dart",
+      "source_location": "L193"
+    },
+    {
+      "id": "editors_producteditor",
+      "label": "ProductEditor",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "producteditor",
+      "source_file": "editors.dart",
+      "source_location": "L265"
+    },
+    {
+      "id": "editors_producteditorstate",
+      "label": "_ProductEditorState",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "_producteditorstate",
+      "source_file": "editors.dart",
+      "source_location": "L272"
+    },
+    {
+      "id": "expense_sheet_expensesheet",
+      "label": "ExpenseSheet",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "expensesheet",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L7"
+    },
+    {
+      "id": "expense_sheet_expensesheetstate",
+      "label": "_ExpenseSheetState",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "_expensesheetstate",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L13"
+    },
+    {
+      "id": "main_budgethistorypage",
+      "label": "BudgetHistoryPage",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "budgethistorypage",
+      "source_file": "main.dart",
+      "source_location": "L763"
+    },
+    {
+      "id": "main_budgethistorypagestate",
+      "label": "_BudgetHistoryPageState",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "_budgethistorypagestate",
+      "source_file": "main.dart",
+      "source_location": "L778"
+    },
+    {
+      "id": "main_budgetscreen",
+      "label": "BudgetScreen",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "budgetscreen",
+      "source_file": "main.dart",
+      "source_location": "L93"
+    },
+    {
+      "id": "main_budgetscreenstate",
+      "label": "_BudgetScreenState",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
+      "file_type": "code",
+      "norm_label": "_budgetscreenstate",
+      "source_file": "main.dart",
+      "source_location": "L99"
     },
     {
       "id": "onboarding_budgetonboarding",
       "label": "BudgetOnboarding",
       "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
       "file_type": "code",
       "norm_label": "budgetonboarding",
       "source_file": "onboarding.dart",
@@ -2119,329 +2361,175 @@
       "id": "onboarding_budgetonboardingstate",
       "label": "_BudgetOnboardingState",
       "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
       "file_type": "code",
       "norm_label": "_budgetonboardingstate",
       "source_file": "onboarding.dart",
       "source_location": "L23"
     },
     {
-      "id": "onboarding_build",
-      "label": "build",
+      "id": "state",
+      "label": "State",
       "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
       "file_type": "code",
-      "norm_label": "build",
-      "source_file": "onboarding.dart",
-      "source_location": "L58"
-    },
-    {
-      "id": "onboarding_busy",
-      "label": "busy",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "busy",
-      "source_file": "onboarding.dart",
-      "source_location": "L29"
-    },
-    {
-      "id": "onboarding_createstate",
-      "label": "createState",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "createstate",
-      "source_file": "onboarding.dart",
-      "source_location": "L20"
-    },
-    {
-      "id": "onboarding_end",
-      "label": "end",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "end",
-      "source_file": "onboarding.dart",
-      "source_location": "L26"
-    },
-    {
-      "id": "onboarding_error",
-      "label": "error",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "error",
-      "source_file": "onboarding.dart",
-      "source_location": "L30"
-    },
-    {
-      "id": "onboarding_initialfunds",
-      "label": "initialFunds",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "initialfunds",
-      "source_file": "onboarding.dart",
-      "source_location": "L17"
-    },
-    {
-      "id": "onboarding_keyheight",
-      "label": "keyHeight",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "keyheight",
-      "source_file": "onboarding.dart",
-      "source_location": "L214"
-    },
-    {
-      "id": "onboarding_next",
-      "label": "next",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "next",
-      "source_file": "onboarding.dart",
-      "source_location": "L31"
-    },
-    {
-      "id": "onboarding_oncancel",
-      "label": "onCancel",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "oncancel",
-      "source_file": "onboarding.dart",
-      "source_location": "L16"
-    },
-    {
-      "id": "onboarding_onkey",
-      "label": "onKey",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "onkey",
-      "source_file": "onboarding.dart",
-      "source_location": "L213"
-    },
-    {
-      "id": "onboarding_products",
-      "label": "products",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "products",
-      "source_file": "onboarding.dart",
-      "source_location": "L18"
-    },
-    {
-      "id": "onboarding_start",
-      "label": "start",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "start",
-      "source_file": "onboarding.dart",
-      "source_location": "L25"
-    },
-    {
-      "id": "onboarding_step",
-      "label": "step",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "step",
-      "source_file": "onboarding.dart",
-      "source_location": "L24"
-    },
-    {
-      "id": "valuechanged",
-      "label": "ValueChanged",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
-      "file_type": "code",
-      "norm_label": "valuechanged",
+      "norm_label": "state",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "voidcallback",
-      "label": "VoidCallback?",
+      "id": "statefulwidget",
+      "label": "StatefulWidget",
       "_origin": "ast",
-      "community": 4,
-      "community_name": "app / onboarding",
+      "community": 5,
+      "community_name": "app / editors / expense_sheet / main / onboarding",
       "file_type": "code",
-      "norm_label": "voidcallback?",
+      "norm_label": "statefulwidget",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "design_dart",
-      "label": "design.dart",
+      "id": "widgetsbindingobserver",
+      "label": "WidgetsBindingObserver",
       "_origin": "ast",
       "community": 5,
-      "community_name": "app / expense_sheet",
+      "community_name": "app / editors / expense_sheet / main / onboarding",
       "file_type": "code",
-      "norm_label": "design.dart",
+      "norm_label": "widgetsbindingobserver",
       "source_file": null,
       "source_location": null
     },
     {
-      "id": "expense_sheet",
-      "label": "expense_sheet.dart",
+      "id": "design_currencysymbol",
+      "label": "CurrencySymbol",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "expense_sheet.dart",
-      "source_file": "expense_sheet.dart",
-      "source_location": null
+      "norm_label": "currencysymbol",
+      "source_file": "design.dart",
+      "source_location": "L54"
     },
     {
-      "id": "expense_sheet_amount",
-      "label": "amount",
+      "id": "design_currencytext",
+      "label": "CurrencyText",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "amount",
-      "source_file": "expense_sheet.dart",
-      "source_location": "L13"
+      "norm_label": "currencytext",
+      "source_file": "design.dart",
+      "source_location": "L71"
     },
     {
-      "id": "expense_sheet_build",
-      "label": "build",
+      "id": "design_labeledfield",
+      "label": "LabeledField",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "build",
-      "source_file": "expense_sheet.dart",
-      "source_location": "L23"
+      "norm_label": "labeledfield",
+      "source_file": "design.dart",
+      "source_location": "L116"
     },
     {
-      "id": "expense_sheet_createstate",
-      "label": "createState",
+      "id": "design_sourceicon",
+      "label": "SourceIcon",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "createstate",
-      "source_file": "expense_sheet.dart",
-      "source_location": "L8"
-    },
-    {
-      "id": "expense_sheet_details",
-      "label": "details",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
-      "file_type": "code",
-      "norm_label": "details",
-      "source_file": "expense_sheet.dart",
+      "norm_label": "sourceicon",
+      "source_file": "design.dart",
       "source_location": "L15"
     },
     {
-      "id": "expense_sheet_dispose",
-      "label": "dispose",
+      "id": "editors_datecontrol",
+      "label": "DateControl",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "dispose",
-      "source_file": "expense_sheet.dart",
-      "source_location": "L17"
+      "norm_label": "datecontrol",
+      "source_file": "editors.dart",
+      "source_location": "L58"
     },
     {
-      "id": "expense_sheet_error",
-      "label": "error",
+      "id": "editors_expenseicons",
+      "label": "ExpenseIcons",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "error",
-      "source_file": "expense_sheet.dart",
-      "source_location": "L14"
+      "norm_label": "expenseicons",
+      "source_file": "editors.dart",
+      "source_location": "L421"
     },
     {
-      "id": "expense_sheet_expensesheet",
-      "label": "ExpenseSheet",
+      "id": "editors_expensetime",
+      "label": "ExpenseTime",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "expensesheet",
-      "source_file": "expense_sheet.dart",
-      "source_location": "L5"
+      "norm_label": "expensetime",
+      "source_file": "editors.dart",
+      "source_location": "L452"
     },
     {
-      "id": "expense_sheet_expensesheetstate",
-      "label": "_ExpenseSheetState",
+      "id": "editors_productlist",
+      "label": "ProductList",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "_expensesheetstate",
-      "source_file": "expense_sheet.dart",
-      "source_location": "L11"
+      "norm_label": "productlist",
+      "source_file": "editors.dart",
+      "source_location": "L331"
     },
     {
-      "id": "expense_sheet_name",
-      "label": "name",
+      "id": "main_expenserows",
+      "label": "ExpenseRows",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "name",
-      "source_file": "expense_sheet.dart",
+      "norm_label": "expenserows",
+      "source_file": "main.dart",
+      "source_location": "L682"
+    },
+    {
+      "id": "main_wafirapp",
+      "label": "WafirApp",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
+      "file_type": "code",
+      "norm_label": "wafirapp",
+      "source_file": "main.dart",
       "source_location": "L12"
     },
     {
-      "id": "onboarding_dart",
-      "label": "onboarding.dart",
+      "id": "onboarding_amountkeypad",
+      "label": "AmountKeypad",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "onboarding.dart",
-      "source_file": null,
-      "source_location": null
+      "norm_label": "amountkeypad",
+      "source_file": "onboarding.dart",
+      "source_location": "L211"
     },
     {
-      "id": "package_flutter_material_dart",
-      "label": "package:flutter/material.dart",
+      "id": "statelesswidget",
+      "label": "StatelessWidget",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
+      "community": 6,
+      "community_name": "app / design / editors / main / onboarding",
       "file_type": "code",
-      "norm_label": "package:flutter/material.dart",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "string",
-      "label": "String?",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "app / expense_sheet",
-      "file_type": "code",
-      "norm_label": "string?",
+      "norm_label": "statelesswidget",
       "source_file": null,
       "source_location": null
     }
@@ -2456,7 +2544,7 @@
       "confidence_score": 1.0,
       "context": "route_object",
       "source_file": "main.dart",
-      "source_location": "L211",
+      "source_location": "L214",
       "weight": 1.0
     },
     {
@@ -2468,7 +2556,7 @@
       "confidence_score": 1.0,
       "context": "type_lookup",
       "source_file": "editors.dart",
-      "source_location": "L266",
+      "source_location": "L273",
       "weight": 1.0
     },
     {
@@ -2480,7 +2568,19 @@
       "confidence_score": 1.0,
       "context": "type_lookup",
       "source_file": "editors.dart",
-      "source_location": "L421",
+      "source_location": "L404",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "budget_data_expense",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "type_lookup",
+      "source_file": "main.dart",
+      "source_location": "L188",
       "weight": 1.0
     },
     {
@@ -2708,7 +2808,19 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "editors.dart",
-      "source_location": "L354",
+      "source_location": "L337",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "timeofday",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "variable_type",
+      "source_file": "editors.dart",
+      "source_location": "L454",
       "weight": 1.0
     },
     {
@@ -2720,7 +2832,7 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "editors.dart",
-      "source_location": "L355",
+      "source_location": "L455",
       "weight": 1.0
     },
     {
@@ -2732,7 +2844,19 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "expense_sheet.dart",
-      "source_location": "L14",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "expense_sheet",
+      "target": "timeofday",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "variable_type",
+      "source_file": "expense_sheet.dart",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -2792,7 +2916,7 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "main.dart",
-      "source_location": "L310",
+      "source_location": "L313",
       "weight": 1.0
     },
     {
@@ -2804,7 +2928,7 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "main.dart",
-      "source_location": "L691",
+      "source_location": "L689",
       "weight": 1.0
     },
     {
@@ -2816,7 +2940,7 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "main.dart",
-      "source_location": "L692",
+      "source_location": "L690",
       "weight": 1.0
     },
     {
@@ -3905,6 +4029,17 @@
     },
     {
       "source": "editors",
+      "target": "editors_time",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
       "target": "editors_money",
       "relation": "defines",
       "_origin": "ast",
@@ -3912,17 +4047,6 @@
       "confidence_score": 1.0,
       "source_file": "editors.dart",
       "source_location": "L23",
-      "weight": 1.0
-    },
-    {
-      "source": "editors",
-      "target": "editors_producteditor",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "editors.dart",
-      "source_location": "L258",
       "weight": 1.0
     },
     {
@@ -3938,29 +4062,7 @@
     },
     {
       "source": "editors",
-      "target": "editors_initial",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "editors.dart",
-      "source_location": "L260",
-      "weight": 1.0
-    },
-    {
-      "source": "editors",
-      "target": "editors_createstate",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "editors.dart",
-      "source_location": "L262",
-      "weight": 1.0
-    },
-    {
-      "source": "editors",
-      "target": "editors_producteditorstate",
+      "target": "editors_producteditor",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3971,18 +4073,7 @@
     },
     {
       "source": "editors",
-      "target": "editors_form",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "editors.dart",
-      "source_location": "L266",
-      "weight": 1.0
-    },
-    {
-      "source": "editors",
-      "target": "editors_name",
+      "target": "editors_initial",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3993,13 +4084,57 @@
     },
     {
       "source": "editors",
+      "target": "editors_createstate",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L269",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_producteditorstate",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_form",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L273",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_name",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L274",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
       "target": "editors_price",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L268",
+      "source_location": "L275",
       "weight": 1.0
     },
     {
@@ -4010,7 +4145,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L270",
+      "source_location": "L277",
       "weight": 1.0
     },
     {
@@ -4021,7 +4156,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L272",
+      "source_location": "L279",
       "weight": 1.0
     },
     {
@@ -4043,7 +4178,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L348",
+      "source_location": "L331",
       "weight": 1.0
     },
     {
@@ -4054,18 +4189,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L354",
-      "weight": 1.0
-    },
-    {
-      "source": "editors",
-      "target": "editors_onchanged",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "editors.dart",
-      "source_location": "L355",
+      "source_location": "L337",
       "weight": 1.0
     },
     {
@@ -4076,18 +4200,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L356",
-      "weight": 1.0
-    },
-    {
-      "source": "editors",
-      "target": "editors_build",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "editors.dart",
-      "source_location": "L358",
+      "source_location": "L339",
       "weight": 1.0
     },
     {
@@ -4099,6 +4212,61 @@
       "confidence_score": 1.0,
       "source_file": "editors.dart",
       "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_expenseicons",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L421",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_expensetime",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L452",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_value",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L454",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_onchanged",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L455",
+      "weight": 1.0
+    },
+    {
+      "source": "editors",
+      "target": "editors_build",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L457",
       "weight": 1.0
     },
     {
@@ -4147,17 +4315,6 @@
     },
     {
       "source": "editors",
-      "target": "editors_value",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "editors.dart",
-      "source_location": "L62",
-      "weight": 1.0
-    },
-    {
-      "source": "editors",
       "target": "editors_first",
       "relation": "defines",
       "_origin": "ast",
@@ -4180,29 +4337,18 @@
     },
     {
       "source": "expense_sheet",
+      "target": "expense_sheet_createstate",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expense_sheet.dart",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "expense_sheet",
       "target": "expense_sheet_expensesheetstate",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "expense_sheet.dart",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "expense_sheet",
-      "target": "expense_sheet_name",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "expense_sheet.dart",
-      "source_location": "L12",
-      "weight": 1.0
-    },
-    {
-      "source": "expense_sheet",
-      "target": "expense_sheet_amount",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4213,7 +4359,7 @@
     },
     {
       "source": "expense_sheet",
-      "target": "expense_sheet_error",
+      "target": "expense_sheet_name",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4224,7 +4370,7 @@
     },
     {
       "source": "expense_sheet",
-      "target": "expense_sheet_details",
+      "target": "expense_sheet_amount",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4235,7 +4381,18 @@
     },
     {
       "source": "expense_sheet",
-      "target": "expense_sheet_dispose",
+      "target": "expense_sheet_error",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expense_sheet.dart",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "expense_sheet",
+      "target": "expense_sheet_details",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4246,13 +4403,46 @@
     },
     {
       "source": "expense_sheet",
+      "target": "expense_sheet_icon",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expense_sheet.dart",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "expense_sheet",
+      "target": "expense_sheet_time",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expense_sheet.dart",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "expense_sheet",
+      "target": "expense_sheet_dispose",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expense_sheet.dart",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "expense_sheet",
       "target": "expense_sheet_build",
       "relation": "defines",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "expense_sheet.dart",
-      "source_location": "L23",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -4263,18 +4453,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "expense_sheet.dart",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
-      "source": "expense_sheet",
-      "target": "expense_sheet_createstate",
-      "relation": "defines",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "expense_sheet.dart",
-      "source_location": "L8",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -4450,7 +4629,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L186",
+      "source_location": "L187",
       "weight": 1.0
     },
     {
@@ -4461,7 +4640,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L197",
+      "source_location": "L200",
       "weight": 1.0
     },
     {
@@ -4472,7 +4651,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L207",
+      "source_location": "L210",
       "weight": 1.0
     },
     {
@@ -4483,7 +4662,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L216",
+      "source_location": "L219",
       "weight": 1.0
     },
     {
@@ -4494,7 +4673,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L236",
+      "source_location": "L239",
       "weight": 1.0
     },
     {
@@ -4505,7 +4684,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L268",
+      "source_location": "L271",
       "weight": 1.0
     },
     {
@@ -4516,7 +4695,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L297",
+      "source_location": "L300",
       "weight": 1.0
     },
     {
@@ -4527,7 +4706,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L310",
+      "source_location": "L313",
       "weight": 1.0
     },
     {
@@ -4538,7 +4717,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L312",
+      "source_location": "L315",
       "weight": 1.0
     },
     {
@@ -4549,7 +4728,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L316",
+      "source_location": "L319",
       "weight": 1.0
     },
     {
@@ -4560,7 +4739,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L332",
+      "source_location": "L335",
       "weight": 1.0
     },
     {
@@ -4571,7 +4750,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L349",
+      "source_location": "L352",
       "weight": 1.0
     },
     {
@@ -4582,7 +4761,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L509",
+      "source_location": "L495",
       "weight": 1.0
     },
     {
@@ -4593,7 +4772,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L551",
+      "source_location": "L540",
       "weight": 1.0
     },
     {
@@ -4604,7 +4783,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L685",
+      "source_location": "L682",
       "weight": 1.0
     },
     {
@@ -4615,7 +4794,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L691",
+      "source_location": "L689",
       "weight": 1.0
     },
     {
@@ -4626,7 +4805,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L692",
+      "source_location": "L690",
       "weight": 1.0
     },
     {
@@ -4637,7 +4816,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L693",
+      "source_location": "L691",
       "weight": 1.0
     },
     {
@@ -4648,7 +4827,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L759",
+      "source_location": "L763",
       "weight": 1.0
     },
     {
@@ -4659,7 +4838,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L771",
+      "source_location": "L775",
       "weight": 1.0
     },
     {
@@ -4670,7 +4849,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L774",
+      "source_location": "L778",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_query",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L779",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_summarycard",
+      "relation": "defines",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.dart",
+      "source_location": "L780",
       "weight": 1.0
     },
     {
@@ -4681,7 +4882,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L776",
+      "source_location": "L795",
       "weight": 1.0
     },
     {
@@ -4993,6 +5194,28 @@
       "weight": 1.0
     },
     {
+      "source": "expense_sheet",
+      "target": "budget_data_dart",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expense_sheet.dart",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "expense_sheet",
+      "target": "editors_dart",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expense_sheet.dart",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
       "source": "main",
       "target": "dart_async",
       "relation": "imports",
@@ -5224,6 +5447,28 @@
       "weight": 1.0
     },
     {
+      "source": "editors_expenseicons",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L421",
+      "weight": 1.0
+    },
+    {
+      "source": "editors_expensetime",
+      "target": "statelesswidget",
+      "relation": "inherits",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "editors.dart",
+      "source_location": "L452",
+      "weight": 1.0
+    },
+    {
       "source": "editors_producteditor",
       "target": "statefulwidget",
       "relation": "inherits",
@@ -5231,7 +5476,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L258",
+      "source_location": "L265",
       "weight": 1.0
     },
     {
@@ -5242,7 +5487,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L265",
+      "source_location": "L272",
       "weight": 1.0
     },
     {
@@ -5253,7 +5498,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L348",
+      "source_location": "L331",
       "weight": 1.0
     },
     {
@@ -5264,7 +5509,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "expense_sheet.dart",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -5275,7 +5520,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "expense_sheet.dart",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -5286,7 +5531,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L759",
+      "source_location": "L763",
       "weight": 1.0
     },
     {
@@ -5297,7 +5542,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L774",
+      "source_location": "L778",
       "weight": 1.0
     },
     {
@@ -5330,7 +5575,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L685",
+      "source_location": "L682",
       "weight": 1.0
     },
     {
@@ -5418,7 +5663,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "editors.dart",
-      "source_location": "L265",
+      "source_location": "L272",
       "weight": 1.0
     },
     {
@@ -5429,7 +5674,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "expense_sheet.dart",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -5440,7 +5685,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main.dart",
-      "source_location": "L774",
+      "source_location": "L778",
       "weight": 1.0
     },
     {
@@ -5467,5 +5712,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "974de3311c5f9771dd06438c8e70c267261b8916"
+  "built_at_commit": "d61095a9d7bfd344ea2e4b6c7819db83c2d7e83b"
 }

@@ -1,5 +1,11 @@
 # Approved Waffir flow
 
+- UI update: Home has a primary Add expense button below today's main amount. Hide usual expenses when there are no products.
+- Custom expenses use two steps: enter amount, Continue, then enter a name, select an icon and optional time, and Log it. Expense editing also supports icon and time corrections.
+- Every text input has a placeholder. Keep the expense name field visible against the sheet background.
+- History has separate total, remaining-money/days, and spent-money/completed-days cards. Expense entries are cards. Active budgets use mint text and a pale mint background. Search expense names within each budget, without changing stored entries.
+- Budget amount and day count share one row. Edit and Stop and Save use filled, outline-free design-system button styles.
+
 - Keep the existing colors, bundled fonts, and source SVG icons.
 - Use the supplied DZD SVG for currency labels. Remove visible outlines from controls, cards, and inputs.
 - Put the currency mark beside every amount at the visible height of the digits. Input labels are separate and above their fields. Budget edit and stop actions share one row. Add product uses the supplied medium primary button style.
