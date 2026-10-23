@@ -18,6 +18,7 @@ const spaceSection = 24.0;
 const pageInset = 20.0;
 const controlRadius = 14.0;
 const sectionRadius = 20.0;
+const navigationClearance = 112.0;
 const navigationSurface = Color(0xFF12151B);
 TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontFamily: 'RedHatDisplay',

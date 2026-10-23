@@ -584,7 +584,9 @@ class _BudgetScreenState extends State<BudgetScreen>
       ]);
   @override
   Widget build(BuildContext context) => Scaffold(
+      extendBody: true,
       body: SafeArea(
+          bottom: creating || !book.loaded,
           child: Center(
               child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 560),
@@ -608,11 +610,12 @@ class _BudgetScreenState extends State<BudgetScreen>
                                   }))
                           : ListView(
                               key: ValueKey(tab),
-                              padding: const EdgeInsets.fromLTRB(
+                              padding: EdgeInsets.fromLTRB(
                                   pageInset,
                                   spaceTight,
                                   pageInset,
-                                  spaceSection),
+                                  navigationClearance +
+                                      MediaQuery.viewPaddingOf(context).bottom),
                               children: [
                                   if (tab == 0)
                                     data.active == null
