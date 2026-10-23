@@ -23,8 +23,8 @@ ButtonStyle deleteAction() => FilledButton.styleFrom(
     textStyle: buttonType(16));
 
 ButtonStyle editAction() => FilledButton.styleFrom(
-    backgroundColor: const Color(0x1FF5B84A),
-    foregroundColor: caution,
+    backgroundColor: cancelSurface,
+    foregroundColor: primaryText,
     textStyle: buttonType(16),
     minimumSize: const Size(48, actionHeight));
 
