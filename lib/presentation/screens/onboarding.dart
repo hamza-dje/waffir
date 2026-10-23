@@ -112,17 +112,20 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                                             'chevron-right')))),
                                         ])),
                                 const SizedBox(height: 28),
-                                CurrencyText(
-                                    [
-                                      'Choose your\nbudget dates',
-                                      'How much do\nyou have?',
-                                      'Your usual\nproducts'
-                                    ][step],
-                                    style: type(26,
-                                        role: TextRole.display,
-                                        weight: FontWeight.w600,
-                                        spacing: -.65,
-                                        height: 1.15)),
+                                FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: CurrencyText(
+                                        [
+                                          'Choose your\nbudget dates',
+                                          'How much do\nyou have?',
+                                          'Your usual products'
+                                        ][step],
+                                        style: type(26,
+                                            role: TextRole.display,
+                                            weight: FontWeight.w600,
+                                            spacing: -.65,
+                                            height: 1.15))),
                                 const SizedBox(height: 8),
                                 CurrencyText(
                                     [
