@@ -9,12 +9,21 @@ const primaryText = Color(0xFFF2F4F7);
 const secondaryText = Color(0xFF8A93A2);
 const tertiaryText = Color(0xFF5B6472);
 const danger = Color(0xFFEF6464);
+TextStyle buttonType(double size, {double? spacing}) => TextStyle(
+    fontFamily: 'RedHatDisplay',
+    fontSize: size,
+    fontWeight: FontWeight.w500,
+    letterSpacing: spacing);
+
 ButtonStyle deleteAction() => FilledButton.styleFrom(
-    backgroundColor: danger, foregroundColor: background);
+    backgroundColor: danger,
+    foregroundColor: background,
+    textStyle: buttonType(16));
 
 ButtonStyle editAction() => FilledButton.styleFrom(
     backgroundColor: caution,
     foregroundColor: background,
+    textStyle: buttonType(16),
     minimumSize: const Size(48, 44));
 
 const caution = Color(0xFFF5B84A);
@@ -156,10 +165,7 @@ ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(
       foregroundColor: cancel ? primaryText : ink,
       minimumSize: const Size(48, 44),
       padding: const EdgeInsets.symmetric(horizontal: 12),
-      textStyle: const TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 13,
-          fontWeight: FontWeight.w500),
+      textStyle: buttonType(13),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     );
 

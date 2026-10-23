@@ -29,10 +29,7 @@ class WafirApp extends StatelessWidget {
           colorScheme: const ColorScheme.dark(primary: mint, surface: surface),
           filledButtonTheme: FilledButtonThemeData(
             style: FilledButton.styleFrom(
-              textStyle: const TextStyle(
-                  fontFamily: 'RedHatDisplay',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
+              textStyle: buttonType(16),
               minimumSize: const Size(48, 54),
               foregroundColor: const Color(0xFF06251A),
               shape: RoundedRectangleBorder(
@@ -87,22 +84,14 @@ class WafirApp extends StatelessWidget {
                   foregroundColor: primaryText,
                   minimumSize: const Size(48, 44),
                   padding: const EdgeInsets.symmetric(horizontal: 22),
-                  textStyle: const TextStyle(
-                      fontFamily: 'RedHatDisplay',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -.14),
+                  textStyle: buttonType(14, spacing: -.14),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),
           textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
                   minimumSize: const Size(48, 44),
                   foregroundColor: secondaryText,
-                  textStyle: const TextStyle(
-                      fontFamily: 'RedHatDisplay',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -.14),
+                  textStyle: buttonType(14, spacing: -.14),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),
         ),

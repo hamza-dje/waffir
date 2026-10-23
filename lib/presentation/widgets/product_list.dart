@@ -74,11 +74,7 @@ class ProductList extends StatelessWidget {
             style: FilledButton.styleFrom(
                 minimumSize: const Size(48, 44),
                 padding: const EdgeInsets.symmetric(horizontal: 22),
-                textStyle: const TextStyle(
-                    fontFamily: 'RedHatDisplay',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: -.14),
+                textStyle: buttonType(14, spacing: -.14),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14))),
             onPressed: !enabled

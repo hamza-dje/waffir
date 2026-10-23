@@ -168,7 +168,7 @@ class ExpenseTime extends StatelessWidget {
                             padding: EdgeInsets.all(16),
                             child: SourceIcon('chevron-right',
                                 size: 16, color: tertiaryText))),
-                    child: Text(value.format(context), style: type(16)))))
+                    child: Text(value.format(context), style: buttonType(16)))))
       ]);
 }
 
