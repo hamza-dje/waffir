@@ -9,15 +9,17 @@ class ProductList extends StatelessWidget {
       required this.products,
       required this.onChanged,
       required this.onEdit,
+      this.showEmptyHint = true,
       this.enabled = true});
   final List<UsualProduct> products;
   final ValueChanged<List<UsualProduct>> onChanged;
   final bool enabled;
+  final bool showEmptyHint;
   final Future<Object?> Function(UsualProduct?) onEdit;
   @override
   Widget build(BuildContext context) =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (products.isEmpty)
+        if (products.isEmpty && showEmptyHint)
           Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: CurrencyText(

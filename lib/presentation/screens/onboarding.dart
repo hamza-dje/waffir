@@ -201,6 +201,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                           })),
                                 ] else
                                   ProductList(
+                                      showEmptyHint: false,
                                       onEdit: (product) =>
                                           editProduct(context, product),
                                       products: products,
