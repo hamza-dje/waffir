@@ -1,9 +1,11 @@
+import '../../domain/models/loan.dart';
 import 'dart:convert';
 import '../../domain/models/budget_data.dart';
 
 extension BudgetDataJson on BudgetData {
   String encode() => jsonEncode({
-        'version': 2,
+        'version': 3,
+        'loans': loans.map(_loanJson).toList(),
         'budgets': budgets.map((b) => b.toJson()).toList(),
         'products': products.map((p) => p.toJson()).toList()
       });
@@ -12,8 +14,11 @@ extension BudgetDataJson on BudgetData {
 class BudgetCodec {
   static BudgetData decode(String raw) {
     final json = jsonDecode(raw) as Map<String, dynamic>;
-    if (json['version'] == 2) {
+    if (json['version'] == 2 || json['version'] == 3) {
       return BudgetData(
+          loans: ((json['loans'] ?? []) as List)
+              .map((l) => _loanFromJson(l as Map<String, dynamic>))
+              .toList(),
           budgets: (json['budgets'] as List)
               .map((b) => _budgetFromJson(b as Map<String, dynamic>))
               .toList(),
@@ -99,3 +104,41 @@ BudgetRecord _budgetFromJson(Map<String, dynamic> json) => BudgetRecord(
     carriedFrom: json['carriedFrom'] as String?,
     carriedAmount: (json['carriedAmount'] ?? 0) as int,
     legacy: json['legacy'] == true);
+
+Map<String, dynamic> _loanJson(Loan l) => {
+      'id': l.id,
+      'person': l.person,
+      'amount': l.amount,
+      'lent': l.lent,
+      'date': l.date.toIso8601String(),
+      'due': l.due?.toIso8601String(),
+      'budgetId': l.budgetId,
+      'note': l.note,
+      'remind': l.remind,
+      'payments': l.payments
+          .map((p) => {
+                'id': p.id,
+                'amount': p.amount,
+                'date': p.date.toIso8601String(),
+                'budgetId': p.budgetId
+              })
+          .toList()
+    };
+Loan _loanFromJson(Map<String, dynamic> j) => Loan(
+    id: j['id'] as String,
+    person: j['person'] as String,
+    amount: j['amount'] as int,
+    lent: j['lent'] as bool,
+    date: DateTime.parse(j['date'] as String),
+    due: j['due'] == null ? null : DateTime.parse(j['due'] as String),
+    budgetId: j['budgetId'] as String?,
+    note: j['note'] as String? ?? '',
+    remind: j['remind'] as bool? ?? true,
+    payments: ((j['payments'] ?? []) as List).map((v) {
+      final p = v as Map<String, dynamic>;
+      return LoanPayment(
+          id: p['id'] as String,
+          amount: p['amount'] as int,
+          date: DateTime.parse(p['date'] as String),
+          budgetId: p['budgetId'] as String?);
+    }).toList());

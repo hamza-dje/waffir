@@ -1,3 +1,5 @@
+import 'loan.dart';
+
 DateTime dayOnly(DateTime date) => DateTime(date.year, date.month, date.day);
 int daysBetween(DateTime a, DateTime b) => DateTime.utc(b.year, b.month, b.day)
     .difference(DateTime.utc(a.year, a.month, a.day))
@@ -100,10 +102,13 @@ class BudgetRecord {
 }
 
 class BudgetFigures {
-  BudgetFigures(this.budget, DateTime now)
+  BudgetFigures(this.budget, DateTime now, {this.loans = const []})
       : date = dayOnly(budget.closedAt ?? now);
   final BudgetRecord budget;
+  final List<Loan> loans;
   final DateTime date;
+  LoanFigures get transfers => LoanFigures(budget, loans, date);
+  int get cash => budget.balance + transfers.cashChange;
   int get completed => daysBetween(budget.start, date).clamp(0, budget.days);
   int get remainingDays => budget.days - completed;
   int get beforeToday => budget.expenses
@@ -113,29 +118,40 @@ class BudgetFigures {
       .where((e) => daysBetween(e.date, date) == 0)
       .fold(0, (sum, e) => sum + e.amount);
   double get original => budget.funds / budget.days;
-  double? get todayLimit =>
-      budget.canLog(date) ? (budget.funds - beforeToday) / remainingDays : null;
+  double? get todayLimit => budget.canLog(date)
+      ? (budget.funds - beforeToday + transfers.adjustment) / remainingDays
+      : null;
   double? get leftToday => todayLimit == null ? null : todayLimit! - spentToday;
   double get savings => original * completed - beforeToday;
   double? get upcoming => budget.canLog(date) && remainingDays > 1
-      ? budget.balance / (remainingDays - 1)
+      ? (budget.balance + transfers.adjustment) / (remainingDays - 1)
       : null;
   double? get tomorrowLimit => budget.canLog(date) && remainingDays > 1
-      ? original + savings + original - spentToday
+      ? original +
+          savings +
+          original -
+          spentToday +
+          LoanFigures(
+                  budget, loans, DateTime(date.year, date.month, date.day + 1))
+              .adjustment
       : null;
 }
 
 class BudgetData {
   BudgetData(
       {List<BudgetRecord> budgets = const [],
-      List<UsualProduct> products = const []})
+      List<UsualProduct> products = const [],
+      List<Loan> loans = const []})
       : budgets = List.unmodifiable(budgets),
-        products = List.unmodifiable(products);
+        products = List.unmodifiable(products),
+        loans = List.unmodifiable(loans);
   final List<BudgetRecord> budgets;
   final List<UsualProduct> products;
+  final List<Loan> loans;
   BudgetRecord? get active =>
       budgets.where((b) => b.closedAt == null).firstOrNull;
   BudgetData replace(BudgetRecord record) => BudgetData(
       products: products,
+      loans: loans,
       budgets: budgets.map((b) => b.id == record.id ? record : b).toList());
 }

@@ -1,3 +1,4 @@
+import '../../domain/models/loan.dart';
 import 'package:flutter/foundation.dart';
 import '../../domain/models/budget_data.dart';
 import '../../domain/rules/expense_rules.dart';
@@ -27,7 +28,14 @@ class BudgetBook extends ChangeNotifier {
     super.dispose();
   }
 
-  static void _validate(BudgetData value) {
+  void _validate(BudgetData value) {
+    if (value.loans.map((l) => l.id).toSet().length != value.loans.length ||
+        value.loans.any((l) =>
+            l.validate(_now()) != null ||
+            [l.budgetId, ...l.payments.map((p) => p.budgetId)].any(
+                (id) => id != null && !value.budgets.any((b) => b.id == id)))) {
+      throw const FormatException('Invalid loans');
+    }
     if (value.budgets.where((b) => b.closedAt == null).length > 1 ||
         value.budgets.map((b) => b.id).toSet().length != value.budgets.length ||
         value.budgets.any((b) => b.validate() != null) ||
@@ -138,7 +146,8 @@ class BudgetBook extends ChangeNotifier {
           throw const _BudgetRejection(
               'Enter a product name and a positive whole price.');
         }
-        return BudgetData(budgets: _data.budgets, products: products);
+        return BudgetData(
+            budgets: _data.budgets, products: products, loans: _data.loans);
       });
 
   Future<bool> startBudget(
@@ -151,8 +160,8 @@ class BudgetBook extends ChangeNotifier {
         final source = carryFrom == null ? null : _record(carryFrom);
         final carried = source != null &&
             source.closedAt != null &&
-            source.balance > 0 &&
-            source.balance == funds;
+            cashBalance(source) > 0 &&
+            cashBalance(source) == funds;
         final next = BudgetRecord(
             id: '${_now().microsecondsSinceEpoch}-${_data.budgets.length}',
             funds: funds,
@@ -162,7 +171,70 @@ class BudgetBook extends ChangeNotifier {
             carriedAmount: carried ? funds : 0);
         _check(next);
         return BudgetData(
-            budgets: [..._data.budgets, next], products: products);
+            budgets: [..._data.budgets, next],
+            products: products,
+            loans: _data.loans);
+      });
+
+  int cashBalance(BudgetRecord b) =>
+      b.balance + LoanFigures(b, _data.loans, b.closedAt ?? _now()).cashChange;
+
+  Future<bool> saveLoan(Loan loan) => _change(() {
+        final old = _data.loans.where((l) => l.id == loan.id).firstOrNull;
+        if (old != null && old.payments.isNotEmpty && old.lent != loan.lent) {
+          throw const _BudgetRejection(
+              'Delete the payment records before changing the loan direction.');
+        }
+        final next = old == null ? loan : loan.withPayments(old.payments);
+        final error = next.validate(_now());
+        if (error != null) throw _BudgetRejection(error);
+        return BudgetData(
+            budgets: _data.budgets,
+            products: _data.products,
+            loans: [
+              for (final l in _data.loans)
+                if (l.id != next.id) l,
+              next
+            ]);
+      });
+
+  Future<bool> deleteLoan(String id) => _change(() {
+        final loan = _data.loans.firstWhere((l) => l.id == id);
+        if (loan.payments.isNotEmpty) {
+          throw const _BudgetRejection('Delete the payment records first.');
+        }
+        return BudgetData(
+            budgets: _data.budgets,
+            products: _data.products,
+            loans: _data.loans.where((l) => l.id != id).toList());
+      });
+
+  Future<bool> savePayment(String loanId, LoanPayment payment) => _change(() {
+        final loan = _data.loans.firstWhere((l) => l.id == loanId);
+        final next = loan.withPayments([
+          for (final p in loan.payments)
+            if (p.id != payment.id) p,
+          payment
+        ]);
+        final error = next.validate(_now());
+        if (error != null) throw _BudgetRejection(error);
+        return BudgetData(
+            budgets: _data.budgets,
+            products: _data.products,
+            loans: [for (final l in _data.loans) l.id == loanId ? next : l]);
+      });
+
+  Future<bool> deletePayment(String loanId, String paymentId) => _change(() {
+        return BudgetData(
+            budgets: _data.budgets,
+            products: _data.products,
+            loans: [
+              for (final l in _data.loans)
+                l.id == loanId
+                    ? l.withPayments(
+                        l.payments.where((p) => p.id != paymentId).toList())
+                    : l
+            ]);
       });
 
   Future<bool> stopBudget(String id) => _change(() {
