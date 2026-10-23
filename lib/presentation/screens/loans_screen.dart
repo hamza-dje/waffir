@@ -150,7 +150,7 @@ class _LoansScreenState extends State<LoansScreen> {
                                 '${l.lent ? 'Owed to me' : 'I owe'} - ${loanStatus(l)}',
                                 style: type(11,
                                     color: l.overdue(DateTime.now())
-                                        ? danger
+                                        ? caution
                                         : secondaryText))
                           ])),
                       const SizedBox(width: 8),
@@ -213,7 +213,7 @@ class LoanDetails extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: type(13,
                             color: l.overdue(DateTime.now())
-                                ? danger
+                                ? caution
                                 : secondaryText)),
                     const SizedBox(height: 24),
                     if (l.remaining > 0)
