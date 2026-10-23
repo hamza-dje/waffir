@@ -19,7 +19,7 @@ const pageInset = 20.0;
 const controlRadius = 14.0;
 const sectionRadius = 20.0;
 const navigationClearance = 112.0;
-const navigationSurface = Color(0xFF252C36);
+const navigationSurface = Color(0xFF1A1F27);
 TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontFamily: 'RedHatDisplay',
     fontSize: size,
