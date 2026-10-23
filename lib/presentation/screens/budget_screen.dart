@@ -1,3 +1,4 @@
+import '../widgets/app_navigation.dart';
 import '../widgets/product_list.dart';
 import '../design/format.dart';
 import '../widgets/editor_actions.dart';
@@ -624,52 +625,8 @@ class _BudgetScreenState extends State<BudgetScreen>
                                 ])))),
       bottomNavigationBar: !book.loaded || creating
           ? null
-          : Container(
-              decoration: const BoxDecoration(
-                color: background,
-              ),
-              child: SafeArea(
-                  top: false,
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 14, 24, 10),
-                      child: Row(children: [
-                        for (var i = 0; i < 4; i++)
-                          Expanded(
-                              child: InkWell(
-                                  onTap: () => setState(() => tab = i),
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4, horizontal: 12),
-                                      child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            SourceIcon(
-                                                [
-                                                  'home',
-                                                  'list',
-                                                  'banknote',
-                                                  'calendar'
-                                                ][i],
-                                                size: 22,
-                                                color: tab == i
-                                                    ? mint
-                                                    : tertiaryText),
-                                            const SizedBox(height: 5),
-                                            CurrencyText(
-                                                [
-                                                  'Home',
-                                                  'History',
-                                                  'Loans',
-                                                  'Budget'
-                                                ][i],
-                                                style: type(10,
-                                                    weight: FontWeight.w500,
-                                                    color: tab == i
-                                                        ? mint
-                                                        : tertiaryText))
-                                          ]))))
-                      ])))));
+          : AppNavigation(
+              selected: tab, onSelect: (value) => setState(() => tab = value)));
 }
 
 class BudgetHistoryPage extends StatefulWidget {
