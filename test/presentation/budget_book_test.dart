@@ -1,7 +1,10 @@
+import 'package:wafir/domain/repositories/budget_storage.dart';
+import 'package:wafir/domain/rules/expense_rules.dart';
+import 'package:wafir/data/serialization/budget_codec.dart';
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wafir/budget_book.dart';
-import 'package:wafir/budget_data.dart';
+import 'package:wafir/presentation/controllers/budget_book.dart';
+import 'package:wafir/domain/models/budget_data.dart';
 
 class MemoryBudgetStorage implements BudgetStorage {
   MemoryBudgetStorage([this.value]);
@@ -11,13 +14,14 @@ class MemoryBudgetStorage implements BudgetStorage {
   Completer<bool>? pending;
   int writes = 0;
   @override
-  Future<String?> read() async => value;
+  Future<BudgetData?> read() async =>
+      value == null ? null : BudgetCodec.decode(value!);
   @override
-  Future<bool> write(String next) async {
+  Future<bool> write(BudgetData next) async {
     writes++;
     if (throwWrite) throw StateError('disk unavailable');
     final ok = pending == null ? accept : await pending!.future;
-    if (ok) value = next;
+    if (ok) value = next.encode();
     return ok;
   }
 }
@@ -51,7 +55,7 @@ void main() {
     storage.accept = true;
     expect(await book.logExpense(Expense('Coffee', 50, now)), isTrue);
     expect(book.data.active!.spent, 50);
-    expect(BudgetData.decode(storage.value!).active!.spent, 50);
+    expect(BudgetCodec.decode(storage.value!).active!.spent, 50);
     expect(book.error, isNull);
   });
 

@@ -156,7 +156,7 @@ Check the code and user flows:
 ```sh
 flutter analyze
 flutter test
-flutter test test/design_capture.dart
+flutter test test/presentation/design_capture.dart
 ```
 
 Build smaller APKs for each processor type:
@@ -167,17 +167,27 @@ flutter build apk --release --split-per-abi --split-debug-info=build/symbols/and
 
 The ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. The current Android build uses the debug signing key; set a production key before store distribution.
 
-| Source | Purpose |
-| --- | --- |
-| `lib/budget_book.dart` | Budget changes, shared validation, and durable storage |
-| `lib/budget_data.dart` | Budget records, expense rules, storage format, and daily calculations |
-| `lib/main.dart` | Home, History, Budget, and navigation state |
-| `lib/onboarding.dart` | Budget setup and amount keypad |
-| `lib/expense_sheet.dart` | Two-step custom expense flow |
-| `lib/editors.dart` | Budget, expense, and product editing |
-| `lib/design.dart` | Colors, explicit text roles, currency, inputs, and clipped card feedback |
-| `assets/` | SVG icons, currency mark, and fonts |
-| `test/` | Calculation, user-flow, and screen-capture checks |
+The code uses a layer-first structure:
+
+```text
+lib/
+  main.dart                 # Starts the app and supplies storage
+  domain/
+    models/                 # Budget records and daily figures
+    rules/                  # Expense validation
+    repositories/           # Typed storage contract
+  data/
+    serialization/          # JSON schema and legacy migration
+    storage/                # SharedPreferences implementation
+  presentation/
+    app.dart                # App theme and root navigation
+    controllers/            # Budget lifecycle and save state
+    screens/                # Home, History, Budget, and editors
+    widgets/                # Expense entry
+    design/                 # Typography, currency, and tap behavior
+```
+
+The domain has no Flutter or storage-plugin dependency. Presentation and data depend on the domain. `main.dart` connects them. Tests follow the same layers; `test/architecture_test.dart` checks the dependency direction.
 
 </details>
 

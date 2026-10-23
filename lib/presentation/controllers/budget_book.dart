@@ -1,26 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'budget_data.dart';
-
-/// Storage varies between device preferences and deterministic test storage.
-abstract interface class BudgetStorage {
-  Future<String?> read();
-  Future<bool> write(String value);
-}
-
-class PreferencesBudgetStorage implements BudgetStorage {
-  @override
-  Future<String?> read() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('budget_state_v2') ??
-        prefs.getString('budget_state');
-  }
-
-  @override
-  Future<bool> write(String value) async =>
-      (await SharedPreferences.getInstance())
-          .setString('budget_state_v2', value);
-}
+import '../../domain/models/budget_data.dart';
+import '../../domain/rules/expense_rules.dart';
+import '../../domain/repositories/budget_storage.dart';
 
 /// Owns budget changes, their validation, and durable-before-visible writes.
 class BudgetBook extends ChangeNotifier {
@@ -62,7 +43,7 @@ class BudgetBook extends ChangeNotifier {
     _notify();
     try {
       final raw = await storage.read();
-      final next = raw == null ? BudgetData() : BudgetData.decode(raw);
+      final next = raw ?? BudgetData();
       _validate(next);
       _data = next;
       _loaded = true;
@@ -87,7 +68,7 @@ class BudgetBook extends ChangeNotifier {
     try {
       final next = change();
       _validate(next);
-      if (!await storage.write(next.encode())) throw StateError('Save failed');
+      if (!await storage.write(next)) throw StateError('Save failed');
       _data = next;
       return true;
     } on _BudgetRejection catch (rejection) {

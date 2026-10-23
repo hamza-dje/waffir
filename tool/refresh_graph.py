@@ -13,11 +13,11 @@ from graphify.export import to_json
 
 root = Path('lib').resolve()
 out = Path('graphify-out')
-raw = extract(list(root.glob('*.dart')), cache_root=root)
+raw = extract(list(root.rglob('*.dart')), cache_root=root)
 out.joinpath('manifest.json').write_text(json.dumps({
-    p.name: {'mtime': p.stat().st_mtime, 'seen': time.time(),
+    p.relative_to(root).as_posix(): {'mtime': p.stat().st_mtime, 'seen': time.time(),
              'ast_hash': hashlib.md5(p.read_bytes()).hexdigest(), 'semantic_hash': None}
-    for p in root.glob('*.dart')}, indent=2), encoding='utf-8')
+    for p in root.rglob('*.dart')}, indent=2), encoding='utf-8')
 out.joinpath('raw-extraction.json').write_text(json.dumps(raw, indent=2), encoding='utf-8')
 graph = build_from_json(raw, root=str(root), directed=False)
 assert graph.number_of_nodes() > 0

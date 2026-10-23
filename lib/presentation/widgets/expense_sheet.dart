@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'design.dart';
-import 'onboarding.dart';
-import 'budget_data.dart';
-import 'editors.dart';
+import '../design/design.dart';
+import '../screens/onboarding.dart';
+import '../../domain/models/budget_data.dart';
+import '../../domain/rules/expense_rules.dart';
+import '../screens/editors.dart';
 
 class ExpenseSheet extends StatefulWidget {
   const ExpenseSheet({super.key, required this.budget});

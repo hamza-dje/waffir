@@ -1,4 +1,6 @@
-// Run with: flutter test test/design_capture.dart
+import 'package:wafir/data/storage/preferences_budget_storage.dart';
+import 'package:wafir/data/serialization/budget_codec.dart';
+// Run with: flutter test test/presentation/design_capture.dart
 // Synthetic data only. Does not change the installed app's storage.
 import 'dart:io';
 import 'dart:ui' as ui;
@@ -7,8 +9,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wafir/main.dart';
-import 'package:wafir/budget_data.dart';
+import 'package:wafir/presentation/app.dart';
+import 'package:wafir/domain/models/budget_data.dart';
 
 void main() {
   testWidgets('capture agreed onboarding and three-tab UX with bundled fonts',
@@ -47,8 +49,9 @@ void main() {
     }
 
     SharedPreferences.setMockInitialValues({});
-    await tester
-        .pumpWidget(RepaintBoundary(key: boundary, child: const WafirApp()));
+    await tester.pumpWidget(RepaintBoundary(
+        key: boundary,
+        child: const WafirApp(storage: PreferencesBudgetStorage())));
     await capture('onboarding-dates');
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
@@ -82,8 +85,9 @@ void main() {
         const UsualProduct('Water', 30, 'droplet')
       ]).encode()
     });
-    await tester
-        .pumpWidget(RepaintBoundary(key: boundary, child: const WafirApp()));
+    await tester.pumpWidget(RepaintBoundary(
+        key: boundary,
+        child: const WafirApp(storage: PreferencesBudgetStorage())));
     await capture('home');
     await tester.ensureVisible(find.text('Add expense'));
     await capture('home-expenses');

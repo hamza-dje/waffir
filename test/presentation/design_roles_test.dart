@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wafir/design.dart';
+import 'package:wafir/presentation/design/design.dart';
 
 void main() {
   test('font role survives size changes', () {

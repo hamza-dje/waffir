@@ -1,10 +1,12 @@
+import 'package:wafir/data/storage/preferences_budget_storage.dart';
+import 'package:wafir/data/serialization/budget_codec.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wafir/main.dart';
-import 'package:wafir/budget_data.dart';
-import 'package:wafir/design.dart';
+import 'package:wafir/presentation/app.dart';
+import 'package:wafir/domain/models/budget_data.dart';
+import 'package:wafir/presentation/design/design.dart';
 
 Future<void> tap(WidgetTester tester, String text, {bool last = false}) async {
   final matches = text == 'Edit'
@@ -36,14 +38,14 @@ String figure(WidgetTester tester, String key) {
   return key == 'left-today' ? value.replaceFirst(RegExp(r' DA$'), '') : value;
 }
 
-Future<BudgetData> stored() async => BudgetData.decode(
+Future<BudgetData> stored() async => BudgetCodec.decode(
     (await SharedPreferences.getInstance()).getString('budget_state_v2')!);
 Future<void> boot(WidgetTester tester, Map<String, Object> values) async {
   tester.view.physicalSize = const Size(390, 900);
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
   SharedPreferences.setMockInitialValues(values);
-  await tester.pumpWidget(const WafirApp());
+  await tester.pumpWidget(const WafirApp(storage: PreferencesBudgetStorage()));
   await tester.pumpAndSettle();
 }
 
@@ -157,7 +159,8 @@ void main() {
     await tap(tester, 'Home', last: true);
     expect(figure(tester, 'left-today'), '20');
     await tester.pumpWidget(const SizedBox());
-    await tester.pumpWidget(const WafirApp());
+    await tester
+        .pumpWidget(const WafirApp(storage: PreferencesBudgetStorage()));
     await tester.pumpAndSettle();
     expect(figure(tester, 'left-today'), '20');
     expect((await stored()).products.single.price, 75);
@@ -207,7 +210,8 @@ void main() {
     expect(data.budgets.first.expenses, isEmpty);
     expect(data.active!.carriedAmount, 2950);
     await tester.pumpWidget(const SizedBox());
-    await tester.pumpWidget(const WafirApp());
+    await tester
+        .pumpWidget(const WafirApp(storage: PreferencesBudgetStorage()));
     await tester.pumpAndSettle();
     expect((await stored()).active!.funds, 2950);
   });
