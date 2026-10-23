@@ -122,18 +122,18 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                           })),
                                   DateControl('End date', end,
                                       (d) => setState(() => end = d)),
-                                  Wrap(spacing: 8, children: [
-                                    for (final days in [7, 30])
+                                  CurrencyText(
+                                      '${daysBetween(start, end) + 1} days',
+                                      style: type(13, color: secondaryText)),
+                                  const SizedBox(height: 12),
+                                  Wrap(spacing: 8, runSpacing: 8, children: [
+                                    for (final days in [7, 15, 21, 28])
                                       OutlinedButton(
                                           onPressed: () => setState(() => end =
                                               DateTime(start.year, start.month,
                                                   start.day + days - 1)),
                                           child: CurrencyText('$days days'))
                                   ]),
-                                  const SizedBox(height: 12),
-                                  CurrencyText(
-                                      '${daysBetween(start, end) + 1} days',
-                                      style: type(13, color: secondaryText)),
                                 ] else if (step == 1) ...[
                                   Expanded(
                                       child: Center(
