@@ -7,8 +7,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^22.3.2
   flutter_svg: ^2.0.17
+  flutter_timezone: ^5.1.1
   shared_preferences: ^2.3.5
+  timezone: ^0.11.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
