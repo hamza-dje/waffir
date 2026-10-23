@@ -241,12 +241,7 @@ class LoanDetails extends StatelessWidget {
                     loanDetailRow('Due date',
                         l.due == null ? 'No due date' : dateText(l.due!)),
                     loanDetailRow('Budget', budgetLabel(book, l.budgetId)),
-                    if (l.note.isNotEmpty) ...[
-                      const SizedBox(height: 12),
-                      sectionLabel('Note'),
-                      Text(l.note, style: type(14, height: 1.5)),
-                      const SizedBox(height: 8),
-                    ],
+                    if (l.note.isNotEmpty) loanDetailRow('Note', l.note),
                     if (l.due != null)
                       SwitchListTile(
                           contentPadding: EdgeInsets.zero,
@@ -312,15 +307,10 @@ class LoanDetails extends StatelessWidget {
 
 Widget loanDetailRow(String label, String value) => Padding(
     padding: const EdgeInsets.symmetric(vertical: 8),
-    child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Expanded(
-          flex: 4, child: Text(label, style: type(13, color: secondaryText))),
-      const SizedBox(width: 12),
-      Expanded(
-          flex: 6,
-          child: CurrencyText(value,
-              textAlign: TextAlign.right,
-              style: type(14, weight: FontWeight.w500))),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Text(label, style: type(13, color: secondaryText)),
+      const SizedBox(height: 6),
+      CurrencyText(value, style: type(14, weight: FontWeight.w500, height: 1.5)),
     ]));
 
 String budgetLabel(BudgetBook book, String? id) {
