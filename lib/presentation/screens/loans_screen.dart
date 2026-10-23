@@ -227,6 +227,8 @@ class LoanDetails extends StatelessWidget {
                           child: const Text('Record repayment')),
                     const SizedBox(height: 8),
                     OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            backgroundColor: surfaceHigh),
                         onPressed: book.saving
                             ? null
                             : () => showLoanSheet(context, book,
