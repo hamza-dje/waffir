@@ -415,17 +415,21 @@ class _LoanSheetState extends State<LoanSheet> {
             for (final value in [true, false]) ...[
               if (!value) const SizedBox(width: 8),
               Expanded(
-                  child: ChoiceChip(
-                      label: Text(value ? 'I lent money' : 'I borrowed money'),
-                      selected: lent == value,
-                      onSelected: widget.initial?.payments.isNotEmpty == true
-                          ? null
-                          : (_) => setState(() => lent = value),
-                      side: BorderSide.none,
-                      showCheckmark: false,
-                      selectedColor: const Color(0x2634D399),
-                      labelStyle: type(12,
-                          color: lent == value ? mint : secondaryText)))
+                  child: Semantics(
+                selected: lent == value,
+                child: FilledButton(
+                    onPressed: widget.initial?.payments.isNotEmpty == true
+                        ? null
+                        : () => setState(() => lent = value),
+                    style: compactAction().copyWith(
+                        backgroundColor: WidgetStatePropertyAll(lent == value
+                            ? const Color(0x2634D399)
+                            : Colors.transparent),
+                        foregroundColor: WidgetStatePropertyAll(
+                            lent == value ? mint : secondaryText)),
+                    child: Text(value ? 'I lent money' : 'I borrowed money',
+                        textAlign: TextAlign.center)),
+              ))
             ]
           ]),
           const SizedBox(height: 20),
