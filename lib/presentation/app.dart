@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import '../domain/repositories/budget_storage.dart';
 import 'design/design.dart';
 import 'screens/budget_screen.dart';
+import 'screens/loans_screen.dart';
 
 class WafirApp extends StatelessWidget {
-  const WafirApp({super.key, required this.storage});
+  const WafirApp(
+      {super.key, required this.storage, this.syncReminders, this.loanOpen});
   final BudgetStorage storage;
+  final ReminderSync? syncReminders;
+  final ValueNotifier<String?>? loanOpen;
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Waffir',
@@ -102,6 +106,7 @@ class WafirApp extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),
         ),
-        home: BudgetScreen(storage: storage),
+        home: BudgetScreen(
+            storage: storage, syncReminders: syncReminders, loanOpen: loanOpen),
       );
 }

@@ -1,3 +1,4 @@
+import 'loans_screen.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../domain/models/budget_data.dart';
@@ -9,8 +10,11 @@ import 'onboarding.dart';
 import '../widgets/expense_sheet.dart';
 
 class BudgetScreen extends StatefulWidget {
-  const BudgetScreen({super.key, required this.storage});
+  const BudgetScreen(
+      {super.key, required this.storage, this.syncReminders, this.loanOpen});
   final BudgetStorage storage;
+  final ReminderSync? syncReminders;
+  final ValueNotifier<String?>? loanOpen;
   @override
   State<BudgetScreen> createState() => _BudgetScreenState();
 }
@@ -33,14 +37,20 @@ class _BudgetScreenState extends State<BudgetScreen>
       if (mounted) setState(() {});
     });
     book.addListener(refresh);
+    widget.loanOpen?.addListener(openNotification);
     book.load().then((ok) {
-      if (mounted && ok) setState(() => creating = data.budgets.isEmpty);
+      if (mounted && ok) {
+        setState(() => creating = data.budgets.isEmpty);
+        widget.syncReminders?.call(data.loans, false);
+        openNotification();
+      }
     });
   }
 
   @override
   void dispose() {
     dateTimer?.cancel();
+    widget.loanOpen?.removeListener(openNotification);
     book.removeListener(refresh);
     book.dispose();
     WidgetsBinding.instance.removeObserver(this);
@@ -49,7 +59,20 @@ class _BudgetScreenState extends State<BudgetScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) setState(() {});
+    if (state == AppLifecycleState.resumed) {
+      setState(() {});
+      widget.syncReminders?.call(data.loans, false);
+    }
+  }
+
+  void openNotification() {
+    final id = widget.loanOpen?.value;
+    if (!mounted || !book.loaded || id == null) return;
+    widget.loanOpen?.value = null;
+    setState(() => tab = 2);
+    if (data.loans.any((l) => l.id == id)) {
+      openLoan(context, book, id, widget.syncReminders);
+    }
   }
 
   void refresh() {
@@ -114,8 +137,8 @@ class _BudgetScreenState extends State<BudgetScreen>
   Future<void> newBudget([BudgetRecord? source]) async {
     if (saving || data.active != null) return;
     int? choice;
-    if (source != null && !source.legacy && source.balance > 0) {
-      var selected = source.balance;
+    if (source != null && !source.legacy && book.cashBalance(source) > 0) {
+      var selected = book.cashBalance(source);
       choice = await showDialog<int>(
           context: context,
           builder: (context) => StatefulBuilder(
@@ -128,9 +151,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               CurrencyText(
-                                  '${source.balance} DA is left in the saved budget.'),
+                                  '${book.cashBalance(source)} DA is left in the saved budget.'),
                               const SizedBox(height: 16),
-                              for (final value in [source.balance, 0])
+                              for (final value in [book.cashBalance(source), 0])
                                 Padding(
                                     padding: const EdgeInsets.only(bottom: 8),
                                     child: OutlinedButton(
@@ -244,7 +267,7 @@ class _BudgetScreenState extends State<BudgetScreen>
             child: const CurrencyText('Start new budget')),
       ]);
   Widget home(BudgetRecord b) {
-    final f = BudgetFigures(b, DateTime.now());
+    final f = BudgetFigures(b, DateTime.now(), loans: data.loans);
     final usable = b.canLog(DateTime.now());
     final future = daysBetween(DateTime.now(), b.start) > 0;
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -300,9 +323,21 @@ class _BudgetScreenState extends State<BudgetScreen>
                 textAlign: TextAlign.center,
                 style: type(16, color: secondaryText, weight: FontWeight.w500)),
             const SizedBox(height: 10),
-            CurrencyText('${b.balance} DA left in this budget',
+            CurrencyText('${f.cash} DA cash left in this budget',
                 textAlign: TextAlign.center,
                 style: type(11, color: tertiaryText)),
+            if (f.todayLimit != null && f.leftToday! > f.cash) ...[
+              const SizedBox(height: 12),
+              Text('Part of this amount depends on repayment.',
+                  textAlign: TextAlign.center, style: type(12, color: caution)),
+            ],
+            if (f.transfers.expected > 0 || f.transfers.reserved > 0) ...[
+              const SizedBox(height: 8),
+              CurrencyText(
+                  '${f.transfers.expected} DA expected back - ${f.transfers.reserved} DA reserved for repayment',
+                  textAlign: TextAlign.center,
+                  style: type(11, color: secondaryText)),
+            ],
             const SizedBox(height: 24),
             FilledButton.icon(
                 onPressed: !usable || saving ? null : customExpense,
@@ -353,6 +388,35 @@ class _BudgetScreenState extends State<BudgetScreen>
       CurrencyText('Estimates. Update with today’s spending.',
           style: type(11, color: tertiaryText)),
       const SizedBox(height: 24),
+      if (data.loans.any((l) => l.remaining > 0)) ...[
+        TapCard(
+            onTap: () => setState(() => tab = 2),
+            child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(children: [
+                        Expanded(
+                            child: Text('Loans',
+                                style: type(15, weight: FontWeight.w600))),
+                        const SourceIcon('chevron-right',
+                            size: 16, color: secondaryText)
+                      ]),
+                      const SizedBox(height: 12),
+                      CurrencyText(
+                          '${data.loans.where((l) => l.lent).fold<int>(0, (s, l) => s + l.remaining)} DA owed to me',
+                          style: type(14, color: mint)),
+                      const SizedBox(height: 6),
+                      CurrencyText(
+                          '${data.loans.where((l) => !l.lent).fold<int>(0, (s, l) => s + l.remaining)} DA I owe',
+                          style: type(14, color: caution)),
+                      const SizedBox(height: 8),
+                      Text(nearestLoan(),
+                          style: type(11, color: secondaryText)),
+                    ]))),
+        const SizedBox(height: 24),
+      ],
       if (data.products.isNotEmpty) sectionLabel('Usual expenses'),
       if (data.products.isNotEmpty)
         GridView.count(
@@ -393,6 +457,16 @@ class _BudgetScreenState extends State<BudgetScreen>
     ]);
   }
 
+  String nearestLoan() {
+    final dated = data.loans
+        .where((l) => l.remaining > 0 && l.due != null)
+        .toList()
+      ..sort((a, b) => a.due!.compareTo(b.due!));
+    return dated.isEmpty
+        ? 'No due dates'
+        : '${loanStatus(dated.first)} - ${dateText(dated.first.due!)}';
+  }
+
   Widget history() =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         heading('History'),
@@ -422,7 +496,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                       subtitle: Padding(
                           padding: const EdgeInsets.only(top: 4),
                           child: CurrencyText(
-                              '${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${b.balance} DA left'}',
+                              '${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${book.cashBalance(b)} DA left'}',
                               style: type(11, color: secondaryText))),
                       trailing: SourceIcon('chevron-right',
                           size: 16,
@@ -431,11 +505,10 @@ class _BudgetScreenState extends State<BudgetScreen>
                           context,
                           MaterialPageRoute<void>(
                               builder: (_) => BudgetHistoryPage(
-                                  getRecord: () => data.budgets
-                                      .firstWhere((r) => r.id == b.id),
-                                  transfer: () => data.budgets
-                                      .where((r) => r.carriedFrom == b.id)
-                                      .fold<int>(0, (sum, r) => sum + r.carriedAmount),
+                                  cash: () => book.cashBalance(data.budgets
+                                      .firstWhere((r) => r.id == b.id)),
+                                  getRecord: () => data.budgets.firstWhere((r) => r.id == b.id),
+                                  transfer: () => data.budgets.where((r) => r.carriedFrom == b.id).fold<int>(0, (sum, r) => sum + r.carriedAmount),
                                   onEditBudget: () => editBudget(b.id),
                                   onEditExpense: (i) => editExpense(b.id, i))))))),
       ]);
@@ -462,7 +535,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                     CurrencyText('${dateText(b.start)} – ${dateText(b.end)}',
                         style: type(12, color: secondaryText)),
                     const SizedBox(height: 8),
-                    CurrencyText('${b.balance} DA left',
+                    CurrencyText('${book.cashBalance(b)} DA left',
                         style: type(13, color: secondaryText)),
                     if (b.carriedFrom != null)
                       Padding(
@@ -516,7 +589,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                                   child: CurrencyText(loadError!)))
                       : creating
                           ? BudgetOnboarding(
-                              initialFunds: carrySource?.balance,
+                              initialFunds: carrySource == null
+                                  ? null
+                                  : book.cashBalance(carrySource!),
                               products: data.products,
                               onSave: startBudget,
                               onCancel: () => setState(() {
@@ -533,6 +608,10 @@ class _BudgetScreenState extends State<BudgetScreen>
                                         : home(data.active!)
                                   else if (tab == 1)
                                     history()
+                                  else if (tab == 2)
+                                    LoansScreen(
+                                        book: book,
+                                        syncReminders: widget.syncReminders)
                                   else
                                     budgetPage()
                                 ])))),
@@ -547,7 +626,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                   child: Padding(
                       padding: const EdgeInsets.fromLTRB(24, 14, 24, 10),
                       child: Row(children: [
-                        for (var i = 0; i < 3; i++)
+                        for (var i = 0; i < 4; i++)
                           Expanded(
                               child: InkWell(
                                   onTap: () => setState(() => tab = i),
@@ -559,7 +638,12 @@ class _BudgetScreenState extends State<BudgetScreen>
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             SourceIcon(
-                                                ['home', 'list', 'banknote'][i],
+                                                [
+                                                  'home',
+                                                  'list',
+                                                  'banknote',
+                                                  'calendar'
+                                                ][i],
                                                 size: 22,
                                                 color: tab == i
                                                     ? mint
@@ -569,6 +653,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                                                 [
                                                   'Home',
                                                   'History',
+                                                  'Loans',
                                                   'Budget'
                                                 ][i],
                                                 style: type(10,
@@ -667,9 +752,11 @@ class BudgetHistoryPage extends StatefulWidget {
       required this.getRecord,
       required this.onEditBudget,
       required this.onEditExpense,
-      required this.transfer});
+      required this.transfer,
+      this.cash});
   final BudgetRecord Function() getRecord;
   final int Function() transfer;
+  final int Function()? cash;
   final Future<void> Function() onEditBudget;
   final Future<void> Function(int) onEditExpense;
   @override
@@ -715,7 +802,9 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
             Expanded(
                 child: summaryCard(
                     'Left',
-                    b.legacy ? 'Unavailable' : '${b.balance} DA',
+                    b.legacy
+                        ? 'Unavailable'
+                        : '${widget.cash?.call() ?? b.balance} DA',
                     '${BudgetFigures(b, b.closedAt ?? DateTime.now()).remainingDays} days left',
                     mint)),
             const SizedBox(width: 8),

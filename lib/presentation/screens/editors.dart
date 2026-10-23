@@ -86,7 +86,7 @@ class DateControl extends StatelessWidget {
                 style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.all(16),
                     side: BorderSide.none,
-                    backgroundColor: surface,
+                    backgroundColor: surfaceHigh,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14))),
                 child: Row(children: [
@@ -249,7 +249,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
             const SizedBox(height: 12),
             FilledButton(
                 style: FilledButton.styleFrom(
-                    backgroundColor: caution, foregroundColor: background),
+                    backgroundColor: danger, foregroundColor: background),
                 onPressed: () async {
                   final yes = await confirmAction(context, 'Delete expense?',
                       'This entry will be removed from the budget.', 'Delete');
@@ -311,7 +311,8 @@ class _ProductEditorState extends State<ProductEditor> {
                 },
                 child: const CurrencyText('Save product')),
             if (widget.initial != null)
-              TextButton(
+              FilledButton(
+                  style: deleteAction(),
                   onPressed: () async {
                     final yes = await confirmAction(context, 'Remove product?',
                         'Past expenses will stay unchanged.', 'Remove');
@@ -319,8 +320,7 @@ class _ProductEditorState extends State<ProductEditor> {
                       Navigator.pop(context, 'delete');
                     }
                   },
-                  child: CurrencyText('Remove product',
-                      style: type(14, color: caution))),
+                  child: const CurrencyText('Remove product')),
           ])));
 }
 

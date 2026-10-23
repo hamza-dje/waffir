@@ -8,6 +8,10 @@ const surfaceHigh = Color(0xFF1F242D);
 const primaryText = Color(0xFFF2F4F7);
 const secondaryText = Color(0xFF8A93A2);
 const tertiaryText = Color(0xFF5B6472);
+const danger = Color(0xFFEF6464);
+ButtonStyle deleteAction() => FilledButton.styleFrom(
+    backgroundColor: danger, foregroundColor: background);
+
 const caution = Color(0xFFF5B84A);
 const hairline = Color(0x0FFFFFFF);
 
@@ -220,7 +224,13 @@ class DialogActions extends StatelessWidget {
         const SizedBox(width: 8),
         Expanded(
             child: FilledButton(
-                style: compactAction(),
+                style: (confirmLabel.toLowerCase().startsWith('delete') ||
+                        confirmLabel.toLowerCase().startsWith('remove'))
+                    ? compactAction().copyWith(
+                        backgroundColor: const WidgetStatePropertyAll(danger),
+                        foregroundColor:
+                            const WidgetStatePropertyAll(background))
+                    : compactAction(),
                 onPressed: onConfirm,
                 child: Text(confirmLabel, textAlign: TextAlign.center))),
       ]);
