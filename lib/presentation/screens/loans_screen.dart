@@ -101,6 +101,8 @@ class _LoansScreenState extends State<LoansScreen> {
       Wrap(spacing: 8, runSpacing: 8, children: [
         for (var i = 0; i < 4; i++)
           ChoiceChip(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14)),
               label: Text(['All', 'Owed to me', 'I owe', 'Paid'][i]),
               selected: filter == i,
               onSelected: (_) => setState(() => filter = i),
