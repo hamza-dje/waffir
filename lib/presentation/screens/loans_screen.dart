@@ -131,13 +131,8 @@ class _LoansScreenState extends State<LoansScreen> {
                 child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Row(children: [
-                      Container(
+                      Padding(
                           padding: const EdgeInsets.all(12),
-                          decoration: panel(
-                              radius: 14,
-                              color: l.lent
-                                  ? const Color(0x1834D399)
-                                  : const Color(0x18F5B84A)),
                           child: SourceIcon('banknote',
                               color: l.lent ? mint : caution)),
                       const SizedBox(width: 14),
