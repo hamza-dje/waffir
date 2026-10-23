@@ -664,17 +664,19 @@ class BudgetLink extends StatelessWidget {
       DropdownButtonFormField<String>(
           key: ValueKey(value),
           icon:
-              const SourceIcon('chevron-right', size: 16, color: secondaryText),
+              const SourceIcon('chevron-right', size: 16, color: tertiaryText),
           initialValue: value ?? '',
           isExpanded: true,
-          decoration: const InputDecoration(fillColor: surfaceHigh),
+          style: type(16),
+          decoration: const InputDecoration(
+              fillColor: surfaceHigh, contentPadding: EdgeInsets.all(16)),
           items: [
             const DropdownMenuItem(value: '', child: Text('Outside a budget')),
             for (final b in matches)
               DropdownMenuItem(
                   value: b.id,
                   child: Text(budgetLabel(book, b.id),
-                      overflow: TextOverflow.ellipsis, style: type(12)))
+                      overflow: TextOverflow.ellipsis))
           ],
           onChanged: (v) => onChanged(v == '' ? null : v))
     ]);
