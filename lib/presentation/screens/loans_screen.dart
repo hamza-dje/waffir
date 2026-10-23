@@ -664,8 +664,12 @@ class BudgetLink extends StatelessWidget {
       const SizedBox(height: 8),
       DropdownButtonFormField<String>(
           key: ValueKey(value),
-          icon:
-              const SourceIcon('chevron-right', size: 16, color: tertiaryText),
+          icon: const SizedBox(
+              width: 24,
+              height: 24,
+              child: Center(
+                  child: SourceIcon('chevron-right',
+                      size: 16, color: tertiaryText))),
           initialValue: value ?? '',
           isExpanded: true,
           style: type(16),
