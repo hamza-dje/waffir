@@ -12,6 +12,11 @@ const danger = Color(0xFFEF6464);
 ButtonStyle deleteAction() => FilledButton.styleFrom(
     backgroundColor: danger, foregroundColor: background);
 
+ButtonStyle editAction() => FilledButton.styleFrom(
+    backgroundColor: primaryText,
+    foregroundColor: background,
+    minimumSize: const Size(48, 44));
+
 const caution = Color(0xFFF5B84A);
 const hairline = Color(0x0FFFFFFF);
 

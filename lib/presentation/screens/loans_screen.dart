@@ -226,9 +226,8 @@ class LoanDetails extends StatelessWidget {
                                   syncReminders: syncReminders),
                           child: const Text('Record repayment')),
                     const SizedBox(height: 8),
-                    OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                            backgroundColor: surfaceHigh),
+                    FilledButton(
+                        style: editAction(),
                         onPressed: book.saving
                             ? null
                             : () => showLoanSheet(context, book,

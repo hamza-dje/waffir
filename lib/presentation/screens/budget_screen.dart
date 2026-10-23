@@ -826,10 +826,7 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
                     style: type(12, color: secondaryText))),
           const SizedBox(height: 16),
           FilledButton(
-              style: FilledButton.styleFrom(
-                  backgroundColor: primaryText,
-                  foregroundColor: background,
-                  minimumSize: const Size(48, 44)),
+              style: editAction(),
               onPressed: () async {
                 await widget.onEditBudget();
                 if (mounted) setState(() {});
