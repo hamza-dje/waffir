@@ -207,7 +207,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                               }
                                             },
                                       child: CurrencyText(
-                                          step > 0 ? 'Back' : 'Cancel')),
+                                          step > 0 ? 'Back' : 'Skip')),
                                 ],
                                 if (step == 2 && products.isEmpty) ...[
                                   const SizedBox(height: 12),
