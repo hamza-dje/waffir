@@ -117,8 +117,8 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                     alignment: Alignment.centerLeft,
                                     child: CurrencyText(
                                         [
-                                          'Choose your\nbudget dates',
-                                          'How much do\nyou have?',
+                                          'Choose your budget dates',
+                                          'How much do you have?',
                                           'Your usual products'
                                         ][step],
                                         style: type(26,

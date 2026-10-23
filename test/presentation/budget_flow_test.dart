@@ -299,7 +299,7 @@ void main() {
     await tap(tester, 'Stop and Save');
     await tap(tester, 'Stop and save');
     expect(find.text('Use remaining money'), findsNothing);
-    expect(find.text('Choose your\nbudget dates'), findsOneWidget);
+    expect(find.text('Choose your budget dates'), findsOneWidget);
     await tap(tester, 'Skip');
     expect((await stored()).active, isNull);
   });
