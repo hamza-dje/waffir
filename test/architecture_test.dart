@@ -12,6 +12,10 @@ void main() {
       for (final match in RegExp(r'''(?:import|export)\s+['"]([^'"]+)['"]''')
           .allMatches(file.readAsStringSync())) {
         final imported = match.group(1)!;
+        if (relative.startsWith('presentation/widgets/')) {
+          expect(imported.contains('/screens/'), isFalse,
+              reason: 'Shared widgets must not depend on screens: $relative');
+        }
         if (layer == 'domain') {
           expect(imported.startsWith('package:'), isFalse,
               reason: '$relative must stay independent of Flutter and plugins');

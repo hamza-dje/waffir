@@ -1,3 +1,5 @@
+import '../widgets/product_list.dart';
+import '../widgets/form_controls.dart';
 import 'package:flutter/material.dart';
 import '../../domain/models/budget_data.dart';
 import '../../domain/rules/expense_rules.dart';
@@ -168,6 +170,8 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                           })),
                                 ] else
                                   ProductList(
+                                      onEdit: (product) =>
+                                          editProduct(context, product),
                                       products: products,
                                       enabled: !busy,
                                       onChanged: (items) =>
@@ -209,51 +213,4 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                       child:
                                           const CurrencyText('Skip for now')),
                               ])))))));
-}
-
-class AmountKeypad extends StatelessWidget {
-  const AmountKeypad({super.key, required this.onKey, this.keyHeight = 56});
-  final ValueChanged<String> onKey;
-  final double keyHeight;
-  @override
-  Widget build(BuildContext context) => Column(children: [
-        for (final row in [
-          ['1', '2', '3'],
-          ['4', '5', '6'],
-          ['7', '8', '9'],
-          ['.', '0', '⌫']
-        ])
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Row(children: [
-                for (var i = 0; i < row.length; i++) ...[
-                  if (i > 0) const SizedBox(width: 8),
-                  Expanded(
-                      child: SizedBox(
-                          height: keyHeight,
-                          child: TextButton(
-                              onPressed: () => onKey(row[i]),
-                              style: TextButton.styleFrom(
-                                  backgroundColor:
-                                      row[i] == '.' || row[i] == '⌫'
-                                          ? Colors.transparent
-                                          : surface,
-                                  foregroundColor: primaryText,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16))),
-                              child: row[i] == '⌫'
-                                  ? Semantics(
-                                      label: 'Delete last digit',
-                                      child: const SourceIcon('backspace',
-                                          size: 22, color: tertiaryText))
-                                  : CurrencyText(row[i],
-                                      style: type(22,
-                                          role: TextRole.display,
-                                          weight: FontWeight.w500,
-                                          color: row[i] == '.'
-                                              ? tertiaryText
-                                              : primaryText)))))
-                ]
-              ]))
-      ]);
 }

@@ -147,53 +147,6 @@ class CurrencyText extends StatelessWidget {
   }
 }
 
-class LabeledField extends StatelessWidget {
-  const LabeledField(
-      {super.key,
-      required this.label,
-      required this.controller,
-      this.currency = false,
-      this.maxLength,
-      this.validator,
-      this.enabled = true});
-  final String label;
-  final TextEditingController controller;
-  final bool currency;
-  final int? maxLength;
-  final FormFieldValidator<String>? validator;
-  final bool enabled;
-  @override
-  Widget build(BuildContext context) =>
-      Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        CurrencyText(label,
-            style: type(13, color: secondaryText, weight: FontWeight.w500)),
-        const SizedBox(height: 8),
-        Semantics(
-            label: label,
-            child: TextFormField(
-                key: ValueKey('input-$label'),
-                controller: controller,
-                enabled: enabled,
-                maxLength: maxLength,
-                keyboardType:
-                    currency ? TextInputType.number : TextInputType.text,
-                validator: validator,
-                decoration: InputDecoration(
-                    hintText: currency
-                        ? (label == 'Total funds' ? 'e.g. 3000' : 'e.g. 50')
-                        : 'e.g. Coffee',
-                    hintStyle: type(14, color: tertiaryText),
-                    fillColor: surfaceHigh,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
-                    prefix: currency
-                        ? const Padding(
-                            padding: EdgeInsets.only(right: 8),
-                            child: CurrencySymbol(size: 12))
-                        : null))),
-      ]);
-}
-
 const ink = Color(0xFF06251A);
 const cancelSurface = Color(0xFF343B46);
 const overlayInsets = EdgeInsets.symmetric(horizontal: 16, vertical: 24);
