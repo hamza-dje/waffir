@@ -18,8 +18,8 @@ TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     letterSpacing: spacing);
 
 ButtonStyle deleteAction() => FilledButton.styleFrom(
-    backgroundColor: danger,
-    foregroundColor: background,
+    backgroundColor: const Color(0x1FEF6464),
+    foregroundColor: danger,
     textStyle: buttonType(16));
 
 ButtonStyle editAction() => FilledButton.styleFrom(

@@ -152,8 +152,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                 child: const CurrencyText('Save expense')),
             const SizedBox(height: 12),
             FilledButton(
-                style: FilledButton.styleFrom(
-                    backgroundColor: danger, foregroundColor: background),
+                style: deleteAction(),
                 onPressed: () async {
                   final yes = await confirmAction(context, 'Delete expense?',
                       'This entry will be removed from the budget.', 'Delete');
