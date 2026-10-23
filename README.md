@@ -169,12 +169,13 @@ The ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. B
 
 | Source | Purpose |
 | --- | --- |
-| `lib/budget_data.dart` | Budget records, storage format, and daily calculations |
-| `lib/main.dart` | Home, History, Budget, and app state |
+| `lib/budget_book.dart` | Budget changes, shared validation, and durable storage |
+| `lib/budget_data.dart` | Budget records, expense rules, storage format, and daily calculations |
+| `lib/main.dart` | Home, History, Budget, and navigation state |
 | `lib/onboarding.dart` | Budget setup and amount keypad |
 | `lib/expense_sheet.dart` | Two-step custom expense flow |
 | `lib/editors.dart` | Budget, expense, and product editing |
-| `lib/design.dart` | Shared colors, text, currency, and input widgets |
+| `lib/design.dart` | Colors, explicit text roles, currency, inputs, and clipped card feedback |
 | `assets/` | SVG icons, currency mark, and fonts |
 | `test/` | Calculation, user-flow, and screen-capture checks |
 
