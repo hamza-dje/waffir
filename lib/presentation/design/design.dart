@@ -9,6 +9,8 @@ const primaryText = Color(0xFFF2F4F7);
 const secondaryText = Color(0xFF8A93A2);
 const tertiaryText = Color(0xFF5B6472);
 const danger = Color(0xFFEF6464);
+const actionHeight = 54.0;
+const compactActionHeight = 44.0;
 TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontFamily: 'RedHatDisplay',
     fontSize: size,
@@ -24,7 +26,7 @@ ButtonStyle editAction() => FilledButton.styleFrom(
     backgroundColor: const Color(0x1FF5B84A),
     foregroundColor: caution,
     textStyle: buttonType(16),
-    minimumSize: const Size(48, 44));
+    minimumSize: const Size(48, actionHeight));
 
 const caution = Color(0xFFF5B84A);
 const hairline = Color(0x0FFFFFFF);
@@ -163,14 +165,14 @@ const overlayInsets = EdgeInsets.symmetric(horizontal: 16, vertical: 24);
 ButtonStyle secondaryAction() => TextButton.styleFrom(
     backgroundColor: cancelSurface,
     foregroundColor: primaryText,
-    minimumSize: const Size(48, 44),
+    minimumSize: const Size(48, actionHeight),
     textStyle: buttonType(14, spacing: -.14),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)));
 
 ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(
       backgroundColor: cancel ? cancelSurface : mint,
       foregroundColor: cancel ? primaryText : ink,
-      minimumSize: const Size(48, 44),
+      minimumSize: const Size(48, compactActionHeight),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       textStyle: buttonType(13),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),

@@ -72,7 +72,7 @@ class ProductList extends StatelessWidget {
         if (products.isNotEmpty) const SizedBox(height: 16),
         FilledButton.icon(
             style: FilledButton.styleFrom(
-                minimumSize: const Size(48, 44),
+                minimumSize: const Size(48, actionHeight),
                 padding: const EdgeInsets.symmetric(horizontal: 22),
                 textStyle: buttonType(14, spacing: -.14),
                 shape: RoundedRectangleBorder(

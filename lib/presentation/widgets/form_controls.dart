@@ -88,6 +88,7 @@ class DateControl extends StatelessWidget {
                   if (chosen != null) onChanged(dayOnly(chosen));
                 },
                 style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(48, compactActionHeight),
                     padding: const EdgeInsets.all(16),
                     side: BorderSide.none,
                     backgroundColor: surfaceHigh,
