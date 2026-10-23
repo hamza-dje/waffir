@@ -235,7 +235,7 @@ class LoanDetails extends StatelessWidget {
               loanPanel(Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    sectionLabel('Loan details'),
+                    sectionLabel('Loan details', horizontalPadding: 0),
                     loanDetailRow('Original amount', '${l.amount} DA'),
                     loanDetailRow('Loan date', dateText(l.date)),
                     loanDetailRow('Due date',

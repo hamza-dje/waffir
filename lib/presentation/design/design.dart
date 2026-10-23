@@ -51,8 +51,8 @@ TextStyle type(double size,
         letterSpacing: spacing,
         height: height);
 
-Widget sectionLabel(String text) => Padding(
-    padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
+Widget sectionLabel(String text, {double horizontalPadding = 4}) => Padding(
+    padding: EdgeInsets.fromLTRB(horizontalPadding, 0, horizontalPadding, 10),
     child: Text(text.toUpperCase(),
         style: const TextStyle(
             fontFamily: 'RedHatDisplay',
