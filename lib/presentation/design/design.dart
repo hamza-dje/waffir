@@ -11,6 +11,7 @@ const tertiaryText = Color(0xFF5B6472);
 const danger = Color(0xFFEF6464);
 const actionHeight = 54.0;
 const compactActionHeight = 44.0;
+const listItemGap = 12.0;
 TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontFamily: 'RedHatDisplay',
     fontSize: size,

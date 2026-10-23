@@ -126,11 +126,8 @@ class _LoansScreenState extends State<LoansScreen> {
                 child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Row(children: [
-                      Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: SourceIcon('banknote',
-                              color: l.lent ? mint : caution)),
-                      const SizedBox(width: 14),
+                      SourceIcon('banknote', color: l.lent ? mint : caution),
+                      const SizedBox(width: listItemGap),
                       Expanded(
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -64,7 +64,7 @@ class ExpenseRows extends StatelessWidget {
                             child: Center(
                                 child: SourceIcon(entry.value.icon,
                                     size: 18, color: secondaryText))),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: listItemGap),
                         Expanded(
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
