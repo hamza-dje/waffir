@@ -361,7 +361,9 @@ class ProductList extends StatelessWidget {
                       subtitle: CurrencyText('${products[i].price} DA',
                           style: type(12, color: tertiaryText)),
                       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                        Text('Edit', style: type(12, color: secondaryText)),
+                        Text('Edit',
+                            style: type(12,
+                                color: secondaryText, weight: FontWeight.w500)),
                         const SizedBox(width: 4),
                         const SourceIcon('chevron-right',
                             size: 16, color: secondaryText),
@@ -398,7 +400,7 @@ class ProductList extends StatelessWidget {
                 textStyle: const TextStyle(
                     fontFamily: 'RedHatDisplay',
                     fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                     letterSpacing: -.14),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14))),

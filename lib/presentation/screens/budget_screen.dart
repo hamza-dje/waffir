@@ -547,8 +547,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                     Row(children: [
                       Expanded(
                           child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(
-                                  backgroundColor: surfaceHigh),
+                              style: editAction(),
                               onPressed: saving ? null : () => editBudget(b.id),
                               child: const CurrencyText('Edit',
                                   textAlign: TextAlign.center))),
@@ -560,7 +559,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                               onPressed: saving ? null : stopBudget,
                               child: CurrencyText('Stop and Save',
                                   textAlign: TextAlign.center,
-                                  style: type(14, color: caution)))),
+                                  style: type(14,
+                                      color: caution,
+                                      weight: FontWeight.w500)))),
                     ]),
                   ])),
         ] else

@@ -32,7 +32,7 @@ class WafirApp extends StatelessWidget {
               textStyle: const TextStyle(
                   fontFamily: 'RedHatDisplay',
                   fontSize: 16,
-                  fontWeight: FontWeight.w600),
+                  fontWeight: FontWeight.w500),
               minimumSize: const Size(48, 54),
               foregroundColor: const Color(0xFF06251A),
               shape: RoundedRectangleBorder(
@@ -90,7 +90,7 @@ class WafirApp extends StatelessWidget {
                   textStyle: const TextStyle(
                       fontFamily: 'RedHatDisplay',
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       letterSpacing: -.14),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),
@@ -101,7 +101,7 @@ class WafirApp extends StatelessWidget {
                   textStyle: const TextStyle(
                       fontFamily: 'RedHatDisplay',
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       letterSpacing: -.14),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),

@@ -13,7 +13,7 @@ ButtonStyle deleteAction() => FilledButton.styleFrom(
     backgroundColor: danger, foregroundColor: background);
 
 ButtonStyle editAction() => FilledButton.styleFrom(
-    backgroundColor: primaryText,
+    backgroundColor: caution,
     foregroundColor: background,
     minimumSize: const Size(48, 44));
 
@@ -206,7 +206,7 @@ ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(
       textStyle: const TextStyle(
           fontFamily: 'RedHatDisplay',
           fontSize: 13,
-          fontWeight: FontWeight.w600),
+          fontWeight: FontWeight.w500),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     );
 
