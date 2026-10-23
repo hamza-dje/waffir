@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import '../design/design.dart';
 
+class AppBackButton extends StatelessWidget {
+  const AppBackButton({super.key, required this.onPressed});
+  final VoidCallback? onPressed;
+  @override
+  Widget build(BuildContext context) => IconButton.filled(
+      tooltip: 'Back',
+      onPressed: onPressed,
+      style: IconButton.styleFrom(
+          backgroundColor: cancelSurface,
+          foregroundColor: primaryText,
+          minimumSize: const Size(compactActionHeight, compactActionHeight),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
+      icon: const RotatedBox(
+          quarterTurns: 2, child: SourceIcon('chevron-right')));
+}
+
 AppBar editorBar(BuildContext context, String title) => AppBar(
-    leading: IconButton(
-        tooltip: 'Back',
-        onPressed: () => Navigator.pop(context),
-        icon: const SourceIcon('arrow-left')),
+    leading: Padding(
+        padding: const EdgeInsets.all(6),
+        child: AppBackButton(onPressed: () => Navigator.pop(context))),
     title: CurrencyText(title,
         style: type(20, role: TextRole.display, weight: FontWeight.w600)));
 

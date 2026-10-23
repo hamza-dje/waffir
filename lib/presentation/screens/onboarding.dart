@@ -1,4 +1,5 @@
 import '../widgets/product_list.dart';
+import '../widgets/editor_actions.dart';
 import '../widgets/form_controls.dart';
 import 'package:flutter/material.dart';
 import '../../domain/models/budget_data.dart';
@@ -98,18 +99,13 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                           if (step > 0)
                                             Positioned(
                                                 left: 0,
-                                                child: IconButton(
-                                                    tooltip: 'Back',
+                                                child: AppBackButton(
                                                     onPressed: busy
                                                         ? null
                                                         : () => setState(() {
                                                               step--;
                                                               error = null;
-                                                            }),
-                                                    icon: const RotatedBox(
-                                                        quarterTurns: 2,
-                                                        child: SourceIcon(
-                                                            'chevron-right')))),
+                                                            }))),
                                         ])),
                                 const SizedBox(height: 28),
                                 FittedBox(
