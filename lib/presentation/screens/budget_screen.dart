@@ -564,7 +564,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                               onPressed: saving ? null : stopBudget,
                               child: CurrencyText('Stop and Save',
                                   textAlign: TextAlign.center,
-                                  style: type(14,
+                                  style: type(16,
                                       color: caution,
                                       weight: FontWeight.w500)))),
                     ]),

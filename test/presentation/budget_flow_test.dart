@@ -300,7 +300,7 @@ void main() {
     await tap(tester, 'Stop and save');
     expect(find.text('Use remaining money'), findsNothing);
     expect(find.text('Choose your\nbudget dates'), findsOneWidget);
-    await tap(tester, 'Cancel');
+    await tap(tester, 'Skip');
     expect((await stored()).active, isNull);
   });
   testWidgets('history search filters names and keeps the correct edit index',

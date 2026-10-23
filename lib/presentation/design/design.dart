@@ -166,7 +166,7 @@ ButtonStyle secondaryAction() => TextButton.styleFrom(
     backgroundColor: cancelSurface,
     foregroundColor: primaryText,
     minimumSize: const Size(48, actionHeight),
-    textStyle: buttonType(14, spacing: -.14),
+    textStyle: buttonType(16),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)));
 
 ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(

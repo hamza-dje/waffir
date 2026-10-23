@@ -84,7 +84,7 @@ class WafirApp extends StatelessWidget {
                   foregroundColor: primaryText,
                   minimumSize: const Size(48, actionHeight),
                   padding: const EdgeInsets.symmetric(horizontal: 22),
-                  textStyle: buttonType(14, spacing: -.14),
+                  textStyle: buttonType(16),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),
           textButtonTheme: TextButtonThemeData(style: secondaryAction()),

@@ -73,21 +73,44 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      for (var i = 0; i < 3; i++)
-                                        Container(
-                                            width: 24,
-                                            height: 4,
-                                            margin:
-                                                const EdgeInsets.only(right: 6),
-                                            decoration: panel(
-                                                radius: 2,
-                                                color: i <= step
-                                                    ? mint
-                                                    : surfaceHigh))
-                                    ]),
+                                SizedBox(
+                                    height: 44,
+                                    child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                for (var i = 0; i < 3; i++)
+                                                  Container(
+                                                      width: 24,
+                                                      height: 4,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 6),
+                                                      decoration: panel(
+                                                          radius: 2,
+                                                          color: i <= step
+                                                              ? mint
+                                                              : surfaceHigh))
+                                              ]),
+                                          if (step > 0)
+                                            Positioned(
+                                                left: 0,
+                                                child: IconButton(
+                                                    tooltip: 'Back',
+                                                    onPressed: busy
+                                                        ? null
+                                                        : () => setState(() {
+                                                              step--;
+                                                              error = null;
+                                                            }),
+                                                    icon: const RotatedBox(
+                                                        quarterTurns: 2,
+                                                        child: SourceIcon(
+                                                            'chevron-right')))),
+                                        ])),
                                 const SizedBox(height: 28),
                                 CurrencyText(
                                     [
@@ -129,6 +152,11 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                   Wrap(spacing: 8, runSpacing: 8, children: [
                                     for (final days in [7, 15, 21, 28])
                                       OutlinedButton(
+                                          style: compactAction(cancel: true)
+                                              .copyWith(
+                                                  backgroundColor:
+                                                      const WidgetStatePropertyAll(
+                                                          surface)),
                                           onPressed: () => setState(() => end =
                                               DateTime(start.year, start.month,
                                                   start.day + days - 1)),
@@ -191,23 +219,11 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                         : step == 2
                                             ? 'Start budget'
                                             : 'Continue')),
-                                if (step > 0 || widget.onCancel != null) ...[
+                                if (step == 0 && widget.onCancel != null) ...[
                                   const SizedBox(height: 12),
                                   TextButton(
-                                      onPressed: busy
-                                          ? null
-                                          : () {
-                                              if (step > 0) {
-                                                setState(() {
-                                                  step--;
-                                                  error = null;
-                                                });
-                                              } else {
-                                                widget.onCancel?.call();
-                                              }
-                                            },
-                                      child: CurrencyText(
-                                          step > 0 ? 'Back' : 'Skip')),
+                                      onPressed: busy ? null : widget.onCancel,
+                                      child: const CurrencyText('Skip')),
                                 ],
                                 if (step == 2 && products.isEmpty) ...[
                                   const SizedBox(height: 12),
