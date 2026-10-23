@@ -10,10 +10,11 @@ class AppNavigation extends StatelessWidget {
   Widget build(BuildContext context) => SafeArea(
       top: false,
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+          padding:
+              const EdgeInsets.fromLTRB(pageInset, 0, pageInset, spaceRelated),
           child: Material(
-              color: surface,
-              borderRadius: BorderRadius.circular(20),
+              color: navigationSurface,
+              borderRadius: BorderRadius.circular(sectionRadius),
               clipBehavior: Clip.antiAlias,
               child: Padding(
                   padding:
@@ -26,7 +27,8 @@ class AppNavigation extends StatelessWidget {
                               button: true,
                               child: InkWell(
                                   onTap: () => onSelect(i),
-                                  borderRadius: BorderRadius.circular(14),
+                                  borderRadius:
+                                      BorderRadius.circular(controlRadius),
                                   child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 4),

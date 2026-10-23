@@ -70,12 +70,13 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                       child: Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
+                          padding: const EdgeInsets.fromLTRB(
+                              pageInset, 6, pageInset, spaceSection),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 SizedBox(
-                                    height: 44,
+                                    height: compactActionHeight,
                                     child: Stack(
                                         alignment: Alignment.center,
                                         children: [
@@ -107,7 +108,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                                               error = null;
                                                             }))),
                                         ])),
-                                const SizedBox(height: 28),
+                                const SizedBox(height: spaceSection),
                                 FittedBox(
                                     fit: BoxFit.scaleDown,
                                     alignment: Alignment.centerLeft,
@@ -162,26 +163,24 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                           child: CurrencyText('$days days'))
                                   ]),
                                 ] else if (step == 1) ...[
-                                  Expanded(
-                                      child: Center(
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                        Semantics(
-                                            label: 'Total funds in DA',
-                                            value:
-                                                amount.isEmpty ? '0' : amount,
-                                            child: FittedBox(
-                                                fit: BoxFit.scaleDown,
-                                                child: CurrencyText(
-                                                    '${amount.isEmpty ? '0' : amount} DA',
-                                                    style: type(64,
-                                                        role: TextRole.display,
-                                                        weight: FontWeight.w600,
-                                                        spacing: -2.56,
-                                                        height: 1)))),
-                                      ]))),
+                                  Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: spaceRelated),
+                                      child: Semantics(
+                                          label: 'Total funds in DA',
+                                          value: amount.isEmpty ? '0' : amount,
+                                          child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: CurrencyText(
+                                                  '${amount.isEmpty ? '0' : amount} DA',
+                                                  style: type(64,
+                                                      role: TextRole.display,
+                                                      weight: FontWeight.w600,
+                                                      spacing: -2.56,
+                                                      height: 1))))),
+                                  const SizedBox(height: spaceRelated),
                                   AmountKeypad(
+                                      keyHeight: 52,
                                       onKey: (key) => setState(() {
                                             error = null;
                                             if (key == '⌫') {
@@ -204,7 +203,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                       enabled: !busy,
                                       onChanged: (items) =>
                                           setState(() => products = items)),
-                                if (step != 1) const Spacer(),
+                                const Spacer(),
                                 if (error != null)
                                   Padding(
                                       padding: const EdgeInsets.symmetric(

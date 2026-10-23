@@ -8,19 +8,22 @@ class AppBackButton extends StatelessWidget {
   Widget build(BuildContext context) => IconButton.filled(
       tooltip: 'Back',
       onPressed: onPressed,
-      style: IconButton.styleFrom(
-          backgroundColor: cancelSurface,
-          foregroundColor: primaryText,
-          minimumSize: const Size(compactActionHeight, compactActionHeight),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
+      style: backAction().copyWith(
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          minimumSize: const WidgetStatePropertyAll(
+              Size(compactActionHeight, compactActionHeight)),
+          fixedSize: const WidgetStatePropertyAll(
+              Size(compactActionHeight, compactActionHeight)),
+          padding: const WidgetStatePropertyAll(EdgeInsets.all(spaceRelated))),
       icon: const RotatedBox(
-          quarterTurns: 2, child: SourceIcon('chevron-right')));
+          quarterTurns: 2, child: SourceIcon('chevron-right', size: 16)));
 }
 
 AppBar editorBar(BuildContext context, String title) => AppBar(
+    leadingWidth: pageInset + compactActionHeight + spaceRelated,
+    titleSpacing: 0,
     leading: Padding(
-        padding: const EdgeInsets.all(6),
+        padding: const EdgeInsets.fromLTRB(pageInset, 6, spaceRelated, 6),
         child: AppBackButton(onPressed: () => Navigator.pop(context))),
     title: CurrencyText(title,
         style: type(20, role: TextRole.display, weight: FontWeight.w600)));

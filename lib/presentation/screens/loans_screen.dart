@@ -78,7 +78,7 @@ class _LoansScreenState extends State<LoansScreen> {
               ])))
         ]
       ]),
-      const SizedBox(height: 24),
+      const SizedBox(height: spaceRelated),
       FilledButton.icon(
           onPressed: widget.book.saving
               ? null
@@ -90,7 +90,7 @@ class _LoansScreenState extends State<LoansScreen> {
       SearchInput(
           hint: 'Search people or notes',
           onChanged: (v) => setState(() => query = v)),
-      const SizedBox(height: 12),
+      const SizedBox(height: spaceTight),
       Wrap(spacing: 8, runSpacing: 8, children: [
         for (var i = 0; i < 4; i++)
           ChoiceChip(
@@ -107,7 +107,7 @@ class _LoansScreenState extends State<LoansScreen> {
                   weight: FontWeight.w500,
                   color: filter == i ? mint : secondaryText))
       ]),
-      const SizedBox(height: 16),
+      const SizedBox(height: spaceRelated),
       if (items.isEmpty)
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 28),
@@ -119,7 +119,7 @@ class _LoansScreenState extends State<LoansScreen> {
                 style: type(14, color: secondaryText))),
       for (final l in items)
         Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: spaceTight),
             child: TapCard(
                 onTap: () =>
                     openLoan(context, widget.book, l.id, widget.syncReminders),
@@ -134,7 +134,7 @@ class _LoansScreenState extends State<LoansScreen> {
                               children: [
                             Text(l.person,
                                 style: type(15, weight: FontWeight.w600)),
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 4),
                             Text(
                                 '${l.lent ? 'Owed to me' : 'I owe'} - ${loanStatus(l)}',
                                 style: type(11,
@@ -394,6 +394,7 @@ class _LoanSheetState extends State<LoanSheet> {
               Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton.icon(
+                      style: backAction(),
                       onPressed: () => setState(() => details = false),
                       icon: const SourceIcon('arrow-left', size: 16),
                       label: const Text('Amount and direction'))),

@@ -12,6 +12,14 @@ const danger = Color(0xFFEF6464);
 const actionHeight = 54.0;
 const compactActionHeight = 44.0;
 const listItemGap = 12.0;
+const spaceTight = 8.0;
+const spaceRelated = 12.0;
+const spaceSection = 24.0;
+const pageInset = 20.0;
+const controlRadius = 14.0;
+const sectionRadius = 20.0;
+const navigationClearance = 112.0;
+const navigationSurface = Color(0xFF252C36);
 TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontFamily: 'RedHatDisplay',
     fontSize: size,
@@ -178,6 +186,9 @@ ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(
       textStyle: buttonType(13),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     );
+
+ButtonStyle backAction() => compactAction(cancel: true)
+    .copyWith(backgroundColor: const WidgetStatePropertyAll(surfaceHigh));
 
 class DialogActions extends StatelessWidget {
   const DialogActions(
