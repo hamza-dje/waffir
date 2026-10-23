@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'budget_book.dart';
 import 'budget_data.dart';
 import 'design.dart';
 import 'editors.dart';
@@ -119,12 +119,13 @@ class BudgetScreen extends StatefulWidget {
 
 class _BudgetScreenState extends State<BudgetScreen>
     with WidgetsBindingObserver {
-  SharedPreferences? prefs;
-  BudgetData data = BudgetData();
+  final book = BudgetBook(PreferencesBudgetStorage());
+  BudgetData get data => book.data;
+  bool get saving => book.saving;
+  String? get loadError => book.loaded ? null : book.error;
   int tab = 0;
-  bool saving = false, creating = false;
+  bool creating = false;
   BudgetRecord? carrySource;
-  String? loadError;
   Timer? dateTimer;
   @override
   void initState() {
@@ -133,12 +134,17 @@ class _BudgetScreenState extends State<BudgetScreen>
     dateTimer = Timer.periodic(const Duration(minutes: 1), (_) {
       if (mounted) setState(() {});
     });
-    load();
+    book.addListener(refresh);
+    book.load().then((ok) {
+      if (mounted && ok) setState(() => creating = data.budgets.isEmpty);
+    });
   }
 
   @override
   void dispose() {
     dateTimer?.cancel();
+    book.removeListener(refresh);
+    book.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -148,61 +154,23 @@ class _BudgetScreenState extends State<BudgetScreen>
     if (state == AppLifecycleState.resumed) setState(() {});
   }
 
-  Future<void> load() async {
-    try {
-      final store = await SharedPreferences.getInstance();
-      final raw =
-          store.getString('budget_state_v2') ?? store.getString('budget_state');
-      final loaded = raw == null ? BudgetData() : BudgetData.decode(raw);
-      if (loaded.budgets.where((b) => b.closedAt == null).length > 1 ||
-          loaded.budgets.any((b) => b.validate() != null) ||
-          loaded.products.any((p) =>
-              p.name.trim().isEmpty || p.price <= 0 || p.price > 999999999)) {
-        throw const FormatException('Invalid budget data');
-      }
-      if (mounted) {
-        setState(() {
-          prefs = store;
-          data = loaded;
-          creating = loaded.budgets.isEmpty;
-        });
-      }
-    } catch (_) {
-      if (mounted) {
-        setState(() => loadError =
-            'Could not load your budget. Restart the app. Your saved data has not been changed.');
-      }
-    }
+  void refresh() {
+    if (mounted) setState(() {});
   }
 
-  Future<bool> save(BudgetData next) async {
-    if (saving) return false;
-    setState(() => saving = true);
-    try {
-      if (!await prefs!.setString('budget_state_v2', next.encode())) {
-        throw StateError('Save failed');
-      }
-      if (mounted) setState(() => data = next);
-      return true;
-    } catch (_) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: CurrencyText('Could not save. Please try again.')));
-      }
-      return false;
-    } finally {
-      if (mounted) setState(() => saving = false);
+  Future<bool> report(Future<bool> change) async {
+    final ok = await change;
+    if (!ok && mounted && book.error != null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: CurrencyText(book.error!)));
     }
+    return ok;
   }
 
   Future<void> log(String label, int amount, String icon,
       [DateTime? date]) async {
-    final active = data.active;
-    if (active == null || !active.canLog(DateTime.now()) || saving) return;
-    await save(data.replace(active.copyWith(expenses: [
-      ...active.expenses,
-      Expense(label, amount, date ?? DateTime.now(), icon)
-    ])));
+    await report(
+        book.logExpense(Expense(label, amount, date ?? DateTime.now(), icon)));
   }
 
   Future<void> customExpense() async {
@@ -212,21 +180,14 @@ class _BudgetScreenState extends State<BudgetScreen>
         backgroundColor: surface,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
-        builder: (_) => const ExpenseSheet());
+        builder: (_) => ExpenseSheet(budget: data.active!));
     if (result != null && mounted) {
       await log(result.label, result.amount, result.icon, result.date);
     }
   }
 
-  Future<bool> replaceBudget(BudgetRecord record) async {
-    final error = record.validate();
-    if (error != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: CurrencyText(error)));
-      return false;
-    }
-    return save(data.replace(record));
-  }
+  Future<bool> replaceBudget(BudgetRecord record) =>
+      report(book.correctBudget(record));
 
   Future<void> editBudget(String id) async {
     final record = data.budgets.firstWhere((b) => b.id == id);
@@ -246,15 +207,10 @@ class _BudgetScreenState extends State<BudgetScreen>
             builder: (_) => ExpenseEditor(
                 expense: record.expenses[index], budget: record)));
     if (result == null || !mounted) return;
-    final items = [...record.expenses];
-    if (result == 'delete') {
-      items.removeAt(index);
-    } else if (result is Expense) {
-      items[index] = result;
-    } else {
-      return;
+    if (result == 'delete' || result is Expense) {
+      await report(
+          book.correctExpense(id, index, result is Expense ? result : null));
     }
-    await replaceBudget(record.copyWith(expenses: items));
   }
 
   Future<void> newBudget([BudgetRecord? source]) async {
@@ -320,23 +276,8 @@ class _BudgetScreenState extends State<BudgetScreen>
 
   Future<bool> startBudget(int funds, DateTime start, DateTime end,
       List<UsualProduct> products) async {
-    if (data.active != null) return false;
-    final useCarry = carrySource != null && carrySource!.balance == funds;
-    final record = BudgetRecord(
-        id: DateTime.now().microsecondsSinceEpoch.toString(),
-        funds: funds,
-        start: start,
-        end: end,
-        carriedFrom: useCarry ? carrySource!.id : null,
-        carriedAmount: useCarry ? funds : 0);
-    final error = record.validate();
-    if (error != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: CurrencyText(error)));
-      return false;
-    }
-    final ok = await save(
-        BudgetData(budgets: [...data.budgets, record], products: products));
+    final ok = await report(book.startBudget(funds, start, end, products,
+        carryFrom: carrySource?.id));
     if (ok && mounted) {
       setState(() {
         creating = false;
@@ -356,8 +297,9 @@ class _BudgetScreenState extends State<BudgetScreen>
         'Keep this budget in History. No more expenses can be added to it. You can still correct its entries.',
         'Stop and save');
     if (!yes || !mounted) return;
-    final closed = active.copyWith(closedAt: DateTime.now());
-    if (await replaceBudget(closed) && mounted) await newBudget(closed);
+    if (await report(book.stopBudget(active.id)) && mounted) {
+      await newBudget(data.budgets.firstWhere((b) => b.id == active.id));
+    }
   }
 
   BudgetRecord? get lastSaved =>
@@ -365,7 +307,8 @@ class _BudgetScreenState extends State<BudgetScreen>
   Widget heading(String label) => Padding(
       padding: const EdgeInsets.fromLTRB(4, 4, 4, 20),
       child: CurrencyText(label,
-          style: type(26, weight: FontWeight.w600, spacing: -.78)));
+          style: type(26,
+              role: TextRole.display, weight: FontWeight.w600, spacing: -.78)));
   Widget stat(String label, String value,
           {Color color = primaryText, Key? valueKey, double? labelHeight}) =>
       Container(
@@ -380,7 +323,10 @@ class _BudgetScreenState extends State<BudgetScreen>
             const SizedBox(height: 6),
             CurrencyText(value,
                 key: valueKey,
-                style: type(21, color: color, weight: FontWeight.w600))
+                style: type(21,
+                    role: TextRole.display,
+                    color: color,
+                    weight: FontWeight.w600))
           ]));
   Widget emptyHome() =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -390,7 +336,7 @@ class _BudgetScreenState extends State<BudgetScreen>
         const SizedBox(height: 24),
         CurrencyText('No active budget',
             textAlign: TextAlign.center,
-            style: type(26, weight: FontWeight.w600)),
+            style: type(26, role: TextRole.display, weight: FontWeight.w600)),
         const SizedBox(height: 12),
         CurrencyText('Your saved budgets and expenses are in History.',
             textAlign: TextAlign.center, style: type(13, color: secondaryText)),
@@ -436,6 +382,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                     f.leftToday == null ? '—' : '${money(f.leftToday!)} DA',
                     key: const ValueKey('left-today'),
                     style: type(72,
+                            role: TextRole.display,
                             weight: FontWeight.w600,
                             spacing: -3.6,
                             height: 1,
@@ -519,29 +466,25 @@ class _BudgetScreenState extends State<BudgetScreen>
             physics: const NeverScrollableScrollPhysics(),
             children: [
               for (final p in data.products)
-                Material(
-                    color: surface,
-                    borderRadius: BorderRadius.circular(20),
-                    child: InkWell(
-                        onTap: !usable || saving
-                            ? null
-                            : () => log(p.name, p.price, p.icon),
-                        borderRadius: BorderRadius.circular(20),
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
-                            child: Column(children: [
-                              Opacity(
-                                  opacity: .55,
-                                  child: SourceIcon(p.icon, size: 24)),
-                              const SizedBox(height: 6),
-                              CurrencyText('${p.price} DA',
-                                  style: type(13, weight: FontWeight.w600)),
-                              const SizedBox(height: 4),
-                              CurrencyText(p.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: type(10, color: tertiaryText))
-                            ])))),
+                TapCard(
+                    onTap: !usable || saving
+                        ? null
+                        : () => log(p.name, p.price, p.icon),
+                    child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
+                        child: Column(children: [
+                          Opacity(
+                              opacity: .55,
+                              child: SourceIcon(p.icon, size: 24)),
+                          const SizedBox(height: 6),
+                          CurrencyText('${p.price} DA',
+                              style: type(13, weight: FontWeight.w600)),
+                          const SizedBox(height: 4),
+                          CurrencyText(p.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: type(10, color: tertiaryText))
+                        ]))),
             ]),
       const SizedBox(height: 24),
       sectionLabel("Today's log"),
@@ -611,7 +554,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                     Row(children: [
                       Expanded(
                           child: CurrencyText('${b.funds} DA',
-                              style: type(28, weight: FontWeight.w600))),
+                              style: type(28,
+                                  role: TextRole.display,
+                                  weight: FontWeight.w600))),
                       Text('${b.days} days',
                           style: type(13, color: secondaryText))
                     ]),
@@ -656,8 +601,7 @@ class _BudgetScreenState extends State<BudgetScreen>
         ProductList(
             products: data.products,
             enabled: !saving,
-            onChanged: (products) =>
-                save(BudgetData(budgets: data.budgets, products: products))),
+            onChanged: (products) => report(book.setProducts(products))),
       ]);
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -665,7 +609,7 @@ class _BudgetScreenState extends State<BudgetScreen>
           child: Center(
               child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 560),
-                  child: prefs == null
+                  child: !book.loaded
                       ? Center(
                           child: loadError == null
                               ? const CircularProgressIndicator()
@@ -694,7 +638,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                                   else
                                     budgetPage()
                                 ])))),
-      bottomNavigationBar: prefs == null || creating
+      bottomNavigationBar: !book.loaded || creating
           ? null
           : Container(
               decoration: const BoxDecoration(
@@ -785,44 +729,35 @@ class ExpenseRows extends StatelessWidget {
         for (final entry in group.value)
           Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: Material(
-                  color: surface,
-                  borderRadius: BorderRadius.circular(16),
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                      onTap: () => onEdit(entry.key),
-                  overlayColor: WidgetStateProperty.resolveWith((states) =>
-                      states.contains(WidgetState.pressed)
-                          ? const Color(0x40000000)
-                          : null),
-                      borderRadius: BorderRadius.circular(16),
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 12),
-                          child: Row(children: [
-                            Container(
-                                width: 36,
-                                height: 36,
-                                decoration: panel(radius: 12),
-                                child: Center(
-                                    child: SourceIcon(entry.value.icon,
-                                        size: 18, color: secondaryText))),
-                            const SizedBox(width: 12),
-                            Expanded(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                  CurrencyText(entry.value.label,
-                                      style: type(13, weight: FontWeight.w500)),
-                                  const SizedBox(height: 1),
-                                  CurrencyText(
-                                      '${entry.value.date.hour.toString().padLeft(2, '0')}:${entry.value.date.minute.toString().padLeft(2, '0')} · tap to edit',
-                                      style: type(11, color: tertiaryText))
-                                ])),
-                            CurrencyText('−${entry.value.amount} DA',
-                                style: type(13, weight: FontWeight.w600))
-                          ]))))),
+              child: TapCard(
+                  radius: 16,
+                  onTap: () => onEdit(entry.key),
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 12),
+                      child: Row(children: [
+                        Container(
+                            width: 36,
+                            height: 36,
+                            decoration: panel(radius: 12),
+                            child: Center(
+                                child: SourceIcon(entry.value.icon,
+                                    size: 18, color: secondaryText))),
+                        const SizedBox(width: 12),
+                        Expanded(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                              CurrencyText(entry.value.label,
+                                  style: type(13, weight: FontWeight.w500)),
+                              const SizedBox(height: 1),
+                              CurrencyText(
+                                  '${entry.value.date.hour.toString().padLeft(2, '0')}:${entry.value.date.minute.toString().padLeft(2, '0')} · tap to edit',
+                                  style: type(11, color: tertiaryText))
+                            ])),
+                        CurrencyText('−${entry.value.amount} DA',
+                            style: type(13, weight: FontWeight.w600))
+                      ])))),
       ],
     ]);
   }
@@ -855,7 +790,10 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
             Text(label, style: type(12, color: secondaryText)),
             const SizedBox(height: 8),
             CurrencyText(amount,
-                style: type(22, weight: FontWeight.w600, color: color)),
+                style: type(22,
+                    role: TextRole.display,
+                    weight: FontWeight.w600,
+                    color: color)),
             if (detail != null) ...[
               const SizedBox(height: 6),
               Text(detail, style: type(11, color: secondaryText))

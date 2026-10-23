@@ -26,14 +26,16 @@ class SourceIcon extends StatelessWidget {
           colorFilter: ColorFilter.mode(color, BlendMode.srcIn));
 }
 
+enum TextRole { body, display }
+
 TextStyle type(double size,
         {Color color = primaryText,
+        TextRole role = TextRole.body,
         FontWeight weight = FontWeight.w400,
         double? spacing,
         double? height}) =>
     TextStyle(
-        // Keep Geist for display text and RedHatDisplay for smaller UI text.
-        fontFamily: size >= 20 ? 'Geist' : 'RedHatDisplay',
+        fontFamily: role == TextRole.display ? 'Geist' : 'RedHatDisplay',
         fontSize: size,
         color: color,
         fontWeight: weight,
@@ -52,6 +54,27 @@ Widget sectionLabel(String text) => Padding(
 
 BoxDecoration panel({double radius = 20, Color color = surface}) =>
     BoxDecoration(color: color, borderRadius: BorderRadius.circular(radius));
+
+/// Owns the painted surface, clipped ink, and pressed feedback together.
+class TapCard extends StatelessWidget {
+  const TapCard({super.key, required this.child, this.onTap, this.radius = 20});
+  final Widget child;
+  final VoidCallback? onTap;
+  final double radius;
+  @override
+  Widget build(BuildContext context) => Material(
+      color: surface,
+      borderRadius: BorderRadius.circular(radius),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(radius),
+          overlayColor: WidgetStateProperty.resolveWith((states) =>
+              states.contains(WidgetState.pressed)
+                  ? const Color(0x40000000)
+                  : null),
+          child: child));
+}
 
 class CurrencySymbol extends StatelessWidget {
   const CurrencySymbol({super.key, this.size = 18, this.color});

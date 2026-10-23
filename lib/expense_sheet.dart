@@ -5,7 +5,8 @@ import 'budget_data.dart';
 import 'editors.dart';
 
 class ExpenseSheet extends StatefulWidget {
-  const ExpenseSheet({super.key});
+  const ExpenseSheet({super.key, required this.budget});
+  final BudgetRecord budget;
   @override
   State<ExpenseSheet> createState() => _ExpenseSheetState();
 }
@@ -40,7 +41,8 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                             panel(radius: 2, color: const Color(0x995B6472)))),
                 const SizedBox(height: 20),
                 CurrencyText('Log an expense',
-                    style: type(20, weight: FontWeight.w600)),
+                    style: type(20,
+                        role: TextRole.display, weight: FontWeight.w600)),
                 const SizedBox(height: 4),
                 Row(children: [
                   Expanded(
@@ -52,7 +54,10 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 4, 0, 8),
                     child: CurrencyText('${amount.isEmpty ? '0' : amount} DA',
-                        style: type(52, weight: FontWeight.w600, spacing: -2),
+                        style: type(52,
+                            role: TextRole.display,
+                            weight: FontWeight.w600,
+                            spacing: -2),
                         textAlign: TextAlign.center)),
                 if (!details)
                   AmountKeypad(
@@ -87,27 +92,27 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 FilledButton(
                     onPressed: () {
                       final value = int.tryParse(amount);
-                      if (value == null || value <= 0) {
-                        setState(() => error = 'Enter a positive whole amount');
+                      final invalidAmount = positiveMoney(amount);
+                      if (invalidAmount != null) {
+                        setState(() => error = invalidAmount);
                         return;
                       }
                       if (!details) {
                         setState(() => details = true);
                         return;
                       }
-                      if (name.text.trim().isEmpty) {
-                        setState(() => error = 'Enter an expense name');
-                        return;
-                      }
                       final now = DateTime.now();
                       final date = DateTime(
                           now.year, now.month, now.day, time.hour, time.minute);
-                      if (date.isAfter(now)) {
-                        setState(() => error = 'Choose a time before now');
+                      final expense =
+                          Expense(name.text.trim(), value!, date, icon);
+                      final invalid =
+                          ExpenseRules.validate(expense, widget.budget, now);
+                      if (invalid != null) {
+                        setState(() => error = invalid);
                         return;
                       }
-                      Navigator.pop(context,
-                          Expense(name.text.trim(), value, date, icon));
+                      Navigator.pop(context, expense);
                     },
                     child: CurrencyText(details ? 'Log it' : 'Continue')),
               ])));

@@ -23,19 +23,13 @@ String dateText(DateTime date) {
 String money(num value) => value == value.roundToDouble()
     ? value.toInt().toString()
     : value.toStringAsFixed(2);
-String? positiveMoney(String? value) {
-  final amount = int.tryParse(value ?? '');
-  return amount == null || amount <= 0 || amount > 999999999
-      ? 'Enter a positive whole amount'
-      : null;
-}
-
 AppBar editorBar(BuildContext context, String title) => AppBar(
     leading: IconButton(
         tooltip: 'Back',
         onPressed: () => Navigator.pop(context),
         icon: const SourceIcon('arrow-left')),
-    title: CurrencyText(title, style: type(20, weight: FontWeight.w600)));
+    title: CurrencyText(title,
+        style: type(20, role: TextRole.display, weight: FontWeight.w600)));
 
 Future<bool> confirmAction(BuildContext context, String title, String message,
         String action) async =>
@@ -133,7 +127,8 @@ class _BudgetEditorState extends State<BudgetEditor> {
           key: form,
           child: ListView(padding: const EdgeInsets.all(24), children: [
             CurrencyText('Correct your budget',
-                style: type(26, weight: FontWeight.w600)),
+                style:
+                    type(26, role: TextRole.display, weight: FontWeight.w600)),
             const SizedBox(height: 8),
             CurrencyText(
                 'Your expenses stay in this budget. All figures update after saving.',
@@ -213,8 +208,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                 label: 'Expense name',
                 controller: name,
                 maxLength: 60,
-                validator: (v) =>
-                    (v ?? '').trim().isEmpty ? 'Enter a name' : null),
+                validator: ExpenseRules.nameError),
             const SizedBox(height: 16),
             LabeledField(
                 label: 'Amount',
@@ -238,15 +232,17 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                   if (!form.currentState!.validate()) return;
                   final chosen = DateTime(
                       date.year, date.month, date.day, time.hour, time.minute);
-                  if (chosen.isAfter(DateTime.now())) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Choose a time before now')));
+                  final expense = Expense(
+                      name.text.trim(), int.parse(amount.text), chosen, icon);
+                  final invalid = ExpenseRules.validate(
+                      expense, widget.budget, DateTime.now(),
+                      correction: true);
+                  if (invalid != null) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(invalid)));
                     return;
                   }
-                  Navigator.pop(
-                      context,
-                      Expense(name.text.trim(), int.parse(amount.text), chosen,
-                          icon));
+                  Navigator.pop(context, expense);
                 },
                 child: const CurrencyText('Save expense')),
             const SizedBox(height: 12),
@@ -293,8 +289,7 @@ class _ProductEditorState extends State<ProductEditor> {
                 label: 'Product name',
                 controller: name,
                 maxLength: 40,
-                validator: (v) =>
-                    (v ?? '').trim().isEmpty ? 'Enter a name' : null),
+                validator: ExpenseRules.nameError),
             const SizedBox(height: 16),
             LabeledField(
                 label: 'Usual price',

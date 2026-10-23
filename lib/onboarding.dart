@@ -93,6 +93,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                       'Your usual\nproducts'
                                     ][step],
                                     style: type(26,
+                                        role: TextRole.display,
                                         weight: FontWeight.w600,
                                         spacing: -.65,
                                         height: 1.15)),
@@ -145,6 +146,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                                 child: CurrencyText(
                                                     '${amount.isEmpty ? '0' : amount} DA',
                                                     style: type(64,
+                                                        role: TextRole.display,
                                                         weight: FontWeight.w600,
                                                         spacing: -2.56,
                                                         height: 1)))),
@@ -245,6 +247,7 @@ class AmountKeypad extends StatelessWidget {
                                           size: 22, color: tertiaryText))
                                   : CurrencyText(row[i],
                                       style: type(22,
+                                          role: TextRole.display,
                                           weight: FontWeight.w500,
                                           color: row[i] == '.'
                                               ? tertiaryText
