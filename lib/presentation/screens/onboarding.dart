@@ -191,7 +191,8 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                         : step == 2
                                             ? 'Start budget'
                                             : 'Continue')),
-                                if (step > 0 || widget.onCancel != null)
+                                if (step > 0 || widget.onCancel != null) ...[
+                                  const SizedBox(height: 12),
                                   TextButton(
                                       onPressed: busy
                                           ? null
@@ -207,10 +208,13 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                             },
                                       child: CurrencyText(
                                           step > 0 ? 'Back' : 'Cancel')),
-                                if (step == 2 && products.isEmpty)
+                                ],
+                                if (step == 2 && products.isEmpty) ...[
+                                  const SizedBox(height: 12),
                                   TextButton(
                                       onPressed: busy ? null : next,
                                       child:
                                           const CurrencyText('Skip for now')),
+                                ],
                               ])))))));
 }

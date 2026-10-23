@@ -87,13 +87,7 @@ class WafirApp extends StatelessWidget {
                   textStyle: buttonType(14, spacing: -.14),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)))),
-          textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                  minimumSize: const Size(48, 44),
-                  foregroundColor: secondaryText,
-                  textStyle: buttonType(14, spacing: -.14),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14)))),
+          textButtonTheme: TextButtonThemeData(style: secondaryAction()),
         ),
         home: BudgetScreen(
             storage: storage, syncReminders: syncReminders, loanOpen: loanOpen),

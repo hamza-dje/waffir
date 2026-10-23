@@ -160,6 +160,13 @@ const ink = Color(0xFF06251A);
 const cancelSurface = Color(0xFF343B46);
 const overlayInsets = EdgeInsets.symmetric(horizontal: 16, vertical: 24);
 
+ButtonStyle secondaryAction() => TextButton.styleFrom(
+    backgroundColor: cancelSurface,
+    foregroundColor: primaryText,
+    minimumSize: const Size(48, 44),
+    textStyle: buttonType(14, spacing: -.14),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)));
+
 ButtonStyle compactAction({bool cancel = false}) => FilledButton.styleFrom(
       backgroundColor: cancel ? cancelSurface : mint,
       foregroundColor: cancel ? primaryText : ink,
