@@ -389,15 +389,8 @@ class _LoanSheetState extends State<LoanSheet> {
   @override
   Widget build(BuildContext context) => FormSheet(
           title: widget.initial == null ? 'Add loan' : 'Edit loan',
+          onBack: details ? () => setState(() => details = false) : null,
           children: [
-            if (details)
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton.icon(
-                      style: backAction(),
-                      onPressed: () => setState(() => details = false),
-                      icon: const SourceIcon('arrow-left', size: 16),
-                      label: const Text('Amount and direction'))),
             if (!details) ...[
               Row(children: [
                 for (final value in [true, false]) ...[

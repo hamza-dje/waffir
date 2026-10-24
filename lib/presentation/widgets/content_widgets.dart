@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../design/design.dart';
+import 'editor_actions.dart';
 
 class SurfaceCard extends StatelessWidget {
   const SurfaceCard({super.key, required this.child, this.color = surface});
@@ -48,9 +49,11 @@ class DetailField extends StatelessWidget {
 }
 
 class FormSheet extends StatelessWidget {
-  const FormSheet({super.key, required this.title, required this.children});
+  const FormSheet(
+      {super.key, required this.title, required this.children, this.onBack});
   final String title;
   final List<Widget> children;
+  final VoidCallback? onBack;
   @override
   Widget build(BuildContext context) => SafeArea(
       top: false,
@@ -68,9 +71,11 @@ class FormSheet extends StatelessWidget {
                             height: 4,
                             decoration: panel(radius: 2, color: tertiaryText))),
                     const SizedBox(height: 20),
-                    Text(title,
-                        style: type(22,
-                            role: TextRole.display, weight: FontWeight.w600)),
+                    PageHeading(
+                        title: title,
+                        leading: onBack == null
+                            ? null
+                            : AppBackButton(onPressed: onBack)),
                     const SizedBox(height: 20),
                     ...children
                   ]))));

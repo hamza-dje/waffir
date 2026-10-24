@@ -97,32 +97,28 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                                               ? mint
                                                               : surfaceHigh))
                                               ]),
-                                          if (step > 0)
-                                            Positioned(
-                                                left: 0,
-                                                child: AppBackButton(
-                                                    onPressed: busy
-                                                        ? null
-                                                        : () => setState(() {
-                                                              step--;
-                                                              error = null;
-                                                            }))),
                                         ])),
                                 const SizedBox(height: spaceSection),
-                                FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    alignment: Alignment.centerLeft,
-                                    child: CurrencyText(
-                                        [
-                                          'Choose your budget dates',
-                                          'How much do you have?',
-                                          'Your usual products'
-                                        ][step],
-                                        style: type(26,
-                                            role: TextRole.display,
-                                            weight: FontWeight.w600,
-                                            spacing: -.65,
-                                            height: 1.15))),
+                                PageHeading(
+                                    title: [
+                                      'Choose your budget dates',
+                                      'How much do you have?',
+                                      'Your usual products'
+                                    ][step],
+                                    leading: step == 0
+                                        ? null
+                                        : AppBackButton(
+                                            onPressed: busy
+                                                ? null
+                                                : () => setState(() {
+                                                      step--;
+                                                      error = null;
+                                                    })),
+                                    style: type(26,
+                                        role: TextRole.display,
+                                        weight: FontWeight.w600,
+                                        spacing: -.65,
+                                        height: 1.15)),
                                 const SizedBox(height: 8),
                                 CurrencyText(
                                     [

@@ -19,6 +19,25 @@ class AppBackButton extends StatelessWidget {
           quarterTurns: 2, child: SourceIcon('chevron-right', size: 16)));
 }
 
+class PageHeading extends StatelessWidget {
+  const PageHeading({super.key, required this.title, this.leading, this.style});
+  final String title;
+  final Widget? leading;
+  final TextStyle? style;
+  @override
+  Widget build(BuildContext context) => Row(children: [
+        if (leading != null) ...[leading!, const SizedBox(width: spaceRelated)],
+        Expanded(
+            child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(title,
+                    style: style ??
+                        type(22,
+                            role: TextRole.display, weight: FontWeight.w600)))),
+      ]);
+}
+
 AppBar editorBar(BuildContext context, String title) => AppBar(
     leadingWidth: pageInset + compactActionHeight + spaceRelated,
     titleSpacing: 0,
