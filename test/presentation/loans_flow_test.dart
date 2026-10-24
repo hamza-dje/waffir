@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:wafir/domain/models/budget_data.dart';
 import 'package:wafir/domain/models/loan.dart';
 import 'package:wafir/presentation/app.dart';
+import 'package:wafir/presentation/widgets/form_controls.dart';
 import 'budget_book_test.dart' show MemoryBudgetStorage;
 import 'package:wafir/data/serialization/budget_codec.dart';
 
@@ -100,11 +101,24 @@ void main() {
     final saveStyle =
         DefaultTextStyle.of(tester.element(find.text('Save payment'))).style;
     expect(cancelStyle.fontFamily, 'RedHatDisplay');
-    expect(cancelStyle.fontWeight, FontWeight.w600);
+    expect(cancelStyle.fontWeight, FontWeight.w500);
     expect(cancelStyle.fontFamily, saveStyle.fontFamily);
     expect(cancelStyle.fontWeight, saveStyle.fontWeight);
     expect(cancelStyle.fontSize, saveStyle.fontSize);
     final payment = find.byKey(const ValueKey('input-Payment amount'));
+    final amountStyle = tester
+        .widget<TextField>(
+            find.descendant(of: payment, matching: find.byType(TextField)))
+        .style!;
+    for (final picker
+        in tester.widgetList<PickerButton>(find.byType(PickerButton))) {
+      final label = find.descendant(
+          of: find.byWidget(picker), matching: find.text(picker.text));
+      expect(
+          tester.widget<Text>(label).style!.fontWeight, amountStyle.fontWeight);
+      expect(
+          tester.widget<Text>(label).style!.fontFamily, amountStyle.fontFamily);
+    }
     await tester.enterText(payment, '200');
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Save payment'));

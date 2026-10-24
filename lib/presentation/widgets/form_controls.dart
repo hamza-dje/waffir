@@ -31,6 +31,7 @@ class LabeledField extends StatelessWidget {
             child: TextFormField(
                 key: ValueKey('input-$label'),
                 controller: controller,
+                style: buttonType(16),
                 enabled: enabled,
                 maxLength: maxLength,
                 keyboardType:
