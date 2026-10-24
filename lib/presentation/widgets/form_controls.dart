@@ -211,7 +211,7 @@ class AmountKeypad extends StatelessWidget {
                                   : CurrencyText(row[i],
                                       style: type(22,
                                           role: TextRole.display,
-                                          weight: FontWeight.w500,
+                                          weight: FontWeight.w600,
                                           color: row[i] == '.'
                                               ? tertiaryText
                                               : primaryText)))))

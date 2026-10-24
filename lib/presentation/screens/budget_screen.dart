@@ -560,14 +560,14 @@ class _BudgetScreenState extends State<BudgetScreen>
                       const SizedBox(width: 8),
                       Expanded(
                           child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(
-                                  backgroundColor: const Color(0x1FF5B84A)),
+                              style: compactAction(cancel: true).copyWith(
+                                  backgroundColor: const WidgetStatePropertyAll(
+                                      Color(0x1FF5B84A)),
+                                  foregroundColor:
+                                      const WidgetStatePropertyAll(caution)),
                               onPressed: saving ? null : stopBudget,
-                              child: CurrencyText('Stop and Save',
-                                  textAlign: TextAlign.center,
-                                  style: type(16,
-                                      color: caution,
-                                      weight: FontWeight.w500)))),
+                              child: const CurrencyText('Stop and Save',
+                                  textAlign: TextAlign.center))),
                     ]),
                   ])),
         ] else

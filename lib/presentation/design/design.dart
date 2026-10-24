@@ -23,7 +23,7 @@ const navigationSurface = Color(0xFF12151B);
 TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontFamily: 'RedHatDisplay',
     fontSize: size,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     letterSpacing: spacing);
 
 ButtonStyle deleteAction() => FilledButton.styleFrom(
@@ -31,11 +31,7 @@ ButtonStyle deleteAction() => FilledButton.styleFrom(
     foregroundColor: danger,
     textStyle: buttonType(16));
 
-ButtonStyle editAction() => FilledButton.styleFrom(
-    backgroundColor: cancelSurface,
-    foregroundColor: primaryText,
-    textStyle: buttonType(16),
-    minimumSize: const Size(48, actionHeight));
+ButtonStyle editAction() => compactAction(cancel: true);
 
 const caution = Color(0xFFF5B84A);
 const hairline = Color(0x0FFFFFFF);

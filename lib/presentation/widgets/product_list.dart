@@ -46,7 +46,7 @@ class ProductList extends StatelessWidget {
                       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                         Text('Edit',
                             style: type(12,
-                                color: secondaryText, weight: FontWeight.w500)),
+                                color: secondaryText, weight: FontWeight.w600)),
                         const SizedBox(width: 4),
                         const SourceIcon('chevron-right',
                             size: 16, color: secondaryText),

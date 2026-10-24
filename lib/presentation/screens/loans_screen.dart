@@ -103,9 +103,8 @@ class _LoansScreenState extends State<LoansScreen> {
               side: BorderSide.none,
               selectedColor: const Color(0x2634D399),
               backgroundColor: surface,
-              labelStyle: type(12,
-                  weight: FontWeight.w500,
-                  color: filter == i ? mint : secondaryText))
+              labelStyle: buttonType(12)
+                  .copyWith(color: filter == i ? mint : secondaryText))
       ]),
       const SizedBox(height: spaceRelated),
       if (items.isEmpty)
