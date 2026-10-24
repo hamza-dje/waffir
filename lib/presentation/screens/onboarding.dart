@@ -100,6 +100,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                         ])),
                                 const SizedBox(height: spaceSection),
                                 PageHeading(
+                                    backAbove: step == 1,
                                     title: [
                                       'Choose your budget dates',
                                       'How much do you have?',
@@ -175,6 +176,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                                       spacing: -2.56,
                                                       height: 1))))),
                                   const SizedBox(height: spaceRelated),
+                                  const Spacer(),
                                   AmountKeypad(
                                       keyHeight: 52,
                                       onKey: (key) => setState(() {
@@ -199,7 +201,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                       enabled: !busy,
                                       onChanged: (items) =>
                                           setState(() => products = items)),
-                                const Spacer(),
+                                if (step != 1) const Spacer(),
                                 if (error != null)
                                   Padding(
                                       padding: const EdgeInsets.symmetric(

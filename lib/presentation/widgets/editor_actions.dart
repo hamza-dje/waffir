@@ -20,22 +20,36 @@ class AppBackButton extends StatelessWidget {
 }
 
 class PageHeading extends StatelessWidget {
-  const PageHeading({super.key, required this.title, this.leading, this.style});
+  const PageHeading(
+      {super.key,
+      required this.title,
+      this.leading,
+      this.style,
+      this.backAbove = false});
   final String title;
   final Widget? leading;
   final TextStyle? style;
+  final bool backAbove;
   @override
-  Widget build(BuildContext context) => Row(children: [
-        if (leading != null) ...[leading!, const SizedBox(width: spaceRelated)],
-        Expanded(
-            child: FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.centerLeft,
-                child: Text(title,
-                    style: style ??
-                        type(22,
-                            role: TextRole.display, weight: FontWeight.w600)))),
+  Widget build(BuildContext context) {
+    final heading = FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
+        child: Text(title,
+            style: style ??
+                type(22, role: TextRole.display, weight: FontWeight.w600)));
+    if (backAbove && leading != null) {
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        leading!,
+        const SizedBox(height: spaceRelated),
+        heading,
       ]);
+    }
+    return Row(children: [
+      if (leading != null) ...[leading!, const SizedBox(width: spaceRelated)],
+      Expanded(child: heading),
+    ]);
+  }
 }
 
 AppBar editorBar(BuildContext context, String title) => AppBar(
