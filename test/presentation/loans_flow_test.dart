@@ -95,6 +95,15 @@ void main() {
     await capture('details');
     await tester.tap(find.text('Record repayment'));
     await capture('repayment');
+    final cancelStyle =
+        DefaultTextStyle.of(tester.element(find.text('Cancel'))).style;
+    final saveStyle =
+        DefaultTextStyle.of(tester.element(find.text('Save payment'))).style;
+    expect(cancelStyle.fontFamily, 'RedHatDisplay');
+    expect(cancelStyle.fontWeight, FontWeight.w600);
+    expect(cancelStyle.fontFamily, saveStyle.fontFamily);
+    expect(cancelStyle.fontWeight, saveStyle.fontWeight);
+    expect(cancelStyle.fontSize, saveStyle.fontSize);
     final payment = find.byKey(const ValueKey('input-Payment amount'));
     await tester.enterText(payment, '200');
     await tester.pumpAndSettle();
