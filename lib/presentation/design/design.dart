@@ -23,7 +23,7 @@ const navigationSurface = Color(0xFF12151B);
 TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontFamily: 'RedHatDisplay',
     fontSize: size,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     letterSpacing: spacing);
 
 ButtonStyle deleteAction() => FilledButton.styleFrom(

@@ -20,7 +20,7 @@ void main() {
     for (final family in ['Geist', 'RedHatDisplay']) {
       final loader = FontLoader(family);
       for (final w
-          in family == 'Geist' ? [400, 500, 600, 700] : [400, 500, 600]) {
+          in family == 'Geist' ? [400, 500, 600, 700] : [400, 500, 600, 700]) {
         loader.addFont(rootBundle.load('assets/fonts/$family-$w.ttf'));
       }
       await loader.load();

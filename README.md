@@ -160,7 +160,7 @@ Past savings or overspending affect the next day's allowance. Today's purchases 
 
 Waffir uses a dark theme, mint primary actions, gray Edit and secondary buttons, and amber warnings. Delete actions use muted red with red text; confirmation buttons remain red. **Geist** stays on headings and key amounts. **Red Hat Display** is used for body text, labels, and controls. Geist Mono and Rubik remain bundled, with all font licenses included.
 
-The supplied [dinar symbol](assets/dzd.svg) appears to the left of amounts with reduced opacity. Product icons are also muted. Fields have separate labels, placeholders, and no visible outlines. Standard actions share a 54 px minimum height, 16 px text, and semibold weight. Edit and Stop and Save use the compact button size. Compact actions use a 44 px minimum height. Back controls share a dark rounded surface. The inset tab bar is darker than the section cards; content is visible through its rounded top corners and hidden below it. Related controls use tighter spacing than separate sections.
+The supplied [dinar symbol](assets/dzd.svg) appears to the left of amounts with reduced opacity. Product icons are also muted. Fields have separate labels, placeholders, and no visible outlines. Standard actions share a 54 px minimum height, 16 px text, and bold weight. Edit and Stop and Save use the compact button size. Compact actions use a 44 px minimum height. Back controls share a dark rounded surface. The inset tab bar is darker than the section cards; content is visible through its rounded top corners and hidden below it. Related controls use tighter spacing than separate sections.
 
 | Icon | Example use |
 | --- | --- |

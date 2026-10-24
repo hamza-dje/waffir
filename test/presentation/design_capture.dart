@@ -22,7 +22,7 @@ void main() {
     for (final family in ['Geist', 'GeistMono', 'Rubik', 'RedHatDisplay']) {
       final loader = FontLoader(family);
       for (final weight in family == 'RedHatDisplay'
-          ? [400, 500, 600]
+          ? [400, 500, 600, 700]
           : family == 'Geist'
               ? [400, 500, 600, 700]
               : family == 'Rubik'

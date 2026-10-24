@@ -461,8 +461,9 @@ class _LoanSheetState extends State<LoanSheet> {
                       date.year, date.month, date.day, v.hour, v.minute))),
               const SizedBox(height: 16),
               if (due == null)
-                FilledButton.icon(
-                    style: secondaryAction(),
+                PickerButton(
+                    text: 'Add due date (optional)',
+                    icon: 'calendar',
                     onPressed: () async {
                       final v = await showDatePicker(
                           context: context,
@@ -470,9 +471,7 @@ class _LoanSheetState extends State<LoanSheet> {
                           firstDate: dayOnly(date),
                           lastDate: DateTime(2100));
                       if (v != null) setState(() => due = v);
-                    },
-                    icon: const SourceIcon('calendar', color: primaryText),
-                    label: const Text('Add due date (optional)'))
+                    })
               else ...[
                 DateControl('Expected repayment date', due!,
                     (v) => setState(() => due = v),
@@ -629,7 +628,7 @@ class BudgetLink extends StatelessWidget {
                       size: 16, color: tertiaryText))),
           initialValue: value ?? '',
           isExpanded: true,
-          style: type(16),
+          style: buttonType(16),
           decoration: const InputDecoration(
               fillColor: surfaceHigh, contentPadding: EdgeInsets.all(16)),
           items: [

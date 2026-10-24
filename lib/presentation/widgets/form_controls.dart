@@ -53,6 +53,35 @@ class LabeledField extends StatelessWidget {
       ]);
 }
 
+class PickerButton extends StatelessWidget {
+  const PickerButton(
+      {super.key,
+      required this.text,
+      required this.icon,
+      required this.onPressed});
+  final String text, icon;
+  final VoidCallback onPressed;
+  @override
+  Widget build(BuildContext context) => Material(
+      color: surfaceHigh,
+      borderRadius: BorderRadius.circular(controlRadius),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+          onTap: onPressed,
+          child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: actionHeight),
+              child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(children: [
+                    SourceIcon(icon, color: secondaryText),
+                    const SizedBox(width: listItemGap),
+                    Expanded(child: Text(text, style: buttonType(16))),
+                    const SizedBox(width: spaceTight),
+                    const SourceIcon('chevron-right',
+                        size: 16, color: tertiaryText),
+                  ])))));
+}
+
 class DateControl extends StatelessWidget {
   const DateControl(this.label, this.value, this.onChanged,
       {super.key, this.first, this.last});
@@ -70,8 +99,10 @@ class DateControl extends StatelessWidget {
         const SizedBox(height: 8),
         Semantics(
             label: label,
-            child: OutlinedButton(
+            child: PickerButton(
                 key: ValueKey('date-$label'),
+                text: dateText(value),
+                icon: 'calendar',
                 onPressed: () async {
                   final min = first ?? DateTime(2000),
                       max = last ?? DateTime(2100);
@@ -86,23 +117,7 @@ class DateControl extends StatelessWidget {
                       firstDate: min,
                       lastDate: max);
                   if (chosen != null) onChanged(dayOnly(chosen));
-                },
-                style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(48, compactActionHeight),
-                    padding: const EdgeInsets.all(16),
-                    side: BorderSide.none,
-                    backgroundColor: surfaceHigh,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14))),
-                child: Row(children: [
-                  const SourceIcon('calendar', color: secondaryText),
-                  const SizedBox(width: 12),
-                  Expanded(
-                      child: CurrencyText(dateText(value),
-                          style: type(14, weight: FontWeight.w500))),
-                  const SourceIcon('chevron-right',
-                      size: 16, color: tertiaryText),
-                ])))
+                }))
       ]));
 }
 
@@ -151,25 +166,14 @@ class ExpenseTime extends StatelessWidget {
             label: 'Expense time',
             button: true,
             value: value.format(context),
-            child: InkWell(
-                borderRadius: BorderRadius.circular(14),
-                onTap: () async {
+            child: PickerButton(
+                text: value.format(context),
+                icon: 'clock',
+                onPressed: () async {
                   final time = await showTimePicker(
                       context: context, initialTime: value);
                   if (time != null) onChanged(time);
-                },
-                child: InputDecorator(
-                    decoration: const InputDecoration(
-                        fillColor: surfaceHigh,
-                        contentPadding: EdgeInsets.all(16),
-                        prefixIcon: Padding(
-                            padding: EdgeInsets.all(14),
-                            child: SourceIcon('clock', color: secondaryText)),
-                        suffixIcon: Padding(
-                            padding: EdgeInsets.all(16),
-                            child: SourceIcon('chevron-right',
-                                size: 16, color: tertiaryText))),
-                    child: Text(value.format(context), style: buttonType(16)))))
+                }))
       ]);
 }
 

@@ -34,6 +34,8 @@ flutter:
           weight: 500
         - asset: assets/fonts/RedHatDisplay-600.ttf
           weight: 600
+        - asset: assets/fonts/RedHatDisplay-700.ttf
+          weight: 700
     - family: Geist
       fonts:
         - asset: assets/fonts/Geist-400.ttf
