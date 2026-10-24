@@ -9,12 +9,13 @@
 
 **A coffee today. Enough for the bus tomorrow.**
 
-A small money journal for Algerian students. Give your allowance a plan, log the little things, and see what is left before the next purchase.
+A small money journal for Algerian students. Give your allowance a plan, log the little things, track money lent or borrowed, and see what is left before the next purchase.
 
 <sub>ALGERIAN DINARS / WORKS OFFLINE / NO ACCOUNT</sub>
 
 <p align="center">
   <a href="#a-day-with-waffir">A day with Waffir</a> ·
+  <a href="#money-between-friends">Loans</a> ·
   <a href="#before-your-first-lecture">First budget</a> ·
   <a href="#the-maths-behind-the-day">The maths</a> ·
   <a href="#run-it-yourself">Build it</a>
@@ -27,7 +28,7 @@ A small money journal for Algerian students. Give your allowance a plan, log the
 <table>
   <tr>
     <td width="42%" align="center">
-      <img src="docs/screenshots/home.png" width="260" alt="Home shows 51.72 DA left today, daily averages, savings, and usual products">
+      <img src="docs/screenshots/home.png" width="260" alt="Home shows money left today, daily averages, savings, and a loan summary">
     </td>
     <td>
       <h3>One number before you spend.</h3>
@@ -57,11 +58,55 @@ You remember the big payment. Coffee, water, and snacks are easier to forget. Gi
 </p>
 <p align="center"><sub>Write it down. Find it later. Fix it if needed.</sub></p>
 
+## Money between friends
+
+**Books for a friend. Bus money borrowed until next week. Keep both in view.**
+
+Loans has two clear directions: **Owed to me** and **I owe**. Save the person's name, amount, loan date, and an optional due date and note. The popup shows the effect on your budget before you save.
+
+| Keep track | Settle up |
+| --- | --- |
+| Filter by All, Owed to me, I owe, or Paid. | Record part of a repayment or the full amount. |
+| Search by person or note. Overdue loans appear first. | See the unpaid balance and payment history. |
+| Edit details if you made a mistake. | Correct payments or delete them after confirmation. |
+
+<p align="center">
+  <img src="docs/screenshots/loans.png" width="265" alt="Loans overview with totals, search, filters, and due status">
+  <img src="docs/screenshots/loan-details.png" width="265" alt="Loan details with remaining amount, repayment action, dates, note, and reminders">
+</p>
+
+### Cash in hand, money expected back
+
+Loan transfers change cash. They do **not** count as expenses or savings.
+
+- **You lend:** cash falls at once. If repayment is due within the budget period, the planned daily limit can include that expected money until the due date ends. With no due date, a due date after the budget ends, or an overdue balance, the unpaid amount reduces the limit.
+- **You borrow:** cash rises. Money owed within the budget period, or without a due date, is reserved for repayment. Borrowing due after the period can increase the spending limit, while the debt remains visible.
+- **You record a repayment:** cash and limits update. Payments cannot exceed the amount still owed. A transfer above available cash needs confirmation.
+
+Home separates cash, expected repayments, and repayment reserves. If Left today depends on money that has not returned, it shows a warning. Tomorrow's figures also account for loans.
+
+Loans stay open when a budget closes. Each transfer has its own budget link, or **Outside a budget**. A repayment in a later budget affects that budget; old loans do not add money to a new budget automatically. Existing links and carry-over amounts stay fixed after budget corrections.
+
+### A reminder at noon
+
+Dated loans can send a phone notification at **12:00 PM local time** on the due day and once the next day if money is still owed. The alert shows the unpaid amount and direction, with no person's name. Tap it to open the loan.
+
+Reminders are on by default for dated loans and can be switched off per loan. Waffir asks for notification permission when needed. A late entry can trigger one immediate reminder. Partial payments update the amount; full repayment or deletion cancels the alerts. Android may delay scheduled alerts to save battery.
+
+<details>
+<summary><b>See the repayment popup</b></summary>
+
+<p align="center">
+  <img src="docs/screenshots/repayment.png" width="265" alt="Record a repayment with amount, date, time, budget link, and cash preview">
+</p>
+
+</details>
+
 ## Before your first lecture
 
 **Choose a period. Add your money. Save your usual purchases.**
 
-Use a week, a month, or dates that match your next payment. Both the start and end dates count. Enter the full budget in whole dinars. Products are optional and can be added later.
+Use a **7, 15, 21, or 28-day** shortcut, or choose dates that match your next payment. The duration appears directly below the date inputs. Both the start and end dates count. Enter the full budget in whole dinars. Products are optional and can be added later.
 
 <details>
 <summary><b>See the three setup screens</b></summary>
@@ -90,7 +135,7 @@ Use a week, a month, or dates that match your next payment. Both the start and e
 
 ## The maths behind the day
 
-Suppose you set **3,000 DA for 30 days**. Your original daily average is **100 DA**. If you spend **50 DA on day one**:
+With no loan transfers, suppose you set **3,000 DA for 30 days**. Your original daily average is **100 DA**. If you spend **50 DA on day one**:
 
 | Figure | Result | Meaning |
 | --- | --- | --- |
@@ -108,14 +153,14 @@ Tomorrow's limit = original daily average + saved so far
                   + original daily average − spent today
 ```
 
-Past savings or overspending affect the next day's allowance. Today's purchases reduce Left today, but do not change today's fixed limit. Negative figures stay visible. At zero or below, Home shows **Stop for today**. On the last day, future figures show **No days remaining**.
+Past savings or overspending affect the next day's allowance. Today's purchases reduce Left today, but do not change today's fixed limit. Loan entries, repayments, due-date changes, and overdue balances can change the planned limit. Negative figures stay visible. At zero or below, Home shows **Stop for today**. On the last day, future figures show **No days remaining**.
 
 <details>
 <summary><b>Small details that matter</b></summary>
 
-Waffir uses a dark theme, mint actions, and amber warnings. **Geist** stays on headings and key amounts. **Red Hat Display** is used for body text, labels, and controls. Geist Mono and Rubik remain bundled, with all font licenses included.
+Waffir uses a dark theme, mint primary actions, gray Edit and secondary buttons, and amber warnings. Delete actions use muted red with red text; confirmation buttons remain red. **Geist** stays on headings and key amounts. **Red Hat Display** is used for body text, labels, and controls. Geist Mono and Rubik remain bundled, with all font licenses included.
 
-The supplied [dinar symbol](assets/dzd.svg) appears to the left of amounts with reduced opacity. Product icons are also muted. Fields have separate labels and no visible outlines.
+The supplied [dinar symbol](assets/dzd.svg) appears to the left of amounts with reduced opacity. Product icons are also muted. Fields have separate labels, placeholders, and no visible outlines. Standard actions share a 54 px minimum height, 16 px text, and medium weight. Compact actions use a 44 px minimum height. Back controls share a dark rounded surface. The inset tab bar is darker than the section cards; content is visible through its rounded top corners and hidden below it. Related controls use tighter spacing than separate sections.
 
 | Icon | Example use |
 | --- | --- |
@@ -132,17 +177,19 @@ These are examples. You choose the label and icon. Changing a usual product's pr
 
 ## Your records, on your device
 
-- Budgets, products, and logs are stored locally using SharedPreferences. There is no cloud sync or export feature.
+- Budgets, products, expense logs, loans, and repayments are stored locally using SharedPreferences. There is no cloud sync or export feature.
 - Clearing app data or uninstalling the app can remove your records.
 - Saved budgets remain editable, but cannot receive new expenses.
 - Money carried into a new budget stays fixed if you later correct the old budget.
 - Budget date edits cannot exclude existing expenses. Correct those expenses first.
-- Existing budget data is migrated while retaining the old storage value for recovery.
+- Legacy budget data is migrated while retaining the original legacy storage key for recovery.
 
 ## Run it yourself
 
 <details>
 <summary><b>Flutter setup, checks, APK build, and source map</b></summary>
+
+Current release: **0.4.0, build 11**.
 
 This is a Flutter project. Install Flutter and the Android SDK, then run:
 
@@ -165,29 +212,30 @@ Build smaller APKs for each processor type:
 flutter build apk --release --split-per-abi --split-debug-info=build/symbols/android
 ```
 
-The ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. The current Android build uses the debug signing key; set a production key before store distribution.
+The generated ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Shared APKs use `waffir-release-<version>+<build>.apk`, such as `waffir-release-0.4.0+11.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. The current Android build uses the debug signing key; set a production key before store distribution.
 
 The code uses a layer-first structure:
 
 ```text
 lib/
-  main.dart                 # Starts the app and supplies storage
+  main.dart                 # Supplies storage and phone notifications
   domain/
-    models/                 # Budget records and daily figures
-    rules/                  # Expense validation
+    models/                 # Budgets, expenses, loans, and daily figures
+    rules/                  # Expense rules and loan reminder planning
     repositories/           # Typed storage contract
   data/
     serialization/          # JSON schema and legacy migration
     storage/                # SharedPreferences implementation
+    notifications/          # Phone permissions, scheduling, and loan links
   presentation/
     app.dart                # App theme and root navigation
     controllers/            # Budget lifecycle and save state
-    screens/                # Home, History, Budget, and editors
-    widgets/                # Expense entry
-    design/                 # Typography, currency, and tap behavior
+    screens/                # Home, History, Loans, Budget, and editors
+    widgets/                # Shared forms, cards, lists, popups, and navigation
+    design/                 # Colors, spacing, button styles, and formatting
 ```
 
-The domain has no Flutter or storage-plugin dependency. Presentation and data depend on the domain. `main.dart` connects them. Tests follow the same layers; `test/architecture_test.dart` checks the dependency direction.
+The domain has no Flutter or storage-plugin dependency. Presentation and data depend on the domain. `main.dart` connects them. Tests follow the same layers; `test/architecture_test.dart` checks the dependency direction and prevents shared widgets from importing screens.
 
 </details>
 
