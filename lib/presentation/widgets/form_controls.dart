@@ -200,13 +200,11 @@ class AmountKeypad extends StatelessWidget {
                           child: TextButton(
                               onPressed: () => onKey(row[i]),
                               style: TextButton.styleFrom(
-                                  backgroundColor:
-                                      row[i] == '.' || row[i] == '⌫'
-                                          ? Colors.transparent
-                                          : surface,
+                                  backgroundColor: surfaceHigh,
                                   foregroundColor: primaryText,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16))),
+                                      borderRadius: BorderRadius.circular(
+                                          controlRadius))),
                               child: row[i] == '⌫'
                                   ? Semantics(
                                       label: 'Delete last digit',

@@ -150,7 +150,10 @@ class CurrencyText extends StatelessWidget {
               padding: EdgeInsets.only(right: fontSize * .16),
               child:
                   CurrencySymbol(size: fontSize * .72, color: style?.color))));
-      spans.add(TextSpan(text: match.group(1)));
+      spans.add(TextSpan(
+          text: match.group(1)!.replaceAllMapped(
+              RegExp(r'(\d)\s*([+*/×÷-])\s*'),
+              (operator) => '${operator[1]} ${operator[2]} ')));
       cursor = match.end;
     }
     spans.add(TextSpan(text: data.substring(cursor)));
