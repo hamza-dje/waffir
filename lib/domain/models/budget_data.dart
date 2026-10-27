@@ -123,17 +123,13 @@ class BudgetFigures {
       : null;
   double? get leftToday => todayLimit == null ? null : todayLimit! - spentToday;
   double get savings => original * completed - beforeToday;
+  // Spending-plan figures share the expense baseline. Loan liquidity is
+  // represented separately by cash, transfers, and today's available limit.
   double? get upcoming => budget.canLog(date) && remainingDays > 1
-      ? (budget.balance + transfers.adjustment) / (remainingDays - 1)
+      ? budget.balance / (remainingDays - 1)
       : null;
   double? get tomorrowLimit => budget.canLog(date) && remainingDays > 1
-      ? original +
-          savings +
-          original -
-          spentToday +
-          LoanFigures(
-                  budget, loans, DateTime(date.year, date.month, date.day + 1))
-              .adjustment
+      ? original + savings + original - spentToday
       : null;
 }
 

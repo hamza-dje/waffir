@@ -52,7 +52,7 @@ void main() {
     expect(BudgetFigures(b, now, loans: [l]).todayLimit, 100);
     expect(BudgetFigures(b, DateTime(2026, 10, 24), loans: [l]).todayLimit,
         closeTo(2700 / 29, .0001));
-    expect(BudgetFigures(b, now, loans: [l]).tomorrowLimit, -100);
+    expect(BudgetFigures(b, now, loans: [l]).tomorrowLimit, 200);
   });
   test('borrowing reserves unpaid debt inside period or without due date', () {
     for (final due in [null, DateTime(2026, 11, 21), DateTime(2026, 11, 22)]) {

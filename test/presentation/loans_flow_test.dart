@@ -8,10 +8,52 @@ import 'package:wafir/domain/models/budget_data.dart';
 import 'package:wafir/domain/models/loan.dart';
 import 'package:wafir/presentation/app.dart';
 import 'package:wafir/presentation/widgets/form_controls.dart';
+import 'package:wafir/presentation/design/design.dart';
 import 'budget_book_test.dart' show MemoryBudgetStorage;
 import 'package:wafir/data/serialization/budget_codec.dart';
 
 void main() {
+  testWidgets('Home uses the same expense basis for all four spending figures',
+      (tester) async {
+    final date = dayOnly(DateTime.now());
+    final yesterday = DateTime(date.year, date.month, date.day - 1);
+    final storage = MemoryBudgetStorage(BudgetData(budgets: [
+      BudgetRecord(
+          id: 'b',
+          funds: 10000,
+          start: DateTime(date.year, date.month, date.day - 9),
+          end: DateTime(date.year, date.month, date.day + 20),
+          expenses: [Expense('Purchases', 2675, yesterday)])
+    ], loans: [
+      for (final offset in [0, 1])
+        Loan(
+            id: 'l-$offset',
+            person: 'Example',
+            amount: 1000,
+            lent: true,
+            date: yesterday,
+            budgetId: 'b',
+            due: DateTime(date.year, date.month, date.day + offset)),
+    ]).encode());
+    await tester.pumpWidget(WafirApp(storage: storage));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const ValueKey('tomorrow-limit')));
+    expect(
+        tester
+            .widget<CurrencyText>(find.byKey(const ValueKey('tomorrow-limit')))
+            .data,
+        '991.67 DA');
+    expect(
+        tester
+            .widget<CurrencyText>(
+                find.byKey(const ValueKey('upcoming-average')))
+            .data,
+        '366.25 DA');
+    expect(
+        find.byWidgetPredicate((w) => w is CurrencyText && w.data == '325 DA'),
+        findsOneWidget);
+  });
+
   testWidgets('loans UI, search, partial repayment, edits, and screenshots',
       (tester) async {
     tester.view.physicalSize = const Size(390, 844);

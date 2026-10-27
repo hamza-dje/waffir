@@ -83,7 +83,7 @@ Loan transfers change cash. They do **not** count as expenses or savings.
 - **You borrow:** cash rises. Money owed within the budget period, or without a due date, is reserved for repayment. Borrowing due after the period can increase the spending limit, while the debt remains visible.
 - **You record a repayment:** cash and limits update. Payments cannot exceed the amount still owed. A transfer above available cash needs confirmation.
 
-Home separates cash, expected repayments, and repayment reserves. If Left today depends on money that has not returned, it shows a warning. Tomorrow's figures also account for loans.
+Home separates cash, expected repayments, and repayment reserves. If Left today depends on money that has not returned, it shows a warning. Spent today, Saved so far, Daily average from tomorrow, and Tomorrow's limit share the original budget and expense log as their basis. Loan cash movements stay separate from these four spending-plan figures.
 
 Loans stay open when a budget closes. Each transfer has its own budget link, or **Outside a budget**. A repayment in a later budget affects that budget; old loans do not add money to a new budget automatically. Existing links and carry-over amounts stay fixed after budget corrections.
 
@@ -135,7 +135,7 @@ Use a **7, 15, 21, or 28-day** shortcut, or choose dates that match your next pa
 
 ## The maths behind the day
 
-With no loan transfers, suppose you set **3,000 DA for 30 days**. Your original daily average is **100 DA**. If you spend **50 DA on day one**:
+Suppose you set **3,000 DA for 30 days**. Your original daily average is **100 DA**. If you spend **50 DA on day one**:
 
 | Figure | Result | Meaning |
 | --- | --- | --- |
@@ -153,7 +153,7 @@ Tomorrow's limit = original daily average + saved so far
                   + original daily average − spent today
 ```
 
-Past savings or overspending affect the next day's allowance. Today's purchases reduce Left today, but do not change today's fixed limit. Loan entries, repayments, due-date changes, and overdue balances can change the planned limit. Negative figures stay visible. At zero or below, Home shows **Stop for today**. On the last day, future figures show **No days remaining**.
+Past savings or overspending affect the next day's allowance. Today's purchases reduce Left today, but do not change today's fixed limit. Loan entries, repayments, due-date changes, and overdue balances can change today's available limit and cash balance. They do not change expense-based savings or the four spending-plan figures. Negative figures stay visible. At zero or below, Home shows **Stop for today**. On the last day, future figures show **No days remaining**.
 
 <details>
 <summary><b>Small details that matter</b></summary>

@@ -391,7 +391,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                 color: (f.tomorrowLimit ?? 0) < 0 ? caution : primaryText)),
       ]),
       const SizedBox(height: 6),
-      CurrencyText('Estimates. Update with today’s spending.',
+      CurrencyText('Spending plan. Loan cash is shown separately.',
           style: type(11, color: tertiaryText)),
       const SizedBox(height: 24),
       if (data.loans.any((l) => l.remaining > 0)) ...[
