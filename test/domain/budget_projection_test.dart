@@ -3,6 +3,30 @@ import 'package:wafir/domain/models/budget_data.dart';
 import 'package:wafir/domain/models/loan.dart';
 
 void main() {
+  test('past overspending uses the affordable remaining average for tomorrow',
+      () {
+    final date = DateTime(2026, 10, 27);
+    final budget = BudgetRecord(
+        id: 'b',
+        funds: 10000,
+        start: DateTime(2026, 10, 15),
+        end: DateTime(2026, 11, 13),
+        expenses: [Expense('Purchases', 7535, DateTime(2026, 10, 26))]);
+    final figures = BudgetFigures(budget, date);
+    expect(figures.savings, -3535);
+    expect(figures.remainingDays, 18);
+    expect(figures.upcoming, 145);
+    expect(figures.tomorrowLimit, 145);
+    final exhausted =
+        budget.copyWith(expenses: [Expense('Purchases', 10050, date)]);
+    expect(BudgetFigures(exhausted, date).tomorrowLimit, 0);
+    // A small positive old-plan allowance must also use the higher affordable average.
+    final shortfall =
+        budget.copyWith(expenses: [Expense('Purchases', 4500, date)]);
+    expect(
+        BudgetFigures(shortfall, date).tomorrowLimit, closeTo(5500 / 17, 1e-9));
+  });
+
   test('four spending figures share the original budget and expense basis', () {
     // Synthetic records that reproduce the screenshot, not the user's saved data.
     final budget = BudgetRecord(

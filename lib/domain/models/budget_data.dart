@@ -128,9 +128,14 @@ class BudgetFigures {
   double? get upcoming => budget.canLog(date) && remainingDays > 1
       ? budget.balance / (remainingDays - 1)
       : null;
-  double? get tomorrowLimit => budget.canLog(date) && remainingDays > 1
-      ? original + savings + original - spentToday
-      : null;
+  double? get tomorrowLimit {
+    final average = upcoming;
+    if (average == null) return null;
+    // Preserve the original allowance when possible. After overspending,
+    // spread what remains instead of charging the entire shortfall tomorrow.
+    final planned = original + savings + original - spentToday;
+    return planned.clamp(average.clamp(0, double.infinity), double.infinity);
+  }
 }
 
 class BudgetData {

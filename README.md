@@ -153,6 +153,8 @@ Tomorrow's limit = original daily average + saved so far
                   + original daily average − spent today
 ```
 
+If this is below the daily average from tomorrow, use that average instead. This spreads a past shortfall over the remaining days. If no money remains, tomorrow's limit is zero. Savings and shortfalls still show the full difference from the original plan.
+
 Past savings or overspending affect the next day's allowance. Today's purchases reduce Left today, but do not change today's fixed limit. Loan entries, repayments, due-date changes, and overdue balances can change today's available limit and cash balance. They do not change expense-based savings or the four spending-plan figures. Negative figures stay visible. At zero or below, Home shows **Stop for today**. On the last day, future figures show **No days remaining**.
 
 <details>
