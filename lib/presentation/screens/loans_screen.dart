@@ -377,7 +377,7 @@ class _LoanSheetState extends State<LoanSheet> {
   Loan draft() => Loan(
       id: widget.initial?.id ?? 'loan-${DateTime.now().microsecondsSinceEpoch}',
       person: person.text.trim(),
-      amount: int.tryParse(amount.text) ?? 0,
+      amount: moneyValue(amount.text) ?? 0,
       lent: lent,
       date: date,
       due: due,
@@ -414,23 +414,19 @@ class _LoanSheetState extends State<LoanSheet> {
                 ]
               ]),
               const SizedBox(height: 20),
-              CurrencyText('${amount.text.isEmpty ? '0' : amount.text} DA',
-                  textAlign: TextAlign.center,
-                  style: type(52,
-                      role: TextRole.display, weight: FontWeight.w600)),
+              FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: CurrencyText(
+                      '${amount.text.isEmpty ? '0' : amount.text} DA',
+                      textAlign: TextAlign.center,
+                      style: type(52,
+                          role: TextRole.display, weight: FontWeight.w600))),
               const SizedBox(height: 12),
               AmountKeypad(
                   keyHeight: 52,
                   onKey: (key) {
                     error = null;
-                    if (key == '⌫') {
-                      if (amount.text.isNotEmpty) {
-                        amount.text =
-                            amount.text.substring(0, amount.text.length - 1);
-                      }
-                    } else if (amount.text.length < 9 && key != '.') {
-                      amount.text += key;
-                    }
+                    amount.text = amountKey(amount.text, key);
                   }),
             ] else ...[
               CurrencyText('${amount.text} DA',
@@ -524,6 +520,7 @@ class _LoanSheetState extends State<LoanSheet> {
                           return;
                         }
                         if (!details) {
+                          amount.text = moneyValue(amount.text)!.toString();
                           setState(() {
                             details = true;
                             error = null;
@@ -721,7 +718,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
   LoanPayment draft() => LoanPayment(
       id: widget.initial?.id ??
           'payment-${DateTime.now().microsecondsSinceEpoch}',
-      amount: int.tryParse(amount.text) ?? 0,
+      amount: moneyValue(amount.text) ?? 0,
       date: date,
       budgetId: budgetId);
   Loan preview() => loan.withPayments([

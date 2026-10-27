@@ -34,8 +34,7 @@ class LabeledField extends StatelessWidget {
                 style: buttonType(16),
                 enabled: enabled,
                 maxLength: maxLength,
-                keyboardType:
-                    currency ? TextInputType.number : TextInputType.text,
+                keyboardType: TextInputType.text,
                 validator: validator,
                 decoration: InputDecoration(
                     hintText: hintText ??
@@ -185,10 +184,10 @@ class AmountKeypad extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(children: [
         for (final row in [
-          ['1', '2', '3'],
-          ['4', '5', '6'],
-          ['7', '8', '9'],
-          ['.', '0', '⌫']
+          ['1', '2', '3', '+'],
+          ['4', '5', '6', '-'],
+          ['7', '8', '9', '×'],
+          ['0', '⌫', '=', '÷']
         ])
           Padding(
               padding: const EdgeInsets.only(bottom: 8),

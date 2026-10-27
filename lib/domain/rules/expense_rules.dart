@@ -1,7 +1,9 @@
+export 'amount_expression.dart';
+import 'amount_expression.dart';
 import '../models/budget_data.dart';
 
 String? positiveMoney(String? value) {
-  final amount = int.tryParse(value ?? '');
+  final amount = moneyValue(value);
   return amount == null || amount <= 0 || amount > 999999999
       ? 'Enter a positive whole amount'
       : null;

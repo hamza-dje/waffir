@@ -45,6 +45,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
         setState(() => error = invalid);
         return;
       }
+      amount = moneyValue(amount)!.toString();
     }
     if (step < 2) {
       setState(() {
@@ -54,7 +55,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
       return;
     }
     setState(() => busy = true);
-    final ok = await widget.onSave(int.parse(amount), start, end, products);
+    final ok = await widget.onSave(moneyValue(amount)!, start, end, products);
     if (mounted && !ok) setState(() => busy = false);
   }
 
@@ -181,16 +182,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                       keyHeight: 52,
                                       onKey: (key) => setState(() {
                                             error = null;
-                                            if (key == '⌫') {
-                                              if (amount.isNotEmpty) {
-                                                amount = amount.substring(
-                                                    0, amount.length - 1);
-                                              }
-                                            } else if (amount.length < 9 &&
-                                                (key != '.' ||
-                                                    !amount.contains('.'))) {
-                                              amount += key;
-                                            }
+                                            amount = amountKey(amount, key);
                                           })),
                                 ] else
                                   ProductList(

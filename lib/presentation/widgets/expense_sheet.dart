@@ -53,25 +53,21 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 const SizedBox(height: 8),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 4, 0, 8),
-                    child: CurrencyText('${amount.isEmpty ? '0' : amount} DA',
-                        style: type(52,
-                            role: TextRole.display,
-                            weight: FontWeight.w600,
-                            spacing: -2),
-                        textAlign: TextAlign.center)),
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: CurrencyText(
+                            '${amount.isEmpty ? '0' : amount} DA',
+                            style: type(52,
+                                role: TextRole.display,
+                                weight: FontWeight.w600,
+                                spacing: -2),
+                            textAlign: TextAlign.center))),
                 if (!details)
                   AmountKeypad(
                       keyHeight: 52,
                       onKey: (key) => setState(() {
                             error = null;
-                            if (key == '⌫') {
-                              if (amount.isNotEmpty) {
-                                amount = amount.substring(0, amount.length - 1);
-                              }
-                            } else if (amount.length < 9 &&
-                                (key != '.' || !amount.contains('.'))) {
-                              amount += key;
-                            }
+                            amount = amountKey(amount, key);
                           })),
                 if (details)
                   LabeledField(
@@ -91,14 +87,17 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 const SizedBox(height: 24),
                 FilledButton(
                     onPressed: () {
-                      final value = int.tryParse(amount);
+                      final value = moneyValue(amount);
                       final invalidAmount = positiveMoney(amount);
                       if (invalidAmount != null) {
                         setState(() => error = invalidAmount);
                         return;
                       }
                       if (!details) {
-                        setState(() => details = true);
+                        setState(() {
+                          amount = value.toString();
+                          details = true;
+                        });
                         return;
                       }
                       final now = DateTime.now();

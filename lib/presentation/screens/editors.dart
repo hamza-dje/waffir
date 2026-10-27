@@ -59,7 +59,7 @@ class _BudgetEditorState extends State<BudgetEditor> {
                     : () async {
                         if (!form.currentState!.validate()) return;
                         final next = widget.initial.copyWith(
-                            funds: int.parse(funds.text),
+                            funds: moneyValue(funds.text)!,
                             start: start,
                             end: end,
                             legacy: false);
@@ -138,7 +138,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                   final chosen = DateTime(
                       date.year, date.month, date.day, time.hour, time.minute);
                   final expense = Expense(
-                      name.text.trim(), int.parse(amount.text), chosen, icon);
+                      name.text.trim(), moneyValue(amount.text)!, chosen, icon);
                   final invalid = ExpenseRules.validate(
                       expense, widget.budget, DateTime.now(),
                       correction: true);
@@ -209,7 +209,7 @@ class _ProductEditorState extends State<ProductEditor> {
                     Navigator.pop(
                         context,
                         UsualProduct(
-                            name.text.trim(), int.parse(price.text), icon));
+                            name.text.trim(), moneyValue(price.text)!, icon));
                   }
                 },
                 child: const CurrencyText('Save product')),
