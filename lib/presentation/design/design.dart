@@ -128,7 +128,7 @@ class CurrencyText extends StatelessWidget {
   final TextOverflow? overflow;
   @override
   Widget build(BuildContext context) {
-    final matches = RegExp(r'([−-]?\d+(?:\.\d+)?)\s+(?:DZD|DA)\b')
+    final matches = RegExp(r'([−-]?\d[\d.+*/×÷-]*)\s+(?:DZD|DA)\b')
         .allMatches(data)
         .toList();
     if (matches.isEmpty) {
