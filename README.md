@@ -65,6 +65,17 @@ You remember the big payment. Coffee, water, and snacks are easier to forget. Gi
 
 The **Plan** tab reserves an estimated amount for one day or several selected days in your active budget. Choose **Total**, **Per day**, or **Custom**, add a label and icon, then check the split and daily-limit preview. A total of 100 DA over three days becomes 34, 33, and 33 DA. Custom lets you enter a different estimated amount for each day. Tap a date or amount to correct it before saving.
 
+| Mode | Example |
+| --- | --- |
+| Total | Split 100 DA across three days: 34, 33, 33. |
+| Per day | Reserve 100 DA for each selected day. |
+| Custom | Reserve 50 DA today and 150 DA tomorrow. |
+
+<p align="center">
+  <img src="docs/screenshots/plan.png" width="265" alt="Plan overview with search and Upcoming, Needs review, and Completed filters">
+  <img src="docs/screenshots/plan-custom.png" width="265" alt="Custom daily estimates with separate date and amount inputs, red trash actions, and reservation preview cards">
+</p>
+
 - Search plans or filter **Upcoming**, **Needs review**, and **Completed**.
 - Home shows **Planned spending** and **Next plan**. Reservations reduce ordinary spending limits but do not change cash or the original daily average.
 - On the planned day, record the actual expense. Change the amount, label, icon, date, or time if needed. Saving replaces that day's reservation with one expense in History.
@@ -73,6 +84,10 @@ The **Plan** tab reserves an estimated amount for one day or several selected da
 - When a budget stops, unfinished days stay available for review. Move them to dates in the active budget. Completed days stay linked to their saved budget.
 
 Navigation follows **Home, History, Loans, Plan, Budget**. Amount inputs support calculations such as `340/5` and `120+250`, with whole-dinar results.
+
+<p align="center">
+  <img src="docs/screenshots/home-plans.png" width="265" alt="Home cards show planned spending and the next plan with its icon, date, and amount">
+</p>
 
 ## Money between friends
 
