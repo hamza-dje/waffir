@@ -9,10 +9,10 @@ class LoanReminder {
   String get key =>
       '${loan.id}/${dayOnly(loan.due!).toIso8601String()}/${overdue ? 'late' : 'due'}';
   String get body => overdue
-      ? '${loan.remaining} DA ${loan.lent ? 'owed to you is' : 'you owe is'} overdue.'
+      ? '${loan.currency.input(loan.remaining)} ${loan.currency.code == 'DZD' ? 'DA' : 'EUR'} ${loan.lent ? 'owed to you is' : 'you owe is'} overdue.'
       : loan.lent
-          ? '${loan.remaining} DA owed to you is due today.'
-          : 'You owe ${loan.remaining} DA today.';
+          ? '${loan.currency.input(loan.remaining)} ${loan.currency.code == 'DZD' ? 'DA' : 'EUR'} owed to you is due today.'
+          : 'You owe ${loan.currency.input(loan.remaining)} ${loan.currency.code == 'DZD' ? 'DA' : 'EUR'} today.';
 }
 
 List<LoanReminder> loanReminders(

@@ -1,3 +1,4 @@
+import 'app_currency.dart';
 import 'budget_data.dart';
 
 class LoanPayment {
@@ -23,9 +24,11 @@ class Loan {
       this.budgetId,
       this.note = '',
       this.remind = true,
+      this.currency = AppCurrency.dzd,
       List<LoanPayment> payments = const []})
       : payments = List.unmodifiable(payments);
   final String id, person, note;
+  final AppCurrency currency;
   final int amount;
   final bool lent, remind;
   final DateTime date;
@@ -43,6 +46,7 @@ class Loan {
       remaining > 0 && due != null && daysBetween(due!, now) > 0;
   Loan withPayments(List<LoanPayment> value) => Loan(
       id: id,
+      currency: currency,
       person: person,
       amount: amount,
       lent: lent,
@@ -57,7 +61,7 @@ class Loan {
       return 'Enter a person name (up to 60 characters).';
     }
     if (amount <= 0 || amount > 999999999) {
-      return 'Enter a positive amount in whole dinars.';
+      return 'Enter a positive amount.';
     }
     if (date.isAfter(now)) return 'The loan date cannot be in the future.';
     if (due != null && daysBetween(date, due!) < 0) {

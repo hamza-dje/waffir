@@ -1,3 +1,4 @@
+import 'app_currency.dart';
 import 'spending_plan.dart';
 import 'loan.dart';
 
@@ -23,7 +24,9 @@ String safeIcon(Object? name) =>
     productIcons.contains(name) ? name as String : 'banknote';
 
 class UsualProduct {
-  const UsualProduct(this.name, this.price, [this.icon = 'banknote']);
+  const UsualProduct(this.name, this.price,
+      [this.icon = 'banknote', this.currency = AppCurrency.dzd]);
+  final AppCurrency currency;
   final String name;
   final int price;
   final String icon;
@@ -50,9 +53,11 @@ class BudgetRecord {
       this.closedAt,
       this.carriedFrom,
       this.carriedAmount = 0,
-      this.legacy = false})
+      this.legacy = false,
+      this.currency = AppCurrency.dzd})
       : expenses = List.unmodifiable(expenses);
   final String id;
+  final AppCurrency currency;
   final int funds;
   final DateTime start;
   final DateTime end;
@@ -71,7 +76,7 @@ class BudgetRecord {
       daysBetween(now, end) >= 0;
   String? validate() {
     if ((!legacy && funds <= 0) || funds > 999999999) {
-      return 'Enter a positive budget in whole dinars.';
+      return 'Enter a positive budget amount.';
     }
     if (days < 1 || days > 3660) {
       return 'Choose between 1 and 3660 budget days.';
@@ -95,6 +100,7 @@ class BudgetRecord {
           bool? legacy}) =>
       BudgetRecord(
           id: id,
+          currency: currency,
           funds: funds ?? this.funds,
           start: start ?? this.start,
           end: end ?? this.end,
@@ -162,7 +168,8 @@ class BudgetData {
       {List<BudgetRecord> budgets = const [],
       List<UsualProduct> products = const [],
       List<Loan> loans = const [],
-      List<SpendingPlan> plans = const []})
+      List<SpendingPlan> plans = const [],
+      this.defaultCurrency = AppCurrency.dzd})
       : budgets = List.unmodifiable(budgets),
         products = List.unmodifiable(products),
         loans = List.unmodifiable(loans),
@@ -171,9 +178,11 @@ class BudgetData {
   final List<UsualProduct> products;
   final List<Loan> loans;
   final List<SpendingPlan> plans;
+  final AppCurrency defaultCurrency;
   BudgetRecord? get active =>
       budgets.where((b) => b.closedAt == null).firstOrNull;
   BudgetData replace(BudgetRecord record) => BudgetData(
+      defaultCurrency: defaultCurrency,
       products: products,
       loans: loans,
       plans: plans,

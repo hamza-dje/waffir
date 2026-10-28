@@ -1,3 +1,4 @@
+import '../../domain/models/app_currency.dart';
 import '../../domain/models/spending_plan.dart';
 import '../../domain/models/loan.dart';
 import 'package:flutter/foundation.dart';
@@ -48,6 +49,18 @@ class BudgetBook extends ChangeNotifier {
             [l.budgetId, ...l.payments.map((p) => p.budgetId)].any(
                 (id) => id != null && !value.budgets.any((b) => b.id == id)))) {
       throw const FormatException('Invalid loans');
+    }
+    for (final loan in value.loans) {
+      for (final id in [
+        loan.budgetId,
+        ...loan.payments.map((p) => p.budgetId)
+      ]) {
+        if (id != null &&
+            value.budgets.firstWhere((b) => b.id == id).currency !=
+                loan.currency) {
+          throw const _BudgetRejection('Choose a budget in the same currency.');
+        }
+      }
     }
     if (value.budgets.where((b) => b.closedAt == null).length > 1 ||
         value.budgets.map((b) => b.id).toSet().length != value.budgets.length ||
@@ -148,6 +161,7 @@ class BudgetBook extends ChangeNotifier {
         final oldId = budget.expenses[index].id;
         final changed = _data.replace(budget.copyWith(expenses: items));
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             budgets: changed.budgets,
             loans: changed.loans,
             products: changed.products,
@@ -180,6 +194,13 @@ class BudgetBook extends ChangeNotifier {
         return _data.replace(next);
       });
 
+  Future<bool> setCurrency(AppCurrency currency) => _change(() => BudgetData(
+      defaultCurrency: currency,
+      budgets: _data.budgets,
+      products: _data.products,
+      loans: _data.loans,
+      plans: _data.plans));
+
   Future<bool> setProducts(List<UsualProduct> products) => _change(() {
         if (products.any((p) =>
             p.name.trim().isEmpty || positiveMoney('${p.price}') != null)) {
@@ -187,9 +208,16 @@ class BudgetBook extends ChangeNotifier {
               'Enter a product name and a positive whole price.');
         }
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             plans: _data.plans,
             budgets: _data.budgets,
-            products: products,
+            products: [
+              ..._data.products.where((p) =>
+                  !products.any((n) => n.currency == p.currency) &&
+                  p.currency !=
+                      (_data.active?.currency ?? _data.defaultCurrency)),
+              ...products
+            ],
             loans: _data.loans);
       });
 
@@ -203,10 +231,12 @@ class BudgetBook extends ChangeNotifier {
         final source = carryFrom == null ? null : _record(carryFrom);
         final carried = source != null &&
             source.closedAt != null &&
+            source.currency == _data.defaultCurrency &&
             cashBalance(source) > 0 &&
             cashBalance(source) == funds;
         final next = BudgetRecord(
             id: '${_now().microsecondsSinceEpoch}-${_data.budgets.length}',
+            currency: _data.defaultCurrency,
             funds: funds,
             start: start,
             end: end,
@@ -214,9 +244,16 @@ class BudgetBook extends ChangeNotifier {
             carriedAmount: carried ? funds : 0);
         _check(next);
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             plans: _data.plans,
             budgets: [..._data.budgets, next],
-            products: products,
+            products: [
+              ..._data.products.where((p) =>
+                  !products.any((n) => n.currency == p.currency) &&
+                  p.currency !=
+                      (_data.active?.currency ?? _data.defaultCurrency)),
+              ...products
+            ],
             loans: _data.loans);
       });
 
@@ -225,6 +262,9 @@ class BudgetBook extends ChangeNotifier {
 
   Future<bool> saveLoan(Loan loan) => _change(() {
         final old = _data.loans.where((l) => l.id == loan.id).firstOrNull;
+        if (old != null && old.currency != loan.currency) {
+          throw const _BudgetRejection('A saved loan keeps its currency.');
+        }
         if (old != null && old.payments.isNotEmpty && old.lent != loan.lent) {
           throw const _BudgetRejection(
               'Delete the payment records before changing the loan direction.');
@@ -233,6 +273,7 @@ class BudgetBook extends ChangeNotifier {
         final error = next.validate(_now());
         if (error != null) throw _BudgetRejection(error);
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             plans: _data.plans,
             budgets: _data.budgets,
             products: _data.products,
@@ -249,6 +290,7 @@ class BudgetBook extends ChangeNotifier {
           throw const _BudgetRejection('Delete the payment records first.');
         }
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             plans: _data.plans,
             budgets: _data.budgets,
             products: _data.products,
@@ -265,6 +307,7 @@ class BudgetBook extends ChangeNotifier {
         final error = next.validate(_now());
         if (error != null) throw _BudgetRejection(error);
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             plans: _data.plans,
             budgets: _data.budgets,
             products: _data.products,
@@ -273,6 +316,7 @@ class BudgetBook extends ChangeNotifier {
 
   Future<bool> deletePayment(String loanId, String paymentId) => _change(() {
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             plans: _data.plans,
             budgets: _data.budgets,
             products: _data.products,
@@ -296,6 +340,9 @@ class BudgetBook extends ChangeNotifier {
         }
         final invalid = plan.validate(budget);
         if (invalid != null) throw _BudgetRejection(invalid);
+        if (old != null && _record(old.budgetId).currency != budget.currency) {
+          throw const _BudgetRejection('Move plans within the same currency.');
+        }
         final moving = old != null && old.budgetId != plan.budgetId;
         if (moving && plan.days.any((d) => !d.pending)) {
           throw const _BudgetRejection('Move unfinished days only.');
@@ -322,6 +369,7 @@ class BudgetBook extends ChangeNotifier {
           }
         }
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             budgets: _data.budgets,
             products: _data.products,
             loans: _data.loans,
@@ -344,6 +392,7 @@ class BudgetBook extends ChangeNotifier {
       });
 
   Future<bool> deletePlan(String id) => _change(() => BudgetData(
+      defaultCurrency: _data.defaultCurrency,
       budgets: _data.budgets,
       products: _data.products,
       loans: _data.loans,
@@ -356,6 +405,7 @@ class BudgetBook extends ChangeNotifier {
           throw const _BudgetRejection('This day is already resolved.');
         }
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             budgets: _data.budgets,
             products: _data.products,
             loans: _data.loans,
@@ -391,6 +441,7 @@ class BudgetBook extends ChangeNotifier {
               true)
         ]));
         return BudgetData(
+            defaultCurrency: _data.defaultCurrency,
             budgets: changed.budgets,
             products: _data.products,
             loans: _data.loans,

@@ -1,3 +1,4 @@
+import '../../domain/models/app_currency.dart';
 import '../../domain/models/spending_plan.dart';
 import '../../domain/models/loan.dart';
 import 'dart:convert';
@@ -5,7 +6,8 @@ import '../../domain/models/budget_data.dart';
 
 extension BudgetDataJson on BudgetData {
   String encode() => jsonEncode({
-        'version': 4,
+        'version': 5,
+        'defaultCurrency': defaultCurrency.code,
         'plans': plans.map(_planJson).toList(),
         'loans': loans.map(_loanJson).toList(),
         'budgets': budgets.map((b) => b.toJson()).toList(),
@@ -16,8 +18,12 @@ extension BudgetDataJson on BudgetData {
 class BudgetCodec {
   static BudgetData decode(String raw) {
     final json = jsonDecode(raw) as Map<String, dynamic>;
-    if (json['version'] == 2 || json['version'] == 3 || json['version'] == 4) {
+    if (json['version'] == 2 ||
+        json['version'] == 3 ||
+        json['version'] == 4 ||
+        json['version'] == 5) {
       return BudgetData(
+          defaultCurrency: AppCurrency.decode(json['defaultCurrency']),
           plans: ((json['plans'] ?? []) as List)
               .map((p) => _planFromJson(p as Map<String, dynamic>))
               .toList(),
@@ -60,11 +66,15 @@ class BudgetCodec {
 }
 
 extension UsualProductJson on UsualProduct {
-  Map<String, dynamic> toJson() => {'name': name, 'price': price, 'icon': icon};
+  Map<String, dynamic> toJson() =>
+      {'name': name, 'price': price, 'icon': icon, 'currency': currency.code};
 }
 
 UsualProduct _productFromJson(Map<String, dynamic> json) => UsualProduct(
-    json['name'] as String, json['price'] as int, safeIcon(json['icon']));
+    json['name'] as String,
+    json['price'] as int,
+    safeIcon(json['icon']),
+    AppCurrency.decode(json['currency']));
 
 extension ExpenseJson on Expense {
   Map<String, dynamic> toJson() => {
@@ -89,6 +99,7 @@ extension BudgetRecordJson on BudgetRecord {
   Map<String, dynamic> toJson() => {
         'id': id,
         'funds': funds,
+        'currency': currency.code,
         'start': start.toIso8601String(),
         'end': end.toIso8601String(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
@@ -101,6 +112,7 @@ extension BudgetRecordJson on BudgetRecord {
 
 BudgetRecord _budgetFromJson(Map<String, dynamic> json) => BudgetRecord(
     id: json['id'] as String,
+    currency: AppCurrency.decode(json['currency']),
     funds: json['funds'] as int,
     start: DateTime.parse(json['start'] as String),
     end: DateTime.parse(json['end'] as String),
@@ -117,6 +129,7 @@ BudgetRecord _budgetFromJson(Map<String, dynamic> json) => BudgetRecord(
 Map<String, dynamic> _loanJson(Loan l) => {
       'id': l.id,
       'person': l.person,
+      'currency': l.currency.code,
       'amount': l.amount,
       'lent': l.lent,
       'date': l.date.toIso8601String(),
@@ -136,6 +149,7 @@ Map<String, dynamic> _loanJson(Loan l) => {
 Loan _loanFromJson(Map<String, dynamic> j) => Loan(
     id: j['id'] as String,
     person: j['person'] as String,
+    currency: AppCurrency.decode(j['currency']),
     amount: j['amount'] as int,
     lent: j['lent'] as bool,
     date: DateTime.parse(j['date'] as String),

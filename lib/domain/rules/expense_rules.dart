@@ -1,11 +1,14 @@
+import '../models/app_currency.dart';
 export 'amount_expression.dart';
 import 'amount_expression.dart';
 import '../models/budget_data.dart';
 
-String? positiveMoney(String? value) {
-  final amount = moneyValue(value);
+String? positiveMoney(String? value, {AppCurrency currency = AppCurrency.dzd}) {
+  final amount = moneyValue(value, currency: currency);
   return amount == null || amount <= 0 || amount > 999999999
-      ? 'Enter a positive whole amount'
+      ? currency == AppCurrency.eur
+          ? 'Enter a positive amount with at most two decimal places'
+          : 'Enter a positive whole amount'
       : null;
 }
 
