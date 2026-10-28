@@ -270,7 +270,12 @@ class AmountKeypad extends StatelessWidget {
                   label: 'Delete last digit',
                   child:
                       SourceIcon('backspace', size: 22, color: secondaryText))
-              : Text(key,
+              : Text(
+                  key == '*'
+                      ? '×'
+                      : key == '/'
+                          ? '÷'
+                          : key,
                   semanticsLabel: key == 'C' ? 'Clear amount' : key,
                   style: type(22,
                       role: TextRole.display, weight: FontWeight.w600))));
