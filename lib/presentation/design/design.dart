@@ -26,10 +26,12 @@ TextStyle buttonType(double size, {double? spacing}) => TextStyle(
     fontWeight: FontWeight.w500,
     letterSpacing: spacing);
 
-ButtonStyle deleteAction() => FilledButton.styleFrom(
-    backgroundColor: const Color(0x1FEF6464),
-    foregroundColor: danger,
-    textStyle: buttonType(16));
+ButtonStyle deleteAction({bool compact = false}) => (compact
+        ? compactAction(cancel: true)
+        : FilledButton.styleFrom(textStyle: buttonType(16)))
+    .copyWith(
+        backgroundColor: const WidgetStatePropertyAll(Color(0x1FEF6464)),
+        foregroundColor: const WidgetStatePropertyAll(danger));
 
 ButtonStyle editAction() => compactAction(cancel: true);
 

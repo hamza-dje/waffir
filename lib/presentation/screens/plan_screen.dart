@@ -472,16 +472,22 @@ class _PlanSheetState extends State<PlanSheet> {
               Padding(
                   padding: const EdgeInsets.only(bottom: spaceTight),
                   child: SurfaceCard(
+                      color: surfaceHigh,
                       child: Row(children: [
-                    Expanded(child: Text(dateText(d.date), style: type(13))),
-                    CurrencyText('${d.amount} DA', style: type(14)),
-                    const SizedBox(width: spaceTight),
-                    if (d.pending)
-                      FilledButton(
-                          style: compactAction(cancel: true),
-                          onPressed: () => setState(() => dates.remove(d.date)),
-                          child: const Text('Remove'))
-                  ]))),
+                        const SourceIcon('calendar',
+                            size: 20, color: secondaryText),
+                        const SizedBox(width: listItemGap),
+                        Expanded(
+                            child: Text(dateText(d.date), style: type(13))),
+                        CurrencyText('${d.amount} DA', style: type(14)),
+                        const SizedBox(width: spaceTight),
+                        if (d.pending)
+                          FilledButton(
+                              style: deleteAction(compact: true),
+                              onPressed: () =>
+                                  setState(() => dates.remove(d.date)),
+                              child: const Text('Remove'))
+                      ]))),
             FilledButton.icon(
                 style: secondaryAction(),
                 onPressed: busy ? null : addDate,
