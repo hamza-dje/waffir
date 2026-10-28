@@ -240,23 +240,12 @@ class _BudgetScreenState extends State<BudgetScreen>
               role: TextRole.display, weight: FontWeight.w600, spacing: -.78)));
   Widget stat(String label, String value,
           {Color color = primaryText, Key? valueKey, double? labelHeight}) =>
-      Container(
-          padding: const EdgeInsets.all(14),
-          decoration: panel(radius: 16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
-                height: labelHeight,
-                child:
-                    CurrencyText(label, style: type(11, color: secondaryText))),
-            const SizedBox(height: 6),
-            CurrencyText(value,
-                key: valueKey,
-                style: type(21,
-                    role: TextRole.display,
-                    color: color,
-                    weight: FontWeight.w600))
-          ]));
+      AmountStatCard(
+          label: label,
+          value: value,
+          color: color,
+          valueKey: valueKey,
+          labelHeight: labelHeight);
   Widget emptyHome() =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         heading('Home'),

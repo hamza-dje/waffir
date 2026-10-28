@@ -63,19 +63,10 @@ class _PlanScreenState extends State<PlanScreen> {
       SearchInput(
           hint: 'Search plans', onChanged: (v) => setState(() => query = v)),
       const SizedBox(height: spaceRelated),
-      Wrap(spacing: spaceTight, runSpacing: spaceTight, children: [
-        for (var i = 0; i < 3; i++)
-          FilledButton(
-              style: compactAction(cancel: true).copyWith(
-                  backgroundColor: WidgetStatePropertyAll(
-                      filter == i ? const Color(0x2634D399) : surface),
-                  foregroundColor: WidgetStatePropertyAll(
-                      filter == i ? mint : secondaryText),
-                  shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(22)))),
-              onPressed: () => setState(() => filter = i),
-              child: Text(['Upcoming', 'Needs review', 'Completed'][i]))
-      ]),
+      AppFilters(
+          labels: ['Upcoming', 'Needs review', 'Completed'],
+          selected: filter,
+          onChanged: (value) => setState(() => filter = value)),
       const SizedBox(height: spaceSection),
       if (items.isEmpty)
         Text(
@@ -471,52 +462,65 @@ class _PlanSheetState extends State<PlanSheet> {
             for (final d in plan.days)
               Padding(
                   padding: const EdgeInsets.only(bottom: spaceTight),
-                  child: SurfaceCard(
-                      color: surfaceHigh,
-                      radius: controlRadius,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: spaceRelated, vertical: 4),
-                      child: Row(children: [
-                        const SourceIcon('calendar',
-                            size: 20, color: secondaryText),
-                        const SizedBox(width: listItemGap),
-                        Expanded(
-                            child: Text(dateText(d.date), style: type(13))),
-                        CurrencyText('${d.amount} DA', style: type(14)),
-                        const SizedBox(width: spaceTight),
-                        if (d.pending)
-                          FilledButton(
-                              style: deleteAction(compact: true).copyWith(
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap),
-                              onPressed: () =>
-                                  setState(() => dates.remove(d.date)),
-                              child: const Text('Remove'))
-                      ]))),
+                  child: Row(children: [
+                    Expanded(
+                        child: SurfaceCard(
+                            color: surfaceHigh,
+                            radius: controlRadius,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: spaceRelated,
+                                vertical: spaceRelated),
+                            child: Row(children: [
+                              const SourceIcon('calendar',
+                                  size: 20, color: secondaryText),
+                              const SizedBox(width: listItemGap),
+                              Expanded(
+                                  child: Text(dateText(d.date),
+                                      style: buttonType(13))),
+                              CurrencyText('${d.amount} DA',
+                                  style: buttonType(14)),
+                            ]))),
+                    if (d.pending) ...[
+                      const SizedBox(width: spaceTight),
+                      AppActionIcon(
+                          icon: 'trash',
+                          tooltip: 'Remove date',
+                          destructive: true,
+                          onPressed: busy
+                              ? null
+                              : () => setState(() => dates.remove(d.date))),
+                    ]
+                  ])),
             FilledButton.icon(
                 style: secondaryAction(),
                 onPressed: busy ? null : addDate,
                 icon: const SourceIcon('calendar'),
                 label: const Text('Add day')),
             const SizedBox(height: spaceSection),
-            SurfaceCard(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                  DetailField(
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                  child: AmountStatCard(
                       label: 'Reserved after saving',
-                      value: '${preview.plannedReserved} DA'),
-                  DetailField(
+                      value: '${preview.plannedReserved} DA',
+                      backgroundColor: surfaceHigh,
+                      labelHeight: MediaQuery.textScalerOf(context).scale(30),
+                      color: caution)),
+              const SizedBox(width: spaceTight),
+              Expanded(
+                  child: AmountStatCard(
                       label: "Today's ordinary limit",
                       value: preview.todayLimit == null
-                          ? 'Not active today'
-                          : '${money(preview.todayLimit!)} DA'),
-                  Text('Planned money is separate from Left today.',
-                      style: type(12, color: secondaryText)),
-                  if (shortfall < 0)
-                    CurrencyText('${-shortfall} DA shortfall',
-                        style: type(13, color: caution)),
-                ])),
+                          ? 'Not active'
+                          : '${money(preview.todayLimit!)} DA',
+                      labelHeight: MediaQuery.textScalerOf(context).scale(30),
+                      backgroundColor: surfaceHigh)),
+            ]),
+            const SizedBox(height: spaceTight),
+            Text('Planned money is separate from Left today.',
+                style: type(12, color: secondaryText)),
+            if (shortfall < 0)
+              CurrencyText('${-shortfall} DA shortfall',
+                  style: type(13, color: caution)),
           ],
           if (error != null)
             Padding(

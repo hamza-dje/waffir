@@ -91,21 +91,10 @@ class _LoansScreenState extends State<LoansScreen> {
           hint: 'Search people or notes',
           onChanged: (v) => setState(() => query = v)),
       const SizedBox(height: spaceTight),
-      Wrap(spacing: 8, runSpacing: 8, children: [
-        for (var i = 0; i < 4; i++)
-          ChoiceChip(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14)),
-              label: Text(['All', 'Owed to me', 'I owe', 'Paid'][i]),
-              selected: filter == i,
-              onSelected: (_) => setState(() => filter = i),
-              showCheckmark: false,
-              side: BorderSide.none,
-              selectedColor: const Color(0x2634D399),
-              backgroundColor: surface,
-              labelStyle: buttonType(12)
-                  .copyWith(color: filter == i ? mint : secondaryText))
-      ]),
+      AppFilters(
+          labels: ['All', 'Owed to me', 'I owe', 'Paid'],
+          selected: filter,
+          onChanged: (value) => setState(() => filter = value)),
       const SizedBox(height: spaceRelated),
       if (items.isEmpty)
         Padding(
