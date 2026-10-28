@@ -108,10 +108,15 @@ class PickerButton extends StatelessWidget {
       required this.text,
       required this.icon,
       required this.onPressed,
-      this.trailing});
-  final String text, icon;
+      this.trailing,
+      this.padding = const EdgeInsets.all(16),
+      this.showArrow = true});
+  final String text;
+  final String? icon;
+  final bool showArrow;
   final VoidCallback? onPressed;
   final Widget? trailing;
+  final EdgeInsetsGeometry padding;
   @override
   Widget build(BuildContext context) => Material(
       color: surfaceHigh,
@@ -122,15 +127,23 @@ class PickerButton extends StatelessWidget {
           child: ConstrainedBox(
               constraints: const BoxConstraints(minHeight: actionHeight),
               child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: padding,
                   child: Row(children: [
-                    SourceIcon(icon, color: secondaryText),
-                    const SizedBox(width: listItemGap),
-                    Expanded(child: Text(text, style: buttonType(16))),
-                    const SizedBox(width: spaceTight),
-                    trailing ??
-                        const SourceIcon('chevron-right',
-                            size: 16, color: tertiaryText),
+                    if (icon != null) ...[
+                      SourceIcon(icon!, color: secondaryText),
+                      const SizedBox(width: listItemGap),
+                    ],
+                    Expanded(
+                        child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: CurrencyText(text, style: buttonType(16)))),
+                    if (trailing != null || showArrow) ...[
+                      const SizedBox(width: spaceTight),
+                      trailing ??
+                          const SourceIcon('chevron-right',
+                              size: 16, color: tertiaryText),
+                    ],
                   ])))));
 }
 

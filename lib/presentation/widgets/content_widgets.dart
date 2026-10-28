@@ -37,13 +37,15 @@ class AppActionIcon extends StatelessWidget {
       required this.icon,
       required this.tooltip,
       required this.onPressed,
-      this.destructive = false});
+      this.destructive = false,
+      this.size = compactActionHeight});
   final String icon, tooltip;
   final VoidCallback? onPressed;
   final bool destructive;
+  final double size;
   @override
   Widget build(BuildContext context) => SizedBox.square(
-      dimension: compactActionHeight,
+      dimension: size,
       child: IconButton(
           tooltip: tooltip,
           onPressed: onPressed,
@@ -51,8 +53,7 @@ class AppActionIcon extends StatelessWidget {
               .copyWith(
                   padding: const WidgetStatePropertyAll(EdgeInsets.zero),
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          icon: SourceIcon(icon,
-              size: 18, color: destructive ? danger : primaryText)));
+          icon: SourceIcon(icon, color: destructive ? danger : primaryText)));
 }
 
 class AppFilters extends StatelessWidget {

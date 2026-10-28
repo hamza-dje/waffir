@@ -529,25 +529,32 @@ class _PlanSheetState extends State<PlanSheet> {
                   padding: const EdgeInsets.only(bottom: spaceTight),
                   child: Row(children: [
                     Expanded(
+                        flex: 7,
                         child: PickerButton(
                             text: dateText(d.date),
                             icon: 'calendar',
-                            onPressed:
-                                d.pending && !busy ? () => changeDate(d) : null,
-                            trailing: TextButton(
-                                style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    minimumSize:
-                                        const Size(48, compactActionHeight),
-                                    foregroundColor: primaryText),
-                                onPressed: d.pending && !busy
-                                    ? () => changeAmount(d)
-                                    : null,
-                                child: CurrencyText('${d.amount} DA',
-                                    style: buttonType(16))))),
+                            showArrow: false,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: spaceRelated),
+                            onPressed: d.pending && !busy
+                                ? () => changeDate(d)
+                                : null)),
+                    const SizedBox(width: spaceTight),
+                    Expanded(
+                        flex: 4,
+                        child: PickerButton(
+                            text: '${d.amount} DA',
+                            icon: null,
+                            showArrow: false,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: spaceRelated),
+                            onPressed: d.pending && !busy
+                                ? () => changeAmount(d)
+                                : null)),
                     if (d.pending) ...[
                       const SizedBox(width: spaceTight),
                       AppActionIcon(
+                          size: actionHeight,
                           icon: 'trash',
                           tooltip: 'Remove date',
                           destructive: true,

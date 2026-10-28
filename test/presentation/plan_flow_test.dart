@@ -9,6 +9,7 @@ import 'package:wafir/domain/models/budget_data.dart';
 import 'package:wafir/domain/models/spending_plan.dart';
 import 'package:wafir/presentation/app.dart';
 import 'package:wafir/presentation/widgets/content_widgets.dart';
+import 'package:wafir/presentation/widgets/form_controls.dart';
 import 'budget_book_test.dart' show MemoryBudgetStorage;
 
 void main() {
@@ -55,6 +56,29 @@ void main() {
       await tester.tap(find.text('Save').last);
       await tester.pumpAndSettle();
     }
+    for (final field in find.byType(PickerButton).evaluate()) {
+      expect(tester.getSize(find.byWidget(field.widget)).height, 54);
+    }
+    for (final button in find.byType(AppActionIcon).evaluate()) {
+      expect(tester.getSize(find.byWidget(button.widget)).height, 54);
+    }
+    final amountButtons = find.descendant(
+        of: find.byType(PickerButton), matching: find.byType(TextButton));
+    expect(amountButtons, findsNothing);
+    expect(find.byType(PickerButton), findsNWidgets(4));
+    await tester.tap(
+        find.byWidgetPredicate((w) => w is PickerButton && w.text == '50 DA'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('input-Amount')), findsOneWidget);
+    await tester.tap(find.text('Cancel').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find
+        .byWidgetPredicate((w) => w is PickerButton && w.icon == 'calendar')
+        .first);
+    await tester.pumpAndSettle();
+    expect(find.byType(DatePickerDialog), findsOneWidget);
+    await tester.tap(find.text('Cancel').last);
+    await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Save plan'));
     await tester.tap(find.text('Save plan'));
     await tester.pumpAndSettle();
