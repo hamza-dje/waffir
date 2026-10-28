@@ -207,7 +207,7 @@ These are examples. You choose the label and icon. Changing a usual product's pr
 <details>
 <summary><b>Flutter setup, checks, APK build, and source map</b></summary>
 
-Current release: **0.4.0, build 11**.
+Current release: **0.5.0, build 1**.
 
 This is a Flutter project. Install Flutter and the Android SDK, then run:
 
@@ -230,7 +230,7 @@ Build smaller APKs for each processor type:
 flutter build apk --release --split-per-abi --split-debug-info=build/symbols/android
 ```
 
-The generated ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Shared APKs use `waffir-release-<version>+<build>.apk`, such as `waffir-release-0.4.0+11.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. The current Android build uses the debug signing key; set a production key before store distribution.
+The generated ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Shared APKs use `waffir-release-<version>+<build>.apk`, such as `waffir-release-0.5.0+1.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. Android's internal update code includes the release version so build counters can restart without blocking updates. The current Android build uses the debug signing key; set a production key before store distribution.
 
 The code uses a layer-first structure:
 
