@@ -41,9 +41,9 @@ class AppNavigation extends StatelessWidget {
                                                   SourceIcon(
                                                       [
                                                         'home',
-                                                        'list',
+                                                        'clock',
                                                         'banknote',
-                                                        'clipboard',
+                                                        'list',
                                                         'calendar'
                                                       ][i],
                                                       size: 22,
