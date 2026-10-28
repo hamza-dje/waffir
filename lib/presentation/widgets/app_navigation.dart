@@ -43,7 +43,7 @@ class AppNavigation extends StatelessWidget {
                                                         'home',
                                                         'list',
                                                         'banknote',
-                                                        'sun',
+                                                        'clipboard',
                                                         'calendar'
                                                       ][i],
                                                       size: 22,
