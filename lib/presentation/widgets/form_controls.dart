@@ -65,9 +65,11 @@ class PickerButton extends StatelessWidget {
       {super.key,
       required this.text,
       required this.icon,
-      required this.onPressed});
+      required this.onPressed,
+      this.trailing});
   final String text, icon;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
+  final Widget? trailing;
   @override
   Widget build(BuildContext context) => Material(
       color: surfaceHigh,
@@ -84,8 +86,9 @@ class PickerButton extends StatelessWidget {
                     const SizedBox(width: listItemGap),
                     Expanded(child: Text(text, style: buttonType(16))),
                     const SizedBox(width: spaceTight),
-                    const SourceIcon('chevron-right',
-                        size: 16, color: tertiaryText),
+                    trailing ??
+                        const SourceIcon('chevron-right',
+                            size: 16, color: tertiaryText),
                   ])))));
 }
 

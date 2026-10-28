@@ -324,6 +324,7 @@ class _PlanSheetState extends State<PlanSheet> {
   late final String id =
       widget.initial?.id ?? 'plan-${DateTime.now().microsecondsSinceEpoch}';
   final List<DateTime> dates = [];
+  final Map<DateTime, int> dayAmounts = {};
   List<PlanDay> get resolved => widget.initial?.budgetId == budgetId
       ? widget.initial!.days.where((d) => !d.pending).toList()
       : [];
@@ -338,6 +339,7 @@ class _PlanSheetState extends State<PlanSheet> {
       perDay = p.perDay;
       final pending = p.days.where((d) => d.pending).toList();
       dates.addAll(pending.map((d) => d.date));
+      dayAmounts.addEntries(pending.map((d) => MapEntry(d.date, d.amount)));
       amount =
           (perDay && pending.isNotEmpty ? pending.first.amount : p.reserved)
               .toString();
@@ -369,7 +371,7 @@ class _PlanSheetState extends State<PlanSheet> {
                         ?.id ??
                     '$id-${split[i].date.toIso8601String()}',
                 date: split[i].date,
-                amount: split[i].amount)
+                amount: dayAmounts[split[i].date] ?? split[i].amount)
         ]..sort((a, b) => a.date.compareTo(b.date)));
   }
 
@@ -397,6 +399,74 @@ class _PlanSheetState extends State<PlanSheet> {
     }
   }
 
+  Future<void> changeDate(PlanDay day) async {
+    final budget = widget.book.data.budgets.firstWhere((b) => b.id == budgetId);
+    final today = dayOnly(DateTime.now());
+    final first = budget.start.isAfter(today) ? budget.start : today;
+    if (first.isAfter(budget.end)) {
+      setState(() => error = 'Move this plan to an active budget first.');
+      return;
+    }
+    final picked = await showDatePicker(
+        context: context,
+        initialDate: day.date.isBefore(first) ? first : day.date,
+        firstDate: first,
+        lastDate: budget.end);
+    if (picked == null || !mounted || picked == day.date) return;
+    if (dates.contains(picked) || resolved.any((d) => d.date == picked)) {
+      setState(() => error = 'This date is already in the plan.');
+      return;
+    }
+    setState(() {
+      dates.remove(day.date);
+      dates.add(picked);
+      dates.sort();
+      dayAmounts.remove(day.date);
+      dayAmounts[picked] = day.amount;
+      error = null;
+    });
+  }
+
+  Future<void> changeAmount(PlanDay day) async {
+    final controller = TextEditingController(text: '${day.amount}');
+    final form = GlobalKey<FormState>();
+    final value = await showDialog<int>(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text('Planned amount'),
+              content: Form(
+                  key: form,
+                  child: LabeledField(
+                      label: 'Amount',
+                      controller: controller,
+                      currency: true,
+                      validator: positiveMoney)),
+              actions: [
+                DialogActions(
+                    onCancel: () => Navigator.pop(context),
+                    onConfirm: () {
+                      if (form.currentState!.validate())
+                        Navigator.pop(context, moneyValue(controller.text));
+                    },
+                    confirmLabel: 'Save')
+              ],
+            ));
+    // Dispose after the closing route has released its input.
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    controller.dispose();
+    if (value == null || !mounted) return;
+    setState(() {
+      for (final d in draft().days.where((d) => d.pending)) {
+        dayAmounts[d.date] = d.amount;
+      }
+      dayAmounts[day.date] = value;
+      perDay = false;
+      amount =
+          dates.fold<int>(0, (s, d) => s + (dayAmounts[d] ?? 0)).toString();
+      error = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final book = widget.book;
@@ -421,7 +491,10 @@ class _PlanSheetState extends State<PlanSheet> {
                 Expanded(
                     child: FilledButton(
                         style: compactAction(cancel: perDay != value),
-                        onPressed: () => setState(() => perDay = value),
+                        onPressed: () => setState(() {
+                              perDay = value;
+                              dayAmounts.clear();
+                            }),
                         child: Text(value ? 'Per day' : 'Total')))
               ]
             ]),
@@ -436,6 +509,7 @@ class _PlanSheetState extends State<PlanSheet> {
                 keyHeight: 52,
                 onKey: (key) => setState(() {
                       amount = amountKey(amount, key);
+                      dayAmounts.clear();
                       error = null;
                     })),
           ] else ...[
@@ -464,22 +538,22 @@ class _PlanSheetState extends State<PlanSheet> {
                   padding: const EdgeInsets.only(bottom: spaceTight),
                   child: Row(children: [
                     Expanded(
-                        child: SurfaceCard(
-                            color: surfaceHigh,
-                            radius: controlRadius,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: spaceRelated,
-                                vertical: spaceRelated),
-                            child: Row(children: [
-                              const SourceIcon('calendar',
-                                  size: 20, color: secondaryText),
-                              const SizedBox(width: listItemGap),
-                              Expanded(
-                                  child: Text(dateText(d.date),
-                                      style: buttonType(13))),
-                              CurrencyText('${d.amount} DA',
-                                  style: buttonType(14)),
-                            ]))),
+                        child: PickerButton(
+                            text: dateText(d.date),
+                            icon: 'calendar',
+                            onPressed:
+                                d.pending && !busy ? () => changeDate(d) : null,
+                            trailing: TextButton(
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    minimumSize:
+                                        const Size(48, compactActionHeight),
+                                    foregroundColor: primaryText),
+                                onPressed: d.pending && !busy
+                                    ? () => changeAmount(d)
+                                    : null,
+                                child: CurrencyText('${d.amount} DA',
+                                    style: buttonType(16))))),
                     if (d.pending) ...[
                       const SizedBox(width: spaceTight),
                       AppActionIcon(
