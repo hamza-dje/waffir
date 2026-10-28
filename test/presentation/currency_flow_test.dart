@@ -97,7 +97,7 @@ void main() {
     await capture('home-euro');
     await tester.tap(find.text('Settings').last);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Euro - EUR'));
+    await tester.tap(find.text('Euro'));
     await tester.pumpAndSettle();
     expect(BudgetCodec.decode(storage.value!).defaultCurrency, AppCurrency.eur);
     expect(BudgetCodec.decode(storage.value!).budgets.first.funds, 3000);

@@ -41,10 +41,17 @@ class SettingsScreen extends StatelessWidget {
                         style: compactAction(
                             cancel: book.data.defaultCurrency != value),
                         child: Row(children: [
+                          CurrencySymbol(
+                              currency: value,
+                              size: 12,
+                              color: book.data.defaultCurrency == value
+                                  ? ink
+                                  : primaryText),
+                          const SizedBox(width: listItemGap),
                           Expanded(
                               child: Text(value == AppCurrency.dzd
-                                  ? 'Algerian dinar - DZD'
-                                  : 'Euro - EUR')),
+                                  ? 'Algerian dinar'
+                                  : 'Euro')),
                           if (book.data.defaultCurrency == value)
                             const SourceIcon('check', color: ink)
                         ])))
