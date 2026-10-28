@@ -58,15 +58,15 @@ class PlanHomeSummary extends StatelessWidget {
                     ]),
                     const SizedBox(height: spaceRelated),
                     Row(children: [
-                      SourceIcon(next.$1.icon, color: mint),
+                      SourceIcon(next.$1.icon, color: primaryText),
                       const SizedBox(width: listItemGap),
                       Expanded(
                           child: Text(next.$1.label,
                               style: type(16, weight: FontWeight.w600))),
                       const SizedBox(width: spaceTight),
                       CurrencyText('${next.$2.amount} DA',
-                          style:
-                              type(20, color: mint, weight: FontWeight.w600)),
+                          style: type(20,
+                              color: primaryText, weight: FontWeight.w600)),
                     ]),
                     const SizedBox(height: spaceRelated),
                     Row(children: [
