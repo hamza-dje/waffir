@@ -4,15 +4,31 @@ import 'design/design.dart';
 import 'screens/budget_screen.dart';
 import 'screens/loans_screen.dart';
 
-class WafirApp extends StatelessWidget {
+class WafirApp extends StatefulWidget {
   const WafirApp(
       {super.key, required this.storage, this.syncReminders, this.loanOpen});
   final BudgetStorage storage;
   final ReminderSync? syncReminders;
   final ValueNotifier<String?>? loanOpen;
   @override
+  State<WafirApp> createState() => _WafirAppState();
+}
+
+class _WafirAppState extends State<WafirApp> {
+  final currency = ValueNotifier(AppCurrency.dzd);
+  @override
+  void dispose() {
+    currency.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Waffir',
+        builder: (_, child) => ValueListenableBuilder(
+            valueListenable: currency,
+            builder: (context, value, childWidget) =>
+                MoneyScope(currency: value, child: child!)),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'RedHatDisplay',
@@ -90,6 +106,9 @@ class WafirApp extends StatelessWidget {
           textButtonTheme: TextButtonThemeData(style: secondaryAction()),
         ),
         home: BudgetScreen(
-            storage: storage, syncReminders: syncReminders, loanOpen: loanOpen),
+            storage: widget.storage,
+            syncReminders: widget.syncReminders,
+            loanOpen: widget.loanOpen,
+            onCurrency: (value) => currency.value = value),
       );
 }

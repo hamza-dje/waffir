@@ -28,7 +28,9 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
   int step = 0;
   DateTime start = dayOnly(DateTime.now());
   late DateTime end = DateTime(start.year, start.month, start.day + 29);
-  late String amount = widget.initialFunds?.toString() ?? '';
+  late String amount = widget.initialFunds == null
+      ? ''
+      : MoneyScope.read(context).input(widget.initialFunds!);
   late List<UsualProduct> products = [...widget.products];
   bool busy = false;
   String? error;
@@ -40,12 +42,13 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
         return;
       }
     } else if (step == 1) {
-      final invalid = positiveMoney(amount);
+      final invalid = positiveMoney(amount, currency: MoneyScope.read(context));
       if (invalid != null) {
         setState(() => error = invalid);
         return;
       }
-      amount = moneyValue(amount)!.toString();
+      amount = MoneyScope.read(context)
+          .input(moneyValue(amount, currency: MoneyScope.read(context))!);
     }
     if (step < 2) {
       setState(() {
@@ -55,7 +58,11 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
       return;
     }
     setState(() => busy = true);
-    final ok = await widget.onSave(moneyValue(amount)!, start, end, products);
+    final ok = await widget.onSave(
+        moneyValue(amount, currency: MoneyScope.read(context))!,
+        start,
+        end,
+        products);
     if (mounted && !ok) setState(() => busy = false);
   }
 
@@ -165,12 +172,14 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: spaceRelated),
                                       child: Semantics(
-                                          label: 'Total funds in DA',
+                                          label:
+                                              'Total funds in ${MoneyScope.of(context).code}',
                                           value: amount.isEmpty ? '0' : amount,
                                           child: FittedBox(
                                               fit: BoxFit.scaleDown,
                                               child: CurrencyText(
                                                   '${amount.isEmpty ? '0' : amount} DA',
+                                                  input: true,
                                                   style: type(64,
                                                       role: TextRole.display,
                                                       weight: FontWeight.w600,
@@ -182,7 +191,9 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                       keyHeight: 52,
                                       onKey: (key) => setState(() {
                                             error = null;
-                                            amount = amountKey(amount, key);
+                                            amount = amountKey(amount, key,
+                                                currency:
+                                                    MoneyScope.read(context));
                                           })),
                                 ] else
                                   ProductList(

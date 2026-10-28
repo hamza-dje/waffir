@@ -36,7 +36,9 @@ class _LoansScreenState extends State<LoansScreen> {
   String query = '';
   @override
   Widget build(BuildContext context) {
-    final all = widget.book.data.loans;
+    final all = widget.book.data.loans
+        .where((l) => l.currency == MoneyScope.of(context))
+        .toList();
     final items = all
         .where((l) =>
             (filter == 3 ? l.remaining == 0 : l.remaining > 0) &&
@@ -148,8 +150,10 @@ Future<void> openLoan(
     Navigator.push(
         context,
         MaterialPageRoute<void>(
-            builder: (_) =>
-                LoanDetails(book: book, id: id, syncReminders: sync)));
+            builder: (_) => MoneyScope(
+                currency:
+                    book.data.loans.firstWhere((l) => l.id == id).currency,
+                child: LoanDetails(book: book, id: id, syncReminders: sync))));
 
 class LoanDetails extends StatelessWidget {
   const LoanDetails(
@@ -316,8 +320,10 @@ Future<void> showLoanSheet(BuildContext context, BudgetBook book,
         backgroundColor: surface,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
-        builder: (_) => LoanSheet(
-            book: book, initial: initial, syncReminders: syncReminders));
+        builder: (_) => MoneyScope(
+            currency: initial?.currency ?? MoneyScope.read(context),
+            child: LoanSheet(
+                book: book, initial: initial, syncReminders: syncReminders)));
 
 class LoanSheet extends StatefulWidget {
   const LoanSheet(
@@ -330,8 +336,10 @@ class LoanSheet extends StatefulWidget {
 }
 
 class _LoanSheetState extends State<LoanSheet> {
-  late final amount =
-      TextEditingController(text: widget.initial?.amount.toString() ?? '');
+  late final amount = TextEditingController(
+      text: widget.initial == null
+          ? ''
+          : widget.initial!.currency.input(widget.initial!.amount));
   late final person = TextEditingController(text: widget.initial?.person ?? '');
   late final note = TextEditingController(text: widget.initial?.note ?? '');
   late bool lent = widget.initial?.lent ?? true,
@@ -347,7 +355,7 @@ class _LoanSheetState extends State<LoanSheet> {
     amount.addListener(updatePreview);
     due = widget.initial?.due;
     budgetId = widget.initial == null
-        ? matchingBudget(widget.book, date)
+        ? matchingBudget(widget.book, date, MoneyScope.read(context))
         : widget.initial!.budgetId;
   }
 
@@ -366,7 +374,8 @@ class _LoanSheetState extends State<LoanSheet> {
   Loan draft() => Loan(
       id: widget.initial?.id ?? 'loan-${DateTime.now().microsecondsSinceEpoch}',
       person: person.text.trim(),
-      amount: moneyValue(amount.text) ?? 0,
+      currency: widget.initial?.currency ?? MoneyScope.read(context),
+      amount: moneyValue(amount.text, currency: MoneyScope.read(context)) ?? 0,
       lent: lent,
       date: date,
       due: due,
@@ -407,6 +416,7 @@ class _LoanSheetState extends State<LoanSheet> {
                   fit: BoxFit.scaleDown,
                   child: CurrencyText(
                       '${amount.text.isEmpty ? '0' : amount.text} DA',
+                      input: true,
                       textAlign: TextAlign.center,
                       style: type(52,
                           role: TextRole.display, weight: FontWeight.w600))),
@@ -415,10 +425,12 @@ class _LoanSheetState extends State<LoanSheet> {
                   keyHeight: 52,
                   onKey: (key) {
                     error = null;
-                    amount.text = amountKey(amount.text, key);
+                    amount.text = amountKey(amount.text, key,
+                        currency: MoneyScope.read(context));
                   }),
             ] else ...[
               CurrencyText('${amount.text} DA',
+                  input: true,
                   textAlign: TextAlign.center,
                   style: type(42,
                       role: TextRole.display,
@@ -437,7 +449,8 @@ class _LoanSheetState extends State<LoanSheet> {
                   (v) => setState(() {
                         date = DateTime(
                             v.year, v.month, v.day, date.hour, date.minute);
-                        budgetId = matchingBudget(widget.book, date);
+                        budgetId = matchingBudget(
+                            widget.book, date, MoneyScope.read(context));
                       }),
                   last: dayOnly(DateTime.now())),
               ExpenseTime(
@@ -504,12 +517,17 @@ class _LoanSheetState extends State<LoanSheet> {
                 onPressed: busy
                     ? null
                     : () async {
-                        if (positiveMoney(amount.text) != null) {
-                          setState(() => error = positiveMoney(amount.text));
+                        if (positiveMoney(amount.text,
+                                currency: MoneyScope.read(context)) !=
+                            null) {
+                          setState(() => error = positiveMoney(amount.text,
+                              currency: MoneyScope.read(context)));
                           return;
                         }
                         if (!details) {
-                          amount.text = moneyValue(amount.text)!.toString();
+                          amount.text = MoneyScope.read(context).input(
+                              moneyValue(amount.text,
+                                  currency: MoneyScope.read(context))!);
                           setState(() {
                             details = true;
                             error = null;
@@ -575,10 +593,13 @@ class _LoanSheetState extends State<LoanSheet> {
           ]);
 }
 
-String? matchingBudget(BudgetBook book, DateTime date) {
+String? matchingBudget(BudgetBook book, DateTime date,
+    [AppCurrency currency = AppCurrency.dzd]) {
   final matches = book.data.budgets
       .where((b) =>
-          daysBetween(b.start, date) >= 0 && daysBetween(date, b.end) >= 0)
+          b.currency == currency &&
+          daysBetween(b.start, date) >= 0 &&
+          daysBetween(date, b.end) >= 0)
       .toList();
   return matches.length == 1 ? matches.single.id : null;
 }
@@ -598,8 +619,10 @@ class BudgetLink extends StatelessWidget {
   Widget build(BuildContext context) {
     final matches = book.data.budgets
         .where((b) =>
-            b.id == value ||
-            (daysBetween(b.start, date) >= 0 && daysBetween(date, b.end) >= 0))
+            (b.currency == MoneyScope.of(context)) &&
+            (b.id == value ||
+                (daysBetween(b.start, date) >= 0 &&
+                    daysBetween(date, b.end) >= 0)))
         .toList();
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Text('Budget', style: type(13, color: secondaryText)),
@@ -656,11 +679,13 @@ Future<void> showPaymentSheet(BuildContext context, BudgetBook book, Loan loan,
         backgroundColor: surface,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
-        builder: (_) => PaymentSheet(
-            book: book,
-            loanId: loan.id,
-            initial: initial,
-            syncReminders: syncReminders));
+        builder: (_) => MoneyScope(
+            currency: loan.currency,
+            child: PaymentSheet(
+                book: book,
+                loanId: loan.id,
+                initial: initial,
+                syncReminders: syncReminders)));
 
 class PaymentSheet extends StatefulWidget {
   const PaymentSheet(
@@ -681,7 +706,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
   Loan get loan =>
       widget.book.data.loans.firstWhere((l) => l.id == widget.loanId);
   late final amount = TextEditingController(
-      text: '${widget.initial?.amount ?? loan.remaining}');
+      text: loan.currency.input(widget.initial?.amount ?? loan.remaining));
   late DateTime date = widget.initial?.date ?? DateTime.now();
   String? budgetId, error;
   bool busy = false;
@@ -690,7 +715,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
     super.initState();
     amount.addListener(updatePreview);
     budgetId = widget.initial == null
-        ? matchingBudget(widget.book, date)
+        ? matchingBudget(widget.book, date, MoneyScope.read(context))
         : widget.initial!.budgetId;
   }
 
@@ -707,7 +732,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
   LoanPayment draft() => LoanPayment(
       id: widget.initial?.id ??
           'payment-${DateTime.now().microsecondsSinceEpoch}',
-      amount: moneyValue(amount.text) ?? 0,
+      amount: moneyValue(amount.text, currency: MoneyScope.read(context)) ?? 0,
       date: date,
       budgetId: budgetId);
   Loan preview() => loan.withPayments([
@@ -731,7 +756,8 @@ class _PaymentSheetState extends State<PaymentSheet> {
                 (v) => setState(() {
                       date = DateTime(
                           v.year, v.month, v.day, date.hour, date.minute);
-                      budgetId = matchingBudget(widget.book, date);
+                      budgetId = matchingBudget(
+                          widget.book, date, MoneyScope.read(context));
                     }),
                 first: dayOnly(loan.date),
                 last: dayOnly(DateTime.now())),

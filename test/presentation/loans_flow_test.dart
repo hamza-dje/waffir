@@ -132,6 +132,8 @@ void main() {
         RepaintBoundary(key: boundary, child: WafirApp(storage: storage)));
     await tester.pumpAndSettle();
     await capture('home');
+    await tester.tap(find.text('Budget').last);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Loans').last);
     await capture('overview');
     await tester.tap(find.text('Amine'));
@@ -217,6 +219,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.pumpWidget(
         RepaintBoundary(key: boundary, child: WafirApp(storage: storage)));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Budget').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Loans').last);
     await tester.pumpAndSettle();

@@ -1,3 +1,5 @@
+import 'money_scope.dart';
+export 'money_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -104,26 +106,41 @@ class TapCard extends StatelessWidget {
 }
 
 class CurrencySymbol extends StatelessWidget {
-  const CurrencySymbol({super.key, this.size = 18, this.color});
+  const CurrencySymbol({super.key, this.size = 18, this.color, this.currency});
   final double size;
   final Color? color;
+  final AppCurrency? currency;
   @override
   Widget build(BuildContext context) => Opacity(
       opacity: .65,
-      child: SvgPicture.asset('assets/dzd.svg',
-          width: size * 624 / 993,
-          height: size,
-          excludeFromSemantics: true,
-          colorFilter: ColorFilter.mode(
-              color ?? DefaultTextStyle.of(context).style.color ?? primaryText,
-              BlendMode.srcIn)));
+      child: (currency ?? MoneyScope.of(context)) == AppCurrency.eur
+          ? Text('€',
+              style: TextStyle(
+                  fontSize: size, color: color ?? primaryText, height: 1))
+          : SvgPicture.asset('assets/dzd.svg',
+              width: size * 624 / 993,
+              height: size,
+              excludeFromSemantics: true,
+              colorFilter: ColorFilter.mode(
+                  color ??
+                      DefaultTextStyle.of(context).style.color ??
+                      primaryText,
+                  BlendMode.srcIn)));
 }
 
 // Keep currency accessible as text while drawing the supplied vector mark.
 class CurrencyText extends StatelessWidget {
   const CurrencyText(this.data,
-      {super.key, this.style, this.textAlign, this.maxLines, this.overflow});
+      {super.key,
+      this.style,
+      this.textAlign,
+      this.maxLines,
+      this.overflow,
+      this.input = false,
+      this.currency});
   final String data;
+  final bool input;
+  final AppCurrency? currency;
   final TextStyle? style;
   final TextAlign? textAlign;
   final int? maxLines;
@@ -150,17 +167,28 @@ class CurrencyText extends StatelessWidget {
           alignment: PlaceholderAlignment.middle,
           child: Padding(
               padding: EdgeInsets.only(right: fontSize * .16),
-              child:
-                  CurrencySymbol(size: fontSize * .72, color: style?.color))));
+              child: CurrencySymbol(
+                  size: fontSize * .72,
+                  color: style?.color,
+                  currency: currency))));
       spans.add(TextSpan(
-          text: match.group(1)!.replaceAllMapped(
-              RegExp(r'(\d)\s*([+*/×÷-])\s*'),
-              (operator) => '${operator[1]} ${operator[2]} ')));
+          text: ((currency ?? MoneyScope.of(context)) == AppCurrency.eur &&
+                      !input
+                  ? AppCurrency.eur
+                      .input(num.parse(match.group(1)!.replaceAll('−', '-')))
+                  : match.group(1)!)
+              .replaceAllMapped(RegExp(r'(\d)\s*([+*/×÷-])\s*'),
+                  (operator) => '${operator[1]} ${operator[2]} ')));
       cursor = match.end;
     }
     spans.add(TextSpan(text: data.substring(cursor)));
     return Text.rich(TextSpan(children: spans),
-        semanticsLabel: data,
+        semanticsLabel: (currency ?? MoneyScope.of(context)) == AppCurrency.eur
+            ? data.replaceAllMapped(
+                RegExp(r'([−-]?\d[\d.+*/×÷-]*)\s+(?:DZD|DA)\b'),
+                (m) =>
+                    '${input ? m[1] : AppCurrency.eur.input(num.parse(m[1]!.replaceAll('−', '-')))} EUR')
+            : data,
         style: style,
         textAlign: textAlign,
         maxLines: maxLines,

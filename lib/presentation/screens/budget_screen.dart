@@ -1,3 +1,4 @@
+import 'settings_screen.dart';
 import '../widgets/plan_home_summary.dart';
 import 'plan_screen.dart';
 import '../widgets/app_navigation.dart';
@@ -19,8 +20,13 @@ import '../widgets/expense_sheet.dart';
 
 class BudgetScreen extends StatefulWidget {
   const BudgetScreen(
-      {super.key, required this.storage, this.syncReminders, this.loanOpen});
+      {super.key,
+      required this.storage,
+      this.syncReminders,
+      this.loanOpen,
+      this.onCurrency});
   final BudgetStorage storage;
+  final ValueChanged<AppCurrency>? onCurrency;
   final ReminderSync? syncReminders;
   final ValueNotifier<String?>? loanOpen;
   @override
@@ -84,6 +90,7 @@ class _BudgetScreenState extends State<BudgetScreen>
   }
 
   void refresh() {
+    widget.onCurrency?.call(data.active?.currency ?? data.defaultCurrency);
     if (mounted) setState(() {});
   }
 
@@ -123,8 +130,9 @@ class _BudgetScreenState extends State<BudgetScreen>
     await Navigator.push(
         context,
         MaterialPageRoute<void>(
-            builder: (_) =>
-                BudgetEditor(initial: record, onSave: replaceBudget)));
+            builder: (_) => MoneyScope(
+                currency: record.currency,
+                child: BudgetEditor(initial: record, onSave: replaceBudget))));
   }
 
   Future<void> editExpense(String id, int index) async {
@@ -133,8 +141,10 @@ class _BudgetScreenState extends State<BudgetScreen>
     final result = await Navigator.push<Object>(
         context,
         MaterialPageRoute(
-            builder: (_) => ExpenseEditor(
-                expense: record.expenses[index], budget: record)));
+            builder: (_) => MoneyScope(
+                currency: record.currency,
+                child: ExpenseEditor(
+                    expense: record.expenses[index], budget: record))));
     if (result == null || !mounted) return;
     if (result == 'delete' || result is Expense) {
       await report(
@@ -145,7 +155,10 @@ class _BudgetScreenState extends State<BudgetScreen>
   Future<void> newBudget([BudgetRecord? source]) async {
     if (saving || data.active != null) return;
     int? choice;
-    if (source != null && !source.legacy && book.cashBalance(source) > 0) {
+    if (source != null &&
+        source.currency == data.defaultCurrency &&
+        !source.legacy &&
+        book.cashBalance(source) > 0) {
       var selected = book.cashBalance(source);
       choice = await showDialog<int>(
           context: context,
@@ -264,8 +277,8 @@ class _BudgetScreenState extends State<BudgetScreen>
             child: const CurrencyText('Start new budget')),
       ]);
   Widget home(BudgetRecord b) {
-    final f =
-        BudgetFigures(b, DateTime.now(), loans: data.loans, plans: data.plans);
+    final loans = data.loans.where((l) => l.currency == b.currency).toList();
+    final f = BudgetFigures(b, DateTime.now(), loans: loans, plans: data.plans);
     final usable = b.canLog(DateTime.now());
     final future = daysBetween(DateTime.now(), b.start) > 0;
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -386,11 +399,10 @@ class _BudgetScreenState extends State<BudgetScreen>
       CurrencyText('Spending plan. Loan cash is shown separately.',
           style: type(11, color: tertiaryText)),
       const SizedBox(height: 24),
-      PlanHomeSummary(
-          data: data, budgetId: b.id, onOpen: () => setState(() => tab = 3)),
-      if (data.loans.any((l) => l.remaining > 0)) ...[
+      PlanHomeSummary(data: data, budgetId: b.id, onOpen: openPlans),
+      if (loans.any((l) => l.remaining > 0)) ...[
         TapCard(
-            onTap: () => setState(() => tab = 2),
+            onTap: openLoans,
             child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -405,11 +417,11 @@ class _BudgetScreenState extends State<BudgetScreen>
                       ]),
                       const SizedBox(height: 12),
                       CurrencyText(
-                          '${data.loans.where((l) => l.lent).fold<int>(0, (s, l) => s + l.remaining)} DA owed to me',
+                          '${loans.where((l) => l.lent).fold<int>(0, (s, l) => s + l.remaining)} DA owed to me',
                           style: type(14, color: mint)),
                       const SizedBox(height: 6),
                       CurrencyText(
-                          '${data.loans.where((l) => !l.lent).fold<int>(0, (s, l) => s + l.remaining)} DA I owe',
+                          '${loans.where((l) => !l.lent).fold<int>(0, (s, l) => s + l.remaining)} DA I owe',
                           style: type(14, color: caution)),
                       const SizedBox(height: 8),
                       Text(nearestLoan(),
@@ -417,8 +429,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                     ]))),
         const SizedBox(height: 24),
       ],
-      if (data.products.isNotEmpty) sectionLabel('Usual expenses'),
-      if (data.products.isNotEmpty)
+      if (data.products.any((p) => p.currency == b.currency))
+        sectionLabel('Usual expenses'),
+      if (data.products.any((p) => p.currency == b.currency))
         GridView.count(
             crossAxisCount: 3,
             mainAxisSpacing: 8,
@@ -427,7 +440,8 @@ class _BudgetScreenState extends State<BudgetScreen>
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              for (final p in data.products)
+              for (final p
+                  in data.products.where((p) => p.currency == b.currency))
                 TapCard(
                     onTap: !usable || saving
                         ? null
@@ -459,7 +473,10 @@ class _BudgetScreenState extends State<BudgetScreen>
 
   String nearestLoan() {
     final dated = data.loans
-        .where((l) => l.remaining > 0 && l.due != null)
+        .where((l) =>
+            l.currency == (data.active?.currency ?? data.defaultCurrency) &&
+            l.remaining > 0 &&
+            l.due != null)
         .toList()
       ..sort((a, b) => a.due!.compareTo(b.due!));
     return dated.isEmpty
@@ -467,54 +484,109 @@ class _BudgetScreenState extends State<BudgetScreen>
         : '${loanStatus(dated.first)} - ${dateText(dated.first.due!)}';
   }
 
-  Widget history() =>
-      Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        heading('History'),
-        if (data.budgets.isEmpty)
-          CurrencyText('No budgets saved yet.',
-              style: type(13, color: secondaryText)),
-        for (final b in data.budgets.reversed)
-          Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Material(
-                  color: b.closedAt == null ? const Color(0x2634D399) : surface,
-                  borderRadius: BorderRadius.circular(20),
-                  child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
-                      leading: SourceIcon(b.closedAt == null ? 'banknote' : 'list',
-                          color: b.closedAt == null ? mint : secondaryText),
-                      title: CurrencyText(
-                          b.legacy
-                              ? 'Earlier expenses'
-                              : b.closedAt == null
-                                  ? 'Active budget'
-                                  : 'Saved budget',
-                          style: type(15,
-                              weight: FontWeight.w600,
-                              color: b.closedAt == null ? mint : primaryText)),
-                      subtitle: Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: CurrencyText(
-                              '${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${book.cashBalance(b)} DA left'}',
-                              style: type(11, color: secondaryText))),
-                      trailing: SourceIcon('chevron-right',
-                          size: 16,
-                          color: b.closedAt == null ? mint : tertiaryText),
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                              builder: (_) => BudgetHistoryPage(
-                                  cash: () => book.cashBalance(data.budgets
-                                      .firstWhere((r) => r.id == b.id)),
-                                  getRecord: () => data.budgets.firstWhere((r) => r.id == b.id),
-                                  transfer: () => data.budgets.where((r) => r.carriedFrom == b.id).fold<int>(0, (sum, r) => sum + r.carriedAmount),
-                                  onEditBudget: () => editBudget(b.id),
-                                  onEditExpense: (i) => editExpense(b.id, i))))))),
-      ]);
+  Widget
+      history() =>
+          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            heading('History'),
+            if (data.budgets.isEmpty)
+              CurrencyText('No budgets saved yet.',
+                  style: type(13, color: secondaryText)),
+            for (final b in data.budgets.reversed)
+              Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Material(
+                      color: b.closedAt == null
+                          ? const Color(0x2634D399)
+                          : surface,
+                      borderRadius: BorderRadius.circular(20),
+                      child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          leading: SourceIcon(
+                              b.closedAt == null ? 'banknote' : 'list',
+                              color: b.closedAt == null ? mint : secondaryText),
+                          title: CurrencyText(
+                              b.legacy
+                                  ? 'Earlier expenses'
+                                  : b.closedAt == null
+                                      ? 'Active budget'
+                                      : 'Saved budget',
+                              style: type(15,
+                                  weight: FontWeight.w600,
+                                  color:
+                                      b.closedAt == null ? mint : primaryText)),
+                          subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: CurrencyText(
+                                  '${b.currency.code} - ${dateText(b.start)} – ${dateText(b.end)}\n${b.legacy ? 'Original budget unavailable' : '${b.funds} DA budget · ${book.cashBalance(b)} DA left'}',
+                                  currency: b.currency,
+                                  style: type(11, color: secondaryText))),
+                          trailing: SourceIcon('chevron-right',
+                              size: 16,
+                              color: b.closedAt == null ? mint : tertiaryText),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                  builder: (_) => MoneyScope(
+                                      currency: b.currency,
+                                      child: BudgetHistoryPage(cash: () => book.cashBalance(data.budgets.firstWhere((r) => r.id == b.id)), getRecord: () => data.budgets.firstWhere((r) => r.id == b.id), transfer: () => data.budgets.where((r) => r.carriedFrom == b.id).fold<int>(0, (sum, r) => sum + r.carriedAmount), onEditBudget: () => editBudget(b.id), onEditExpense: (i) => editExpense(b.id, i)))))))),
+          ]);
+  Future<void> openLoans() => openBudgetTool('Loans');
+  Future<void> openPlans() => openBudgetTool('Plan');
+  Future<void> openBudgetTool(String title) async {
+    var selectedCurrency = data.active?.currency ?? data.defaultCurrency;
+    await Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+            builder: (routeContext) => Scaffold(
+                appBar: editorBar(routeContext, title),
+                body: StatefulBuilder(
+                    builder: (context, update) => ListenableBuilder(
+                        listenable: book,
+                        builder: (context, child) => MoneyScope(
+                            currency: selectedCurrency,
+                            child: ListView(
+                                padding: const EdgeInsets.all(pageInset),
+                                children: [
+                                  AppFilters(
+                                      labels: const ['DZD', 'EUR'],
+                                      selected: selectedCurrency.index,
+                                      onChanged: (index) => update(() =>
+                                          selectedCurrency =
+                                              AppCurrency.values[index])),
+                                  const SizedBox(height: spaceSection),
+                                  if (title == 'Loans')
+                                    LoansScreen(
+                                        book: book,
+                                        syncReminders: widget.syncReminders)
+                                  else
+                                    PlanScreen(book: book)
+                                ])))))));
+  }
+
   Widget budgetPage() =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         heading('Budget'),
+        for (final entry in [
+          ('Loans', 'banknote', openLoans),
+          ('Plan', 'list', openPlans)
+        ])
+          Padding(
+              padding: const EdgeInsets.only(bottom: spaceRelated),
+              child: TapCard(
+                  onTap: entry.$3,
+                  child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(children: [
+                        SourceIcon(entry.$2, color: secondaryText),
+                        const SizedBox(width: listItemGap),
+                        Expanded(
+                            child: Text(entry.$1,
+                                style: type(16, weight: FontWeight.w500))),
+                        const SourceIcon('chevron-right',
+                            size: 16, color: secondaryText)
+                      ])))),
+        const SizedBox(height: spaceRelated),
         if (data.active case final b?) ...[
           Container(
               padding: const EdgeInsets.all(18),
@@ -572,7 +644,13 @@ class _BudgetScreenState extends State<BudgetScreen>
         sectionLabel('Usual products'),
         ProductList(
             onEdit: (product) => editProduct(context, product),
-            products: data.products,
+            products: data.products
+                .where((p) =>
+                    p.currency ==
+                    (creating
+                        ? data.defaultCurrency
+                        : data.active?.currency ?? data.defaultCurrency))
+                .toList(),
             enabled: !saving,
             onChanged: (products) => report(book.setProducts(products))),
       ]);
@@ -596,7 +674,14 @@ class _BudgetScreenState extends State<BudgetScreen>
                               initialFunds: carrySource == null
                                   ? null
                                   : book.cashBalance(carrySource!),
-                              products: data.products,
+                              products: data.products
+                                  .where((p) =>
+                                      p.currency ==
+                                      (creating
+                                          ? data.defaultCurrency
+                                          : data.active?.currency ??
+                                              data.defaultCurrency))
+                                  .toList(),
                               onSave: startBudget,
                               onCancel: () => setState(() {
                                     creating = false;
@@ -618,13 +703,9 @@ class _BudgetScreenState extends State<BudgetScreen>
                                   else if (tab == 1)
                                     history()
                                   else if (tab == 2)
-                                    LoansScreen(
-                                        book: book,
-                                        syncReminders: widget.syncReminders)
-                                  else if (tab == 3)
-                                    PlanScreen(book: book)
-                                  else
                                     budgetPage()
+                                  else
+                                    SettingsScreen(book: book)
                                 ])))),
       bottomNavigationBar: !book.loaded || creating
           ? null

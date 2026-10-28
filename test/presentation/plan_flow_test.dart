@@ -29,6 +29,8 @@ void main() {
     ]).encode());
     await tester.pumpWidget(WafirApp(storage: storage));
     await tester.pumpAndSettle();
+    await tester.tap(find.text('Budget').last);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Plan').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Add plan'));
@@ -165,6 +167,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Next plan'));
     await capture('home');
+    await tester.tap(find.text('Budget').last);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Plan').last);
     await tester.pumpAndSettle();
     await capture('overview');

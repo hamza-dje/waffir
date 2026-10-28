@@ -23,7 +23,7 @@ class AppNavigation extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 4, vertical: 10),
                         child: Row(children: [
-                          for (var i = 0; i < 5; i++)
+                          for (var i = 0; i < 4; i++)
                             Expanded(
                                 child: Semantics(
                                     selected: selected == i,
@@ -42,9 +42,8 @@ class AppNavigation extends StatelessWidget {
                                                       [
                                                         'home',
                                                         'clock',
-                                                        'banknote',
-                                                        'list',
-                                                        'calendar'
+                                                        'calendar',
+                                                        'settings'
                                                       ][i],
                                                       size: 22,
                                                       color: selected == i
@@ -55,9 +54,8 @@ class AppNavigation extends StatelessWidget {
                                                       [
                                                         'Home',
                                                         'History',
-                                                        'Loans',
-                                                        'Plan',
-                                                        'Budget'
+                                                        'Budget',
+                                                        'Settings'
                                                       ][i],
                                                       style: type(10,
                                                           weight:

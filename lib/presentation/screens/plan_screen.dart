@@ -23,7 +23,12 @@ Future<void> showPlanSheet(BuildContext context, BudgetBook book,
       backgroundColor: surface,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
-      builder: (_) => PlanSheet(book: book, initial: initial));
+      builder: (_) => MoneyScope(
+          currency: book.data.budgets
+              .firstWhere(
+                  (b) => b.id == (initial?.budgetId ?? book.data.active!.id))
+              .currency,
+          child: PlanSheet(book: book, initial: initial)));
 }
 
 class PlanScreen extends StatefulWidget {
@@ -43,7 +48,8 @@ class _PlanScreenState extends State<PlanScreen> {
     final items = book.data.plans.where((p) {
       final budget = book.data.budgets.firstWhere((b) => b.id == p.budgetId);
       final review = p.needsReview(now, budget);
-      return p.label.toLowerCase().contains(query.toLowerCase()) &&
+      return budget.currency == MoneyScope.of(context) &&
+          p.label.toLowerCase().contains(query.toLowerCase()) &&
           (filter == 2
               ? p.complete
               : !p.complete && (filter == 1 ? review : !review));
@@ -81,7 +87,9 @@ class _PlanScreenState extends State<PlanScreen> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute<void>(
-                        builder: (_) => PlanDetails(book: book, id: p.id))),
+                        builder: (_) => MoneyScope(
+                            currency: MoneyScope.read(context),
+                            child: PlanDetails(book: book, id: p.id)))),
                 child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Row(children: [
@@ -345,9 +353,10 @@ class _PlanSheetState extends State<PlanSheet> {
       if (custom) {
         dayAmounts.addEntries(pending.map((d) => MapEntry(d.date, d.amount)));
       }
-      amount =
-          (perDay && pending.isNotEmpty ? pending.first.amount : p.reserved)
-              .toString();
+      final currency =
+          widget.book.data.budgets.firstWhere((b) => b.id == budgetId).currency;
+      amount = currency.input(
+          perDay && pending.isNotEmpty ? pending.first.amount : p.reserved);
     }
   }
 
@@ -358,8 +367,11 @@ class _PlanSheetState extends State<PlanSheet> {
   }
 
   SpendingPlan draft() {
-    final split =
-        SpendingPlan.split(dates, moneyValue(amount) ?? 0, perDay, '$id-edit');
+    final split = SpendingPlan.split(
+        dates,
+        moneyValue(amount, currency: MoneyScope.read(context)) ?? 0,
+        perDay,
+        '$id-edit');
     return SpendingPlan(
         id: id,
         budgetId: budgetId,
@@ -445,8 +457,8 @@ class _PlanSheetState extends State<PlanSheet> {
       }
       dayAmounts[day.date] = value;
       mode = PlanAmountMode.custom;
-      amount =
-          dates.fold<int>(0, (s, d) => s + (dayAmounts[d] ?? 0)).toString();
+      amount = MoneyScope.read(context)
+          .input(dates.fold<int>(0, (s, d) => s + (dayAmounts[d] ?? 0)));
       error = null;
     });
   }
@@ -492,6 +504,7 @@ class _PlanSheetState extends State<PlanSheet> {
               FittedBox(
                   fit: BoxFit.scaleDown,
                   child: CurrencyText('${amount.isEmpty ? '0' : amount} DA',
+                      input: true,
                       style: type(52,
                           role: TextRole.display, weight: FontWeight.w600))),
             const SizedBox(height: spaceRelated),
@@ -499,7 +512,8 @@ class _PlanSheetState extends State<PlanSheet> {
               AmountKeypad(
                   keyHeight: 52,
                   onKey: (key) => setState(() {
-                        amount = amountKey(amount, key);
+                        amount = amountKey(amount, key,
+                            currency: MoneyScope.read(context));
                         dayAmounts.clear();
                         error = null;
                       })),
@@ -603,14 +617,21 @@ class _PlanSheetState extends State<PlanSheet> {
               onPressed: busy
                   ? null
                   : () async {
-                      final invalid = custom ? null : positiveMoney(amount);
+                      final invalid = custom
+                          ? null
+                          : positiveMoney(amount,
+                              currency: MoneyScope.read(context));
                       if (invalid != null) {
                         setState(() => error = invalid);
                         return;
                       }
                       if (!details) {
                         setState(() {
-                          if (!custom) amount = moneyValue(amount).toString();
+                          if (!custom) {
+                            amount = MoneyScope.read(context).input(moneyValue(
+                                amount,
+                                currency: MoneyScope.read(context))!);
+                          }
                           details = true;
                         });
                         return;

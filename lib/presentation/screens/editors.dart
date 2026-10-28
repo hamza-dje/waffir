@@ -15,7 +15,8 @@ class BudgetEditor extends StatefulWidget {
 
 class _BudgetEditorState extends State<BudgetEditor> {
   final form = GlobalKey<FormState>();
-  late final funds = TextEditingController(text: '${widget.initial.funds}');
+  late final funds = TextEditingController(
+      text: widget.initial.currency.input(widget.initial.funds));
   late DateTime start = widget.initial.start, end = widget.initial.end;
   bool busy = false;
   String? error;
@@ -26,59 +27,65 @@ class _BudgetEditorState extends State<BudgetEditor> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: editorBar(context, 'Edit budget'),
-      body: Form(
-          key: form,
-          child: ListView(padding: const EdgeInsets.all(24), children: [
-            CurrencyText('Correct your budget',
-                style:
-                    type(26, role: TextRole.display, weight: FontWeight.w600)),
-            const SizedBox(height: 8),
-            CurrencyText(
-                'Your expenses stay in this budget. All figures update after saving.',
-                style: type(13, color: secondaryText)),
-            const SizedBox(height: 24),
-            LabeledField(
-                label: 'Total funds',
-                currency: true,
-                controller: funds,
-                enabled: !busy,
-                validator: positiveMoney),
-            const SizedBox(height: 20),
-            DateControl('Start date', start, (d) => setState(() => start = d)),
-            DateControl('End date', end, (d) => setState(() => end = d)),
-            if (error != null)
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: CurrencyText(error!, style: type(13, color: caution))),
-            const SizedBox(height: 16),
-            FilledButton(
-                onPressed: busy
-                    ? null
-                    : () async {
-                        if (!form.currentState!.validate()) return;
-                        final next = widget.initial.copyWith(
-                            funds: moneyValue(funds.text)!,
-                            start: start,
-                            end: end,
-                            legacy: false);
-                        final invalid = next.validate();
-                        if (invalid != null) {
-                          setState(() => error = invalid);
-                          return;
-                        }
-                        setState(() => busy = true);
-                        final ok = await widget.onSave(next);
-                        if (!context.mounted) return;
-                        if (ok) {
-                          Navigator.pop(context);
-                        } else {
-                          setState(() => busy = false);
-                        }
-                      },
-                child: CurrencyText(busy ? 'Saving…' : 'Save budget')),
-          ])));
+  Widget build(BuildContext context) => MoneyScope(
+      currency: widget.initial.currency,
+      child: Scaffold(
+          appBar: editorBar(context, 'Edit budget'),
+          body: Form(
+              key: form,
+              child: ListView(padding: const EdgeInsets.all(24), children: [
+                CurrencyText('Correct your budget',
+                    style: type(26,
+                        role: TextRole.display, weight: FontWeight.w600)),
+                const SizedBox(height: 8),
+                CurrencyText(
+                    'Your expenses stay in this budget. All figures update after saving.',
+                    style: type(13, color: secondaryText)),
+                const SizedBox(height: 24),
+                LabeledField(
+                    label: 'Total funds',
+                    currency: true,
+                    controller: funds,
+                    enabled: !busy,
+                    validator: (value) => positiveMoney(value,
+                        currency: widget.initial.currency)),
+                const SizedBox(height: 20),
+                DateControl(
+                    'Start date', start, (d) => setState(() => start = d)),
+                DateControl('End date', end, (d) => setState(() => end = d)),
+                if (error != null)
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: CurrencyText(error!,
+                          style: type(13, color: caution))),
+                const SizedBox(height: 16),
+                FilledButton(
+                    onPressed: busy
+                        ? null
+                        : () async {
+                            if (!form.currentState!.validate()) return;
+                            final next = widget.initial.copyWith(
+                                funds: moneyValue(funds.text,
+                                    currency: widget.initial.currency)!,
+                                start: start,
+                                end: end,
+                                legacy: false);
+                            final invalid = next.validate();
+                            if (invalid != null) {
+                              setState(() => error = invalid);
+                              return;
+                            }
+                            setState(() => busy = true);
+                            final ok = await widget.onSave(next);
+                            if (!context.mounted) return;
+                            if (ok) {
+                              Navigator.pop(context);
+                            } else {
+                              setState(() => busy = false);
+                            }
+                          },
+                    child: CurrencyText(busy ? 'Saving…' : 'Save budget')),
+              ]))));
 }
 
 class ExpenseEditor extends StatefulWidget {
@@ -97,7 +104,8 @@ class ExpenseEditor extends StatefulWidget {
 class _ExpenseEditorState extends State<ExpenseEditor> {
   final form = GlobalKey<FormState>();
   late final name = TextEditingController(text: widget.expense.label);
-  late final amount = TextEditingController(text: '${widget.expense.amount}');
+  late final amount = TextEditingController(
+      text: widget.budget.currency.input(widget.expense.amount));
   late DateTime date = dayOnly(widget.expense.date);
   late String icon = widget.expense.icon;
   late TimeOfDay time = TimeOfDay.fromDateTime(widget.expense.date);
@@ -109,70 +117,78 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: editorBar(
-          context, widget.recording ? 'Record expense' : 'Edit expense'),
-      body: Form(
-          key: form,
-          child: ListView(padding: const EdgeInsets.all(24), children: [
-            LabeledField(
-                label: 'Expense name',
-                controller: name,
-                maxLength: 60,
-                validator: ExpenseRules.nameError),
-            const SizedBox(height: 16),
-            LabeledField(
-                label: 'Amount',
-                currency: true,
-                controller: amount,
-                validator: positiveMoney),
-            const SizedBox(height: 20),
-            DateControl('Expense date', date, (d) => setState(() => date = d),
-                first: widget.budget.start,
-                last: [
-                  widget.budget.end,
-                  dayOnly(widget.budget.closedAt ?? DateTime.now()),
-                  dayOnly(DateTime.now())
-                ].reduce((a, b) => a.isBefore(b) ? a : b)),
-            ExpenseTime(time, (value) => setState(() => time = value)),
-            const SizedBox(height: 16),
-            ExpenseIcons(icon, (value) => setState(() => icon = value)),
-            const SizedBox(height: 20),
-            FilledButton(
-                onPressed: () {
-                  if (!form.currentState!.validate()) return;
-                  final chosen = DateTime(
-                      date.year, date.month, date.day, time.hour, time.minute);
-                  final expense = Expense(
-                      name.text.trim(), moneyValue(amount.text)!, chosen, icon);
-                  final invalid = ExpenseRules.validate(
-                      expense, widget.budget, DateTime.now(),
-                      correction: true);
-                  if (invalid != null) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(invalid)));
-                    return;
-                  }
-                  Navigator.pop(context, expense);
-                },
-                child:
-                    CurrencyText(widget.recording ? 'Log it' : 'Save expense')),
-            const SizedBox(height: 12),
-            if (!widget.recording)
-              FilledButton(
-                  style: deleteAction(),
-                  onPressed: () async {
-                    final yes = await confirmAction(
-                        context,
-                        'Delete expense?',
-                        'This entry will be removed from the budget.',
-                        'Delete');
-                    if (yes && context.mounted) {
-                      Navigator.pop(context, 'delete');
-                    }
-                  },
-                  child: const CurrencyText('Delete expense')),
-          ])));
+  Widget build(BuildContext context) => MoneyScope(
+      currency: widget.budget.currency,
+      child: Scaffold(
+          appBar: editorBar(
+              context, widget.recording ? 'Record expense' : 'Edit expense'),
+          body: Form(
+              key: form,
+              child: ListView(padding: const EdgeInsets.all(24), children: [
+                LabeledField(
+                    label: 'Expense name',
+                    controller: name,
+                    maxLength: 60,
+                    validator: ExpenseRules.nameError),
+                const SizedBox(height: 16),
+                LabeledField(
+                    label: 'Amount',
+                    currency: true,
+                    controller: amount,
+                    validator: (value) =>
+                        positiveMoney(value, currency: widget.budget.currency)),
+                const SizedBox(height: 20),
+                DateControl(
+                    'Expense date', date, (d) => setState(() => date = d),
+                    first: widget.budget.start,
+                    last: [
+                      widget.budget.end,
+                      dayOnly(widget.budget.closedAt ?? DateTime.now()),
+                      dayOnly(DateTime.now())
+                    ].reduce((a, b) => a.isBefore(b) ? a : b)),
+                ExpenseTime(time, (value) => setState(() => time = value)),
+                const SizedBox(height: 16),
+                ExpenseIcons(icon, (value) => setState(() => icon = value)),
+                const SizedBox(height: 20),
+                FilledButton(
+                    onPressed: () {
+                      if (!form.currentState!.validate()) return;
+                      final chosen = DateTime(date.year, date.month, date.day,
+                          time.hour, time.minute);
+                      final expense = Expense(
+                          name.text.trim(),
+                          moneyValue(amount.text,
+                              currency: widget.budget.currency)!,
+                          chosen,
+                          icon);
+                      final invalid = ExpenseRules.validate(
+                          expense, widget.budget, DateTime.now(),
+                          correction: true);
+                      if (invalid != null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(invalid)));
+                        return;
+                      }
+                      Navigator.pop(context, expense);
+                    },
+                    child: CurrencyText(
+                        widget.recording ? 'Log it' : 'Save expense')),
+                const SizedBox(height: 12),
+                if (!widget.recording)
+                  FilledButton(
+                      style: deleteAction(),
+                      onPressed: () async {
+                        final yes = await confirmAction(
+                            context,
+                            'Delete expense?',
+                            'This entry will be removed from the budget.',
+                            'Delete');
+                        if (yes && context.mounted) {
+                          Navigator.pop(context, 'delete');
+                        }
+                      },
+                      child: const CurrencyText('Delete expense')),
+              ]))));
 }
 
 class ProductEditor extends StatefulWidget {
@@ -185,8 +201,10 @@ class ProductEditor extends StatefulWidget {
 class _ProductEditorState extends State<ProductEditor> {
   final form = GlobalKey<FormState>();
   late final name = TextEditingController(text: widget.initial?.name ?? '');
-  late final price =
-      TextEditingController(text: widget.initial?.price.toString() ?? '');
+  late final price = TextEditingController(
+      text: widget.initial == null
+          ? ''
+          : widget.initial!.currency.input(widget.initial!.price));
   late String icon = widget.initial?.icon ?? 'banknote';
   @override
   void dispose() {
@@ -212,7 +230,8 @@ class _ProductEditorState extends State<ProductEditor> {
                 label: 'Usual price',
                 currency: true,
                 controller: price,
-                validator: positiveMoney),
+                validator: (value) =>
+                    positiveMoney(value, currency: MoneyScope.read(context))),
             const SizedBox(height: 24),
             ExpenseIcons(icon, (value) => setState(() => icon = value)),
             const SizedBox(height: 24),
@@ -222,7 +241,11 @@ class _ProductEditorState extends State<ProductEditor> {
                     Navigator.pop(
                         context,
                         UsualProduct(
-                            name.text.trim(), moneyValue(price.text)!, icon));
+                            name.text.trim(),
+                            moneyValue(price.text,
+                                currency: MoneyScope.read(context))!,
+                            icon,
+                            MoneyScope.read(context)));
                   }
                 },
                 child: const CurrencyText('Save product')),

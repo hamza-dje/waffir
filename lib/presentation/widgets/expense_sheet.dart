@@ -57,6 +57,7 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                         fit: BoxFit.scaleDown,
                         child: CurrencyText(
                             '${amount.isEmpty ? '0' : amount} DA',
+                            input: true,
                             style: type(52,
                                 role: TextRole.display,
                                 weight: FontWeight.w600,
@@ -67,7 +68,8 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                       keyHeight: 52,
                       onKey: (key) => setState(() {
                             error = null;
-                            amount = amountKey(amount, key);
+                            amount = amountKey(amount, key,
+                                currency: MoneyScope.read(context));
                           })),
                 if (details)
                   LabeledField(
@@ -87,15 +89,17 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                 const SizedBox(height: 24),
                 FilledButton(
                     onPressed: () {
-                      final value = moneyValue(amount);
-                      final invalidAmount = positiveMoney(amount);
+                      final value = moneyValue(amount,
+                          currency: MoneyScope.read(context));
+                      final invalidAmount = positiveMoney(amount,
+                          currency: MoneyScope.read(context));
                       if (invalidAmount != null) {
                         setState(() => error = invalidAmount);
                         return;
                       }
                       if (!details) {
                         setState(() {
-                          amount = value.toString();
+                          amount = MoneyScope.read(context).input(value!);
                           details = true;
                         });
                         return;

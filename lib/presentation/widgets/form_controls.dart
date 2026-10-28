@@ -4,8 +4,12 @@ import '../design/design.dart';
 import '../design/format.dart';
 import '../../domain/rules/expense_rules.dart';
 
-Future<int?> showAmountDialog(BuildContext context, int initial) =>
-    showDialog<int>(context: context, builder: (_) => _AmountDialog(initial));
+Future<int?> showAmountDialog(
+        BuildContext context, int initial) =>
+    showDialog<int>(
+        context: context,
+        builder: (_) => MoneyScope(
+            currency: MoneyScope.read(context), child: _AmountDialog(initial)));
 
 class _AmountDialog extends StatefulWidget {
   const _AmountDialog(this.initial);
@@ -15,7 +19,8 @@ class _AmountDialog extends StatefulWidget {
 }
 
 class _AmountDialogState extends State<_AmountDialog> {
-  late final controller = TextEditingController(text: '${widget.initial}');
+  late final controller = TextEditingController(
+      text: MoneyScope.read(context).input(widget.initial));
   final form = GlobalKey<FormState>();
   @override
   void dispose() {
@@ -32,13 +37,17 @@ class _AmountDialogState extends State<_AmountDialog> {
                   label: 'Amount',
                   controller: controller,
                   currency: true,
-                  validator: positiveMoney)),
+                  validator: (value) => positiveMoney(value,
+                      currency: MoneyScope.read(context)))),
           actions: [
             DialogActions(
                 onCancel: () => Navigator.pop(context),
                 onConfirm: () {
                   if (form.currentState!.validate()) {
-                    Navigator.pop(context, moneyValue(controller.text));
+                    Navigator.pop(
+                        context,
+                        moneyValue(controller.text,
+                            currency: MoneyScope.read(context)));
                   }
                 },
                 confirmLabel: 'Save')
@@ -251,7 +260,8 @@ class AmountKeypad extends StatelessWidget {
           ['1', '2', '3', '+'],
           ['4', '5', '6', '-'],
           ['7', '8', '9', '×'],
-          ['0', '⌫', '=', '÷']
+          ['0', '⌫', '=', '÷'],
+          if (MoneyScope.of(context) == AppCurrency.eur) ['.']
         ])
           Padding(
               padding: const EdgeInsets.only(bottom: 8),
@@ -281,7 +291,11 @@ class AmountKeypad extends StatelessWidget {
                                           color: row[i] == '.'
                                               ? tertiaryText
                                               : primaryText)))))
-                ]
+                ],
+                if (row.length == 1) ...[
+                  const SizedBox(width: spaceSection),
+                  const Spacer(flex: 3),
+                ],
               ]))
       ]);
 }
