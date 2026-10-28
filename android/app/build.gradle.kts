@@ -22,11 +22,12 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
-        // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
-        // You can force using the value of versionCode by specifying the `-P force-version-code-ignoring-abi=true`
-        // flag during build.
-        versionCode = flutter.versionCode
+        // Include the release version so resetting its build counter still upgrades
+        // existing installs. Flutter adds its ABI offset for split APKs.
+        val releaseParts = flutter.versionName.split('.').map { it.toInt() }
+        require(flutter.versionCode in 1..9999) { "Build number must be between 1 and 9999" }
+        versionCode = releaseParts[0] * 100_000_000 + releaseParts[1] * 1_000_000 +
+            releaseParts[2] * 10_000 + flutter.versionCode
         versionName = flutter.versionName
     }
 
