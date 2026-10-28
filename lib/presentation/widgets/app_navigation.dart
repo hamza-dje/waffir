@@ -23,7 +23,7 @@ class AppNavigation extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 4, vertical: 10),
                         child: Row(children: [
-                          for (var i = 0; i < 4; i++)
+                          for (var i = 0; i < 5; i++)
                             Expanded(
                                 child: Semantics(
                                     selected: selected == i,
@@ -43,6 +43,7 @@ class AppNavigation extends StatelessWidget {
                                                         'home',
                                                         'list',
                                                         'banknote',
+                                                        'sun',
                                                         'calendar'
                                                       ][i],
                                                       size: 22,
@@ -55,6 +56,7 @@ class AppNavigation extends StatelessWidget {
                                                         'Home',
                                                         'History',
                                                         'Loans',
+                                                        'Plan',
                                                         'Budget'
                                                       ][i],
                                                       style: type(10,

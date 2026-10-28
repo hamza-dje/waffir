@@ -26,7 +26,8 @@ class LoanBudgetPreview extends StatelessWidget {
     if (budget == null) {
       return Text(outsideMessage, style: type(12, color: secondaryText));
     }
-    final figures = BudgetFigures(budget, DateTime.now(), loans: [
+    final figures =
+        BudgetFigures(budget, DateTime.now(), plans: book.data.plans, loans: [
       for (final existing in book.data.loans)
         if (existing.id != loan.id) existing,
       loan,

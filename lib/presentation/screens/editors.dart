@@ -82,8 +82,13 @@ class _BudgetEditorState extends State<BudgetEditor> {
 }
 
 class ExpenseEditor extends StatefulWidget {
-  const ExpenseEditor({super.key, required this.expense, required this.budget});
+  const ExpenseEditor(
+      {super.key,
+      required this.expense,
+      required this.budget,
+      this.recording = false});
   final Expense expense;
+  final bool recording;
   final BudgetRecord budget;
   @override
   State<ExpenseEditor> createState() => _ExpenseEditorState();
@@ -105,7 +110,8 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: editorBar(context, 'Edit expense'),
+      appBar: editorBar(
+          context, widget.recording ? 'Record expense' : 'Edit expense'),
       body: Form(
           key: form,
           child: ListView(padding: const EdgeInsets.all(24), children: [
@@ -149,16 +155,23 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                   }
                   Navigator.pop(context, expense);
                 },
-                child: const CurrencyText('Save expense')),
+                child:
+                    CurrencyText(widget.recording ? 'Log it' : 'Save expense')),
             const SizedBox(height: 12),
-            FilledButton(
-                style: deleteAction(),
-                onPressed: () async {
-                  final yes = await confirmAction(context, 'Delete expense?',
-                      'This entry will be removed from the budget.', 'Delete');
-                  if (yes && context.mounted) Navigator.pop(context, 'delete');
-                },
-                child: const CurrencyText('Delete expense')),
+            if (!widget.recording)
+              FilledButton(
+                  style: deleteAction(),
+                  onPressed: () async {
+                    final yes = await confirmAction(
+                        context,
+                        'Delete expense?',
+                        'This entry will be removed from the budget.',
+                        'Delete');
+                    if (yes && context.mounted) {
+                      Navigator.pop(context, 'delete');
+                    }
+                  },
+                  child: const CurrencyText('Delete expense')),
           ])));
 }
 

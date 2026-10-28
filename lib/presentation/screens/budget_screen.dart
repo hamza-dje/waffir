@@ -1,3 +1,5 @@
+import '../widgets/plan_home_summary.dart';
+import 'plan_screen.dart';
 import '../widgets/app_navigation.dart';
 import '../widgets/product_list.dart';
 import '../design/format.dart';
@@ -273,7 +275,8 @@ class _BudgetScreenState extends State<BudgetScreen>
             child: const CurrencyText('Start new budget')),
       ]);
   Widget home(BudgetRecord b) {
-    final f = BudgetFigures(b, DateTime.now(), loans: data.loans);
+    final f =
+        BudgetFigures(b, DateTime.now(), loans: data.loans, plans: data.plans);
     final usable = b.canLog(DateTime.now());
     final future = daysBetween(DateTime.now(), b.start) > 0;
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -394,6 +397,8 @@ class _BudgetScreenState extends State<BudgetScreen>
       CurrencyText('Spending plan. Loan cash is shown separately.',
           style: type(11, color: tertiaryText)),
       const SizedBox(height: 24),
+      PlanHomeSummary(
+          data: data, budgetId: b.id, onOpen: () => setState(() => tab = 3)),
       if (data.loans.any((l) => l.remaining > 0)) ...[
         TapCard(
             onTap: () => setState(() => tab = 2),
@@ -627,6 +632,8 @@ class _BudgetScreenState extends State<BudgetScreen>
                                     LoansScreen(
                                         book: book,
                                         syncReminders: widget.syncReminders)
+                                  else if (tab == 3)
+                                    PlanScreen(book: book)
                                   else
                                     budgetPage()
                                 ])))),

@@ -3,6 +3,14 @@ import '../../domain/models/budget_data.dart';
 import '../design/design.dart';
 import '../design/format.dart';
 
+class FormLabel extends StatelessWidget {
+  const FormLabel(this.text, {super.key});
+  final String text;
+  @override
+  Widget build(BuildContext context) => CurrencyText(text,
+      style: type(13, color: secondaryText, weight: FontWeight.w500));
+}
+
 class LabeledField extends StatelessWidget {
   const LabeledField(
       {super.key,
@@ -23,8 +31,7 @@ class LabeledField extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        CurrencyText(label,
-            style: type(13, color: secondaryText, weight: FontWeight.w500)),
+        FormLabel(label),
         const SizedBox(height: 8),
         Semantics(
             label: label,
@@ -94,8 +101,7 @@ class DateControl extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        CurrencyText(label,
-            style: type(13, color: secondaryText, weight: FontWeight.w500)),
+        FormLabel(label),
         const SizedBox(height: 8),
         Semantics(
             label: label,
@@ -128,7 +134,8 @@ class ExpenseIcons extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        sectionLabel('Icon'),
+        const FormLabel('Icon'),
+        const SizedBox(height: spaceTight),
         Wrap(spacing: 8, runSpacing: 8, children: [
           for (final icon in productIcons)
             Semantics(
@@ -159,8 +166,7 @@ class ExpenseTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Text('Time',
-            style: type(13, color: secondaryText, weight: FontWeight.w500)),
+        const FormLabel('Time'),
         const SizedBox(height: 8),
         Semantics(
             label: 'Expense time',
