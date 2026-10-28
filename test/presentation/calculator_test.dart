@@ -39,7 +39,7 @@ void main() {
                     funds: 3000,
                     start: dayOnly(now),
                     end: dayOnly(now))))));
-    for (final key in ['3', '4', '0', '÷', '5', '=']) {
+    for (final key in ['3', '4', '0', '/', '5', '=']) {
       await tester.tap(find.widgetWithText(TextButton, key));
       await tester.pump();
     }

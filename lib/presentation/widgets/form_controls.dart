@@ -254,48 +254,61 @@ class AmountKeypad extends StatelessWidget {
   const AmountKeypad({super.key, required this.onKey, this.keyHeight = 56});
   final ValueChanged<String> onKey;
   final double keyHeight;
+
+  Widget keyButton(String key, double width, {double? height}) => SizedBox(
+      width: width,
+      height: height ?? keyHeight,
+      child: TextButton(
+          onPressed: () => onKey(key),
+          style: TextButton.styleFrom(
+              backgroundColor: surfaceHigh,
+              foregroundColor: primaryText,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(controlRadius))),
+          child: key == '⌫'
+              ? Semantics(
+                  label: 'Delete last digit',
+                  child:
+                      SourceIcon('backspace', size: 22, color: secondaryText))
+              : Text(key,
+                  semanticsLabel: key == 'C' ? 'Clear amount' : key,
+                  style: type(22,
+                      role: TextRole.display, weight: FontWeight.w600))));
+
   @override
-  Widget build(BuildContext context) => Column(children: [
-        for (final row in [
-          ['1', '2', '3', '+'],
-          ['4', '5', '6', '-'],
-          ['7', '8', '9', '×'],
-          ['0', '⌫', '=', '÷'],
-          if (MoneyScope.of(context) == AppCurrency.eur) ['.']
-        ])
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Row(children: [
-                for (var i = 0; i < row.length; i++) ...[
-                  if (i > 0) const SizedBox(width: 8),
-                  Expanded(
-                      child: SizedBox(
-                          height: keyHeight,
-                          child: TextButton(
-                              onPressed: () => onKey(row[i]),
-                              style: TextButton.styleFrom(
-                                  backgroundColor: surfaceHigh,
-                                  foregroundColor: primaryText,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          controlRadius))),
-                              child: row[i] == '⌫'
-                                  ? Semantics(
-                                      label: 'Delete last digit',
-                                      child: const SourceIcon('backspace',
-                                          size: 22, color: tertiaryText))
-                                  : CurrencyText(row[i],
-                                      style: type(22,
-                                          role: TextRole.display,
-                                          weight: FontWeight.w600,
-                                          color: row[i] == '.'
-                                              ? tertiaryText
-                                              : primaryText)))))
-                ],
-                if (row.length == 1) ...[
-                  const SizedBox(width: spaceSection),
-                  const Spacer(flex: 3),
-                ],
-              ]))
-      ]);
+  Widget build(BuildContext context) =>
+      LayoutBuilder(builder: (context, constraints) {
+        final width = (constraints.maxWidth - spaceTight * 3) / 4;
+        Widget row(List<String> keys) => Row(children: [
+              for (var i = 0; i < keys.length; i++) ...[
+                if (i > 0) const SizedBox(width: spaceTight),
+                keyButton(keys[i], width),
+              ]
+            ]);
+        return Column(children: [
+          for (final keys in [
+            ['+', '-', '*', '/'],
+            ['7', '8', '9', 'C'],
+            ['4', '5', '6', '⌫']
+          ]) ...[
+            row(keys),
+            const SizedBox(height: spaceTight),
+          ],
+          Row(children: [
+            SizedBox(
+                width: width * 3 + spaceTight * 2,
+                child: Column(children: [
+                  row(['1', '2', '3']),
+                  const SizedBox(height: spaceTight),
+                  Row(children: [
+                    keyButton('0', width * 2 + spaceTight),
+                    const SizedBox(width: spaceTight),
+                    keyButton('.', width)
+                  ]),
+                ])),
+            const SizedBox(width: spaceTight),
+            keyButton('=', width, height: keyHeight * 2 + spaceTight),
+          ]),
+        ]);
+      });
 }

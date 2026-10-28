@@ -41,6 +41,7 @@ int? moneyValue(String? input, {AppCurrency currency = AppCurrency.dzd}) {
 
 String amountKey(String value, String key,
     {AppCurrency currency = AppCurrency.dzd}) {
+  if (key == 'C') return '';
   if (key == '⌫') {
     return value.isEmpty ? value : value.substring(0, value.length - 1);
   }
