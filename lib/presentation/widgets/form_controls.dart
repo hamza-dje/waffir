@@ -2,6 +2,48 @@ import 'package:flutter/material.dart';
 import '../../domain/models/budget_data.dart';
 import '../design/design.dart';
 import '../design/format.dart';
+import '../../domain/rules/expense_rules.dart';
+
+Future<int?> showAmountDialog(BuildContext context, int initial) =>
+    showDialog<int>(context: context, builder: (_) => _AmountDialog(initial));
+
+class _AmountDialog extends StatefulWidget {
+  const _AmountDialog(this.initial);
+  final int initial;
+  @override
+  State<_AmountDialog> createState() => _AmountDialogState();
+}
+
+class _AmountDialogState extends State<_AmountDialog> {
+  late final controller = TextEditingController(text: '${widget.initial}');
+  final form = GlobalKey<FormState>();
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+          title: const Text('Planned amount'),
+          content: Form(
+              key: form,
+              child: LabeledField(
+                  label: 'Amount',
+                  controller: controller,
+                  currency: true,
+                  validator: positiveMoney)),
+          actions: [
+            DialogActions(
+                onCancel: () => Navigator.pop(context),
+                onConfirm: () {
+                  if (form.currentState!.validate()) {
+                    Navigator.pop(context, moneyValue(controller.text));
+                  }
+                },
+                confirmLabel: 'Save')
+          ]);
+}
 
 class FormLabel extends StatelessWidget {
   const FormLabel(this.text, {super.key});

@@ -12,6 +12,74 @@ import 'package:wafir/presentation/widgets/content_widgets.dart';
 import 'budget_book_test.dart' show MemoryBudgetStorage;
 
 void main() {
+  testWidgets('Custom mode saves and reopens separate daily estimates',
+      (tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final today = dayOnly(DateTime.now());
+    final tomorrow = DateTime(today.year, today.month, today.day + 1);
+    final storage = MemoryBudgetStorage(BudgetData(budgets: [
+      BudgetRecord(
+          id: 'b',
+          funds: 3000,
+          start: today,
+          end: DateTime(today.year, today.month, today.day + 29))
+    ]).encode());
+    await tester.pumpWidget(WafirApp(storage: storage));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Plan').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Add plan'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Custom'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+        find.byKey(const ValueKey('input-Plan label')), 'Study days');
+    tester.testTextInput.hide();
+    for (final entry in [(today, '50'), (tomorrow, '120+30')]) {
+      await tester.ensureVisible(find.text('Add day'));
+      await tester.tap(find.text('Add day'));
+      await tester.pumpAndSettle();
+      if (entry.$1.month != today.month) {
+        await tester.tap(find.byTooltip('Next month'));
+        await tester.pumpAndSettle();
+      }
+      await tester.tap(find.text('${entry.$1.day}').last);
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+          find.byKey(const ValueKey('input-Amount')), entry.$2);
+      await tester.tap(find.text('Save').last);
+      await tester.pumpAndSettle();
+    }
+    await tester.ensureVisible(find.text('Save plan'));
+    await tester.tap(find.text('Save plan'));
+    await tester.pumpAndSettle();
+    final saved = BudgetCodec.decode(storage.value!).plans.single;
+    expect(saved.mode, PlanAmountMode.custom);
+    expect(saved.days.map((d) => d.amount), [50, 150]);
+    expect(saved.reserved, 200);
+    await tester.tap(find.text('Study days'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Save plan'));
+    await tester.tap(find.text('Save plan'));
+    await tester.pumpAndSettle();
+    expect(
+        BudgetCodec.decode(storage.value!)
+            .plans
+            .single
+            .days
+            .map((d) => d.amount),
+        [50, 150]);
+  });
+
   testWidgets('Plan creation, recording, linked corrections and screenshots',
       (tester) async {
     tester.view.physicalSize = const Size(390, 844);

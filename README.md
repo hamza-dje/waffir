@@ -63,7 +63,7 @@ You remember the big payment. Coffee, water, and snacks are easier to forget. Gi
 
 **Books on Monday. A bus pass next week. Keep their money ready.**
 
-The **Plan** tab reserves an estimated amount for one day or several selected days in your active budget. Choose **Total** or **Per day**, add a label and icon, then check the split and daily-limit preview. A total of 100 DA over three days becomes 34, 33, and 33 DA.
+The **Plan** tab reserves an estimated amount for one day or several selected days in your active budget. Choose **Total**, **Per day**, or **Custom**, add a label and icon, then check the split and daily-limit preview. A total of 100 DA over three days becomes 34, 33, and 33 DA. Custom lets you enter a different estimated amount for each day. Tap a date or amount to correct it before saving.
 
 - Search plans or filter **Upcoming**, **Needs review**, and **Completed**.
 - Home shows **Planned spending** and **Next plan**. Reservations reduce ordinary spending limits but do not change cash or the original daily average.

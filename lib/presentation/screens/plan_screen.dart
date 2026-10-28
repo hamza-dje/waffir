@@ -150,7 +150,7 @@ class PlanDetails extends StatelessWidget {
                             '${dateText(budget.start)} - ${dateText(budget.end)}'),
                     DetailField(
                         label: 'Amount mode',
-                        value: p.perDay ? 'Per day' : 'Total'),
+                        value: ['Total', 'Per day', 'Custom'][p.mode.index]),
                     if (closed && !p.complete)
                       Text(
                           'Budget stopped. Move unfinished days to the active budget or cancel them.',
@@ -318,7 +318,10 @@ class PlanSheet extends StatefulWidget {
 class _PlanSheetState extends State<PlanSheet> {
   final label = TextEditingController();
   String amount = '', icon = 'banknote';
-  bool perDay = false, details = false, busy = false;
+  PlanAmountMode mode = PlanAmountMode.total;
+  bool get perDay => mode == PlanAmountMode.perDay;
+  bool get custom => mode == PlanAmountMode.custom;
+  bool details = false, busy = false;
   String? error;
   late String budgetId;
   late final String id =
@@ -336,10 +339,12 @@ class _PlanSheetState extends State<PlanSheet> {
     if (p != null) {
       label.text = p.label;
       icon = p.icon;
-      perDay = p.perDay;
+      mode = p.mode;
       final pending = p.days.where((d) => d.pending).toList();
       dates.addAll(pending.map((d) => d.date));
-      dayAmounts.addEntries(pending.map((d) => MapEntry(d.date, d.amount)));
+      if (custom) {
+        dayAmounts.addEntries(pending.map((d) => MapEntry(d.date, d.amount)));
+      }
       amount =
           (perDay && pending.isNotEmpty ? pending.first.amount : p.reserved)
               .toString();
@@ -360,7 +365,7 @@ class _PlanSheetState extends State<PlanSheet> {
         budgetId: budgetId,
         label: label.text.trim(),
         icon: icon,
-        perDay: perDay,
+        mode: mode,
         days: [
           ...resolved,
           for (var i = 0; i < split.length; i++)
@@ -371,7 +376,8 @@ class _PlanSheetState extends State<PlanSheet> {
                         ?.id ??
                     '$id-${split[i].date.toIso8601String()}',
                 date: split[i].date,
-                amount: dayAmounts[split[i].date] ?? split[i].amount)
+                amount:
+                    dayAmounts[split[i].date] ?? (custom ? 0 : split[i].amount))
         ]..sort((a, b) => a.date.compareTo(b.date)));
   }
 
@@ -396,6 +402,9 @@ class _PlanSheetState extends State<PlanSheet> {
         dates.sort();
         error = null;
       });
+      if (custom && mounted) {
+        await changeAmount(PlanDay(id: '', date: dayOnly(picked), amount: 0));
+      }
     }
   }
 
@@ -428,39 +437,14 @@ class _PlanSheetState extends State<PlanSheet> {
   }
 
   Future<void> changeAmount(PlanDay day) async {
-    final controller = TextEditingController(text: '${day.amount}');
-    final form = GlobalKey<FormState>();
-    final value = await showDialog<int>(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: const Text('Planned amount'),
-              content: Form(
-                  key: form,
-                  child: LabeledField(
-                      label: 'Amount',
-                      controller: controller,
-                      currency: true,
-                      validator: positiveMoney)),
-              actions: [
-                DialogActions(
-                    onCancel: () => Navigator.pop(context),
-                    onConfirm: () {
-                      if (form.currentState!.validate())
-                        Navigator.pop(context, moneyValue(controller.text));
-                    },
-                    confirmLabel: 'Save')
-              ],
-            ));
-    // Dispose after the closing route has released its input.
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    controller.dispose();
+    final value = await showAmountDialog(context, day.amount);
     if (value == null || !mounted) return;
     setState(() {
       for (final d in draft().days.where((d) => d.pending)) {
         dayAmounts[d.date] = d.amount;
       }
       dayAmounts[day.date] = value;
-      perDay = false;
+      mode = PlanAmountMode.custom;
       amount =
           dates.fold<int>(0, (s, d) => s + (dayAmounts[d] ?? 0)).toString();
       error = null;
@@ -486,32 +470,39 @@ class _PlanSheetState extends State<PlanSheet> {
         children: [
           if (!details) ...[
             Row(children: [
-              for (final value in [false, true]) ...[
-                if (value) const SizedBox(width: spaceTight),
+              for (final value in PlanAmountMode.values) ...[
+                if (value.index > 0) const SizedBox(width: spaceTight),
                 Expanded(
                     child: FilledButton(
-                        style: compactAction(cancel: perDay != value),
+                        style: compactAction(cancel: mode != value),
                         onPressed: () => setState(() {
-                              perDay = value;
+                              mode = value;
                               dayAmounts.clear();
                             }),
-                        child: Text(value ? 'Per day' : 'Total')))
+                        child:
+                            Text(['Total', 'Per day', 'Custom'][value.index])))
               ]
             ]),
             const SizedBox(height: spaceRelated),
-            FittedBox(
-                fit: BoxFit.scaleDown,
-                child: CurrencyText('${amount.isEmpty ? '0' : amount} DA',
-                    style: type(52,
-                        role: TextRole.display, weight: FontWeight.w600))),
+            if (custom)
+              Text(
+                  'Choose dates next, then enter an estimated amount for each day.',
+                  style: type(14, color: secondaryText, height: 1.5)),
+            if (!custom)
+              FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: CurrencyText('${amount.isEmpty ? '0' : amount} DA',
+                      style: type(52,
+                          role: TextRole.display, weight: FontWeight.w600))),
             const SizedBox(height: spaceRelated),
-            AmountKeypad(
-                keyHeight: 52,
-                onKey: (key) => setState(() {
-                      amount = amountKey(amount, key);
-                      dayAmounts.clear();
-                      error = null;
-                    })),
+            if (!custom)
+              AmountKeypad(
+                  keyHeight: 52,
+                  onKey: (key) => setState(() {
+                        amount = amountKey(amount, key);
+                        dayAmounts.clear();
+                        error = null;
+                      })),
           ] else ...[
             LabeledField(
                 label: 'Plan label',
@@ -605,14 +596,14 @@ class _PlanSheetState extends State<PlanSheet> {
               onPressed: busy
                   ? null
                   : () async {
-                      final invalid = positiveMoney(amount);
+                      final invalid = custom ? null : positiveMoney(amount);
                       if (invalid != null) {
                         setState(() => error = invalid);
                         return;
                       }
                       if (!details) {
                         setState(() {
-                          amount = moneyValue(amount).toString();
+                          if (!custom) amount = moneyValue(amount).toString();
                           details = true;
                         });
                         return;

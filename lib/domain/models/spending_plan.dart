@@ -21,6 +21,8 @@ class PlanDay {
       cancelled: cancelled);
 }
 
+enum PlanAmountMode { total, perDay, custom }
+
 class SpendingPlan {
   SpendingPlan(
       {required this.id,
@@ -28,10 +30,11 @@ class SpendingPlan {
       required this.label,
       required List<PlanDay> days,
       this.icon = 'banknote',
-      this.perDay = false})
+      this.mode = PlanAmountMode.total})
       : days = List.unmodifiable(days);
   final String id, budgetId, label, icon;
-  final bool perDay;
+  final PlanAmountMode mode;
+  bool get perDay => mode == PlanAmountMode.perDay;
   final List<PlanDay> days;
   int get reserved =>
       days.where((d) => d.pending).fold(0, (s, d) => s + d.amount);
@@ -45,7 +48,7 @@ class SpendingPlan {
       budgetId: budgetId,
       label: label,
       icon: icon,
-      perDay: perDay,
+      mode: mode,
       days: value);
   String? validate(BudgetRecord budget) {
     if (label.trim().isEmpty || label.length > 60) return 'Enter a plan label.';

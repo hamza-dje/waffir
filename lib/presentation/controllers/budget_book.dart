@@ -336,7 +336,7 @@ class BudgetBook extends ChangeNotifier {
                     budgetId: plan.budgetId,
                     label: plan.label,
                     icon: plan.icon,
-                    perDay: plan.perDay,
+                    mode: plan.mode,
                     days: plan.days)
               else
                 plan

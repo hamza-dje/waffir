@@ -157,7 +157,7 @@ Map<String, dynamic> _planJson(SpendingPlan p) => {
       'budgetId': p.budgetId,
       'label': p.label,
       'icon': p.icon,
-      'perDay': p.perDay,
+      'mode': p.mode.name,
       'days': [
         for (final d in p.days)
           {
@@ -174,7 +174,11 @@ SpendingPlan _planFromJson(Map<String, dynamic> j) => SpendingPlan(
         budgetId: j['budgetId'] as String,
         label: j['label'] as String,
         icon: safeIcon(j['icon']),
-        perDay: j['perDay'] as bool,
+        mode: j['mode'] == null
+            ? (j['perDay'] == true
+                ? PlanAmountMode.perDay
+                : PlanAmountMode.total)
+            : PlanAmountMode.values.byName(j['mode'] as String),
         days: [
           for (final value in j['days'] as List)
             PlanDay(
