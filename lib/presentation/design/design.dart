@@ -7,6 +7,7 @@ const mint = Color(0xFF34D399);
 const background = Color(0xFF0F1115);
 const surface = Color(0xFF171A21);
 const surfaceHigh = Color(0xFF1F242D);
+const keypadOperatorSurface = Color(0xFF1B1F27);
 const primaryText = Color(0xFFF2F4F7);
 const secondaryText = Color(0xFF8A93A2);
 const tertiaryText = Color(0xFF5B6472);
