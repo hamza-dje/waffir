@@ -3,15 +3,22 @@ import '../design/design.dart';
 import 'editor_actions.dart';
 
 class SurfaceCard extends StatelessWidget {
-  const SurfaceCard({super.key, required this.child, this.color = surface});
+  const SurfaceCard(
+      {super.key,
+      required this.child,
+      this.color = surface,
+      this.padding = const EdgeInsets.all(16),
+      this.radius = sectionRadius});
   final Widget child;
   final Color color;
+  final EdgeInsetsGeometry padding;
+  final double radius;
   @override
   Widget build(BuildContext context) => Material(
       color: color,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(radius),
       clipBehavior: Clip.antiAlias,
-      child: Padding(padding: const EdgeInsets.all(16), child: child));
+      child: Padding(padding: padding, child: child));
 }
 
 class SearchInput extends StatelessWidget {

@@ -473,6 +473,9 @@ class _PlanSheetState extends State<PlanSheet> {
                   padding: const EdgeInsets.only(bottom: spaceTight),
                   child: SurfaceCard(
                       color: surfaceHigh,
+                      radius: controlRadius,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: spaceRelated, vertical: 4),
                       child: Row(children: [
                         const SourceIcon('calendar',
                             size: 20, color: secondaryText),
@@ -483,7 +486,9 @@ class _PlanSheetState extends State<PlanSheet> {
                         const SizedBox(width: spaceTight),
                         if (d.pending)
                           FilledButton(
-                              style: deleteAction(compact: true),
+                              style: deleteAction(compact: true).copyWith(
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap),
                               onPressed: () =>
                                   setState(() => dates.remove(d.date)),
                               child: const Text('Remove'))
