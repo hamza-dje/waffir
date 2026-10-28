@@ -116,7 +116,7 @@ class CurrencySymbol extends StatelessWidget {
       child: (currency ?? MoneyScope.of(context)) == AppCurrency.eur
           ? Text('€',
               style: TextStyle(
-                  fontSize: size, color: color ?? primaryText, height: 1))
+                  fontSize: size / .72, color: color ?? primaryText, height: 1))
           : SvgPicture.asset('assets/dzd.svg',
               width: size * 624 / 993,
               height: size,
