@@ -261,24 +261,29 @@ class AmountKeypad extends StatelessWidget {
       child: TextButton(
           onPressed: () => onKey(key),
           style: TextButton.styleFrom(
-              backgroundColor: surfaceHigh,
+              backgroundColor: ['+', '-', '*', '/', '='].contains(key)
+                  ? navigationSurface
+                  : surfaceHigh,
               foregroundColor: primaryText,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(controlRadius))),
-          child: key == '⌫'
-              ? Semantics(
-                  label: 'Delete last digit',
-                  child:
-                      SourceIcon('backspace', size: 22, color: secondaryText))
-              : Text(
-                  key == '*'
-                      ? '×'
-                      : key == '/'
-                          ? '÷'
-                          : key,
-                  semanticsLabel: key == 'C' ? 'Clear amount' : key,
-                  style: type(22,
-                      role: TextRole.display, weight: FontWeight.w600))));
+          child: Text(
+              key == '*'
+                  ? '×'
+                  : key == '/'
+                      ? '÷'
+                      : key == '⌫'
+                          ? 'DEL'
+                          : key == 'C'
+                              ? 'CLE'
+                              : key,
+              semanticsLabel: key == 'C'
+                  ? 'Clear amount'
+                  : key == '⌫'
+                      ? 'Delete last digit'
+                      : key,
+              style: type(key == 'C' || key == '⌫' ? 16 : 22,
+                  role: TextRole.display, weight: FontWeight.w600))));
 
   @override
   Widget build(BuildContext context) =>
