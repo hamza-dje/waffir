@@ -261,7 +261,7 @@ class AmountKeypad extends StatelessWidget {
       child: TextButton(
           onPressed: () => onKey(key),
           style: TextButton.styleFrom(
-              backgroundColor: ['+', '-', '*', '/', '='].contains(key)
+              backgroundColor: ['+', '-', '*', '/', '=', 'C', '⌫'].contains(key)
                   ? navigationSurface
                   : surfaceHigh,
               foregroundColor: primaryText,
