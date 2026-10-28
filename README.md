@@ -16,6 +16,7 @@ A small money journal for Algerian students. Give your allowance a plan, log the
 <p align="center">
   <a href="#a-day-with-waffir">A day with Waffir</a> ·
   <a href="#money-between-friends">Loans</a> ·
+  <a href="#set-money-aside">Plan</a> ·
   <a href="#before-your-first-lecture">First budget</a> ·
   <a href="#the-maths-behind-the-day">The maths</a> ·
   <a href="#run-it-yourself">Build it</a>
@@ -57,6 +58,21 @@ You remember the big payment. Coffee, water, and snacks are easier to forget. Gi
   <img src="docs/screenshots/history-details.png" width="265" alt="Search expense cards and check budget totals in History">
 </p>
 <p align="center"><sub>Write it down. Find it later. Fix it if needed.</sub></p>
+
+## Set money aside
+
+**Books on Monday. A bus pass next week. Keep their money ready.**
+
+The **Plan** tab reserves an estimated amount for one day or several selected days in your active budget. Choose **Total** or **Per day**, add a label and icon, then check the split and daily-limit preview. A total of 100 DA over three days becomes 34, 33, and 33 DA.
+
+- Search plans or filter **Upcoming**, **Needs review**, and **Completed**.
+- Home shows **Planned spending** and **Next plan**. Reservations reduce ordinary spending limits but do not change cash or the original daily average.
+- On the planned day, record the actual expense. Change the amount, label, icon, date, or time if needed. Saving replaces that day's reservation with one expense in History.
+- Missed days keep their reservation until recorded, moved, or cancelled. Plans above available cash need confirmation.
+- Correct a linked expense in History or Plan. Deleting it restores its reservation. Deleting the plan keeps recorded expenses.
+- When a budget stops, unfinished days stay available for review. Move them to dates in the active budget. Completed days stay linked to their saved budget.
+
+Navigation follows **Home, History, Loans, Plan, Budget**. Amount inputs support calculations such as `340/5` and `120+250`, with whole-dinar results.
 
 ## Money between friends
 
