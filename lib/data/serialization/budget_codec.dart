@@ -1,10 +1,12 @@
+import '../../domain/models/spending_plan.dart';
 import '../../domain/models/loan.dart';
 import 'dart:convert';
 import '../../domain/models/budget_data.dart';
 
 extension BudgetDataJson on BudgetData {
   String encode() => jsonEncode({
-        'version': 3,
+        'version': 4,
+        'plans': plans.map(_planJson).toList(),
         'loans': loans.map(_loanJson).toList(),
         'budgets': budgets.map((b) => b.toJson()).toList(),
         'products': products.map((p) => p.toJson()).toList()
@@ -14,8 +16,11 @@ extension BudgetDataJson on BudgetData {
 class BudgetCodec {
   static BudgetData decode(String raw) {
     final json = jsonDecode(raw) as Map<String, dynamic>;
-    if (json['version'] == 2 || json['version'] == 3) {
+    if (json['version'] == 2 || json['version'] == 3 || json['version'] == 4) {
       return BudgetData(
+          plans: ((json['plans'] ?? []) as List)
+              .map((p) => _planFromJson(p as Map<String, dynamic>))
+              .toList(),
           loans: ((json['loans'] ?? []) as List)
               .map((l) => _loanFromJson(l as Map<String, dynamic>))
               .toList(),
@@ -63,6 +68,8 @@ UsualProduct _productFromJson(Map<String, dynamic> json) => UsualProduct(
 
 extension ExpenseJson on Expense {
   Map<String, dynamic> toJson() => {
+        'id': id,
+        'planned': planned,
         'label': label,
         'amount': amount,
         'date': date.toIso8601String(),
@@ -74,7 +81,9 @@ Expense _expenseFromJson(Map<String, dynamic> json) => Expense(
     json['label'] as String,
     json['amount'] as int,
     DateTime.parse(json['date'] as String),
-    safeIcon(json['icon']));
+    safeIcon(json['icon']),
+    json['id'] as String?,
+    json['planned'] == true);
 
 extension BudgetRecordJson on BudgetRecord {
   Map<String, dynamic> toJson() => {
@@ -142,3 +151,36 @@ Loan _loanFromJson(Map<String, dynamic> j) => Loan(
           date: DateTime.parse(p['date'] as String),
           budgetId: p['budgetId'] as String?);
     }).toList());
+
+Map<String, dynamic> _planJson(SpendingPlan p) => {
+      'id': p.id,
+      'budgetId': p.budgetId,
+      'label': p.label,
+      'icon': p.icon,
+      'perDay': p.perDay,
+      'days': [
+        for (final d in p.days)
+          {
+            'id': d.id,
+            'date': d.date.toIso8601String(),
+            'amount': d.amount,
+            'expenseId': d.expenseId,
+            'cancelled': d.cancelled
+          }
+      ]
+    };
+SpendingPlan _planFromJson(Map<String, dynamic> j) => SpendingPlan(
+        id: j['id'] as String,
+        budgetId: j['budgetId'] as String,
+        label: j['label'] as String,
+        icon: safeIcon(j['icon']),
+        perDay: j['perDay'] as bool,
+        days: [
+          for (final value in j['days'] as List)
+            PlanDay(
+                id: value['id'] as String,
+                date: DateTime.parse(value['date'] as String),
+                amount: value['amount'] as int,
+                expenseId: value['expenseId'] as String?,
+                cancelled: value['cancelled'] as bool)
+        ]);

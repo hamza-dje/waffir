@@ -1,3 +1,4 @@
+import 'spending_plan.dart';
 import 'loan.dart';
 
 DateTime dayOnly(DateTime date) => DateTime(date.year, date.month, date.day);
@@ -29,7 +30,10 @@ class UsualProduct {
 }
 
 class Expense {
-  const Expense(this.label, this.amount, this.date, [this.icon = 'banknote']);
+  const Expense(this.label, this.amount, this.date,
+      [this.icon = 'banknote', this.id, this.planned = false]);
+  final String? id;
+  final bool planned;
   final String label;
   final int amount;
   final DateTime date;
@@ -102,10 +106,18 @@ class BudgetRecord {
 }
 
 class BudgetFigures {
-  BudgetFigures(this.budget, DateTime now, {this.loans = const []})
+  BudgetFigures(this.budget, DateTime now,
+      {this.loans = const [], this.plans = const []})
       : date = dayOnly(budget.closedAt ?? now);
   final BudgetRecord budget;
   final List<Loan> loans;
+  final List<SpendingPlan> plans;
+  Iterable<SpendingPlan> get budgetPlans =>
+      plans.where((p) => p.budgetId == budget.id);
+  int get plannedReserved => budgetPlans.fold(0, (s, p) => s + p.reserved);
+  int get plannedToday => budget.expenses
+      .where((e) => daysBetween(e.date, date) == 0 && e.planned)
+      .fold(0, (s, e) => s + e.amount);
   final DateTime date;
   LoanFigures get transfers => LoanFigures(budget, loans, date);
   int get cash => budget.balance + transfers.cashChange;
@@ -119,21 +131,28 @@ class BudgetFigures {
       .fold(0, (sum, e) => sum + e.amount);
   double get original => budget.funds / budget.days;
   double? get todayLimit => budget.canLog(date)
-      ? (budget.funds - beforeToday + transfers.adjustment) / remainingDays
+      ? (budget.funds -
+              beforeToday +
+              transfers.adjustment -
+              plannedReserved -
+              plannedToday) /
+          remainingDays
       : null;
-  double? get leftToday => todayLimit == null ? null : todayLimit! - spentToday;
+  double? get leftToday =>
+      todayLimit == null ? null : todayLimit! - (spentToday - plannedToday);
   double get savings => original * completed - beforeToday;
   // Spending-plan figures share the expense baseline. Loan liquidity is
   // represented separately by cash, transfers, and today's available limit.
   double? get upcoming => budget.canLog(date) && remainingDays > 1
-      ? budget.balance / (remainingDays - 1)
+      ? (budget.balance - plannedReserved) / (remainingDays - 1)
       : null;
   double? get tomorrowLimit {
     final average = upcoming;
     if (average == null) return null;
     // Preserve the original allowance when possible. After overspending,
     // spread what remains instead of charging the entire shortfall tomorrow.
-    final planned = original + savings + original - spentToday;
+    final planned =
+        original + savings + original - spentToday - plannedReserved;
     return planned.clamp(average.clamp(0, double.infinity), double.infinity);
   }
 }
@@ -142,17 +161,21 @@ class BudgetData {
   BudgetData(
       {List<BudgetRecord> budgets = const [],
       List<UsualProduct> products = const [],
-      List<Loan> loans = const []})
+      List<Loan> loans = const [],
+      List<SpendingPlan> plans = const []})
       : budgets = List.unmodifiable(budgets),
         products = List.unmodifiable(products),
-        loans = List.unmodifiable(loans);
+        loans = List.unmodifiable(loans),
+        plans = List.unmodifiable(plans);
   final List<BudgetRecord> budgets;
   final List<UsualProduct> products;
   final List<Loan> loans;
+  final List<SpendingPlan> plans;
   BudgetRecord? get active =>
       budgets.where((b) => b.closedAt == null).firstOrNull;
   BudgetData replace(BudgetRecord record) => BudgetData(
       products: products,
       loans: loans,
+      plans: plans,
       budgets: budgets.map((b) => b.id == record.id ? record : b).toList());
 }
