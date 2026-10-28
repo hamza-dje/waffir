@@ -9,7 +9,7 @@
 
 **A coffee today. Enough for the bus tomorrow.**
 
-A small money journal for Algerian students. Give your allowance a plan, log the little things, track money lent or borrowed, and see what is left before the next purchase.
+A money journal for Algerian students. Spread your allowance across the days until your next payment. Log coffee and bus fares, set money aside for books, and track money lent or borrowed. Your records stay on your phone.
 
 <sub>ALGERIAN DINARS / WORKS OFFLINE / NO ACCOUNT</sub>
 
@@ -29,13 +29,13 @@ A small money journal for Algerian students. Give your allowance a plan, log the
 <table>
   <tr>
     <td width="42%" align="center">
-      <img src="docs/screenshots/home.png" width="260" alt="Home shows money left today, daily averages, savings, and a loan summary">
+      <img src="docs/screenshots/home.png" width="260" alt="Waffir 0.5.0 Home with the current five-tab navigation, daily allowance, savings, and future estimates">
     </td>
     <td>
       <h3>One number before you spend.</h3>
       <p>Open Home. <b>Left today</b> tells you what remains of today's allowance.</p>
-      <p>Below it: what you spent, what you saved, and what tomorrow could look like.</p>
-      <p>Your usual coffee? One tap.<br>A bus ride? One tap.<br>Something different? <b>Add expense.</b></p>
+      <p>Below it: today's spending, savings or shortfall, and the next day's estimates. Planned purchases have their own reserved money.</p>
+      <p>Your usual coffee? One tap.<br>Books next week? <b>Add plan.</b><br>Something different today? <b>Add expense.</b></p>
       <hr>
       <p><b>Yesterday</b> helps set today's limit.<br><b>Today</b> has its own spending room.<br><b>Tomorrow</b> updates as you spend.</p>
       <p><sub>Screen shown with sample data.</sub></p>
@@ -43,9 +43,21 @@ A small money journal for Algerian students. Give your allowance a plan, log the
   </tr>
 </table>
 
+### Five places for your money
+
+| Tab | What you do there |
+| --- | --- |
+| Home | Check ordinary money left today, daily figures, reserved plans, and open loans. |
+| History | Search expense logs and correct active or saved budgets. |
+| Loans | Track money owed to you and money you owe, with repayments and reminders. |
+| Plan | Reserve future expenses, review missed days, and record actual purchases. |
+| Budget | Edit your budget, manage usual products, or Stop and Save. |
+
+All screenshots below come from the current app with sample records. They do not show personal financial data.
+
 ### Small purchases, written down
 
-You remember the big payment. Coffee, water, and snacks are easier to forget. Give each purchase a name and icon, then get on with your day.
+You remember the big payment. Coffee, water, and snacks are easier to forget. Give each purchase a name and icon, choose its time, then save it. Add your own usual products with a name, price, and icon during setup or later in Budget. Their buttons appear on Home only when you have products.
 
 | Between classes | At the end of the day |
 | --- | --- |
@@ -83,7 +95,7 @@ The **Plan** tab reserves an estimated amount for one day or several selected da
 - Correct a linked expense in History or Plan. Deleting it restores its reservation. Deleting the plan keeps recorded expenses.
 - When a budget stops, unfinished days stay available for review. Move them to dates in the active budget. Completed days stay linked to their saved budget.
 
-Navigation follows **Home, History, Loans, Plan, Budget**. Amount inputs support calculations such as `340/5` and `120+250`, with whole-dinar results.
+Date and amount inputs are separate. Tap a date to open the calendar, tap an amount to edit its estimate, or use the red trash button to remove a pending day. Preview cards show total reserved money and the ordinary daily limit before saving.
 
 <p align="center">
   <img src="docs/screenshots/home-plans.png" width="265" alt="Home cards show planned spending and the next plan with its icon, date, and amount">
@@ -114,7 +126,7 @@ Loan transfers change cash. They do **not** count as expenses or savings.
 - **You borrow:** cash rises. Money owed within the budget period, or without a due date, is reserved for repayment. Borrowing due after the period can increase the spending limit, while the debt remains visible.
 - **You record a repayment:** cash and limits update. Payments cannot exceed the amount still owed. A transfer above available cash needs confirmation.
 
-Home separates cash, expected repayments, and repayment reserves. If Left today depends on money that has not returned, it shows a warning. Spent today, Saved so far, Daily average from tomorrow, and Tomorrow's limit share the original budget and expense log as their basis. Loan cash movements stay separate from these four spending-plan figures.
+Home separates cash, expected repayments, repayment reserves, and planned spending. If Left today depends on money that has not returned, it shows a warning. Loan transfers affect cash and today's available limit. They do not count as expenses or savings. Future spending estimates use the budget, logged expenses, and unfinished plan reservations; they do not add loan cash movements.
 
 Loans stay open when a budget closes. Each transfer has its own budget link, or **Outside a budget**. A repayment in a later budget affects that budget; old loans do not add money to a new budget automatically. Existing links and carry-over amounts stay fixed after budget corrections.
 
@@ -148,6 +160,12 @@ Use a **7, 15, 21, or 28-day** shortcut, or choose dates that match your next pa
 
 </details>
 
+### Calculate before you save
+
+Amount inputs accept `+`, `-`, multiplication, and division. For example, `340/5` gives **68 DA**, and `120+250` gives **370 DA**. Multiplication and division are calculated before addition and subtraction. Tap **=**, Continue, or Save to calculate.
+
+The saved result must be a positive whole amount in dinars. Invalid calculations, division by zero, and fractional final amounts are rejected. The amount keypad is shared by budget setup, expense entry, loans, and plans.
+
 ## When plans change
 
 <table>
@@ -166,34 +184,40 @@ Use a **7, 15, 21, or 28-day** shortcut, or choose dates that match your next pa
 
 ## The maths behind the day
 
-Suppose you set **3,000 DA for 30 days**. Your original daily average is **100 DA**. If you spend **50 DA on day one**:
+With no loans or planned reservations, suppose you set **3,000 DA for 30 days**. Your original daily average is **100 DA**. If you spend **50 DA on day one**:
 
 | Figure | Result | Meaning |
 | --- | --- | --- |
 | Original daily average | 100 DA | Full budget ÷ all budget days. |
 | Today's limit | 100 DA | Today's allowance, fixed before today's purchases. |
 | Spent today | 50 DA | Purchases logged today. |
-| Left today | 50 DA | Today's limit minus today's spending. |
+| Left today | 50 DA | Today's ordinary limit minus ordinary spending today. |
 | Daily average from tomorrow | 101.72 DA | 2,950 DA spread over the next 29 days. |
 | Tomorrow's limit | 150 DA | Maximum for tomorrow that leaves the original average for each later day. |
 
-**Saved so far** compares the original allowance for completed days with what you spent on those days. Today is excluded until it ends. Tomorrow's limit includes today's result:
+**Saved so far** compares the original allowance for completed days with expenses recorded on those days. Today is excluded until it ends. A negative result appears as **Over budget so far**.
+
+For the future figures:
 
 ```text
-Tomorrow's limit = original daily average + saved so far
-                  + original daily average − spent today
+Reserved = total estimates for unfinished planned days in this budget
+Future average = (budget - all expenses - Reserved) / days after today
+Original-plan limit = 2 × original average + savings - spent today - Reserved
+Tomorrow's limit = maximum of 0, Future average, and Original-plan limit
 ```
 
-If this is below the daily average from tomorrow, use that average instead. This spreads a past shortfall over the remaining days. If no money remains, tomorrow's limit is zero. Savings and shortfalls still show the full difference from the original plan.
+This uses savings for tomorrow when the original allowance can still be kept for later days. After overspending, it spreads the shortfall across the remaining days instead of charging the full shortfall tomorrow. Tomorrow's limit is zero when no unreserved money remains. On the last day, future figures show **No days remaining**.
 
-Past savings or overspending affect the next day's allowance. Today's purchases reduce Left today, but do not change today's fixed limit. Loan entries, repayments, due-date changes, and overdue balances can change today's available limit and cash balance. They do not change expense-based savings or the four spending-plan figures. Negative figures stay visible. At zero or below, Home shows **Stop for today**. On the last day, future figures show **No days remaining**.
+**Reservations are separate from ordinary spending.** Reserving 300 DA from a fresh 3,000 DA, 30-day budget leaves an ordinary daily limit of **90 DA**. Recording that planned expense for 300 DA releases its reservation and leaves the ordinary limit at **90 DA**. It does not subtract the same purchase twice. The expense is still included in Spent today and future savings comparisons.
+
+Ordinary purchases reduce Left today without recalculating today's limit. Adding or changing a plan, recording a planned purchase, and changes to loans can update that limit. At zero or below, Home shows **Stop for today** for ordinary spending. Cash and shortfalls stay visible separately from reserved purchases.
 
 <details>
 <summary><b>Small details that matter</b></summary>
 
-Waffir uses a dark theme, mint primary actions, gray Edit and secondary buttons, and amber warnings. Delete actions use muted red with red text; confirmation buttons remain red. **Geist** stays on headings and key amounts. **Red Hat Display** is used for body text, labels, and controls. Geist Mono and Rubik remain bundled, with all font licenses included.
+Waffir uses a dark theme, mint primary actions, gray Edit and secondary buttons, and amber warnings. Delete actions use muted red with red text; confirmation buttons remain red. **Geist** stays on headings and key amounts. **Red Hat Display** is used for body text, labels, and controls. Font licenses are bundled with the app.
 
-The supplied [dinar symbol](assets/dzd.svg) appears to the left of amounts with reduced opacity. Product icons are also muted. Fields have separate labels, placeholders, and no visible outlines. Standard actions share a 54 px minimum height, 16 px text, and medium weight. Edit and Stop and Save use the compact button size. Compact actions use a 44 px minimum height. Back controls share a dark rounded surface. The inset tab bar is darker than the section cards; content is visible through its rounded top corners and hidden below it. Related controls use tighter spacing than separate sections.
+The supplied [dinar symbol](assets/dzd.svg) appears to the left of amounts with reduced opacity. Product icons are also muted. Fields have separate labels, placeholders, and no visible outlines. Standard actions share a 54 px minimum height, 16 px text, and medium weight. Edit and Stop and Save use the compact button size. Compact actions use a 44 px minimum height. Back controls share a dark rounded surface. The inset tab bar is darker than the section cards; content is visible through its rounded top corners and hidden below it. Plan uses a list icon; History uses a clock. Plan date fields, amount fields, and their red trash buttons share the standard 54 px height. Filters, labels, input controls, cards, and actions use shared components. Related controls use tighter spacing than separate sections.
 
 | Icon | Example use |
 | --- | --- |
@@ -210,19 +234,20 @@ These are examples. You choose the label and icon. Changing a usual product's pr
 
 ## Your records, on your device
 
-- Budgets, products, expense logs, loans, and repayments are stored locally using SharedPreferences. There is no cloud sync or export feature.
+- Budgets, products, expense logs, loans, repayments, and plans are stored locally using SharedPreferences. There is no cloud sync or export feature.
 - Clearing app data or uninstalling the app can remove your records.
 - Saved budgets remain editable, but cannot receive new expenses.
 - Money carried into a new budget stays fixed if you later correct the old budget.
-- Budget date edits cannot exclude existing expenses. Correct those expenses first.
-- Legacy budget data is migrated while retaining the original legacy storage key for recovery.
+- Budget date edits cannot exclude existing expenses or unfinished planned days. Correct the expense or move or cancel the planned day first.
+- Older budget data is migrated without adding invented plans. The original legacy storage key is retained for recovery.
+- Changes become visible only after a successful save. A failed save keeps the previous records and reports an error.
 
 ## Run it yourself
 
 <details>
 <summary><b>Flutter setup, checks, APK build, and source map</b></summary>
 
-Current release: **0.5.0, build 1**.
+Current release: **0.5.0+1**. The shared Android release is ARM64 and about **18.62 MiB**. It includes Plan and Custom daily estimates.
 
 This is a Flutter project. Install Flutter and the Android SDK, then run:
 
@@ -237,6 +262,7 @@ Check the code and user flows:
 flutter analyze
 flutter test
 flutter test test/presentation/design_capture.dart
+flutter test test/presentation/loans_flow_test.dart test/presentation/plan_flow_test.dart
 ```
 
 Build smaller APKs for each processor type:
@@ -253,7 +279,7 @@ The code uses a layer-first structure:
 lib/
   main.dart                 # Supplies storage and phone notifications
   domain/
-    models/                 # Budgets, expenses, loans, and daily figures
+    models/                 # Budgets, expenses, loans, plans, and daily figures
     rules/                  # Expense rules and loan reminder planning
     repositories/           # Typed storage contract
   data/
@@ -262,13 +288,13 @@ lib/
     notifications/          # Phone permissions, scheduling, and loan links
   presentation/
     app.dart                # App theme and root navigation
-    controllers/            # Budget lifecycle and save state
-    screens/                # Home, History, Loans, Budget, and editors
+    controllers/            # Validated changes, reservations, links, and durable saves
+    screens/                # Home, History, Loans, Plan, Budget, and editors
     widgets/                # Shared forms, cards, lists, popups, and navigation
     design/                 # Colors, spacing, button styles, and formatting
 ```
 
-The domain has no Flutter or storage-plugin dependency. Presentation and data depend on the domain. `main.dart` connects them. Tests follow the same layers; `test/architecture_test.dart` checks the dependency direction and prevents shared widgets from importing screens.
+Plans and estimates live in the domain; JSON migration lives in data; forms and navigation live in presentation. No extra package is needed for Plan. The domain has no Flutter or storage-plugin dependency. Presentation and data depend on the domain. `main.dart` connects them. Tests follow the same layers; `test/architecture_test.dart` checks the dependency direction and prevents shared widgets from importing screens.
 
 </details>
 
