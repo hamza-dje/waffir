@@ -286,8 +286,9 @@ class AmountKeypad extends StatelessWidget {
                   role: TextRole.display, weight: FontWeight.w600))));
 
   @override
-  Widget build(BuildContext context) =>
-      LayoutBuilder(builder: (context, constraints) {
+  Widget build(BuildContext context) => SizedBox(
+      height: keyHeight * 5 + spaceTight * 4,
+      child: LayoutBuilder(builder: (context, constraints) {
         final width = (constraints.maxWidth - spaceTight * 3) / 4;
         Widget row(List<String> keys) => Row(children: [
               for (var i = 0; i < keys.length; i++) ...[
@@ -320,5 +321,5 @@ class AmountKeypad extends StatelessWidget {
             keyButton('=', width, height: keyHeight * 2 + spaceTight),
           ]),
         ]);
-      });
+      }));
 }
