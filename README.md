@@ -11,7 +11,7 @@
 
 A money journal for Algerian students. Spread your allowance across the days until your next payment. Log coffee and bus fares, set money aside for books, and track money lent or borrowed. Your records stay on your phone.
 
-<sub>ALGERIAN DINARS / WORKS OFFLINE / NO ACCOUNT</sub>
+<sub>DZD + EUR / WORKS OFFLINE / NO ACCOUNT</sub>
 
 <p align="center">
   <a href="#a-day-with-waffir">A day with Waffir</a> ·
@@ -29,7 +29,7 @@ A money journal for Algerian students. Spread your allowance across the days unt
 <table>
   <tr>
     <td width="42%" align="center">
-      <img src="docs/screenshots/home.png" width="260" alt="Waffir 0.5.0 Home with the current five-tab navigation, daily allowance, savings, and future estimates">
+      <img src="docs/screenshots/home.png" width="260" alt="Waffir 0.6.0 Home with euro amounts, four navigation tabs, and daily spending figures">
     </td>
     <td>
       <h3>One number before you spend.</h3>
@@ -43,17 +43,16 @@ A money journal for Algerian students. Spread your allowance across the days unt
   </tr>
 </table>
 
-### Five places for your money
+### Four tabs, with tools in Budget
 
 | Tab | What you do there |
 | --- | --- |
 | Home | Check ordinary money left today, daily figures, reserved plans, and open loans. |
 | History | Search expense logs and correct active or saved budgets. |
-| Loans | Track money owed to you and money you owe, with repayments and reminders. |
-| Plan | Reserve future expenses, review missed days, and record actual purchases. |
-| Budget | Edit your budget, manage usual products, or Stop and Save. |
+| Budget | Edit your budget, manage usual products, open Loans or Plan, or Stop and Save. |
+| Settings | Choose Algerian dinars or euros for new budgets. |
 
-All screenshots below come from the current app with sample records. They do not show personal financial data.
+Screenshots use sample records. The Home, Budget, Settings, and calculator images show version 0.6.0; other workflow images show the earlier layout. They do not show personal financial data.
 
 ### Small purchases, written down
 
@@ -71,11 +70,25 @@ You remember the big payment. Coffee, water, and snacks are easier to forget. Gi
 </p>
 <p align="center"><sub>Write it down. Find it later. Fix it if needed.</sub></p>
 
+## One budget, one currency
+
+Choose **Algerian dinar** or **Euro** in Settings before starting a new budget. Each budget keeps the currency it was created with. Changing the default does not convert or rename existing amounts.
+
+- DZD budgets use whole dinars. EUR budgets support cents.
+- Currency symbols appear beside amounts, including inputs and daily figures.
+- Loans, repayments, plans, and carry-over stay linked to budgets in the same currency.
+- Usual products are kept by currency. Loans and Plan have currency filters.
+
+<p align="center">
+  <img src="docs/screenshots/settings.png" width="265" alt="Settings with dinar and euro currency choices">
+  <img src="docs/screenshots/calculator.png" width="265" alt="Euro calculator with operators, CLE, DEL, double-width zero, and tall equals key">
+</p>
+
 ## Set money aside
 
 **Books on Monday. A bus pass next week. Keep their money ready.**
 
-The **Plan** tab reserves an estimated amount for one day or several selected days in your active budget. Choose **Total**, **Per day**, or **Custom**, add a label and icon, then check the split and daily-limit preview. A total of 100 DA over three days becomes 34, 33, and 33 DA. Custom lets you enter a different estimated amount for each day. Tap a date or amount to correct it before saving.
+Open **Budget > Plan**. This tool reserves an estimated amount for one day or several selected days in your active budget. Choose **Total**, **Per day**, or **Custom**, add a label and icon, then check the split and daily-limit preview. A total of 100 DA over three days becomes 34, 33, and 33 DA. Custom lets you enter a different estimated amount for each day. Tap a date or amount to correct it before saving.
 
 | Mode | Example |
 | --- | --- |
@@ -93,7 +106,7 @@ The **Plan** tab reserves an estimated amount for one day or several selected da
 - On the planned day, record the actual expense. Change the amount, label, icon, date, or time if needed. Saving replaces that day's reservation with one expense in History.
 - Missed days keep their reservation until recorded, moved, or cancelled. Plans above available cash need confirmation.
 - Correct a linked expense in History or Plan. Deleting it restores its reservation. Deleting the plan keeps recorded expenses.
-- When a budget stops, unfinished days stay available for review. Move them to dates in the active budget. Completed days stay linked to their saved budget.
+- When a budget stops, unfinished days stay available for review. Move them to dates in an active budget with the same currency. Completed days stay linked to their saved budget.
 
 Date and amount inputs are separate. Tap a date to open the calendar, tap an amount to edit its estimate, or use the red trash button to remove a pending day. Preview cards show total reserved money and the ordinary daily limit before saving.
 
@@ -105,7 +118,7 @@ Date and amount inputs are separate. Tap a date to open the calendar, tap an amo
 
 **Books for a friend. Bus money borrowed until next week. Keep both in view.**
 
-Loans has two clear directions: **Owed to me** and **I owe**. Save the person's name, amount, loan date, and an optional due date and note. The popup shows the effect on your budget before you save.
+Open **Budget > Loans** to track two directions: **Owed to me** and **I owe**. Save the person's name, amount, loan date, and an optional due date and note. The popup shows the effect on your budget before you save.
 
 | Keep track | Settle up |
 | --- | --- |
@@ -149,7 +162,7 @@ Reminders are on by default for dated loans and can be switched off per loan. Wa
 
 **Choose a period. Add your money. Save your usual purchases.**
 
-Use a **7, 15, 21, or 28-day** shortcut, or choose dates that match your next payment. The duration appears directly below the date inputs. Both the start and end dates count. Enter the full budget in whole dinars. Products are optional and can be added later.
+Use a **7, 15, 21, or 28-day** shortcut, or choose dates that match your next payment. The duration appears directly below the date inputs. Both the start and end dates count. Enter the full budget in the selected currency: whole dinars or euros with cents. Products are optional and can be added later.
 
 <details>
 <summary><b>See the three setup screens</b></summary>
@@ -164,7 +177,7 @@ Use a **7, 15, 21, or 28-day** shortcut, or choose dates that match your next pa
 
 Amount inputs accept `+`, `-`, multiplication, and division. For example, `340/5` gives **68 DA**, and `120+250` gives **370 DA**. Multiplication and division are calculated before addition and subtraction. Tap **=**, Continue, or Save to calculate.
 
-The saved result must be a positive whole amount in dinars. Invalid calculations, division by zero, and fractional final amounts are rejected. The amount keypad is shared by budget setup, expense entry, loans, and plans.
+The saved result must be positive. DZD uses whole dinars; EUR supports cents, such as €12.50. Invalid calculations, division by zero, and results with unsupported decimal precision are rejected. The amount keypad is shared by budget setup, expense entry, loans, and plans. Operators sit above the numbers. **CLE** clears the expression; **DEL** removes the last character. Zero is double width, and equals spans two rows. Operator keys have a darker surface than number keys.
 
 ## When plans change
 
@@ -247,7 +260,7 @@ These are examples. You choose the label and icon. Changing a usual product's pr
 <details>
 <summary><b>Flutter setup, checks, APK build, and source map</b></summary>
 
-Current release: **0.5.0+1**. The shared Android release is ARM64 and about **18.62 MiB**. It includes Plan and Custom daily estimates.
+Current release: **0.6.0+1**. The shared Android release is ARM64 and about **18.62 MiB**. It includes DZD and EUR budgets, Settings, and the revised calculator.
 
 This is a Flutter project. Install Flutter and the Android SDK, then run:
 
@@ -271,7 +284,7 @@ Build smaller APKs for each processor type:
 flutter build apk --release --split-per-abi --split-debug-info=build/symbols/android
 ```
 
-The generated ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Shared APKs use `waffir-release-<version>+<build>.apk`, such as `waffir-release-0.5.0+1.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. Android's internal update code includes the release version so build counters can restart without blocking updates. The current Android build uses the debug signing key; set a production key before store distribution.
+The generated ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Shared APKs use `waffir-release-<version>+<build>.apk`, such as `waffir-release-0.6.0+1.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. Android's internal update code includes the release version so build counters can restart without blocking updates. The current Android build uses the debug signing key; set a production key before store distribution.
 
 The code uses a layer-first structure:
 
@@ -279,7 +292,7 @@ The code uses a layer-first structure:
 lib/
   main.dart                 # Supplies storage and phone notifications
   domain/
-    models/                 # Budgets, expenses, loans, plans, and daily figures
+    models/                 # Currencies, budgets, expenses, loans, plans, and daily figures
     rules/                  # Expense rules and loan reminder planning
     repositories/           # Typed storage contract
   data/
@@ -289,7 +302,7 @@ lib/
   presentation/
     app.dart                # App theme and root navigation
     controllers/            # Validated changes, reservations, links, and durable saves
-    screens/                # Home, History, Loans, Plan, Budget, and editors
+    screens/                # Home, History, Budget, Settings, Loans, Plan, and editors
     widgets/                # Shared forms, cards, lists, popups, and navigation
     design/                 # Colors, spacing, button styles, and formatting
 ```
