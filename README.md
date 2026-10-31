@@ -52,7 +52,7 @@ A money journal for Algerian students. Spread your allowance across the days unt
 | Budget | Edit your budget, manage usual products, open Loans or Plan, or Stop and Save. |
 | Settings | Choose Algerian dinars or euros for new budgets. |
 
-Screenshots use sample records. The Home, Budget, Settings, and calculator images show version 0.6.0; other workflow images show the earlier layout. They do not show personal financial data.
+All screenshots show version 0.6.0 with sample records. They do not show personal financial data.
 
 ### Small purchases, written down
 
