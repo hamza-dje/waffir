@@ -2,6 +2,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:wafir/domain/rules/expense_rules.dart';
 
 void main() {
+  test("the last selected operator replaces trailing operators", () {
+    for (final previous in ["+", "-", "*", "/", "×", "÷"]) {
+      for (final next in ["+", "-", "*", "/", "×", "÷"]) {
+        expect(amountKey("120$previous", next), "120$next");
+      }
+    }
+    expect(amountKey("120+-", "*"), "120*");
+    expect(amountKey("120+  ", "-"), "120-");
+    expect(amountKey("120", "+"), "120+");
+    expect(amountKey("120+", "5"), "120+5");
+    final full = "79+";
+    expect(amountKey(full, "-"), "79-");
+  });
+
   test('amount calculations follow precedence and reject invalid money', () {
     for (final entry in {
       '340/5': 68,

@@ -50,5 +50,11 @@ String amountKey(String value, String key,
         ? value
         : currency.input(moneyValue(value, currency: currency)!);
   }
+  const operators = {"+", "-", "*", "/", "×", "÷"};
+  if (operators.contains(key)) {
+    final trimmed = value.trimRight();
+    final prefix = trimmed.replaceFirst(RegExp(r"[+*/×÷-]+$"), "");
+    if (prefix != trimmed) return prefix + key;
+  }
   return value.length < 80 ? value + key : value;
 }
