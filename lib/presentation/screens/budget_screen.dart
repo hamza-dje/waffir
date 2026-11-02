@@ -101,7 +101,7 @@ class _BudgetScreenState extends State<BudgetScreen>
   Future<bool> report(Future<bool> change, {String? success}) async {
     final ok = await change;
     if (!ok && mounted && book.error != null) {
-      AppNoticeHost.show(context, book.error!, error: true);
+      AppNoticeHost.show(context, book.error!, kind: NoticeKind.error);
     } else if (ok && mounted && success != null) {
       AppNoticeHost.show(context, success);
     }

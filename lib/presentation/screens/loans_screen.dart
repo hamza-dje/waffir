@@ -308,7 +308,7 @@ Future<void> syncLoanReminders(
     {bool request = false}) async {
   final message = await sync?.call(book.data.loans, request);
   if (message != null && context.mounted) {
-    AppNoticeHost.show(context, message, error: true);
+    AppNoticeHost.show(context, message, kind: NoticeKind.alert);
   }
 }
 

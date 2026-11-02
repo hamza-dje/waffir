@@ -9,9 +9,68 @@ import 'package:wafir/domain/models/budget_data.dart';
 import 'package:wafir/data/serialization/budget_codec.dart';
 import 'package:wafir/presentation/app.dart';
 import 'package:wafir/presentation/widgets/app_notice.dart';
+import 'package:wafir/presentation/design/design.dart';
 import 'budget_book_test.dart' show MemoryBudgetStorage;
 
 void main() {
+  testWidgets('notice styles use balanced padding and shared corner radius',
+      (tester) async {
+    tester.view.physicalSize = const Size(390, 280);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final loader = FontLoader('RedHatDisplay');
+    loader.addFont(rootBundle.load('assets/fonts/RedHatDisplay-500.ttf'));
+    await loader.load();
+    final boundary = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+        key: boundary,
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData.dark(),
+            home: Scaffold(
+                backgroundColor: background,
+                body: Padding(
+                    padding: const EdgeInsets.all(pageInset),
+                    child: Column(children: [
+                      for (final entry in {
+                        NoticeKind.success: 'Budget started',
+                        NoticeKind.alert: 'Repayment is due today',
+                        NoticeKind.error:
+                            'Expense not saved. Please try again.',
+                      }.entries) ...[
+                        AppNoticeCard(
+                            message: entry.value,
+                            kind: entry.key,
+                            onDismiss: () {}),
+                        const SizedBox(height: spaceRelated),
+                      ]
+                    ]))))));
+    await tester.pumpAndSettle();
+    final surfaces = find.byKey(const ValueKey('notice-surface'));
+    for (var i = 0; i < 3; i++) {
+      final bounds = tester.getRect(surfaces.at(i));
+      final left = tester
+          .getCenter(find.byKey(const ValueKey('notice-status-icon')).at(i));
+      final right = tester
+          .getCenter(find.byKey(const ValueKey('notice-dismiss-icon')).at(i));
+      expect(left.dx - bounds.left, closeTo(bounds.right - right.dx, .01));
+      final material = tester.widget<Material>(surfaces.at(i));
+      expect(material.borderRadius, BorderRadius.circular(controlRadius));
+      expect(material.color,
+          [noticeSuccessSurface, noticeAlertSurface, noticeErrorSurface][i]);
+    }
+    expect(tester.takeException(), isNull);
+    await tester.runAsync(() async {
+      final image = await (boundary.currentContext!.findRenderObject()
+              as RenderRepaintBoundary)
+          .toImage();
+      final bytes = (await image.toByteData(format: ui.ImageByteFormat.png))!;
+      await Directory('build/ux/notices').create(recursive: true);
+      await File('build/ux/notices/notice-styles.png')
+          .writeAsBytes(bytes.buffer.asUint8List());
+      image.dispose();
+    });
+  });
   testWidgets('new notice replaces the previous one and interrupts exit',
       (tester) async {
     final semantics = tester.ensureSemantics();

@@ -40,7 +40,9 @@ class SettingsScreen extends StatelessWidget {
                                           ? 'Default currency updated'
                                           : (book.error ??
                                               'Currency not saved. Please try again.'),
-                                      error: !ok);
+                                      kind: ok
+                                          ? NoticeKind.success
+                                          : NoticeKind.error);
                                 }
                               },
                         style: compactAction(

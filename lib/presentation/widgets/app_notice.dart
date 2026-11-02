@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import '../design/design.dart';
 import '../design/motion.dart';
 
+enum NoticeKind { success, alert, error }
+
 /// One non-modal message above the Navigator, including sheets and dialogs.
 class AppNoticeHost extends StatefulWidget {
   const AppNoticeHost({super.key, required this.child});
   final Widget child;
 
-  static void show(BuildContext context, String message, {bool error = false}) {
-    context
-        .findAncestorStateOfType<_AppNoticeHostState>()
-        ?.show(message, error);
+  static void show(BuildContext context, String message,
+      {NoticeKind kind = NoticeKind.success}) {
+    context.findAncestorStateOfType<_AppNoticeHostState>()?.show(message, kind);
   }
 
   @override
@@ -32,18 +33,19 @@ class _AppNoticeHostState extends State<AppNoticeHost>
       reverseCurve: AppMotion.easeOut);
   Timer? timer;
   String? message;
-  bool error = false;
+  NoticeKind kind = NoticeKind.success;
 
-  void show(String text, bool isError) {
+  void show(String text, NoticeKind nextKind) {
     timer?.cancel();
     setState(() {
       message = text;
-      error = isError;
+      kind = nextKind;
     });
     controller.forward();
     // Keep the message available until dismissed for assistive navigation.
     if (!MediaQuery.accessibleNavigationOf(context)) {
-      timer = Timer(Duration(seconds: isError ? 6 : 4), dismiss);
+      timer = Timer(
+          Duration(seconds: nextKind == NoticeKind.success ? 4 : 6), dismiss);
     }
   }
 
@@ -87,80 +89,107 @@ class _AppNoticeHostState extends State<AppNoticeHost>
                             constraints: const BoxConstraints(maxWidth: 560),
                             child: AnimatedBuilder(
                                 animation: progress,
-                                builder: (context, child) =>
-                                    Transform.translate(
-                                        key: const ValueKey('notice-motion'),
-                                        offset: Offset(
-                                            0,
-                                            reduce
-                                                ? 0
-                                                : -spaceRelated *
-                                                    (1 - progress.value)),
-                                        child: Opacity(
-                                            opacity: progress.value,
-                                            child: child)),
-                                child: Semantics(
-                                    liveRegion: true,
-                                    container: true,
-                                    child: Stack(children: [
-                                      // A message never blocks the controls
-                                      // underneath it. Only Close takes taps.
-                                      IgnorePointer(
-                                          child: Material(
-                                              color: surfaceHigh,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      sectionRadius),
-                                              child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      spaceRelated),
-                                                  child: Row(children: [
-                                                    SourceIcon(
-                                                        error
-                                                            ? 'alert-circle'
-                                                            : 'check',
-                                                        color: error
-                                                            ? danger
-                                                            : mint,
-                                                        size: 20),
-                                                    const SizedBox(
-                                                        width: listItemGap),
-                                                    Expanded(
-                                                        child: Text(message!,
-                                                            style: type(14,
-                                                                weight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                height: 1.4))),
-                                                    const SizedBox(
-                                                        width:
-                                                            compactActionHeight),
-                                                  ])))),
-                                      Positioned(
-                                          top: 0,
-                                          bottom: 0,
-                                          right: spaceTight,
-                                          child: Center(
-                                              child: Semantics(
-                                                  container: true,
-                                                  label: 'Dismiss message',
-                                                  button: true,
-                                                  child: IconButton(
-                                                      onPressed: dismiss,
-                                                      constraints: const BoxConstraints
-                                                          .tightFor(
-                                                          width:
-                                                              compactActionHeight,
-                                                          height:
-                                                              compactActionHeight),
-                                                      icon: Transform.rotate(
-                                                          angle: math.pi / 4,
-                                                          child: const SourceIcon(
-                                                              'plus',
-                                                              size: 20,
-                                                              color:
-                                                                  secondaryText))))))
-                                    ])))))))),
+                                builder: (context, child) => Transform.translate(
+                                    key: const ValueKey('notice-motion'),
+                                    offset: Offset(
+                                        0,
+                                        reduce
+                                            ? 0
+                                            : -spaceRelated *
+                                                (1 - progress.value)),
+                                    child: Opacity(
+                                        opacity: progress.value, child: child)),
+                                child: AppNoticeCard(
+                                    message: message!,
+                                    kind: kind,
+                                    onDismiss: dismiss))))))),
     ]);
+  }
+}
+
+class AppNoticeCard extends StatelessWidget {
+  const AppNoticeCard(
+      {super.key,
+      required this.message,
+      required this.kind,
+      required this.onDismiss});
+  final String message;
+  final NoticeKind kind;
+  final VoidCallback onDismiss;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = switch (kind) {
+      NoticeKind.success => noticeSuccessSurface,
+      NoticeKind.alert => noticeAlertSurface,
+      NoticeKind.error => noticeErrorSurface,
+    };
+    final accent = switch (kind) {
+      NoticeKind.success => mint,
+      NoticeKind.alert => caution,
+      NoticeKind.error => danger,
+    };
+    return Semantics(
+        liveRegion: true,
+        container: true,
+        child: Stack(children: [
+          IgnorePointer(
+              child: Material(
+                  key: const ValueKey("notice-surface"),
+                  color: color,
+                  borderRadius: BorderRadius.circular(controlRadius),
+                  child: ConstrainedBox(
+                      constraints:
+                          const BoxConstraints(minHeight: actionHeight),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: spaceTight),
+                          child: Row(children: [
+                            SizedBox.square(
+                                dimension: compactActionHeight,
+                                child: Center(
+                                    child: SourceIcon(
+                                        kind == NoticeKind.success
+                                            ? "check"
+                                            : "alert-circle",
+                                        key: const ValueKey(
+                                            "notice-status-icon"),
+                                        color: accent,
+                                        size: 20))),
+                            const SizedBox(width: spaceTight),
+                            Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: spaceRelated),
+                                    child: Text(message,
+                                        style: type(14,
+                                            weight: FontWeight.w500,
+                                            height: 1.4)))),
+                            const SizedBox(width: spaceTight),
+                            const SizedBox(width: compactActionHeight),
+                          ]))))),
+          Positioned(
+              top: 0,
+              bottom: 0,
+              right: spaceTight,
+              child: Center(
+                  child: Semantics(
+                      container: true,
+                      label: "Dismiss message",
+                      button: true,
+                      child: IconButton(
+                          onPressed: onDismiss,
+                          style: IconButton.styleFrom(
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              padding: const EdgeInsets.all(spaceRelated),
+                              fixedSize: const Size(
+                                  compactActionHeight, compactActionHeight)),
+                          icon: Transform.rotate(
+                              angle: math.pi / 4,
+                              child: const SourceIcon("plus",
+                                  key: ValueKey("notice-dismiss-icon"),
+                                  size: 20,
+                                  color: secondaryText))))))
+        ]));
   }
 }

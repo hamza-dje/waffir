@@ -167,7 +167,8 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                           expense, widget.budget, DateTime.now(),
                           correction: true);
                       if (invalid != null) {
-                        AppNoticeHost.show(context, invalid, error: true);
+                        AppNoticeHost.show(context, invalid,
+                            kind: NoticeKind.error);
                         return;
                       }
                       Navigator.pop(context, expense);

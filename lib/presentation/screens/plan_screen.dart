@@ -15,7 +15,8 @@ import 'editors.dart';
 Future<void> showPlanSheet(BuildContext context, BudgetBook book,
     [SpendingPlan? initial]) async {
   if (book.data.active == null) {
-    AppNoticeHost.show(context, 'Start a budget to add a plan.', error: true);
+    AppNoticeHost.show(context, 'Start a budget to add a plan.',
+        kind: NoticeKind.alert);
     return;
   }
   await showModalBottomSheet<void>(
@@ -324,14 +325,14 @@ class PlanDetails extends StatelessWidget {
 }
 
 void planError(BuildContext context, String error) =>
-    AppNoticeHost.show(context, error, error: true);
+    AppNoticeHost.show(context, error, kind: NoticeKind.error);
 
 void planResult(
     BuildContext context, BudgetBook book, bool ok, String message) {
   if (!context.mounted) return;
   AppNoticeHost.show(context,
       ok ? message : (book.error ?? 'Changes not saved. Please try again.'),
-      error: !ok);
+      kind: ok ? NoticeKind.success : NoticeKind.error);
 }
 
 class PlanSheet extends StatefulWidget {
