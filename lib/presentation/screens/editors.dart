@@ -1,3 +1,4 @@
+import '../widgets/app_action_button.dart';
 import '../widgets/form_controls.dart';
 import '../widgets/editor_actions.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _BudgetEditorState extends State<BudgetEditor> {
                       child: CurrencyText(error!,
                           style: type(13, color: caution))),
                 const SizedBox(height: 16),
-                FilledButton(
+                AppActionButton(
                     onPressed: busy
                         ? null
                         : () async {
@@ -151,7 +152,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                 const SizedBox(height: 16),
                 ExpenseIcons(icon, (value) => setState(() => icon = value)),
                 const SizedBox(height: 20),
-                FilledButton(
+                AppActionButton(
                     onPressed: () {
                       if (!form.currentState!.validate()) return;
                       final chosen = DateTime(date.year, date.month, date.day,
@@ -175,7 +176,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                         widget.recording ? 'Log it' : 'Save expense')),
                 const SizedBox(height: 12),
                 if (!widget.recording)
-                  FilledButton(
+                  AppActionButton(
                       style: deleteAction(),
                       onPressed: () async {
                         final yes = await confirmAction(
@@ -235,7 +236,7 @@ class _ProductEditorState extends State<ProductEditor> {
             const SizedBox(height: 24),
             ExpenseIcons(icon, (value) => setState(() => icon = value)),
             const SizedBox(height: 24),
-            FilledButton(
+            AppActionButton(
                 onPressed: () {
                   if (form.currentState!.validate()) {
                     Navigator.pop(
@@ -250,7 +251,7 @@ class _ProductEditorState extends State<ProductEditor> {
                 },
                 child: const CurrencyText('Save product')),
             if (widget.initial != null)
-              FilledButton(
+              AppActionButton(
                   style: deleteAction(),
                   onPressed: () async {
                     final yes = await confirmAction(context, 'Remove product?',

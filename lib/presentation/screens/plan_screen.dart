@@ -1,3 +1,4 @@
+import '../widgets/app_action_button.dart';
 import 'package:flutter/material.dart';
 import '../widgets/app_notice.dart';
 import '../../domain/models/budget_data.dart';
@@ -61,7 +62,7 @@ class _PlanScreenState extends State<PlanScreen> {
       Text('Set money aside for the days that matter.',
           style: type(13, color: secondaryText)),
       const SizedBox(height: spaceSection),
-      FilledButton.icon(
+      AppActionButton.icon(
           onPressed: book.saving ? null : () => showPlanSheet(context, book),
           icon: const SourceIcon('plus', color: ink),
           label: const Text('Add plan')),
@@ -165,7 +166,7 @@ class PlanDetails extends StatelessWidget {
                           style: type(13, color: caution)),
                   ])),
               const SizedBox(height: spaceRelated),
-              FilledButton(
+              AppActionButton(
                   style: editAction(),
                   onPressed: book.saving || p.complete
                       ? null
@@ -213,7 +214,7 @@ class PlanDetails extends StatelessWidget {
                                 value:
                                     '${budget.expenses.firstWhere((e) => e.id == d.expenseId).amount} DA'),
                             const SizedBox(height: spaceRelated),
-                            FilledButton(
+                            AppActionButton(
                                 style: editAction(),
                                 onPressed: book.saving
                                     ? null
@@ -235,6 +236,7 @@ class PlanDetails extends StatelessWidget {
                                             budget.id,
                                             index,
                                             result is Expense ? result : null);
+                                        if (!context.mounted) return;
                                         planResult(
                                             context,
                                             book,
@@ -249,7 +251,7 @@ class PlanDetails extends StatelessWidget {
                             const SizedBox(height: spaceRelated),
                             if (!closed &&
                                 daysBetween(DateTime.now(), d.date) <= 0) ...[
-                              FilledButton(
+                              AppActionButton(
                                   onPressed: book.saving
                                       ? null
                                       : () async {
@@ -270,6 +272,7 @@ class PlanDetails extends StatelessWidget {
                                           if (expense != null) {
                                             final ok = await book.recordPlanDay(
                                                 p.id, d.id, expense);
+                                            if (!context.mounted) return;
                                             planResult(context, book, ok,
                                                 'Expense saved. Reservation released.');
                                           }
@@ -277,7 +280,7 @@ class PlanDetails extends StatelessWidget {
                                   child: const Text('Record expense')),
                               const SizedBox(height: spaceTight),
                             ],
-                            FilledButton(
+                            AppActionButton(
                                 style: deleteAction(),
                                 onPressed: book.saving
                                     ? null
@@ -289,6 +292,7 @@ class PlanDetails extends StatelessWidget {
                                             'Cancel day')) {
                                           final ok = await book.cancelPlanDay(
                                               p.id, d.id);
+                                          if (!context.mounted) return;
                                           planResult(context, book, ok,
                                               'Planned day cancelled. Money released.');
                                         }
@@ -297,7 +301,7 @@ class PlanDetails extends StatelessWidget {
                           ]
                         ]))),
               const SizedBox(height: spaceSection),
-              FilledButton(
+              AppActionButton(
                   style: deleteAction(),
                   onPressed: book.saving
                       ? null
@@ -308,6 +312,7 @@ class PlanDetails extends StatelessWidget {
                               'Release unfinished reservations. Recorded expenses stay in History.',
                               'Delete')) {
                             final ok = await book.deletePlan(p.id);
+                            if (!context.mounted) return;
                             planResult(context, book, ok,
                                 'Plan deleted. Recorded expenses kept.');
                             if (ok && context.mounted) Navigator.pop(context);
@@ -500,7 +505,7 @@ class _PlanSheetState extends State<PlanSheet> {
               for (final value in PlanAmountMode.values) ...[
                 if (value.index > 0) const SizedBox(width: spaceTight),
                 Expanded(
-                    child: FilledButton(
+                    child: AppActionButton(
                         style: compactAction(cancel: mode != value),
                         onPressed: () => setState(() {
                               mode = value;
@@ -542,7 +547,7 @@ class _PlanSheetState extends State<PlanSheet> {
             ExpenseIcons(icon, (v) => setState(() => icon = v)),
             const SizedBox(height: spaceSection),
             if (budget.closedAt != null && book.data.active != null) ...[
-              FilledButton(
+              AppActionButton(
                   style: secondaryAction(),
                   onPressed: () => setState(() {
                         budgetId = book.data.active!.id;
@@ -592,7 +597,7 @@ class _PlanSheetState extends State<PlanSheet> {
                               : () => setState(() => dates.remove(d.date))),
                     ]
                   ])),
-            FilledButton.icon(
+            AppActionButton.icon(
                 style: secondaryAction(),
                 onPressed: busy ? null : addDate,
                 icon: const SourceIcon('calendar'),
@@ -628,7 +633,7 @@ class _PlanSheetState extends State<PlanSheet> {
                 padding: const EdgeInsets.only(top: spaceRelated),
                 child: Text(error!, style: type(13, color: danger))),
           const SizedBox(height: spaceSection),
-          FilledButton(
+          AppActionButton(
               onPressed: busy
                   ? null
                   : () async {

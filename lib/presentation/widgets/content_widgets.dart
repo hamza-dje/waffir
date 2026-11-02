@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../design/design.dart';
 import 'editor_actions.dart';
 import 'content_transition.dart';
+import 'press_feedback.dart';
 
 class AmountStatCard extends StatelessWidget {
   const AmountStatCard(
@@ -45,16 +46,19 @@ class AppActionIcon extends StatelessWidget {
   final bool destructive;
   final double size;
   @override
-  Widget build(BuildContext context) => SizedBox.square(
-      dimension: size,
-      child: IconButton(
-          tooltip: tooltip,
-          onPressed: onPressed,
-          style: (destructive ? deleteAction(compact: true) : backAction())
-              .copyWith(
-                  padding: const WidgetStatePropertyAll(EdgeInsets.zero),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          icon: SourceIcon(icon, color: destructive ? danger : primaryText)));
+  Widget build(BuildContext context) => PressFeedback(
+      enabled: onPressed != null,
+      child: SizedBox.square(
+          dimension: size,
+          child: IconButton(
+              tooltip: tooltip,
+              onPressed: onPressed,
+              style: (destructive ? deleteAction(compact: true) : backAction())
+                  .copyWith(
+                      padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+              icon: SourceIcon(icon,
+                  color: destructive ? danger : primaryText))));
 }
 
 class AppFilters extends StatelessWidget {

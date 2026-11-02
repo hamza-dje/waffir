@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import '../design/design.dart';
+import 'press_feedback.dart';
 
 class AppBackButton extends StatelessWidget {
   const AppBackButton({super.key, required this.onPressed});
   final VoidCallback? onPressed;
   @override
-  Widget build(BuildContext context) => IconButton.filled(
-      tooltip: 'Back',
-      onPressed: onPressed,
-      style: backAction().copyWith(
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          minimumSize: const WidgetStatePropertyAll(
-              Size(compactActionHeight, compactActionHeight)),
-          fixedSize: const WidgetStatePropertyAll(
-              Size(compactActionHeight, compactActionHeight)),
-          padding: const WidgetStatePropertyAll(EdgeInsets.all(spaceRelated))),
-      icon: const RotatedBox(
-          quarterTurns: 2, child: SourceIcon('chevron-right', size: 16)));
+  Widget build(BuildContext context) => PressFeedback(
+      enabled: onPressed != null,
+      child: IconButton.filled(
+          tooltip: 'Back',
+          onPressed: onPressed,
+          style: backAction().copyWith(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              minimumSize: const WidgetStatePropertyAll(
+                  Size(compactActionHeight, compactActionHeight)),
+              fixedSize: const WidgetStatePropertyAll(
+                  Size(compactActionHeight, compactActionHeight)),
+              padding:
+                  const WidgetStatePropertyAll(EdgeInsets.all(spaceRelated))),
+          icon: const RotatedBox(
+              quarterTurns: 2, child: SourceIcon('chevron-right', size: 16))));
 }
 
 class PageHeading extends StatelessWidget {

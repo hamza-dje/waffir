@@ -1,3 +1,4 @@
+import '../widgets/app_action_button.dart';
 import 'package:flutter/material.dart';
 import '../controllers/budget_book.dart';
 import '../design/design.dart';
@@ -27,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
               for (final value in AppCurrency.values)
                 Padding(
                     padding: const EdgeInsets.only(bottom: spaceTight),
-                    child: FilledButton(
+                    child: AppActionButton(
                         onPressed: book.saving
                             ? null
                             : () async {

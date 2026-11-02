@@ -1,3 +1,4 @@
+import '../widgets/app_action_button.dart';
 import '../widgets/product_list.dart';
 import '../widgets/content_transition.dart';
 import '../widgets/editor_actions.dart';
@@ -232,7 +233,7 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                           child: CurrencyText(error!,
                                               style: type(13, color: caution))),
                                     const SizedBox(height: 12),
-                                    FilledButton(
+                                    AppActionButton(
                                         onPressed: busy ? null : next,
                                         child: CurrencyText(busy
                                             ? 'Saving…'

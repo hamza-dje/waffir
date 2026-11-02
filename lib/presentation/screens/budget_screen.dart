@@ -1,3 +1,4 @@
+import '../widgets/app_action_button.dart';
 import 'settings_screen.dart';
 import '../design/motion.dart';
 import '../widgets/content_transition.dart';
@@ -281,7 +282,7 @@ class _BudgetScreenState extends State<BudgetScreen>
         CurrencyText('Your saved budgets and expenses are in History.',
             textAlign: TextAlign.center, style: type(13, color: secondaryText)),
         const SizedBox(height: 28),
-        FilledButton(
+        AppActionButton(
             onPressed: saving ? null : () => newBudget(lastSaved),
             child: const CurrencyText('Start new budget')),
       ]);
@@ -359,7 +360,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                   style: type(11, color: secondaryText)),
             ],
             const SizedBox(height: 24),
-            FilledButton.icon(
+            AppActionButton.icon(
                 onPressed: !usable || saving ? null : customExpense,
                 icon: const SourceIcon('plus', color: Color(0xFF06251A)),
                 label: const Text('Add expense')),
@@ -646,7 +647,7 @@ class _BudgetScreenState extends State<BudgetScreen>
                     ]),
                   ])),
         ] else
-          FilledButton(
+          AppActionButton(
               onPressed: saving ? null : () => newBudget(lastSaved),
               child: const CurrencyText('Start new budget')),
         const SizedBox(height: 24),
@@ -807,7 +808,7 @@ class _BudgetHistoryPageState extends State<BudgetHistoryPage> {
                     '$transfer DA carried to the next budget. This transfer stays fixed after corrections.',
                     style: type(12, color: secondaryText))),
           const SizedBox(height: 16),
-          FilledButton(
+          AppActionButton(
               style: editAction(),
               onPressed: () async {
                 await widget.onEditBudget();

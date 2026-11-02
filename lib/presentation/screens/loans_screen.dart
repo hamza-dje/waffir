@@ -1,3 +1,4 @@
+import '../widgets/app_action_button.dart';
 import '../widgets/loan_budget_preview.dart';
 import 'package:flutter/material.dart';
 import '../widgets/app_notice.dart';
@@ -82,7 +83,7 @@ class _LoansScreenState extends State<LoansScreen> {
         ]
       ]),
       const SizedBox(height: spaceRelated),
-      FilledButton.icon(
+      AppActionButton.icon(
           onPressed: widget.book.saving
               ? null
               : () => showLoanSheet(context, widget.book,
@@ -200,14 +201,14 @@ class LoanDetails extends StatelessWidget {
                                 : secondaryText)),
                     const SizedBox(height: 24),
                     if (l.remaining > 0)
-                      FilledButton(
+                      AppActionButton(
                           onPressed: book.saving
                               ? null
                               : () => showPaymentSheet(context, book, l,
                                   syncReminders: syncReminders),
                           child: const Text('Record repayment')),
                     const SizedBox(height: 8),
-                    FilledButton(
+                    AppActionButton(
                         style: editAction(),
                         onPressed: book.saving
                             ? null
@@ -396,7 +397,7 @@ class _LoanSheetState extends State<LoanSheet> {
                   Expanded(
                       child: Semantics(
                     selected: lent == value,
-                    child: FilledButton(
+                    child: AppActionButton(
                         onPressed: widget.initial?.payments.isNotEmpty == true
                             ? null
                             : () => setState(() => lent = value),
@@ -514,7 +515,7 @@ class _LoanSheetState extends State<LoanSheet> {
                   padding: const EdgeInsets.only(top: 12),
                   child: Text(error!, style: type(13, color: danger))),
             const SizedBox(height: 24),
-            FilledButton(
+            AppActionButton(
                 onPressed: busy
                     ? null
                     : () async {
@@ -571,7 +572,7 @@ class _LoanSheetState extends State<LoanSheet> {
                     details ? (busy ? 'Saving...' : 'Save loan') : 'Continue')),
             if (widget.initial != null) ...[
               const SizedBox(height: 12),
-              FilledButton(
+              AppActionButton(
                   style: deleteAction(),
                   onPressed: busy
                       ? null
@@ -793,13 +794,13 @@ class _PaymentSheetState extends State<PaymentSheet> {
             const SizedBox(height: 24),
             Row(children: [
               Expanded(
-                  child: FilledButton(
+                  child: AppActionButton(
                       style: compactAction(cancel: true),
                       onPressed: busy ? null : () => Navigator.pop(context),
                       child: const Text('Cancel'))),
               const SizedBox(width: 8),
               Expanded(
-                  child: FilledButton(
+                  child: AppActionButton(
                       style: compactAction(),
                       onPressed: busy
                           ? null
@@ -854,7 +855,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
             ]),
             if (widget.initial != null) ...[
               const SizedBox(height: 12),
-              FilledButton(
+              AppActionButton(
                   style: deleteAction(),
                   onPressed: busy
                       ? null

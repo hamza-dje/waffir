@@ -1,3 +1,4 @@
+import 'app_action_button.dart';
 import 'package:flutter/material.dart';
 import 'content_transition.dart';
 import '../design/design.dart';
@@ -93,7 +94,7 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
                           child: CurrencyText(error!,
                               style: type(13, color: caution))),
                     const SizedBox(height: 24),
-                    FilledButton(
+                    AppActionButton(
                         onPressed: () {
                           final value = moneyValue(amount,
                               currency: MoneyScope.read(context));

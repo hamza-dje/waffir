@@ -1,3 +1,4 @@
+import 'app_action_button.dart';
 import 'package:flutter/material.dart';
 import '../../domain/models/budget_data.dart';
 import '../design/design.dart';
@@ -72,7 +73,7 @@ class ProductList extends StatelessWidget {
                               if (yes) onChanged([...products]..removeAt(i));
                             }))),
         if (products.isNotEmpty) const SizedBox(height: 16),
-        FilledButton.icon(
+        AppActionButton.icon(
             style: FilledButton.styleFrom(
                 minimumSize: const Size(48, actionHeight),
                 padding: const EdgeInsets.symmetric(horizontal: 22),

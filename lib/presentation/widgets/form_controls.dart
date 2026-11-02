@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../design/motion.dart';
+import 'press_feedback.dart';
 import '../../domain/models/budget_data.dart';
 import '../design/design.dart';
 import '../design/format.dart';
@@ -127,33 +129,36 @@ class PickerButton extends StatelessWidget {
   final Widget? trailing;
   final EdgeInsetsGeometry padding;
   @override
-  Widget build(BuildContext context) => Material(
-      color: surfaceHigh,
-      borderRadius: BorderRadius.circular(controlRadius),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-          onTap: onPressed,
-          child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: actionHeight),
-              child: Padding(
-                  padding: padding,
-                  child: Row(children: [
-                    if (icon != null) ...[
-                      SourceIcon(icon!, color: secondaryText),
-                      const SizedBox(width: listItemGap),
-                    ],
-                    Expanded(
-                        child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.centerLeft,
-                            child: CurrencyText(text, style: buttonType(16)))),
-                    if (trailing != null || showArrow) ...[
-                      const SizedBox(width: spaceTight),
-                      trailing ??
-                          const SourceIcon('chevron-right',
-                              size: 16, color: tertiaryText),
-                    ],
-                  ])))));
+  Widget build(BuildContext context) => PressFeedback(
+      enabled: onPressed != null,
+      child: Material(
+          color: surfaceHigh,
+          borderRadius: BorderRadius.circular(controlRadius),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+              onTap: onPressed,
+              child: ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: actionHeight),
+                  child: Padding(
+                      padding: padding,
+                      child: Row(children: [
+                        if (icon != null) ...[
+                          SourceIcon(icon!, color: secondaryText),
+                          const SizedBox(width: listItemGap),
+                        ],
+                        Expanded(
+                            child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child:
+                                    CurrencyText(text, style: buttonType(16)))),
+                        if (trailing != null || showArrow) ...[
+                          const SizedBox(width: spaceTight),
+                          trailing ??
+                              const SourceIcon('chevron-right',
+                                  size: 16, color: tertiaryText),
+                        ],
+                      ]))))));
 }
 
 class DateControl extends StatelessWidget {
@@ -211,7 +216,11 @@ class ExpenseIcons extends StatelessWidget {
                 child: InkWell(
                     onTap: () => onChanged(icon),
                     borderRadius: BorderRadius.circular(14),
-                    child: Container(
+                    child: AnimatedContainer(
+                        duration: MediaQuery.disableAnimationsOf(context)
+                            ? AppMotion.reduced
+                            : AppMotion.quick,
+                        curve: AppMotion.easeOut,
                         width: 48,
                         height: 48,
                         decoration: panel(
