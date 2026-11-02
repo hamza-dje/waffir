@@ -258,10 +258,18 @@ Choose your own labels and icons. Changing a usual product affects future taps; 
 
 ## Run it yourself
 
+
+| Version | Changes |
+| --- | --- |
+| 0.6.2 | Shared press feedback, short screen and form transitions, and top messages for success, alerts, and errors. Motion respects the phone settings. |
+| 0.6.1 | Fixed spacing for long amount expressions. Selecting another operator replaces the previous operator. |
+| 0.6.0 | DZD and EUR budgets, Settings, four main tabs, and the calculator layout. |
+
+
 <details>
 <summary><b>Flutter setup, checks, APK build, and source map</b></summary>
 
-Current release: **0.6.0+1**. The shared Android release is ARM64 and about **18.62 MiB**. It includes DZD and EUR budgets, Settings, and the revised calculator.
+Current release: **0.6.2+1**. The shared Android release is ARM64 and about **18.62 MiB**. It includes the amount-entry fixes, shared animations, and top confirmation messages. DZD and EUR budgets, Settings, Loans, and Plan remain available.
 
 This is a Flutter project. Install Flutter and the Android SDK, then run:
 
@@ -285,7 +293,7 @@ Build smaller APKs for each processor type:
 flutter build apk --release --split-per-abi --split-debug-info=build/symbols/android
 ```
 
-The generated ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Shared APKs use `waffir-release-<version>+<build>.apk`, such as `waffir-release-0.6.0+1.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. Android's internal update code includes the release version so build counters can restart without blocking updates. The current Android build uses the debug signing key; set a production key before store distribution.
+The generated ARM64 output is `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`. Shared APKs use `waffir-release-<version>+<build>.apk`, such as `waffir-release-0.6.2+1.apk`. Build outputs are not stored in Git. Keep the debug symbol files with the release. Android's internal update code includes the release version so build counters can restart without blocking updates. The current Android build uses the debug signing key; set a production key before store distribution.
 
 The code uses a layer-first structure:
 
