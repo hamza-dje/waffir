@@ -269,7 +269,7 @@ Choose your own labels and icons. Changing a usual product affects future taps; 
 <details>
 <summary><b>Flutter setup, checks, APK build, and source map</b></summary>
 
-Current release: **0.6.2+1**. The shared Android release is ARM64 and about **18.62 MiB**. It includes the amount-entry fixes, shared animations, and top confirmation messages. DZD and EUR budgets, Settings, Loans, and Plan remain available.
+Current release: **0.6.2+1**. The shared Android release is ARM64 and about **18.56 MiB**. It includes the amount-entry fixes, shared animations, and top confirmation messages. DZD and EUR budgets, Settings, Loans, and Plan remain available.
 
 This is a Flutter project. Install Flutter and the Android SDK, then run:
 
