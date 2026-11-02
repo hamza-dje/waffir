@@ -1,4 +1,6 @@
 import 'settings_screen.dart';
+import '../design/motion.dart';
+import '../widgets/content_transition.dart';
 import '../widgets/plan_home_summary.dart';
 import 'plan_screen.dart';
 import '../widgets/app_navigation.dart';
@@ -687,26 +689,31 @@ class _BudgetScreenState extends State<BudgetScreen>
                                     creating = false;
                                     carrySource = null;
                                   }))
-                          : ListView(
-                              key: ValueKey(tab),
-                              padding: EdgeInsets.fromLTRB(
-                                  pageInset,
-                                  spaceTight,
-                                  pageInset,
-                                  navigationClearance +
-                                      MediaQuery.viewPaddingOf(context).bottom),
-                              children: [
-                                  if (tab == 0)
-                                    data.active == null
-                                        ? emptyHome()
-                                        : home(data.active!)
-                                  else if (tab == 1)
-                                    history()
-                                  else if (tab == 2)
-                                    budgetPage()
-                                  else
-                                    SettingsScreen(book: book)
-                                ])))),
+                          : ContentTransition(
+                              change: tab,
+                              duration: AppMotion.quick,
+                              fromOpacity: .85,
+                              child: ListView(
+                                  key: ValueKey(tab),
+                                  padding: EdgeInsets.fromLTRB(
+                                      pageInset,
+                                      spaceTight,
+                                      pageInset,
+                                      navigationClearance +
+                                          MediaQuery.viewPaddingOf(context)
+                                              .bottom),
+                                  children: [
+                                    if (tab == 0)
+                                      data.active == null
+                                          ? emptyHome()
+                                          : home(data.active!)
+                                    else if (tab == 1)
+                                      history()
+                                    else if (tab == 2)
+                                      budgetPage()
+                                    else
+                                      SettingsScreen(book: book)
+                                  ]))))),
       bottomNavigationBar: !book.loaded || creating
           ? null
           : AppNavigation(

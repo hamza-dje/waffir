@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'content_transition.dart';
 import '../design/design.dart';
 import 'form_controls.dart';
 import '../../domain/models/budget_data.dart';
@@ -25,98 +26,103 @@ class _ExpenseSheetState extends State<ExpenseSheet> {
   }
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-      child: Padding(
-          padding: EdgeInsets.fromLTRB(
-              24, 12, 24, 32 + MediaQuery.viewInsetsOf(context).bottom),
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Center(
-                    child: Container(
-                        width: 36,
-                        height: 4,
-                        decoration:
-                            panel(radius: 2, color: const Color(0x995B6472)))),
-                const SizedBox(height: 20),
-                CurrencyText('Log an expense',
-                    style: type(20,
-                        role: TextRole.display, weight: FontWeight.w600)),
-                const SizedBox(height: 4),
-                Row(children: [
-                  Expanded(
-                      child: CurrencyText(
-                          'Today · ${DateTime.now().day}/${DateTime.now().month}',
-                          style: type(11, color: tertiaryText))),
-                ]),
-                const SizedBox(height: 8),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 4, 0, 8),
-                    child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: CurrencyText(
-                            '${amount.isEmpty ? '0' : amount} DA',
-                            input: true,
-                            style: type(52,
-                                role: TextRole.display,
-                                weight: FontWeight.w600,
-                                spacing: -2),
-                            textAlign: TextAlign.center))),
-                if (!details)
-                  AmountKeypad(
-                      keyHeight: 52,
-                      onKey: (key) => setState(() {
-                            error = null;
-                            amount = amountKey(amount, key,
-                                currency: MoneyScope.read(context));
-                          })),
-                if (details)
-                  LabeledField(
-                      label: 'What was it for?',
-                      controller: name,
-                      maxLength: 60),
-                if (details) ...[
-                  ExpenseIcons(icon, (value) => setState(() => icon = value)),
-                  const SizedBox(height: 16),
-                  ExpenseTime(time, (value) => setState(() => time = value)),
-                ],
-                if (error != null)
-                  Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: CurrencyText(error!,
-                          style: type(13, color: caution))),
-                const SizedBox(height: 24),
-                FilledButton(
-                    onPressed: () {
-                      final value = moneyValue(amount,
-                          currency: MoneyScope.read(context));
-                      final invalidAmount = positiveMoney(amount,
-                          currency: MoneyScope.read(context));
-                      if (invalidAmount != null) {
-                        setState(() => error = invalidAmount);
-                        return;
-                      }
-                      if (!details) {
-                        setState(() {
-                          amount = MoneyScope.read(context).input(value!);
-                          details = true;
-                        });
-                        return;
-                      }
-                      final now = DateTime.now();
-                      final date = DateTime(
-                          now.year, now.month, now.day, time.hour, time.minute);
-                      final expense =
-                          Expense(name.text.trim(), value!, date, icon);
-                      final invalid =
-                          ExpenseRules.validate(expense, widget.budget, now);
-                      if (invalid != null) {
-                        setState(() => error = invalid);
-                        return;
-                      }
-                      Navigator.pop(context, expense);
-                    },
-                    child: CurrencyText(details ? 'Log it' : 'Continue')),
-              ])));
+  Widget build(BuildContext context) => ContentTransition(
+      change: details,
+      animateOnMount: true,
+      child: SingleChildScrollView(
+          child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                  24, 12, 24, 32 + MediaQuery.viewInsetsOf(context).bottom),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Center(
+                        child: Container(
+                            width: 36,
+                            height: 4,
+                            decoration: panel(
+                                radius: 2, color: const Color(0x995B6472)))),
+                    const SizedBox(height: 20),
+                    CurrencyText('Log an expense',
+                        style: type(20,
+                            role: TextRole.display, weight: FontWeight.w600)),
+                    const SizedBox(height: 4),
+                    Row(children: [
+                      Expanded(
+                          child: CurrencyText(
+                              'Today · ${DateTime.now().day}/${DateTime.now().month}',
+                              style: type(11, color: tertiaryText))),
+                    ]),
+                    const SizedBox(height: 8),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 4, 0, 8),
+                        child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: CurrencyText(
+                                '${amount.isEmpty ? '0' : amount} DA',
+                                input: true,
+                                style: type(52,
+                                    role: TextRole.display,
+                                    weight: FontWeight.w600,
+                                    spacing: -2),
+                                textAlign: TextAlign.center))),
+                    if (!details)
+                      AmountKeypad(
+                          keyHeight: 52,
+                          onKey: (key) => setState(() {
+                                error = null;
+                                amount = amountKey(amount, key,
+                                    currency: MoneyScope.read(context));
+                              })),
+                    if (details)
+                      LabeledField(
+                          label: 'What was it for?',
+                          controller: name,
+                          maxLength: 60),
+                    if (details) ...[
+                      ExpenseIcons(
+                          icon, (value) => setState(() => icon = value)),
+                      const SizedBox(height: 16),
+                      ExpenseTime(
+                          time, (value) => setState(() => time = value)),
+                    ],
+                    if (error != null)
+                      Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: CurrencyText(error!,
+                              style: type(13, color: caution))),
+                    const SizedBox(height: 24),
+                    FilledButton(
+                        onPressed: () {
+                          final value = moneyValue(amount,
+                              currency: MoneyScope.read(context));
+                          final invalidAmount = positiveMoney(amount,
+                              currency: MoneyScope.read(context));
+                          if (invalidAmount != null) {
+                            setState(() => error = invalidAmount);
+                            return;
+                          }
+                          if (!details) {
+                            setState(() {
+                              amount = MoneyScope.read(context).input(value!);
+                              details = true;
+                            });
+                            return;
+                          }
+                          final now = DateTime.now();
+                          final date = DateTime(now.year, now.month, now.day,
+                              time.hour, time.minute);
+                          final expense =
+                              Expense(name.text.trim(), value!, date, icon);
+                          final invalid = ExpenseRules.validate(
+                              expense, widget.budget, now);
+                          if (invalid != null) {
+                            setState(() => error = invalid);
+                            return;
+                          }
+                          Navigator.pop(context, expense);
+                        },
+                        child: CurrencyText(details ? 'Log it' : 'Continue')),
+                  ]))));
 }

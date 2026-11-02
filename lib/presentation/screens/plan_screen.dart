@@ -478,6 +478,7 @@ class _PlanSheetState extends State<PlanSheet> {
         preview.cash - preview.transfers.reserved - preview.plannedReserved;
     return FormSheet(
         title: widget.initial == null ? 'Add plan' : 'Edit plan',
+        step: details,
         onBack: details && !busy ? () => setState(() => details = false) : null,
         children: [
           if (!details) ...[

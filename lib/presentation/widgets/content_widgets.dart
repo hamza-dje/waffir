@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../design/design.dart';
 import 'editor_actions.dart';
+import 'content_transition.dart';
 
 class AmountStatCard extends StatelessWidget {
   const AmountStatCard(
@@ -139,33 +140,42 @@ class DetailField extends StatelessWidget {
 
 class FormSheet extends StatelessWidget {
   const FormSheet(
-      {super.key, required this.title, required this.children, this.onBack});
+      {super.key,
+      required this.title,
+      required this.children,
+      this.onBack,
+      this.step});
   final String title;
   final List<Widget> children;
   final VoidCallback? onBack;
+  final Object? step;
   @override
   Widget build(BuildContext context) => SafeArea(
       top: false,
-      child: SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  24, 12, 24, 24 + MediaQuery.viewInsetsOf(context).bottom),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Center(
-                        child: Container(
-                            width: 36,
-                            height: 4,
-                            decoration: panel(radius: 2, color: tertiaryText))),
-                    const SizedBox(height: 20),
-                    PageHeading(
-                        title: title,
-                        leading: onBack == null
-                            ? null
-                            : AppBackButton(onPressed: onBack)),
-                    const SizedBox(height: 20),
-                    ...children
-                  ]))));
+      child: ContentTransition(
+          change: step,
+          animateOnMount: true,
+          child: SingleChildScrollView(
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      24, 12, 24, 24 + MediaQuery.viewInsetsOf(context).bottom),
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                            child: Container(
+                                width: 36,
+                                height: 4,
+                                decoration:
+                                    panel(radius: 2, color: tertiaryText))),
+                        const SizedBox(height: 20),
+                        PageHeading(
+                            title: title,
+                            leading: onBack == null
+                                ? null
+                                : AppBackButton(onPressed: onBack)),
+                        const SizedBox(height: 20),
+                        ...children
+                      ])))));
 }

@@ -1,4 +1,5 @@
 import '../widgets/product_list.dart';
+import '../widgets/content_transition.dart';
 import '../widgets/editor_actions.dart';
 import '../widgets/form_controls.dart';
 import 'package:flutter/material.dart';
@@ -77,164 +78,181 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
               child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
-                      child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                              pageInset, 6, pageInset, spaceSection),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                SizedBox(
-                                    height: compactActionHeight,
-                                    child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                for (var i = 0; i < 3; i++)
-                                                  Container(
-                                                      width: 24,
-                                                      height: 4,
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 6),
-                                                      decoration: panel(
-                                                          radius: 2,
-                                                          color: i <= step
-                                                              ? mint
-                                                              : surfaceHigh))
-                                              ]),
-                                        ])),
-                                const SizedBox(height: spaceSection),
-                                PageHeading(
-                                    backAbove: step == 1,
-                                    title: [
-                                      'Choose your budget dates',
-                                      'How much do you have?',
-                                      'Your usual products'
-                                    ][step],
-                                    leading: step == 0
-                                        ? null
-                                        : AppBackButton(
-                                            onPressed: busy
-                                                ? null
-                                                : () => setState(() {
-                                                      step--;
-                                                      error = null;
-                                                    })),
-                                    style: type(26,
-                                        role: TextRole.display,
-                                        weight: FontWeight.w600,
-                                        spacing: -.65,
-                                        height: 1.15)),
-                                const SizedBox(height: 8),
-                                CurrencyText(
-                                    [
-                                      'Choose the first and last day. Both days count.',
-                                      'Your full budget. You can correct it later.',
-                                      'Add what you usually spend on, with its usual price. You can change this later.'
-                                    ][step],
-                                    style: type(13,
-                                        color: secondaryText, height: 1.5)),
-                                const SizedBox(height: 24),
-                                if (step == 0) ...[
-                                  DateControl(
-                                      'Start date',
-                                      start,
-                                      (d) => setState(() {
-                                            start = d;
-                                            if (end.isBefore(start)) {
-                                              end = start;
-                                            }
-                                          })),
-                                  DateControl('End date', end,
-                                      (d) => setState(() => end = d)),
-                                  CurrencyText(
-                                      '${daysBetween(start, end) + 1} days',
-                                      style: type(13, color: secondaryText)),
-                                  const SizedBox(height: 12),
-                                  Wrap(spacing: 8, runSpacing: 8, children: [
-                                    for (final days in [7, 15, 21, 28])
-                                      OutlinedButton(
-                                          style: compactAction(cancel: true)
-                                              .copyWith(
-                                                  backgroundColor:
-                                                      const WidgetStatePropertyAll(
-                                                          surface)),
-                                          onPressed: () => setState(() => end =
-                                              DateTime(start.year, start.month,
-                                                  start.day + days - 1)),
-                                          child: CurrencyText('$days days'))
-                                  ]),
-                                ] else if (step == 1) ...[
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: spaceRelated),
-                                      child: Semantics(
-                                          label:
-                                              'Total funds in ${MoneyScope.of(context).code}',
-                                          value: amount.isEmpty ? '0' : amount,
-                                          child: SizedBox(
-                                              height: 64,
-                                              child: FittedBox(
-                                                  fit: BoxFit.scaleDown,
+                      child: ContentTransition(
+                          change: step,
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  pageInset, 6, pageInset, spaceSection),
+                              child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    SizedBox(
+                                        height: compactActionHeight,
+                                        child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    for (var i = 0; i < 3; i++)
+                                                      Container(
+                                                          width: 24,
+                                                          height: 4,
+                                                          margin:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  right: 6),
+                                                          decoration: panel(
+                                                              radius: 2,
+                                                              color: i <= step
+                                                                  ? mint
+                                                                  : surfaceHigh))
+                                                  ]),
+                                            ])),
+                                    const SizedBox(height: spaceSection),
+                                    PageHeading(
+                                        backAbove: step == 1,
+                                        title: [
+                                          'Choose your budget dates',
+                                          'How much do you have?',
+                                          'Your usual products'
+                                        ][step],
+                                        leading: step == 0
+                                            ? null
+                                            : AppBackButton(
+                                                onPressed: busy
+                                                    ? null
+                                                    : () => setState(() {
+                                                          step--;
+                                                          error = null;
+                                                        })),
+                                        style: type(26,
+                                            role: TextRole.display,
+                                            weight: FontWeight.w600,
+                                            spacing: -.65,
+                                            height: 1.15)),
+                                    const SizedBox(height: 8),
+                                    CurrencyText(
+                                        [
+                                          'Choose the first and last day. Both days count.',
+                                          'Your full budget. You can correct it later.',
+                                          'Add what you usually spend on, with its usual price. You can change this later.'
+                                        ][step],
+                                        style: type(13,
+                                            color: secondaryText, height: 1.5)),
+                                    const SizedBox(height: 24),
+                                    if (step == 0) ...[
+                                      DateControl(
+                                          'Start date',
+                                          start,
+                                          (d) => setState(() {
+                                                start = d;
+                                                if (end.isBefore(start)) {
+                                                  end = start;
+                                                }
+                                              })),
+                                      DateControl('End date', end,
+                                          (d) => setState(() => end = d)),
+                                      CurrencyText(
+                                          '${daysBetween(start, end) + 1} days',
+                                          style:
+                                              type(13, color: secondaryText)),
+                                      const SizedBox(height: 12),
+                                      Wrap(
+                                          spacing: 8,
+                                          runSpacing: 8,
+                                          children: [
+                                            for (final days in [7, 15, 21, 28])
+                                              OutlinedButton(
+                                                  style: compactAction(
+                                                          cancel: true)
+                                                      .copyWith(
+                                                          backgroundColor:
+                                                              const WidgetStatePropertyAll(
+                                                                  surface)),
+                                                  onPressed: () => setState(
+                                                      () => end = DateTime(
+                                                          start.year,
+                                                          start.month,
+                                                          start.day +
+                                                              days -
+                                                              1)),
                                                   child: CurrencyText(
-                                                      '${amount.isEmpty ? '0' : amount} DA',
-                                                      input: true,
-                                                      style: type(64,
-                                                          role:
-                                                              TextRole.display,
-                                                          weight:
-                                                              FontWeight.w600,
-                                                          spacing: -2.56,
-                                                          height: 1)))))),
-                                  const SizedBox(height: spaceRelated),
-                                  const Spacer(),
-                                  AmountKeypad(
-                                      keyHeight: 52,
-                                      onKey: (key) => setState(() {
-                                            error = null;
-                                            amount = amountKey(amount, key,
-                                                currency:
-                                                    MoneyScope.read(context));
-                                          })),
-                                ] else
-                                  ProductList(
-                                      showEmptyHint: false,
-                                      onEdit: (product) =>
-                                          editProduct(context, product),
-                                      products: products,
-                                      enabled: !busy,
-                                      onChanged: (items) =>
-                                          setState(() => products = items)),
-                                if (step != 1) const Spacer(),
-                                if (error != null)
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12),
-                                      child: CurrencyText(error!,
-                                          style: type(13, color: caution))),
-                                const SizedBox(height: 12),
-                                FilledButton(
-                                    onPressed: busy ? null : next,
-                                    child: CurrencyText(busy
-                                        ? 'Saving…'
-                                        : step == 2
-                                            ? 'Start budget'
-                                            : 'Continue')),
-                                if (step == 0 && widget.onCancel != null) ...[
-                                  const SizedBox(height: 12),
-                                  TextButton(
-                                      onPressed: busy ? null : widget.onCancel,
-                                      child: const CurrencyText('Skip')),
-                                ],
-                                if (step == 2 && products.isEmpty) ...[
-                                  const SizedBox(height: 12),
-                                  TextButton(
-                                      onPressed: busy ? null : next,
-                                      child:
-                                          const CurrencyText('Skip for now')),
-                                ],
-                              ])))))));
+                                                      '$days days'))
+                                          ]),
+                                    ] else if (step == 1) ...[
+                                      Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: spaceRelated),
+                                          child: Semantics(
+                                              label:
+                                                  'Total funds in ${MoneyScope.of(context).code}',
+                                              value:
+                                                  amount.isEmpty ? '0' : amount,
+                                              child: SizedBox(
+                                                  height: 64,
+                                                  child: FittedBox(
+                                                      fit: BoxFit.scaleDown,
+                                                      child: CurrencyText(
+                                                          '${amount.isEmpty ? '0' : amount} DA',
+                                                          input: true,
+                                                          style: type(64,
+                                                              role: TextRole
+                                                                  .display,
+                                                              weight: FontWeight
+                                                                  .w600,
+                                                              spacing: -2.56,
+                                                              height: 1)))))),
+                                      const SizedBox(height: spaceRelated),
+                                      const Spacer(),
+                                      AmountKeypad(
+                                          keyHeight: 52,
+                                          onKey: (key) => setState(() {
+                                                error = null;
+                                                amount = amountKey(amount, key,
+                                                    currency: MoneyScope.read(
+                                                        context));
+                                              })),
+                                    ] else
+                                      ProductList(
+                                          showEmptyHint: false,
+                                          onEdit: (product) =>
+                                              editProduct(context, product),
+                                          products: products,
+                                          enabled: !busy,
+                                          onChanged: (items) =>
+                                              setState(() => products = items)),
+                                    if (step != 1) const Spacer(),
+                                    if (error != null)
+                                      Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 12),
+                                          child: CurrencyText(error!,
+                                              style: type(13, color: caution))),
+                                    const SizedBox(height: 12),
+                                    FilledButton(
+                                        onPressed: busy ? null : next,
+                                        child: CurrencyText(busy
+                                            ? 'Saving…'
+                                            : step == 2
+                                                ? 'Start budget'
+                                                : 'Continue')),
+                                    if (step == 0 &&
+                                        widget.onCancel != null) ...[
+                                      const SizedBox(height: 12),
+                                      TextButton(
+                                          onPressed:
+                                              busy ? null : widget.onCancel,
+                                          child: const CurrencyText('Skip')),
+                                    ],
+                                    if (step == 2 && products.isEmpty) ...[
+                                      const SizedBox(height: 12),
+                                      TextButton(
+                                          onPressed: busy ? null : next,
+                                          child: const CurrencyText(
+                                              'Skip for now')),
+                                    ],
+                                  ]))))))));
 }

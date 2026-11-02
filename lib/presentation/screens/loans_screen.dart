@@ -386,6 +386,7 @@ class _LoanSheetState extends State<LoanSheet> {
   @override
   Widget build(BuildContext context) => FormSheet(
           title: widget.initial == null ? 'Add loan' : 'Edit loan',
+          step: details,
           onBack: details ? () => setState(() => details = false) : null,
           children: [
             if (!details) ...[
