@@ -1,5 +1,6 @@
 import '../widgets/loan_budget_preview.dart';
 import 'package:flutter/material.dart';
+import '../widgets/app_notice.dart';
 import '../../domain/models/budget_data.dart';
 import '../../domain/models/loan.dart';
 import '../../domain/rules/expense_rules.dart';
@@ -306,8 +307,7 @@ Future<void> syncLoanReminders(
     {bool request = false}) async {
   final message = await sync?.call(book.data.loans, request);
   if (message != null && context.mounted) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    AppNoticeHost.show(context, message, error: true);
   }
 }
 
@@ -555,10 +555,17 @@ class _LoanSheetState extends State<LoanSheet> {
                           });
                           return;
                         }
+                        AppNoticeHost.show(
+                            context,
+                            widget.initial == null
+                                ? 'Loan saved'
+                                : 'Loan updated');
                         await syncLoanReminders(
                             context, widget.book, widget.syncReminders,
                             request: loan.remind && loan.due != null);
-                        if (context.mounted) Navigator.pop(context);
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
                       },
                 child: Text(
                     details ? (busy ? 'Saving...' : 'Save loan') : 'Continue')),
@@ -584,6 +591,7 @@ class _LoanSheetState extends State<LoanSheet> {
                           if (await widget.book
                                   .deleteLoan(widget.initial!.id) &&
                               context.mounted) {
+                            AppNoticeHost.show(context, 'Loan deleted');
                             await syncLoanReminders(
                                 context, widget.book, widget.syncReminders);
                             if (context.mounted) Navigator.pop(context);
@@ -831,13 +839,15 @@ class _PaymentSheetState extends State<PaymentSheet> {
                                 });
                                 return;
                               }
+                              AppNoticeHost.show(
+                                  context,
+                                  widget.initial == null
+                                      ? 'Repayment saved'
+                                      : 'Repayment updated');
                               await syncLoanReminders(
                                   context, widget.book, widget.syncReminders);
                               if (context.mounted) {
                                 Navigator.pop(context);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Payment saved')));
                               }
                             },
                       child: Text(busy ? 'Saving...' : 'Save payment')))
@@ -859,6 +869,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                           if (await widget.book
                                   .deletePayment(loan.id, widget.initial!.id) &&
                               context.mounted) {
+                            AppNoticeHost.show(context, 'Repayment deleted');
                             await syncLoanReminders(
                                 context, widget.book, widget.syncReminders);
                             if (context.mounted) Navigator.pop(context);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/app_notice.dart';
 import '../../domain/models/budget_data.dart';
 import '../../domain/models/spending_plan.dart';
 import '../../domain/rules/expense_rules.dart';
@@ -13,8 +14,7 @@ import 'editors.dart';
 Future<void> showPlanSheet(BuildContext context, BudgetBook book,
     [SpendingPlan? initial]) async {
   if (book.data.active == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Start a budget before adding a plan.')));
+    AppNoticeHost.show(context, 'Start a budget to add a plan.', error: true);
     return;
   }
   await showModalBottomSheet<void>(
@@ -231,14 +231,17 @@ class PlanDetails extends StatelessWidget {
                                                         budget.expenses[index],
                                                     budget: budget)));
                                         if (result == null) return;
-                                        await book.correctExpense(
+                                        final ok = await book.correctExpense(
                                             budget.id,
                                             index,
                                             result is Expense ? result : null);
-                                        if (context.mounted &&
-                                            book.error != null) {
-                                          planError(context, book.error!);
-                                        }
+                                        planResult(
+                                            context,
+                                            book,
+                                            ok,
+                                            result is Expense
+                                                ? 'Expense updated'
+                                                : 'Expense deleted. Reservation restored.');
                                       },
                                 child: const Text('Edit expense')),
                           ],
@@ -265,12 +268,10 @@ class PlanDetails extends StatelessWidget {
                                                               recording:
                                                                   true)));
                                           if (expense != null) {
-                                            await book.recordPlanDay(
+                                            final ok = await book.recordPlanDay(
                                                 p.id, d.id, expense);
-                                            if (context.mounted &&
-                                                book.error != null) {
-                                              planError(context, book.error!);
-                                            }
+                                            planResult(context, book, ok,
+                                                'Expense saved. Reservation released.');
                                           }
                                         },
                                   child: const Text('Record expense')),
@@ -286,7 +287,10 @@ class PlanDetails extends StatelessWidget {
                                             'Cancel planned day?',
                                             'Release this day\'s reservation.',
                                             'Cancel day')) {
-                                          await book.cancelPlanDay(p.id, d.id);
+                                          final ok = await book.cancelPlanDay(
+                                              p.id, d.id);
+                                          planResult(context, book, ok,
+                                              'Planned day cancelled. Money released.');
                                         }
                                       },
                                 child: const Text('Cancel day')),
@@ -304,6 +308,8 @@ class PlanDetails extends StatelessWidget {
                               'Release unfinished reservations. Recorded expenses stay in History.',
                               'Delete')) {
                             final ok = await book.deletePlan(p.id);
+                            planResult(context, book, ok,
+                                'Plan deleted. Recorded expenses kept.');
                             if (ok && context.mounted) Navigator.pop(context);
                           }
                         },
@@ -313,7 +319,15 @@ class PlanDetails extends StatelessWidget {
 }
 
 void planError(BuildContext context, String error) =>
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
+    AppNoticeHost.show(context, error, error: true);
+
+void planResult(
+    BuildContext context, BudgetBook book, bool ok, String message) {
+  if (!context.mounted) return;
+  AppNoticeHost.show(context,
+      ok ? message : (book.error ?? 'Changes not saved. Please try again.'),
+      error: !ok);
+}
 
 class PlanSheet extends StatefulWidget {
   const PlanSheet({super.key, required this.book, this.initial});
@@ -655,6 +669,11 @@ class _PlanSheetState extends State<PlanSheet> {
                       final ok = await book.savePlan(plan);
                       if (!context.mounted) return;
                       if (ok) {
+                        AppNoticeHost.show(
+                            context,
+                            widget.initial == null
+                                ? 'Plan saved. Money reserved.'
+                                : 'Plan updated');
                         Navigator.pop(context);
                       } else {
                         setState(() {

@@ -3,6 +3,7 @@ import '../controllers/budget_book.dart';
 import '../design/design.dart';
 import '../widgets/content_widgets.dart';
 import '../widgets/editor_actions.dart';
+import '../widgets/app_notice.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key, required this.book});
@@ -31,11 +32,14 @@ class SettingsScreen extends StatelessWidget {
                             ? null
                             : () async {
                                 final ok = await book.setCurrency(value);
-                                if (!ok && context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text(book.error ??
-                                              'Could not save.')));
+                                if (context.mounted) {
+                                  AppNoticeHost.show(
+                                      context,
+                                      ok
+                                          ? 'Default currency updated'
+                                          : (book.error ??
+                                              'Currency not saved. Please try again.'),
+                                      error: !ok);
                                 }
                               },
                         style: compactAction(

@@ -19,6 +19,7 @@ import '../design/design.dart';
 import 'editors.dart';
 import 'onboarding.dart';
 import '../widgets/expense_sheet.dart';
+import '../widgets/app_notice.dart';
 
 class BudgetScreen extends StatefulWidget {
   const BudgetScreen(
@@ -96,11 +97,12 @@ class _BudgetScreenState extends State<BudgetScreen>
     if (mounted) setState(() {});
   }
 
-  Future<bool> report(Future<bool> change) async {
+  Future<bool> report(Future<bool> change, {String? success}) async {
     final ok = await change;
     if (!ok && mounted && book.error != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: CurrencyText(book.error!)));
+      AppNoticeHost.show(context, book.error!, error: true);
+    } else if (ok && mounted && success != null) {
+      AppNoticeHost.show(context, success);
     }
     return ok;
   }
@@ -108,7 +110,8 @@ class _BudgetScreenState extends State<BudgetScreen>
   Future<void> log(String label, int amount, String icon,
       [DateTime? date]) async {
     await report(
-        book.logExpense(Expense(label, amount, date ?? DateTime.now(), icon)));
+        book.logExpense(Expense(label, amount, date ?? DateTime.now(), icon)),
+        success: 'Expense saved');
   }
 
   Future<void> customExpense() async {
@@ -125,7 +128,7 @@ class _BudgetScreenState extends State<BudgetScreen>
   }
 
   Future<bool> replaceBudget(BudgetRecord record) =>
-      report(book.correctBudget(record));
+      report(book.correctBudget(record), success: 'Budget updated');
 
   Future<void> editBudget(String id) async {
     final record = data.budgets.firstWhere((b) => b.id == id);
@@ -150,7 +153,8 @@ class _BudgetScreenState extends State<BudgetScreen>
     if (result == null || !mounted) return;
     if (result == 'delete' || result is Expense) {
       await report(
-          book.correctExpense(id, index, result is Expense ? result : null));
+          book.correctExpense(id, index, result is Expense ? result : null),
+          success: result is Expense ? 'Expense updated' : 'Expense deleted');
     }
   }
 
@@ -228,6 +232,7 @@ class _BudgetScreenState extends State<BudgetScreen>
         carrySource = null;
         tab = 0;
       });
+      AppNoticeHost.show(context, 'Budget started');
     }
     return ok;
   }
@@ -241,7 +246,9 @@ class _BudgetScreenState extends State<BudgetScreen>
         'Keep this budget in History. No more expenses can be added to it. You can still correct its entries.',
         'Stop and save');
     if (!yes || !mounted) return;
-    if (await report(book.stopBudget(active.id)) && mounted) {
+    if (await report(book.stopBudget(active.id),
+            success: 'Budget saved to History') &&
+        mounted) {
       await newBudget(data.budgets.firstWhere((b) => b.id == active.id));
     }
   }
@@ -654,7 +661,8 @@ class _BudgetScreenState extends State<BudgetScreen>
                         : data.active?.currency ?? data.defaultCurrency))
                 .toList(),
             enabled: !saving,
-            onChanged: (products) => report(book.setProducts(products))),
+            onChanged: (products) => report(book.setProducts(products),
+                success: 'Usual products updated')),
       ]);
   @override
   Widget build(BuildContext context) => Scaffold(

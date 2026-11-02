@@ -1,6 +1,7 @@
 import '../widgets/form_controls.dart';
 import '../widgets/editor_actions.dart';
 import 'package:flutter/material.dart';
+import '../widgets/app_notice.dart';
 import '../../domain/models/budget_data.dart';
 import '../../domain/rules/expense_rules.dart';
 import '../design/design.dart';
@@ -165,8 +166,7 @@ class _ExpenseEditorState extends State<ExpenseEditor> {
                           expense, widget.budget, DateTime.now(),
                           correction: true);
                       if (invalid != null) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text(invalid)));
+                        AppNoticeHost.show(context, invalid, error: true);
                         return;
                       }
                       Navigator.pop(context, expense);

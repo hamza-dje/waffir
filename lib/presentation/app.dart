@@ -3,6 +3,7 @@ import '../domain/repositories/budget_storage.dart';
 import 'design/design.dart';
 import 'screens/budget_screen.dart';
 import 'screens/loans_screen.dart';
+import 'widgets/app_notice.dart';
 
 class WafirApp extends StatefulWidget {
   const WafirApp(
@@ -27,8 +28,8 @@ class _WafirAppState extends State<WafirApp> {
         title: 'Waffir',
         builder: (_, child) => ValueListenableBuilder(
             valueListenable: currency,
-            builder: (context, value, childWidget) =>
-                MoneyScope(currency: value, child: child!)),
+            builder: (context, value, childWidget) => MoneyScope(
+                currency: value, child: AppNoticeHost(child: child!))),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'RedHatDisplay',
