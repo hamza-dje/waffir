@@ -175,16 +175,20 @@ class _BudgetOnboardingState extends State<BudgetOnboarding> {
                                           label:
                                               'Total funds in ${MoneyScope.of(context).code}',
                                           value: amount.isEmpty ? '0' : amount,
-                                          child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: CurrencyText(
-                                                  '${amount.isEmpty ? '0' : amount} DA',
-                                                  input: true,
-                                                  style: type(64,
-                                                      role: TextRole.display,
-                                                      weight: FontWeight.w600,
-                                                      spacing: -2.56,
-                                                      height: 1))))),
+                                          child: SizedBox(
+                                              height: 64,
+                                              child: FittedBox(
+                                                  fit: BoxFit.scaleDown,
+                                                  child: CurrencyText(
+                                                      '${amount.isEmpty ? '0' : amount} DA',
+                                                      input: true,
+                                                      style: type(64,
+                                                          role:
+                                                              TextRole.display,
+                                                          weight:
+                                                              FontWeight.w600,
+                                                          spacing: -2.56,
+                                                          height: 1)))))),
                                   const SizedBox(height: spaceRelated),
                                   const Spacer(),
                                   AmountKeypad(
